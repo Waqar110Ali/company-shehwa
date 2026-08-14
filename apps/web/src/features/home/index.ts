@@ -1,0 +1,15 @@
+export { default as Hero } from "./components/Hero";
+export { default as TrustedBy } from "./components/TrustedBy";
+export { default as CompanyIntro } from "./components/CompanyIntro";
+export { default as ServicesSection } from "./components/ServicesSection";
+export { default as WhyChooseUs } from "./components/WhyChooseUs";
+export { default as TechnologiesSection } from "./components/TechnologiesSection";
+export { default as DevelopmentProcess } from "./components/DevelopmentProcess";
+export { default as FeaturedProjects } from "./components/FeaturedProjects";    
+export { default as CompanyStatistics } from "./components/CompanyStatistics";
+export { default as TeamPreview } from "./components/TeamPreview";
+export { default as Testimonials } from "./components/Testimonials";
+export { default as ClientReviews } from "./components/ClientReviews";
+export { default as FAQPreview } from "./components/FAQPreview";
+export { default as ContactCTA } from "./components/ContactCTA";
+export { default as Newsletter } from "./components/Newsletter";

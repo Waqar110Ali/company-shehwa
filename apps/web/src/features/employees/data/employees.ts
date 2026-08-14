@@ -1,0 +1,43 @@
+import type { Employee } from "../types/employee";
+
+export const employees: Employee[] = [
+  {
+    id: "EMP-001",
+    name: "Waqar Ali",
+    email: "waqar@company.com",
+    phone: "+92 300 1234567",
+    role: "CEO",
+    department: "Management",
+    avatar: "https://i.pravatar.cc/150?img=11",
+    performance: 98,
+    attendance: 99,
+    joinedAt: "2025-02-11",
+    status: "Active",
+  },
+  {
+    id: "EMP-002",
+    name: "Ahmed Khan",
+    email: "ahmed@company.com",
+    phone: "+92 301 1112233",
+    role: "Backend Developer",
+    department: "Engineering",
+    avatar: "https://i.pravatar.cc/150?img=12",
+    performance: 91,
+    attendance: 96,
+    joinedAt: "2025-05-18",
+    status: "Active",
+  },
+  {
+    id: "EMP-003",
+    name: "Sara Ali",
+    email: "sara@company.com",
+    phone: "+92 302 3334455",
+    role: "UI Designer",
+    department: "Design",
+    avatar: "https://i.pravatar.cc/150?img=32",
+    performance: 87,
+    attendance: 95,
+    joinedAt: "2025-08-02",
+    status: "Pending",
+  },
+];

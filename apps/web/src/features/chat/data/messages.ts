@@ -1,0 +1,40 @@
+import type { Message } from "../types/chat";
+
+export const messages: Message[] = [
+  {
+    id: "1",
+    conversationId: "1",
+    senderId: "1",
+    senderName: "Sarah Johnson",
+    senderAvatar: "https://i.pravatar.cc/150?img=32",
+    type: "text",
+    content: "Good morning 👋",
+    createdAt: "09:20",
+    isMine: false,
+    read: true,
+  },
+  {
+    id: "2",
+    conversationId: "1",
+    senderId: "me",
+    senderName: "You",
+    senderAvatar: "",
+    type: "text",
+    content: "Good morning! How are you?",
+    createdAt: "09:21",
+    isMine: true,
+    read: true,
+  },
+  {
+    id: "3",
+    conversationId: "1",
+    senderId: "1",
+    senderName: "Sarah Johnson",
+    senderAvatar: "https://i.pravatar.cc/150?img=32",
+    type: "text",
+    content: "Please review the project proposal.",
+    createdAt: "09:35",
+    isMine: false,
+    read: true,
+  },
+];
