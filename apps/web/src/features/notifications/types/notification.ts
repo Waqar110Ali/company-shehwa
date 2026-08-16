@@ -1,5 +1,6 @@
+// apps/web/src/features/notifications/types/notification.ts
 export interface Notification {
-  id: string;
+  _id: string;
 
   title: string;
 

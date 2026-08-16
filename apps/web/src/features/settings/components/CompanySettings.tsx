@@ -1,3 +1,4 @@
+// apps/web/src/features/settings/components/CompanySettings.tsx
 import SettingsCard from "./SettingsCard";
 
 import type { UserSettings } from "../types/settings";
@@ -8,11 +9,17 @@ interface Props {
   onChange: (
     data: Partial<UserSettings>
   ) => void;
+
+  onSave: () => void;
+
+  saving: boolean;
 }
 
 export default function CompanySettings({
   settings,
   onChange,
+  onSave,
+  saving,
 }: Props) {
   return (
     <SettingsCard
@@ -116,9 +123,11 @@ export default function CompanySettings({
       <div className="mt-8 flex justify-end">
 
         <button
-          className="rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-white transition hover:bg-cyan-600"
+          onClick={onSave}
+          disabled={saving}
+          className="rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-white transition hover:bg-cyan-600 disabled:opacity-50"
         >
-          Save Changes
+          {saving ? "Saving..." : "Save Changes"}
         </button>
 
       </div>

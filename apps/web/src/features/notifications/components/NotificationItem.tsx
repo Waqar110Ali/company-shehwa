@@ -23,7 +23,7 @@ export default function NotificationItem({
 
   return (
     <button
-      onClick={() => onRead(notification.id)}
+      onClick={() => onRead(notification._id)}
       className={`flex w-full items-start gap-4 rounded-2xl p-4 text-left transition hover:bg-white/10 ${
         !notification.read
           ? "bg-cyan-500/5"

@@ -1,3 +1,4 @@
+// apps/web/src/features/settings/components/SettingsSidebar.tsx
 import {
   Bell,
   Building2,
@@ -6,6 +7,9 @@ import {
   Moon,
   User,
 } from "lucide-react";
+
+import { Role } from "@/features/auth/types/role";
+import { getUser } from "@/features/auth/utils/auth-storage";
 
 export type SettingsTab =
   | "profile"
@@ -33,11 +37,13 @@ const items = [
     id: "company",
     label: "Company",
     icon: Building2,
+    roles: [Role.ADMIN],
   },
   {
     id: "security",
     label: "Security",
     icon: Lock,
+    roles: [Role.ADMIN],
   },
   {
     id: "notifications",
@@ -58,18 +64,27 @@ const items = [
   id: SettingsTab;
   label: string;
   icon: React.ElementType;
+  roles?: Role[];
 }[];
 
 export default function SettingsSidebar({
   active,
   onChange,
 }: Props) {
+  const user = getUser();
+
+  const visibleItems = items.filter(
+    (item) =>
+      !item.roles ||
+      (user && item.roles.includes(user.role)),
+  );
+
   return (
     <aside className="rounded-3xl border border-white/10 bg-white/5 p-5">
 
       <div className="space-y-2">
 
-        {items.map((item) => {
+        {visibleItems.map((item) => {
           const Icon = item.icon;
 
           return (

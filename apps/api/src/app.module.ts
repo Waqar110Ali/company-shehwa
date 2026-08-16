@@ -23,6 +23,12 @@ import { ChatModule } from "./chat/chat.module";
 import { MailModule } from "./mail/mail.module";
 import { FilesModule } from "./files/files.module";
 import { ReportsModule } from "./reports/reports.module";
+import { PortfolioModule } from "./portfolio/portfolio.module";
+import { SettingsModule } from "./settings/settings.module";
+import { NotificationsModule } from "./notifications/notifications.module";
+import { UpdatesModule } from "./updates/updates.module";
+import { FooterModule } from "./footer/footer.module";
+// import { AssistantPublicModule } from "./assistant-public/assistant-public.module";
 
 @Module({
   imports: [
@@ -61,6 +67,18 @@ import { ReportsModule } from "./reports/reports.module";
     FilesModule,
 
     ReportsModule,
+
+    PortfolioModule,
+
+    SettingsModule,
+
+    NotificationsModule,
+
+    UpdatesModule,
+
+     FooterModule,
+
+    // AssistantPublicModule,
   ],
 })
 export class AppModule

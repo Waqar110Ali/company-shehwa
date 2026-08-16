@@ -13,3 +13,4 @@ export { default as ClientReviews } from "./components/ClientReviews";
 export { default as FAQPreview } from "./components/FAQPreview";
 export { default as ContactCTA } from "./components/ContactCTA";
 export { default as Newsletter } from "./components/Newsletter";
+export { default as CompanyUpdates } from "./components/CompanyUpdates";

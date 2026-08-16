@@ -78,7 +78,7 @@ export default function NotificationDropdown({
             {notifications.map((notification) => (
 
               <NotificationItem
-                key={notification.id}
+              key={notification._id}
                 notification={notification}
                 onRead={onRead}
               />

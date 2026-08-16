@@ -1,9 +1,12 @@
+// apps/web/src/features/chat/pages/ChatPage.tsx
 import {
   useContext,
   useEffect,
   useMemo,
   useState,
 } from "react";
+
+import { ArrowLeft } from "lucide-react";
 
 import SectionHeading from "@/features/dashboard/components/SectionHeading";
 
@@ -30,190 +33,85 @@ import { getUser } from "@/features/auth/utils/auth-storage";
 
 interface SendPayload {
   content: string;
-
   type: MessageType;
-
   attachment?: string;
-
   fileName?: string;
-
   fileSize?: number;
 }
 
 export default function ChatPage() {
-  // =====================================================
-  // Call Context
-  // =====================================================
-
-  const call =
-    useContext(CallContext);
+  const call = useContext(CallContext);
 
   if (!call) {
     return null;
   }
 
-  // =====================================================
-  // Current User
-  // =====================================================
+  const currentUser = getUser();
 
-  const currentUser =
-    getUser();
+  const [selectedConversation, setSelectedConversation] =
+    useState<Conversation | null>(null);
 
-  // =====================================================
-  // State
-  // =====================================================
+  const [newConversationOpen, setNewConversationOpen] = useState(false);
 
-  const [
-    selectedConversation,
-    setSelectedConversation,
-  ] =
-    useState<Conversation | null>(
-      null,
-    );
+  const [mobileView, setMobileView] = useState<"list" | "thread">("list");
 
-  const [
-    newConversationOpen,
-    setNewConversationOpen,
-  ] = useState(false);
+  const { data: conversationsResponse } = useConversations();
 
-  // =====================================================
-  // Conversations
-  // =====================================================
-
-  const {
-    data: conversationsResponse,
-  } = useConversations();
-
-  const conversations =
-    useMemo(() => {
-      if (!conversationsResponse) {
-        return [];
-      }
-
-      return mapConversationList(
-        conversationsResponse,
-      );
-    }, [conversationsResponse]);
+  const conversations = useMemo(() => {
+    if (!conversationsResponse) return [];
+    return mapConversationList(conversationsResponse);
+  }, [conversationsResponse]);
 
   useEffect(() => {
-    if (
-      !selectedConversation &&
-      conversations.length
-    ) {
-      setSelectedConversation(
-        conversations[0],
-      );
+    if (!selectedConversation && conversations.length) {
+      setSelectedConversation(conversations[0]);
     }
-  }, [
-    conversations,
-    selectedConversation,
-  ]);
+  }, [conversations, selectedConversation]);
 
-  // =====================================================
-  // Messages
-  // =====================================================
-
-  const {
-    data: messages = [],
-    isLoading: messagesLoading,
-  } = useMessages(
+  const { data: messages = [], isLoading: messagesLoading } = useMessages(
     selectedConversation?.id,
   );
 
-  // =====================================================
-  // Send Message
-  // =====================================================
+  const sendMutation = useSendMessage();
 
-  const sendMutation =
-    useSendMessage();
-
-  async function sendMessage(
-    payload: SendPayload,
-  ) {
-    if (!selectedConversation) {
-      return;
-    }
+  async function sendMessage(payload: SendPayload) {
+    if (!selectedConversation) return;
 
     await sendMutation.mutateAsync({
-      conversationId:
-        selectedConversation.id,
-
-      content:
-        payload.content,
-
-      type:
-        payload.type,
-
-      attachment:
-        payload.attachment,
-
-      fileName:
-        payload.fileName,
-
-      fileSize:
-        payload.fileSize,
+      conversationId: selectedConversation.id,
+      content: payload.content,
+      type: payload.type,
+      attachment: payload.attachment,
+      fileName: payload.fileName,
+      fileSize: payload.fileSize,
     });
   }
 
-  // =====================================================
-  // Socket
-  // =====================================================
-
   useChatSocket({
-    employeeId:
-      currentUser?.employeeId,
-    conversationId:
-      selectedConversation?.id,
+    employeeId: currentUser?.employeeId,
+    conversationId: selectedConversation?.id,
   });
 
-  // =====================================================
-  // Conversation Created
-  // =====================================================
+  function handleConversationCreated(conversationId: string) {
+    setNewConversationOpen(false);
 
-  function handleConversationCreated(
-    conversationId: string,
-  ) {
-    setNewConversationOpen(
-      false,
+    const conversation = conversations.find(
+      (item) => item.id === conversationId,
     );
 
-    const conversation =
-      conversations.find(
-        (item) =>
-          item.id ===
-          conversationId,
-      );
-
     if (conversation) {
-      setSelectedConversation(
-        conversation,
-      );
+      setSelectedConversation(conversation);
+      setMobileView("thread");
     }
   }
 
-  // =====================================================
-  // Audio Call
-  // =====================================================
+  function handleSelectConversation(conversation: Conversation) {
+    setSelectedConversation(conversation);
+    setMobileView("thread");
+  }
 
   function handleAudioCall() {
-    if (
-      !selectedConversation
-    ) {
-      return;
-    }
-
-    console.log(
-      "Starting Audio Call",
-    );
-
-    console.log("================================");
-console.log("Selected Conversation");
-console.log(selectedConversation);
-console.log("Participant");
-console.log(selectedConversation.participant);
-console.log("Participant ID:", selectedConversation.participant.id);
-console.log("Participant USER ID:", selectedConversation.participant.userId);
-console.log("================================");
+    if (!selectedConversation) return;
 
     call.startAudioCall(
       selectedConversation.id,
@@ -221,137 +119,85 @@ console.log("================================");
     );
   }
 
+  function handleVideoCall() {
+    if (!selectedConversation) return;
 
-
-  // =====================================================
-// Video Call
-// =====================================================
-
-function handleVideoCall() {
-  if (!selectedConversation) {
-    return;
+    call.startVideoCall(
+      selectedConversation.id,
+      selectedConversation.participant.employeeId,
+    );
   }
-
-  console.log("Starting Video Call");
-
-  console.log(
-    "Receiver Employee Id:",
-    selectedConversation.participant.employeeId,
-  );
-
-  call.startVideoCall(
-    selectedConversation.id,
-    selectedConversation.participant.employeeId, // ✅ fixed: was userId
-  );
-}
-
-  // =====================================================
-  // Render
-  // =====================================================
 
   return (
     <>
-      <div className="flex h-full flex-col gap-6">
+      <div className="flex h-180 min-h-0 flex-col gap-4 md:gap-6">
+        <div className="shrink-0">
+          <SectionHeading
+            title="Team Chat"
+            subtitle="Collaborate with your team in real time."
+          />
+        </div>
 
-        <SectionHeading
-          title="Team Chat"
-          subtitle="Collaborate with your team in real time."
-        />
-
-        <div className="grid h-[calc(100vh-220px)] min-h-0 grid-cols-12 overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/70 shadow-2xl backdrop-blur-xl">
-
-          <div className="col-span-3 min-h-0 border-r border-white/10">
-
+        <div className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden rounded-2xl border border-white/10 bg-[#0F172A]/70 shadow-2xl backdrop-blur-xl md:rounded-3xl lg:grid-cols-12">
+          <div
+            className={`min-h-0 border-white/10 lg:col-span-3 lg:block lg:border-r ${
+              mobileView === "list" ? "block" : "hidden"
+            }`}
+          >
             <ChatSidebar
-              conversations={
-                conversations
-              }
-              selectedConversation={
-                selectedConversation
-              }
-              onSelect={
-                setSelectedConversation
-              }
-              onNewConversation={() =>
-                setNewConversationOpen(
-                  true,
-                )
-              }
+              conversations={conversations}
+              selectedConversation={selectedConversation}
+              onSelect={handleSelectConversation}
+              onNewConversation={() => setNewConversationOpen(true)}
             />
-
           </div>
 
-          <div className="col-span-9 flex min-h-0 flex-col">
-
+          <div
+            className={`min-h-0 flex-col lg:col-span-9 lg:flex ${
+              mobileView === "thread" ? "flex" : "hidden"
+            }`}
+          >
             {!selectedConversation ? (
               <EmptyChat />
             ) : (
               <>
+                <div className="flex shrink-0 items-center gap-2 border-b border-white/10 px-2 lg:hidden">
+                  <button
+                    onClick={() => setMobileView("list")}
+                    className="rounded-xl p-3 text-zinc-400 transition hover:bg-white/10 hover:text-white"
+                    aria-label="Back to conversations"
+                  >
+                    <ArrowLeft size={20} />
+                  </button>
+                </div>
+
                 <div className="shrink-0">
-
                   <ChatHeader
-                    conversation={
-                      selectedConversation
-                    }
-                    onAudioCall={
-                      handleAudioCall
-                    }
-                    onVideoCall={
-                      handleVideoCall
-                    }
+                    conversation={selectedConversation}
+                    onAudioCall={handleAudioCall}
+                    onVideoCall={handleVideoCall}
                   />
-
                 </div>
 
                 <div className="min-h-0 flex-1 overflow-hidden">
-
                   <div className="h-full overflow-y-auto">
-
-                    <MessageList
-                      messages={
-                        messages
-                      }
-                      loading={
-                        messagesLoading
-                      }
-                    />
-
+                    <MessageList messages={messages} loading={messagesLoading} />
                   </div>
-
                 </div>
 
                 <div className="shrink-0">
-
-                  <MessageInput
-                    onSend={
-                      sendMessage
-                    }
-                    loading={
-                      sendMutation.isPending
-                    }
-                  />
-
+                  <MessageInput onSend={sendMessage} loading={sendMutation.isPending} />
                 </div>
-
               </>
             )}
-
           </div>
-
         </div>
-
       </div>
 
       <NewConversationDialog
-        open={
-          newConversationOpen
-        }
-        onOpenChange={
-          setNewConversationOpen
-        }
-        onCreated={
-          handleConversationCreated
-        }
+        open={newConversationOpen}
+        onOpenChange={setNewConversationOpen}
+        onCreated={handleConversationCreated}
       />
     </>
   );

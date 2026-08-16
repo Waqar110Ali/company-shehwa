@@ -1,96 +1,50 @@
+// apps/web/src/features/assistant/hooks/useChat.ts
 import { useState } from "react";
 
-import { messages } from "../data/messages";
-
+import { messages as initialMessages } from "../data/messages";
+import { assistantApi } from "../api/assistant.api";
 import type { ChatMessage } from "../types/chat";
 
 import { appToast } from "@/lib/toast";
 
 export function useChat() {
-  const [chat, setChat] =
-    useState<ChatMessage[]>(messages);
+  const [chat, setChat] = useState<ChatMessage[]>(initialMessages);
+  const [typing, setTyping] = useState(false);
 
-  const [typing, setTyping] =
-    useState(false);
-
-  async function send(
-    content: string
-  ) {
+  async function send(content: string) {
     if (!content.trim()) return;
 
-    const user: ChatMessage = {
+    const userMessage: ChatMessage = {
       id: crypto.randomUUID(),
       role: "user",
       content,
-      createdAt:
-        new Date().toLocaleTimeString(),
+      createdAt: new Date().toLocaleTimeString(),
     };
 
-    setChat((prev) => [
-      ...prev,
-      user,
-    ]);
-
+    setChat((prev) => [...prev, userMessage]);
     setTyping(true);
 
     try {
+      const { reply } = await assistantApi.sendMessage(content);
 
-      // ==========================
-      // Backend API Later
-      // ==========================
-
-      /*
-      const { data } =
-        await api.post(
-          "/assistant/chat",
-          {
-            message: content,
-          }
-        );
-
-      const ai: ChatMessage = {
+      const aiMessage: ChatMessage = {
         id: crypto.randomUUID(),
         role: "assistant",
-        content: data.reply,
-        createdAt:
-          new Date().toLocaleTimeString(),
-      };
-      */
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 1500)
-      );
-
-      const ai: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content:
-          "Backend is not connected yet. This message will come from GPT later.",
-        createdAt:
-          new Date().toLocaleTimeString(),
+        content: reply,
+        createdAt: new Date().toLocaleTimeString(),
       };
 
-      setChat((prev) => [
-        ...prev,
-        ai,
-      ]);
+      setChat((prev) => [...prev, aiMessage]);
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.detail ??
+        "Unable to contact AI Assistant.";
 
-    } catch {
-
-      appToast.error(
-        "Unable to contact AI Assistant."
-      );
-
+      appToast.error(message);
     } finally {
-
       setTyping(false);
-
     }
   }
 
-  return {
-    chat,
-    send,
-    typing,
-  };
+  return { chat, send, typing };
 }
