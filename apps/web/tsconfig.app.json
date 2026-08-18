@@ -25,10 +25,11 @@
     "verbatimModuleSyntax": true,
 
     /* Paths */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+"baseUrl": ".",
+"ignoreDeprecations": "6.0",
+"paths": {
+  "@/*": ["src/*"]
+},
 
     /* Linting */
     "noUnusedLocals": true,
