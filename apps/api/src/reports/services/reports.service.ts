@@ -1,6 +1,5 @@
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   ReportsRepository,
@@ -9,7 +8,7 @@ import {
 @Injectable()
 export class ReportsService {
   constructor(
-    private readonly reportsRepository: ReportsRepository,
+    @Inject(ReportsRepository) private readonly reportsRepository: ReportsRepository,
   ) {}
 
   async getReports() {

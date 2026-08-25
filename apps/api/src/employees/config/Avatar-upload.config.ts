@@ -1,21 +1,18 @@
 import { BadRequestException } from "@nestjs/common";
-import { diskStorage } from "multer";
-import { extname, join } from "path";
-import { randomUUID } from "crypto";
-import { mkdirSync } from "fs";
+import { memoryStorage } from "multer";
 
 // =====================================================
-// Storage location
+// Storage
+//
+// Local disk storage doesn't work on Vercel's serverless functions
+// (read-only filesystem, no persistence between requests), so
+// avatars are uploaded to Cloudinary instead — see
+// EmployeesService, which uses the shared CloudinaryService to
+// actually upload/delete the file. This file only defines the
+// Multer options used by the FileInterceptor decorator.
 // =====================================================
 
-export const AVATAR_UPLOAD_DIR = join(process.cwd(), "uploads", "avatars");
-
-// Ensure the folder exists before multer ever tries to write into it.
-mkdirSync(AVATAR_UPLOAD_DIR, { recursive: true });
-
-// Set this in your .env for production (e.g. https://api.yourcompany.com).
-// Falls back to localhost for local dev.
-const APP_URL = process.env.APP_URL ?? "http://localhost:5000";
+export const AVATAR_CLOUDINARY_FOLDER = "avatars";
 
 // =====================================================
 // Validation
@@ -26,16 +23,13 @@ const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
 
 // =====================================================
 // Multer options — used by FileInterceptor("avatar", avatarUploadOptions)
+//
+// Files are kept in memory (never written to local disk); the
+// buffer is then uploaded to Cloudinary by EmployeesService.
 // =====================================================
 
 export const avatarUploadOptions = {
-    storage: diskStorage({
-        destination: AVATAR_UPLOAD_DIR,
-        filename: (_req, file, callback) => {
-            const ext = extname(file.originalname).toLowerCase();
-            callback(null, `${randomUUID()}${ext}`);
-        },
-    }),
+    storage: memoryStorage(),
 
     limits: {
         fileSize: MAX_FILE_SIZE_BYTES,
@@ -64,18 +58,13 @@ export const avatarUploadOptions = {
 // Helpers
 // =====================================================
 
-/**
- * Absolute, ready-to-render URL for an uploaded avatar file. Returning
- * a full URL (not a relative path) means every place that already
- * renders `employee.avatar` / `user.avatar` — the employee table, the
- * profile drawer, chat headers, etc. — keeps working unmodified,
- * exactly as it does today for the pravatar/ui-avatars links.
- */
-export function avatarPublicPath(filename: string): string {
-    return `${APP_URL}/uploads/avatars/${filename}`;
-}
-
-/** True if this avatar value was produced by our own upload pipeline. */
-export function isLocalAvatarPath(avatar?: string): avatar is string {
-    return !!avatar && avatar.startsWith(`${APP_URL}/uploads/avatars/`);
+/** True if this avatar value was produced by our own Cloudinary upload pipeline. */
+export function isCloudinaryAvatarUrl(
+    avatar?: string,
+): avatar is string {
+    return (
+        !!avatar &&
+        avatar.includes("res.cloudinary.com") &&
+        avatar.includes(`/${AVATAR_CLOUDINARY_FOLDER}/`)
+    );
 }

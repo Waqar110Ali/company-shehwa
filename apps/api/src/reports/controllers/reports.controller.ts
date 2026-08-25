@@ -3,8 +3,7 @@ import {
   Get,
   Param,
   Res,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import express from "express";
 
@@ -26,9 +25,9 @@ import {
 )
 export class ReportsController {
   constructor(
-    private readonly reportsService: ReportsService,
+    @Inject(ReportsService) private readonly reportsService: ReportsService,
 
-    private readonly reportsExportService: ReportsExportService,
+    @Inject(ReportsExportService) private readonly reportsExportService: ReportsExportService,
   ) {}
 
   @Get()

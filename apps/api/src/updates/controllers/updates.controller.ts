@@ -7,8 +7,7 @@ import {
   Put,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from "@nestjs/common";
+  UseInterceptors, Inject } from "@nestjs/common";
 
 import { FileInterceptor } from "@nestjs/platform-express";
 
@@ -40,10 +39,10 @@ import {
 export class UpdatesController {
 
   constructor(
-    private readonly updatesService:
+    @Inject(UpdatesService) private readonly updatesService:
       UpdatesService,
 
-    private readonly cloudinary:
+    @Inject(CloudinaryService) private readonly cloudinary:
       CloudinaryService,
   ) {}
 

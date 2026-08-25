@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import { Model } from "mongoose";
@@ -29,13 +29,13 @@ import {
 @Injectable()
 export class DashboardRepository {
  constructor(
-  @InjectModel(Employee.name)
+  @InjectModel(Employee.name) @Inject(Model<EmployeeDocument>)
   private readonly employeeModel: Model<EmployeeDocument>,
 
-  @InjectModel(Project.name)
+  @InjectModel(Project.name) @Inject(Model<ProjectDocument>)
   private readonly projectModel: Model<ProjectDocument>,
 
-  @InjectModel(Task.name)
+  @InjectModel(Task.name) @Inject(Model<TaskDocument>)
   private readonly taskModel: Model<TaskDocument>,
 ) {}
 

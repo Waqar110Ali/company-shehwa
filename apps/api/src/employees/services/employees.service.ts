@@ -1,13 +1,10 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { Types } from "mongoose";
 import * as bcrypt from "bcrypt";
-import { unlink } from "fs/promises";
-import { join } from "path";
 
 import { EmployeesRepository } from "../repositories/employees.repository";
 
@@ -21,20 +18,20 @@ import { EmployeeQueryDto } from "../dto/employee-query.dto";
 import { EmploymentType } from "../enums/employment-type.enum";
 import { EmployeeStatus } from "../enums/employee-status.enum";
 
-import {
-  AVATAR_UPLOAD_DIR,
-  avatarPublicPath,
-  isLocalAvatarPath,
-} from "../config/Avatar-upload.config";
+import { isCloudinaryAvatarUrl } from "../config/Avatar-upload.config";
+
+import { CloudinaryService } from "@/common/cloudinary/cloudinary.service";
 
 @Injectable()
 export class EmployeesService {
   constructor(
-    private readonly repository: EmployeesRepository,
+    @Inject(EmployeesRepository) private readonly repository: EmployeesRepository,
 
-    private readonly usersService: UsersService,
+    @Inject(UsersService) private readonly usersService: UsersService,
 
-    private readonly mailService: MailService,
+    @Inject(MailService) private readonly mailService: MailService,
+
+    @Inject(CloudinaryService) private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   // =====================================================
@@ -56,6 +53,18 @@ export class EmployeesService {
     }
 
     // -----------------------------------------
+    // Upload avatar to Cloudinary once, up front. Reused below for
+    // the duplicate-check cleanup calls and the final Employee/User
+    // records — each Cloudinary upload creates a new asset, so this
+    // must not be called more than once per request.
+    // -----------------------------------------
+
+    const avatarUploadResult: any =
+      await this.cloudinaryService.uploadFile(avatarFile, "avatars");
+
+    const avatarUrl = avatarUploadResult.secure_url;
+
+    // -----------------------------------------
     // Check Employee Email
     // -----------------------------------------
 
@@ -65,9 +74,7 @@ export class EmployeesService {
       );
 
     if (employeeExists) {
-      await this.removeAvatarFile(
-        avatarPublicPath(avatarFile.filename),
-      );
+      await this.removeAvatarFile(avatarUrl);
       throw new BadRequestException(
         "Employee email already exists.",
       );
@@ -83,9 +90,7 @@ export class EmployeesService {
       );
 
     if (userExists) {
-      await this.removeAvatarFile(
-        avatarPublicPath(avatarFile.filename),
-      );
+      await this.removeAvatarFile(avatarUrl);
       throw new BadRequestException(
         "User already exists.",
       );
@@ -103,13 +108,6 @@ export class EmployeesService {
         temporaryPassword,
         10,
       );
-
-    // -----------------------------------------
-    // Uploaded avatar URL — single source of truth used for both the
-    // login User record and the Employee record below.
-    // -----------------------------------------
-
-    const avatarUrl = avatarPublicPath(avatarFile.filename);
 
     // -----------------------------------------
     // Create Login User
@@ -234,12 +232,23 @@ export class EmployeesService {
 
     // -----------------------------------------
     // Send Welcome Email
+    //
+    // A failed email must not undo or fail the employee/user
+    // records that are already committed to the database above.
+    // Log it and continue; the employee creation itself succeeded.
     // -----------------------------------------
 
-    await this.mailService.sendWelcomeEmail(
-      user,
-      temporaryPassword,
-    );
+    try {
+      await this.mailService.sendWelcomeEmail(
+        user,
+        temporaryPassword,
+      );
+    } catch (error) {
+      console.error(
+        "Failed to send welcome email:",
+        error,
+      );
+    }
 
     return {
       success: true,
@@ -250,7 +259,8 @@ export class EmployeesService {
       data: employee,
     };
   }
-    // =====================================================
+
+  // =====================================================
   // Find All Employees
   // =====================================================
 
@@ -324,7 +334,9 @@ export class EmployeesService {
     let newAvatarUrl: string | undefined;
 
     if (avatarFile) {
-      newAvatarUrl = avatarPublicPath(avatarFile.filename);
+      const uploaded: any =
+        await this.cloudinaryService.uploadFile(avatarFile, "avatars");
+      newAvatarUrl = uploaded.secure_url;
       updateData.avatar = newAvatarUrl;
 
       await this.removeAvatarFile(employee.avatar);
@@ -429,7 +441,8 @@ export class EmployeesService {
       data: updatedEmployee,
     };
   }
-    // =====================================================
+
+  // =====================================================
   // Delete Employee
   // =====================================================
 
@@ -642,25 +655,28 @@ export class EmployeesService {
   // =====================================================
   // Avatar file cleanup
   //
-  // Only ever deletes files that live under our own uploads/avatars
-  // folder (isLocalAvatarPath guards against trying to unlink some
-  // unrelated external URL or an empty string).
+  // Only ever deletes assets that live in our own Cloudinary
+  // "avatars" folder (isCloudinaryAvatarUrl guards against trying
+  // to delete some unrelated external URL or an empty string).
   // =====================================================
 
   private async removeAvatarFile(
     avatarPath?: string,
   ): Promise<void> {
-    if (!isLocalAvatarPath(avatarPath)) {
+    if (!isCloudinaryAvatarUrl(avatarPath)) {
       return;
     }
 
-    const filename = avatarPath.split("/uploads/avatars/")[1];
-    const fullPath = join(AVATAR_UPLOAD_DIR, filename);
+    const match = avatarPath.match(/avatars\/[^./]+/);
+
+    if (!match) {
+      return;
+    }
 
     try {
-      await unlink(fullPath);
+      await this.cloudinaryService.deleteFile(match[0]);
     } catch {
-      // File already gone / never existed — not fatal.
+      // Asset already gone / never existed — not fatal.
     }
   }
 }

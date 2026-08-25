@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { TaskRepository } from "../repositories/tasks.repository";
 
@@ -12,7 +11,7 @@ import { TaskFilterDto } from "../dto/task-filter.dto";
 @Injectable()
 export class TaskService {
   constructor(
-    private readonly tasksRepository: TaskRepository,
+    @Inject(TaskRepository) private readonly tasksRepository: TaskRepository,
   ) {}
 
   async create(

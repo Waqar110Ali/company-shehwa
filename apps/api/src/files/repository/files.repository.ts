@@ -1,6 +1,5 @@
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -22,7 +21,7 @@ import { FileQueryDto } from "../dto/file-query.dto";
 @Injectable()
 export class FilesRepository {
   constructor(
-    @InjectModel(File.name)
+    @InjectModel(File.name) @Inject(Model<FileDocument>)
     private readonly fileModel: Model<FileDocument>,
   ) {}
 

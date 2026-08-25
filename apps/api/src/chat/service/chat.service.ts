@@ -1,8 +1,7 @@
 import {
   ForbiddenException,
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { ChatRepository } from "../repository/chat.repository";
 import { ChatMapper } from "../mapper/chat.mapper";
@@ -20,15 +19,15 @@ import { MessageType } from "../enums/message-status.enum";
 @Injectable()
 export class ChatService {
   constructor(
-  private readonly repository: ChatRepository,
+  @Inject(ChatRepository) private readonly repository: ChatRepository,
 
-  private readonly employeesRepository: EmployeesRepository,
+  @Inject(EmployeesRepository) private readonly employeesRepository: EmployeesRepository,
 
-  private readonly mapper: ChatMapper,
+  @Inject(ChatMapper) private readonly mapper: ChatMapper,
 
-  private readonly gateway: ChatGateway,
+  @Inject(ChatGateway) private readonly gateway: ChatGateway,
 
-  private readonly cloudinary: CloudinaryService,
+  @Inject(CloudinaryService) private readonly cloudinary: CloudinaryService,
 ) {}
 
   // =====================================================

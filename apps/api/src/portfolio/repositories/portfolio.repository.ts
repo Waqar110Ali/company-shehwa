@@ -1,6 +1,5 @@
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -19,7 +18,7 @@ import {
 export class PortfolioRepository {
 
   constructor(
-    @InjectModel(PortfolioContent.name)
+    @InjectModel(PortfolioContent.name) @Inject(Model<PortfolioContentDocument>)
     private readonly portfolioModel:
       Model<PortfolioContentDocument>,
   ) {}

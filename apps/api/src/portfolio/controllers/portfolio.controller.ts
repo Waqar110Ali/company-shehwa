@@ -8,8 +8,7 @@ import {
   Put,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from "@nestjs/common";
+  UseInterceptors, Inject } from "@nestjs/common";
 
 import { FileInterceptor } from "@nestjs/platform-express";
 
@@ -41,10 +40,10 @@ import {
 export class PortfolioController {
 
   constructor(
-    private readonly portfolioService:
+    @Inject(PortfolioService) private readonly portfolioService:
       PortfolioService,
 
-    private readonly cloudinary:
+    @Inject(CloudinaryService) private readonly cloudinary:
       CloudinaryService,
   ) {}
 

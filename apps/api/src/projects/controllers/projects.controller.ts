@@ -7,8 +7,7 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 import {
   VIEW_ROLES,
   MANAGE_ROLES,
@@ -40,7 +39,7 @@ import { ProjectsService } from "../services/projects.service";
 @Controller("projects")
 export class ProjectsController {
   constructor(
-    private readonly projectsService: ProjectsService,
+    @Inject(ProjectsService) private readonly projectsService: ProjectsService,
   ) {}
 
   @Post()

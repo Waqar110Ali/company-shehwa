@@ -38,7 +38,7 @@ export default function CompanyUpdates() {
                                 </span>
 
                                 <h2 className="mt-8 text-5xl font-black text-white lg:text-6xl">
-                                    {data.ceoMessage.title.includes(" ") ? (
+                                    {data.ceoMessage.title?.includes(" ") ? (
                                         <>
                                             {data.ceoMessage.title.split(" ").slice(0, -1).join(" ")}
                                             <GradientText>

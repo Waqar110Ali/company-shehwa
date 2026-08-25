@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Sparkles,
@@ -17,7 +18,37 @@ import PremiumButton from "@/components/premium/PremiumButton";
 
 import { Input } from "@/components/ui/input";
 
+import { api } from "@/lib/api";
+import { appToast } from "@/lib/toast";
+
 export default function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      appToast.error("Please enter your email address.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      await api.post("/newsletter/subscribe", { email });
+      appToast.success("Subscribed! Thanks for joining us.");
+      setEmail("");
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        "Unable to subscribe right now. Please try again later.";
+      appToast.error(message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <AuroraBackground>
 
@@ -88,11 +119,17 @@ export default function Newsletter() {
 
                 {/* Form */}
 
-                <form className="mx-auto mt-14 flex max-w-3xl flex-col gap-5 md:flex-row">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mx-auto mt-14 flex max-w-3xl flex-col gap-5 md:flex-row"
+                >
 
                   <Input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address..."
+                    disabled={submitting}
                     className="
                       h-14
                       rounded-2xl
@@ -107,11 +144,12 @@ export default function Newsletter() {
 
                   <PremiumButton
                     type="submit"
+                    disabled={submitting}
                     className="h-14 px-10"
                   >
                     <Send className="mr-2 h-5 w-5" />
 
-                    Subscribe
+                    {submitting ? "Subscribing..." : "Subscribe"}
 
                   </PremiumButton>
 
@@ -119,7 +157,7 @@ export default function Newsletter() {
 
                 <p className="mt-8 text-center text-sm text-slate-400">
 
-                  No spam • Unsubscribe anytime • Privacy First
+                  No spam &bull; Unsubscribe anytime &bull; Privacy First
 
                 </p>
 
@@ -130,7 +168,6 @@ export default function Newsletter() {
           </FadeUp>
 
         </Container>
-
       </Section>
 
     </AuroraBackground>

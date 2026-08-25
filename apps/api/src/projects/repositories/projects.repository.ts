@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -24,7 +23,7 @@ import { ProjectQueryDto } from "../dto/project-query.dto";
 @Injectable()
 export class ProjectsRepository {
   constructor(
-    @InjectModel(Project.name)
+    @InjectModel(Project.name) @Inject(Model<ProjectDocument>)
     private readonly projectModel: Model<ProjectDocument>,
   ) {}
 

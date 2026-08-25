@@ -32,7 +32,7 @@ export default function TeamMemberCard({
   return (
     <FadeUp>
 
-      <GlassCard className="group overflow-hidden p-0">
+        <GlassCard className="group flex h-full flex-col overflow-hidden p-0">
 
         {/* IMAGE */}
 
@@ -78,7 +78,7 @@ export default function TeamMemberCard({
 
         {/* CONTENT */}
 
-        <div className="p-8">
+        <div className="flex flex-1 flex-col p-8">
 
           <span className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-xs font-semibold text-cyan-300">
             {department}
@@ -92,9 +92,9 @@ export default function TeamMemberCard({
             {designation}
           </p>
 
-          <div className="my-6 h-px bg-gradient-to-r from-cyan-500/50 to-transparent" />
+         <div className="my-6 h-px bg-gradient-to-r from-cyan-500/50 to-transparent" />
 
-          <div className="flex flex-wrap gap-3">
+          <div className="mb-8 flex flex-wrap gap-3">
 
             {skills.map((skill) => (
 
@@ -119,8 +119,8 @@ export default function TeamMemberCard({
 
           </div>
 
-          <PremiumButton
-            className="mt-8 w-full"
+        <PremiumButton
+            className="mt-auto w-full pt-8"
             variant="outline"
           >
             View Profile

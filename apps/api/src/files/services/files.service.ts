@@ -1,8 +1,7 @@
 import {
   ForbiddenException,
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { Types } from "mongoose";
 
@@ -23,13 +22,13 @@ import { FileType } from "../enums/file-type.enum";
 @Injectable()
 export class FilesService {
   constructor(
-    private readonly repository: FilesRepository,
+    @Inject(FilesRepository) private readonly repository: FilesRepository,
 
-    private readonly employeesRepository: EmployeesRepository,
+    @Inject(EmployeesRepository) private readonly employeesRepository: EmployeesRepository,
 
-    private readonly mapper: FilesMapper,
+    @Inject(FilesMapper) private readonly mapper: FilesMapper,
 
-    private readonly cloudinary: CloudinaryService,
+    @Inject(CloudinaryService) private readonly cloudinary: CloudinaryService,
   ) {}
 
   // =====================================================

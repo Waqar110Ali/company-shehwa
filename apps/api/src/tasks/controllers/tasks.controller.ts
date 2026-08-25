@@ -7,8 +7,7 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
 import { RolesGuard } from "@/auth/guards/roles.guard";
@@ -33,7 +32,7 @@ import { TaskFilterDto } from "../dto/task-filter.dto";
 @Controller("tasks")
 export class TaskController {
   constructor(
-    private readonly taskService: TaskService,
+    @Inject(TaskService) private readonly taskService: TaskService,
   ) {}
 
   // ==========================================

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+body{
+background:#f1f5f9;
+font-family:Arial;
+}
+
+.box{
+width:650px;
+margin:40px auto;
+background:white;
+padding:50px;
+border-radius:12px;
+text-align:center;
+}
+
+.btn{
+display:inline-block;
+padding:15px 35px;
+background:#0ea5e9;
+color:white;
+text-decoration:none;
+border-radius:8px;
+margin-top:25px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Verify your Email</h1>
+
+<p>
+
+Hi {{firstName}}
+
+</p>
+
+<p>
+
+Please click below to activate your account.
+
+</p>
+
+<a href="{{verifyUrl}}" class="btn">
+
+Verify Account
+
+</a>
+
+</div>
+
+</body>
+
+</html>

@@ -6,8 +6,7 @@ import {
   Get,
   Put,
   Req,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import {
   Request,
@@ -45,7 +44,7 @@ const ADMIN_ONLY_FIELDS = [
 export class SettingsController {
 
   constructor(
-    private readonly settingsService:
+    @Inject(SettingsService) private readonly settingsService:
       SettingsService,
   ) {}
 

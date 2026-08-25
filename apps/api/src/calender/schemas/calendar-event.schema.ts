@@ -21,41 +21,48 @@ export type CalendarEventDocument =
 })
 export class CalendarEvent {
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   title!: string;
 
   @Prop({
+    type: String,
     trim: true,
     default: "",
   })
   description!: string;
 
   @Prop({
+    type: String,
     required: true,
     enum: CalendarEventType,
   })
   type!: CalendarEventType;
 
   @Prop({
+    type: Date,
     required: true,
   })
   date!: Date;
 
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   startTime!: string;
 
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   endTime!: string;
 
   @Prop({
+    type: String,
     trim: true,
     default: "",
   })
@@ -73,6 +80,7 @@ export class CalendarEvent {
   attendees!: Types.ObjectId[];
 
   @Prop({
+    type: String,
     default: "#06b6d4",
     trim: true,
   })

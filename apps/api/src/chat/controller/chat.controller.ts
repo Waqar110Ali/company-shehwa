@@ -10,8 +10,7 @@ import {
   Req,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from "@nestjs/common";
+  UseInterceptors, Inject } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import {
   ApiBearerAuth,
@@ -42,7 +41,7 @@ import { UpdateMessageDto } from "../dto/update-message.dto";
 @Controller("chat")
 export class ChatController {
   constructor(
-    private readonly service: ChatService,
+    @Inject(ChatService) private readonly service: ChatService,
   ) {}
 
   // =====================================================

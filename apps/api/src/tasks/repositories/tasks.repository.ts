@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -28,7 +27,7 @@ import {
 @Injectable()
 export class TaskRepository {
   constructor(
-    @InjectModel(Task.name)
+    @InjectModel(Task.name) @Inject(Model<TaskDocument>)
     private readonly taskModel: Model<TaskDocument>,
   ) {}
 

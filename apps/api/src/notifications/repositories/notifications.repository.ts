@@ -1,7 +1,6 @@
 // apps/api/src/notifications/repositories/notifications.repository.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -20,7 +19,7 @@ import {
 export class NotificationsRepository {
 
   constructor(
-    @InjectModel(NotificationDoc.name)
+    @InjectModel(NotificationDoc.name) @Inject(Model<NotificationDocument>)
     private readonly notificationModel:
       Model<NotificationDocument>,
   ) {}

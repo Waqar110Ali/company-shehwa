@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { Types } from "mongoose";
 
@@ -15,8 +14,8 @@ import { CalendarFilterDto } from "../dto/calendar-filter.dto";
 @Injectable()
 export class CalendarService {
   constructor(
-    private readonly calendarRepository: CalendarRepository,
-    private readonly calendarMapper: CalendarMapper,
+    @Inject(CalendarRepository) private readonly calendarRepository: CalendarRepository,
+    @Inject(CalendarMapper) private readonly calendarMapper: CalendarMapper,
   ) {}
 
   async create(

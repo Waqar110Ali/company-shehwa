@@ -6,8 +6,7 @@ import {
   Param,
   Patch,
   Req,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import {
   Request,
@@ -34,7 +33,7 @@ interface AuthenticatedRequest extends Request {
 export class NotificationsController {
 
   constructor(
-    private readonly notificationsService:
+    @Inject(NotificationsService) private readonly notificationsService:
       NotificationsService,
   ) {}
 

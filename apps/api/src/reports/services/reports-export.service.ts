@@ -1,6 +1,5 @@
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   ReportsRepository,
@@ -13,7 +12,7 @@ import PDFDocument from "pdfkit";
 @Injectable()
 export class ReportsExportService {
   constructor(
-    private readonly reportsRepository: ReportsRepository,
+    @Inject(ReportsRepository) private readonly reportsRepository: ReportsRepository,
   ) {}
 
   async csv(): Promise<Buffer> {

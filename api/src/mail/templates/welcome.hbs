@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            margin: 0;
+            background: #eef2ff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,.12);
+        }
+
+        .header {
+            background: linear-gradient(90deg,#0ea5e9,#2563eb);
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h1,h2{
+            margin-top:0;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin:30px 0;
+        }
+
+        td{
+            padding:12px;
+            border:1px solid #e5e7eb;
+        }
+
+        .password{
+            font-size:20px;
+            color:#ef4444;
+            font-weight:bold;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:25px;
+            padding:14px 30px;
+            border-radius:8px;
+            background:#2563eb;
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .footer{
+            background:#f8fafc;
+            text-align:center;
+            padding:25px;
+            color:#64748b;
+            font-size:13px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>AI Company Management Platform</h1>
+
+        <p>Welcome to the Team!</p>
+
+    </div>
+
+    <div class="content">
+
+        <h2>Hello {{firstName}},</h2>
+
+        <p>
+            Your employee account has been created successfully.
+        </p>
+
+        <p>
+            Please use the following credentials to sign in after verifying your email.
+        </p>
+
+        <table>
+
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>{{email}}</td>
+            </tr>
+
+            <tr>
+                <td><strong>Temporary Password</strong></td>
+                <td class="password">{{password}}</td>
+            </tr>
+
+        </table>
+
+        <p>
+            Click the button below to verify your email address.
+        </p>
+
+        <a
+            href="{{verificationUrl}}"
+            class="btn"
+        >
+            Verify Email
+        </a>
+
+        <p style="margin-top:40px;">
+            After verifying your email, you can log in to your account using the credentials above.
+        </p>
+
+    </div>
+
+    <div class="footer">
+
+        © AI Company Management Platform
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,7 +1,6 @@
 // apps/api/src/updates/services/updates.service.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   UpdatesRepository,
@@ -11,7 +10,7 @@ import {
 export class UpdatesService {
 
   constructor(
-    private readonly updatesRepository:
+    @Inject(UpdatesRepository) private readonly updatesRepository:
       UpdatesRepository,
   ) {}
 

@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { UpdateUserDto } from "../dto/update-user.dto";
 
@@ -15,7 +14,7 @@ import { UsersRepository } from "../repositories/users.repository";
 @Injectable()
 export class UsersService {
   constructor(
-    private readonly repository: UsersRepository,
+    @Inject(UsersRepository) private readonly repository: UsersRepository,
   ) {}
 
   // =====================================================

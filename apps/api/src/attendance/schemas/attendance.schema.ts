@@ -23,22 +23,29 @@ export class Attendance {
   employee!: Types.ObjectId;
 
   @Prop({
+    type: Date,
     required: true,
   })
   date!: Date;
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   checkIn?: string;
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   checkOut?: string;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   workingHours!: number;
 
   @Prop({
+    type: String,
     enum: AttendanceStatus,
     default: AttendanceStatus.PRESENT,
   })

@@ -1,7 +1,6 @@
 // apps/api/src/updates/repositories/updates.repository.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -20,7 +19,7 @@ import {
 export class UpdatesRepository {
 
   constructor(
-    @InjectModel(UpdatesContent.name)
+    @InjectModel(UpdatesContent.name) @Inject(Model<UpdatesContentDocument>)
     private readonly updatesModel:
       Model<UpdatesContentDocument>,
   ) {}

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 
@@ -14,6 +14,7 @@ export class JwtStrategy extends PassportStrategy(
   Strategy,
 ) {
   constructor(
+    @Inject(ConfigService)
     configService: ConfigService,
   ) {
     super({

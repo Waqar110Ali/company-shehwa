@@ -25,7 +25,7 @@ export default function ClientReviewCard({
 }: ClientReviewCardProps) {
   return (
     <FadeUp>
-      <GlassCard className="group h-full p-8">
+        <GlassCard className="group flex h-full flex-col p-8">
 
         {/* Header */}
 
@@ -78,13 +78,11 @@ export default function ClientReviewCard({
 
         </div>
 
-        {/* Review */}
-
-        <p className="leading-8 text-slate-300">
+                {/* Review */}
+        <p className="line-clamp-5 leading-8 text-slate-300">
           "{review}"
         </p>
-
-        <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+        <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-6">
 
           <span className="text-sm text-slate-400">
             Verified Review

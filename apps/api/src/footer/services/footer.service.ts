@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { FooterRepository } from "../repositories/footer.repository";
 
 const DEFAULT_CONTENT = {
@@ -11,7 +11,7 @@ const DEFAULT_CONTENT = {
 
 @Injectable()
 export class FooterService {
-  constructor(private readonly footerRepository: FooterRepository) {}
+  constructor(@Inject(FooterRepository) private readonly footerRepository: FooterRepository) {}
 
   async getFooter() {
     const doc = await this.footerRepository.get();

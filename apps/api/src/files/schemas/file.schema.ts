@@ -18,22 +18,26 @@ import { Employee } from "@/employees/schemas/employee.schema";
 })
 export class File {
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   name!: string;
 
   @Prop({
+    type: String,
     default: "",
   })
   originalName!: string;
 
   @Prop({
+    type: String,
     default: "",
   })
   extension!: string;
 
   @Prop({
+    type: String,
     required: true,
     enum: FileType,
     default: FileType.OTHER,
@@ -41,21 +45,25 @@ export class File {
   type!: FileType;
 
   @Prop({
+    type: String,
     default: "",
   })
   mimeType!: string;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   size!: number;
 
   @Prop({
+    type: String,
     default: "",
   })
   url!: string;
 
   @Prop({
+    type: String,
     default: "",
   })
   thumbnail!: string;
@@ -97,6 +105,7 @@ export class File {
   favoriteBy!: Types.ObjectId[];
 
   @Prop({
+    type: Boolean,
     default: false,
   })
   isDeleted!: boolean;

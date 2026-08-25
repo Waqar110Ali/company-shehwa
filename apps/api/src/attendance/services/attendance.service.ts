@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import { AttendanceRepository } from "../repositories/attendance.repository";
 
@@ -12,7 +11,7 @@ import { AttendanceFilterDto } from "../dto/attendance-filter.dto";
 @Injectable()
 export class AttendanceService {
   constructor(
-    private readonly attendanceRepository: AttendanceRepository,
+    @Inject(AttendanceRepository) private readonly attendanceRepository: AttendanceRepository,
   ) {}
 
   async create(

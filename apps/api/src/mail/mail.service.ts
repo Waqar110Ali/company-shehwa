@@ -16,11 +16,18 @@ import { UserDocument } from "@/users/schemas/user.schema";
 
 import { MailOptions } from "./interfaces/mail-options.interface";
 
+import {
+  APP_NAME,
+  NEWSLETTER_NOTIFY_EMAIL,
+} from "./mail.constants";
+
 @Injectable()
 export class MailService {
   constructor(
+    @Inject(MailerService)
     private readonly mailerService: MailerService,
 
+    @Inject(ConfigService)
     private readonly configService: ConfigService,
 
     @Inject(
@@ -33,19 +40,33 @@ export class MailService {
   // Generic Mail Sender
   // =====================================================
 
-  async send(
-    options: MailOptions,
-  ): Promise<void> {
+ async send(
+  options: MailOptions,
+): Promise<void> {
+  try {
+    console.log("[MAIL] Sending email", {
+      to: options.to,
+      subject: options.subject,
+      template: options.template,
+    });
+
     await this.mailerService.sendMail({
       to: options.to,
-
       subject: options.subject,
-
       template: options.template,
-
       context: options.context,
     });
+
+    console.log("[MAIL] Email sent successfully");
+  } catch (error) {
+    console.error(
+      "[MAIL] Failed to send email:",
+      error,
+    );
+
+    throw error;
   }
+}
 
   // =====================================================
   // Welcome Email
@@ -140,6 +161,37 @@ async sendWelcomeEmail(
       },
     });
   }
+
+  // =====================================================
+  // Newsletter Subscription Notification
+  // =====================================================
+
+ async sendNewsletterSubscriptionNotification(
+  subscriberEmail: string,
+): Promise<void> {
+  console.log(
+    "[NEWSLETTER] New subscription:",
+    subscriberEmail,
+  );
+
+  console.log(
+    "[NEWSLETTER] Notification recipient:",
+    NEWSLETTER_NOTIFY_EMAIL,
+  );
+
+  await this.send({
+    to: NEWSLETTER_NOTIFY_EMAIL,
+
+    subject: "New Newsletter Subscriber",
+
+    template: "newsletter-subscription",
+
+    context: {
+      subscriberEmail,
+      companyName: APP_NAME,
+    },
+  });
+}
 
   // =====================================================
   // Email Verification

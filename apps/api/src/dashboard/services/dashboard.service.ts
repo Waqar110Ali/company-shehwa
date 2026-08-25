@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 
 import { DashboardRepository } from "../repositories/dashboard.repository";
 
@@ -7,7 +7,7 @@ import { DashboardResponse } from "../interfaces/dashboard.interface";
 @Injectable()
 export class DashboardService {
   constructor(
-    private readonly repository: DashboardRepository,
+    @Inject(DashboardRepository) private readonly repository: DashboardRepository,
   ) {}
 
   async getDashboard(): Promise<DashboardResponse> {

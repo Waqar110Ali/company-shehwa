@@ -10,8 +10,7 @@ import {
   Req,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from "@nestjs/common";
+  UseInterceptors, Inject } from "@nestjs/common";
 
 import { FileInterceptor } from "@nestjs/platform-express";
 
@@ -30,7 +29,7 @@ import { ShareFileDto } from "../dto/share-file.dto";
 @UseGuards(JwtAuthGuard)
 export class FilesController {
   constructor(
-    private readonly filesService: FilesService,
+    @Inject(FilesService) private readonly filesService: FilesService,
   ) {}
 
   // =====================================================

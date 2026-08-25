@@ -18,7 +18,7 @@ import { Types } from "mongoose";
 import { ChatRepository } from "../repository/chat.repository";
 import { ChatMapper } from "../mapper/chat.mapper";
 import { MessageType, CallLogStatus } from "../enums/message-status.enum";
-
+import { Inject } from "@nestjs/common";
 
 // =====================================================
 // Types
@@ -109,9 +109,9 @@ export class ChatGateway
     OnGatewayDisconnect {
 
     constructor(
-        private readonly repository: ChatRepository,
+        @Inject(ChatRepository) private readonly repository: ChatRepository,
 
-        private readonly mapper: ChatMapper,
+        @Inject(ChatMapper) private readonly mapper: ChatMapper,
     ) {}
 
     @WebSocketServer()

@@ -1,7 +1,6 @@
 // apps/api/src/notifications/services/notifications.service.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   NotificationsRepository,
@@ -11,7 +10,7 @@ import {
 export class NotificationsService {
 
   constructor(
-    private readonly notificationsRepository:
+    @Inject(NotificationsRepository) private readonly notificationsRepository:
       NotificationsRepository,
   ) {}
 

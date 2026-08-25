@@ -25,12 +25,14 @@ export type ProjectDocument =
 })
 export class Project {
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   name!: string;
 
   @Prop({
+    type: String,
     default: "",
     trim: true,
   })
@@ -51,6 +53,7 @@ export class Project {
   priority!: ProjectPriority;
 
   @Prop({
+    type: Number,
     default: 0,
     min: 0,
     max: 100,
@@ -58,21 +61,25 @@ export class Project {
   progress!: number;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   totalTasks!: number;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   completedTasks!: number;
 
   @Prop({
+    type: Date,
     required: true,
   })
   startDate!: Date;
 
   @Prop({
+    type: Date,
     required: true,
   })
   dueDate!: Date;

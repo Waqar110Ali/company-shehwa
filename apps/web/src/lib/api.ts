@@ -10,9 +10,10 @@ import {
   saveAuth,
 } from "@/features/auth/utils/auth-storage";
 
+import env from "@/config/env";
+
 export const api = axios.create({
-  baseURL:
-    "http://localhost:5000/api/v1",
+  baseURL: env.apiUrl,
 
   withCredentials: true,
 });
@@ -141,7 +142,7 @@ api.interceptors.response.use(
 
       const response =
         await axios.post(
-          "http://localhost:5000/api/v1/auth/refresh",
+          `${env.apiUrl}/auth/refresh`,
           {
             refreshToken,
           },

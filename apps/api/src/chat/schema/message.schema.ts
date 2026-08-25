@@ -39,6 +39,7 @@ export class Message {
   sender!: Types.ObjectId;
 
   @Prop({
+    type: String,
     enum: MessageType,
     default: MessageType.TEXT,
     required: true,
@@ -46,6 +47,7 @@ export class Message {
   type!: MessageType;
 
   @Prop({
+    type: String,
     trim: true,
     maxlength: 5000,
     default: "",
@@ -53,18 +55,21 @@ export class Message {
   content!: string;
 
   @Prop({
+    type: String,
     trim: true,
     default: "",
   })
   attachment!: string;
 
   @Prop({
+    type: String,
     trim: true,
     default: "",
   })
   fileName!: string;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   fileSize!: number;
@@ -77,31 +82,37 @@ export class Message {
   replyTo?: Types.ObjectId;
 
   @Prop({
+    type: Boolean,
     default: false,
   })
   edited!: boolean;
 
   @Prop({
+    type: Date,
     default: null,
   })
   editedAt?: Date;
 
   @Prop({
+    type: Boolean,
     default: false,
   })
   deleted!: boolean;
 
   @Prop({
+    type: Date,
     default: null,
   })
   deletedAt?: Date;
 
   @Prop({
+    type: Boolean,
     default: false,
   })
   read!: boolean;
 
   @Prop({
+    type: Date,
     default: null,
   })
   readAt?: Date;
@@ -145,12 +156,14 @@ export class Message {
    * outcome is COMPLETED.
    */
   @Prop({
+    type: String,
     enum: CallLogStatus,
     default: null,
   })
   callStatus?: CallLogStatus;
 
   @Prop({
+    type: Number,
     default: 0,
   })
   callDuration!: number;

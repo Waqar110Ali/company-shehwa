@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 
 import { CreateProjectDto } from "../dto/create-project.dto";
 import { UpdateProjectDto } from "../dto/update-project.dto";
@@ -10,7 +10,7 @@ import { ProjectsRepository } from "../repositories/projects.repository";
 @Injectable()
 export class ProjectsService {
   constructor(
-    private readonly repository: ProjectsRepository,
+    @Inject(ProjectsRepository) private readonly repository: ProjectsRepository,
   ) {}
 
   async create(

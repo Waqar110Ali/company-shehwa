@@ -3,8 +3,7 @@ import {
   Controller,
   Get,
   Post,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 
 import { AuthService } from "../services/auth.service";
@@ -26,7 +25,7 @@ import { Role } from "@/users/enums/role.enum";
 @Controller("auth")
 export class AuthController {
   constructor(
-    private readonly authService: AuthService,
+    @Inject(AuthService) private readonly authService: AuthService,
   ) {}
 
  @UseGuards(

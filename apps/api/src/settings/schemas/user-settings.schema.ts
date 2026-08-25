@@ -15,6 +15,7 @@ import {
 export class UserSettingsDoc {
 
   @Prop({
+    type: String,
     required: true,
     unique: true,
     index: true,

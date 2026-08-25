@@ -114,30 +114,26 @@ export default function ProjectCard({
 
             <div className="flex gap-3">
 
-              <PremiumButton
-                variant="outline"
-                asChild
-              >
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaGithub className="mr-2 h-4 w-4" />
-                  GitHub
-                </a>
-              </PremiumButton>
+             <PremiumButton
+  variant="outline"
+  nativeButton={false}
+  render={
+    <a href={github} target="_blank" rel="noopener noreferrer" />
+  }
+>
+  <FaGithub className="mr-2 h-4 w-4" />
+  GitHub
+</PremiumButton>
 
-              <PremiumButton asChild>
-                <a
-                  href={demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Globe className="mr-2 h-4 w-4" />
-                  Live Demo
-                </a>
-              </PremiumButton>
+             <PremiumButton
+  nativeButton={false}
+  render={
+    <a href={demo} target="_blank" rel="noopener noreferrer" />
+  }
+>
+  <Globe className="mr-2 h-4 w-4" />
+  Live Demo
+</PremiumButton>
 
             </div>
 

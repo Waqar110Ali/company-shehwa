@@ -20,6 +20,8 @@ import { UsersModule } from "@/users/users.module";
 
 import { MailModule } from "@/mail/mail.module";
 
+import { CloudinaryModule } from "@/common/cloudinary/cloudinary.module";
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -32,6 +34,8 @@ import { MailModule } from "@/mail/mail.module";
     forwardRef(() => UsersModule),
 
     forwardRef(() => MailModule),
+
+    CloudinaryModule,
   ],
 
   controllers: [

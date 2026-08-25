@@ -1,8 +1,7 @@
 import {
   Controller,
   Get,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import {
   ApiBearerAuth,
@@ -27,7 +26,7 @@ import { VIEW_ROLES } from "@/auth/constants/role-groups";
 @Controller("dashboard")
 export class DashboardController {
   constructor(
-    private readonly dashboardService: DashboardService,
+    @Inject(DashboardService) private readonly dashboardService: DashboardService,
   ) {}
 
  @Get()

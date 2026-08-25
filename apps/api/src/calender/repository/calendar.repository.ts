@@ -1,6 +1,5 @@
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -25,7 +24,7 @@ export class CalendarRepository {
   constructor(
     @InjectModel(
       CalendarEvent.name,
-    )
+    ) @Inject(Model<CalendarEventDocument>)
     private readonly calendarModel: Model<CalendarEventDocument>,
   ) {}
 

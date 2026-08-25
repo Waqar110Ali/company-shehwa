@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import {
@@ -23,9 +23,9 @@ import { MessageFilterDto } from "../dto/message-filter.dto";
 @Injectable()
 export class ChatRepository {
   constructor(
-    @InjectModel(Conversation.name)
+    @InjectModel(Conversation.name) @Inject(Model<ConversationDocument>)
     private readonly conversationModel: Model<ConversationDocument>,
-    @InjectModel(Message.name)
+    @InjectModel(Message.name) @Inject(Model<MessageDocument>)
     private readonly messageModel: Model<MessageDocument>,
   ) { }
 

@@ -7,8 +7,7 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
 
@@ -22,7 +21,7 @@ import { AttendanceFilterDto } from "../dto/attendance-filter.dto";
 @Controller("attendance")
 export class AttendanceController {
   constructor(
-    private readonly attendanceService: AttendanceService,
+    @Inject(AttendanceService) private readonly attendanceService: AttendanceService,
   ) {}
 
   @Post()

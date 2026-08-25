@@ -2,15 +2,14 @@ import {
   Controller,
   Get,
   Param,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import { UsersService } from "../services/users.service";
 
 @Controller("users")
 export class UsersController {
   constructor(
-    private readonly usersService: UsersService,
+    @Inject(UsersService) private readonly usersService: UsersService,
   ) {}
 
   @Get()

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import {
@@ -17,7 +17,7 @@ import { EmployeeQueryDto } from "../dto/employee-query.dto";
 @Injectable()
 export class EmployeesRepository {
   constructor(
-    @InjectModel(Employee.name)
+    @InjectModel(Employee.name) @Inject(Model<EmployeeDocument>)
     private readonly employeeModel: Model<EmployeeDocument>,
   ) {}
 

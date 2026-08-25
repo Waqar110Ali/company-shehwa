@@ -9,8 +9,7 @@ import {
   Query,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from "@nestjs/common";
+  UseInterceptors, Inject } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 
 import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
@@ -38,7 +37,7 @@ import { avatarUploadOptions } from "../config/Avatar-upload.config";
 @Controller("employees")
 export class EmployeesController {
   constructor(
-    private readonly service: EmployeesService,
+    @Inject(EmployeesService) private readonly service: EmployeesService,
   ) {}
 
   // =====================================================

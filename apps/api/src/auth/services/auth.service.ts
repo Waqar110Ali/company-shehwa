@@ -2,8 +2,7 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  UnauthorizedException,
-} from "@nestjs/common";
+  UnauthorizedException, Inject } from "@nestjs/common";
 
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
@@ -23,11 +22,11 @@ import { EmployeesRepository } from "@/employees/repositories/employees.reposito
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
-    private readonly mailService: MailService,
-    private readonly employeesRepository: EmployeesRepository,
+    @Inject(UsersService) private readonly usersService: UsersService,
+    @Inject(JwtService) private readonly jwtService: JwtService,
+    @Inject(ConfigService) private readonly configService: ConfigService,
+    @Inject(MailService) private readonly mailService: MailService,
+    @Inject(EmployeesRepository) private readonly employeesRepository: EmployeesRepository,
   ) { }
 
   // =====================================================

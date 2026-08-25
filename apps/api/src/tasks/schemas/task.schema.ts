@@ -16,12 +16,14 @@ export type TaskDocument = HydratedDocument<Task>;
 })
 export class Task {
   @Prop({
+    type: String,
     required: true,
     trim: true,
   })
   title!: string;
 
   @Prop({
+    type: String,
     default: "",
     trim: true,
   })
@@ -42,18 +44,21 @@ export class Task {
   assignedTo!: Types.ObjectId;
 
   @Prop({
+    type: String,
     enum: TaskStatus,
     default: TaskStatus.TODO,
   })
   status!: TaskStatus;
 
   @Prop({
+    type: String,
     enum: TaskPriority,
     default: TaskPriority.MEDIUM,
   })
   priority!: TaskPriority;
 
   @Prop({
+    type: Number,
     min: 0,
     max: 100,
     default: 0,
@@ -61,6 +66,7 @@ export class Task {
   progress!: number;
 
   @Prop({
+    type: Date,
     required: true,
   })
   dueDate!: Date;

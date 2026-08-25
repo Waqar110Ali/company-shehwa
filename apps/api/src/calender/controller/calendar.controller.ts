@@ -7,8 +7,7 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
-} from "@nestjs/common";
+  UseGuards, Inject } from "@nestjs/common";
 
 import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
 
@@ -22,7 +21,7 @@ import { CalendarFilterDto } from "../dto/calendar-filter.dto";
 @Controller("calendar")
 export class CalendarController {
   constructor(
-    private readonly calendarService: CalendarService,
+    @Inject(CalendarService) private readonly calendarService: CalendarService,
   ) {}
 
   @Post()

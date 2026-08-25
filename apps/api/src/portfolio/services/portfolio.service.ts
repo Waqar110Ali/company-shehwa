@@ -1,7 +1,6 @@
 import {
   Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+  NotFoundException, Inject } from "@nestjs/common";
 
 import {
   PortfolioRepository,
@@ -11,7 +10,7 @@ import {
 export class PortfolioService {
 
   constructor(
-    private readonly portfolioRepository:
+    @Inject(PortfolioRepository) private readonly portfolioRepository:
       PortfolioRepository,
   ) {}
 

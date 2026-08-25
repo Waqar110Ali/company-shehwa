@@ -15,22 +15,26 @@ import {
 export class NotificationDoc {
 
   @Prop({
+    type: String,
     required: true,
     index: true,
   })
   userId!: string;
 
   @Prop({
+    type: String,
     required: true,
   })
   title!: string;
 
   @Prop({
+    type: String,
     required: true,
   })
   description!: string;
 
   @Prop({
+    type: String,
     required: true,
     enum: [
       "employee",
@@ -44,6 +48,7 @@ export class NotificationDoc {
   type!: string;
 
   @Prop({
+    type: Boolean,
     default: false,
   })
   read!: boolean;

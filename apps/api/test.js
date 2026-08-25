@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
-const uri =
-  "mongodb+srv://waqarr:20waqar04@cluster0.6zplkqi.mongodb.net/companysite?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI;
+
+if (!uri) {
+  throw new Error("MONGODB_URI is not configured");
+}
 
 mongoose
   .connect(uri)
   .then(() => {
-    console.log("✅ Connected");
-    process.exit();
+    console.log("✅ MongoDB Connected");
+    process.exit(0);
   })
   .catch((err) => {
-    console.error(err);
+    console.error("❌ MongoDB connection failed:", err);
+    process.exit(1);
   });

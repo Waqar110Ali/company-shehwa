@@ -1,7 +1,6 @@
 // apps/api/src/settings/repositories/settings.repository.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   InjectModel,
@@ -20,7 +19,7 @@ import {
 export class SettingsRepository {
 
   constructor(
-    @InjectModel(UserSettingsDoc.name)
+    @InjectModel(UserSettingsDoc.name) @Inject(Model<UserSettingsDocument>)
     private readonly settingsModel:
       Model<UserSettingsDocument>,
   ) {}

@@ -39,18 +39,21 @@ export class Conversation {
   participants!: Types.ObjectId[];
 
   @Prop({
+    type: String,
     enum: ConversationType,
     default: ConversationType.DIRECT,
   })
   type!: ConversationType;
 
   @Prop({
+    type: String,
     trim: true,
     default: "",
   })
   lastMessage!: string;
 
   @Prop({
+    type: Date,
     default: null,
   })
   lastMessageAt?: Date;

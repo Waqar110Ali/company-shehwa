@@ -4,12 +4,9 @@ import {
   NestModule,
 } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-
 import configs from "./config";
 import { envValidationSchema } from "./config/env.validation";
-
 import { DatabaseModule } from "./database";
-
 import { UsersModule } from "./users/users.module";
 import { AuthModule } from "./auth/auth.module";
 import { EmployeesModule } from "./employees/employees.module";
@@ -28,65 +25,43 @@ import { SettingsModule } from "./settings/settings.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { UpdatesModule } from "./updates/updates.module";
 import { FooterModule } from "./footer/footer.module";
+import { NewsletterModule } from "./newsletter/Newsletter.module";
 // import { AssistantPublicModule } from "./assistant-public/assistant-public.module";
-
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-
       cache: true,
-
       load: configs,
-
       validationSchema: envValidationSchema,
     }),
-
     DatabaseModule,
-
     UsersModule,
-
     AuthModule,
-
     EmployeesModule,
-
     DashboardModule,
-
     ProjectsModule,
-
     TaskModule,
-
     AttendanceModule,
-
     CalendarModule,
-
     ChatModule,
-    
+
     MailModule,
-
     FilesModule,
-
     ReportsModule,
-
     PortfolioModule,
-
     SettingsModule,
-
     NotificationsModule,
-
     UpdatesModule,
-
      FooterModule,
-
+    NewsletterModule,
     // AssistantPublicModule,
   ],
 })
 export class AppModule
   implements NestModule
 {
-  configure(
-    consumer: MiddlewareConsumer,
-  ) {
+  configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes("*");

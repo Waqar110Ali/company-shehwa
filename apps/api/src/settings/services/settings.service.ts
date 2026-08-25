@@ -1,7 +1,6 @@
 // apps/api/src/settings/services/settings.service.ts
 import {
-  Injectable,
-} from "@nestjs/common";
+  Injectable, Inject } from "@nestjs/common";
 
 import {
   SettingsRepository,
@@ -11,7 +10,7 @@ import {
 export class SettingsService {
 
   constructor(
-    private readonly settingsRepository:
+    @Inject(SettingsRepository) private readonly settingsRepository:
       SettingsRepository,
   ) {}
 

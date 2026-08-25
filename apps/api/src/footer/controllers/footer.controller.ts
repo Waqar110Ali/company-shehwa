@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Put, UseGuards, Inject } from "@nestjs/common";
 
 import { FooterService } from "../services/footer.service";
 import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
@@ -8,7 +8,7 @@ import { Role } from "@/users/enums/role.enum";
 
 @Controller("footer")
 export class FooterController {
-  constructor(private readonly footerService: FooterService) {}
+  constructor(@Inject(FooterService) private readonly footerService: FooterService) {}
 
   // PUBLIC — every page's footer reads this, no auth needed.
   @Get()

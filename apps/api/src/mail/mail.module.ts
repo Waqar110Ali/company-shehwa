@@ -55,9 +55,16 @@ import { UsersModule } from "@/users/users.module";
         },
 
         template: {
+          // esbuild only bundles code, not non-JS assets like .hbs
+          // files, so on Vercel the templates are copied by
+          // scripts/build-api.mjs into api/src/mail/templates
+          // alongside the bundled function. Locally, process.cwd()
+          // is apps/api, so the original relative path still applies.
           dir: join(
             process.cwd(),
-            "src/mail/templates",
+            process.env.VERCEL
+              ? "api/src/mail/templates"
+              : "src/mail/templates",
           ),
 
           adapter:
