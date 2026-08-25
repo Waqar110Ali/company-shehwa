@@ -29,7 +29,7 @@ export default function DesktopNavigation({
     >
       {navigation.map((item) => (
         <NavigationLink
-          key={item.href}
+          key={item.label}
           href={item.href}
           label={item.label}
           scrolled={scrolled}

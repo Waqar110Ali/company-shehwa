@@ -32,4 +32,14 @@ export const envValidationSchema =
       Joi.string()
         .allow("")
         .optional(),
+
+    // Optional SMTP — newsletter notify emails need these
+    MAIL_HOST: Joi.string().optional(),
+    MAIL_PORT: Joi.number().optional(),
+    MAIL_USER: Joi.string().optional(),
+    MAIL_PASSWORD: Joi.string().optional(),
+    MAIL_FROM: Joi.string().optional(),
+    NEWSLETTER_NOTIFY_EMAIL: Joi.string()
+      .email()
+      .optional(),
   });

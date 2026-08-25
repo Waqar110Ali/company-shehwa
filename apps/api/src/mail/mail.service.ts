@@ -18,7 +18,6 @@ import { MailOptions } from "./interfaces/mail-options.interface";
 
 import {
   APP_NAME,
-  NEWSLETTER_NOTIFY_EMAIL,
 } from "./mail.constants";
 
 @Injectable()
@@ -163,35 +162,74 @@ async sendWelcomeEmail(
   }
 
   // =====================================================
-  // Newsletter Subscription Notification
+  // Newsletter Subscription Notification (to company)
   // =====================================================
 
- async sendNewsletterSubscriptionNotification(
-  subscriberEmail: string,
-): Promise<void> {
-  console.log(
-    "[NEWSLETTER] New subscription:",
-    subscriberEmail,
-  );
+  private resolveNotifyEmail(): string {
+    return (
+      this.configService.get<string>(
+        "NEWSLETTER_NOTIFY_EMAIL",
+      ) ||
+      this.configService.get<string>("MAIL_USER") ||
+      ""
+    );
+  }
 
-  console.log(
-    "[NEWSLETTER] Notification recipient:",
-    NEWSLETTER_NOTIFY_EMAIL,
-  );
+  private isMailConfigured(): boolean {
+    return Boolean(
+      this.configService.get<string>("MAIL_HOST") &&
+        this.configService.get<string>("MAIL_USER") &&
+        this.configService.get<string>("MAIL_PASSWORD"),
+    );
+  }
 
-  await this.send({
-    to: NEWSLETTER_NOTIFY_EMAIL,
+  async sendNewsletterSubscriptionNotification(
+    subscriberEmail: string,
+  ): Promise<void> {
+    if (!this.isMailConfigured()) {
+      console.warn(
+        "[NEWSLETTER] SMTP not fully configured (MAIL_HOST/USER/PASSWORD) — skipping emails for",
+        subscriberEmail,
+      );
+      return;
+    }
 
-    subject: "New Newsletter Subscriber",
+    const notifyTo = this.resolveNotifyEmail();
 
-    template: "newsletter-subscription",
-
-    context: {
+    console.log(
+      "[NEWSLETTER] New subscription:",
       subscriberEmail,
-      companyName: APP_NAME,
-    },
-  });
-}
+    );
+
+    // Confirmation to the person who subscribed
+    await this.send({
+      to: subscriberEmail,
+      subject: `You're subscribed to ${APP_NAME}`,
+      template: "newsletter-confirmation",
+      context: {
+        subscriberEmail,
+        companyName: APP_NAME,
+      },
+    });
+
+    // Admin/company notification
+    if (notifyTo) {
+      console.log(
+        "[NEWSLETTER] Notification recipient:",
+        notifyTo,
+      );
+
+      await this.send({
+        to: notifyTo,
+        subject: "New Newsletter Subscriber",
+        template: "newsletter-subscription",
+        context: {
+          subscriberEmail,
+          companyName: APP_NAME,
+        },
+      });
+    }
+  }
 
   // =====================================================
   // Email Verification

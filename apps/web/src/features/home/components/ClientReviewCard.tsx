@@ -68,9 +68,11 @@ export default function ClientReviewCard({
 
         <div className="mb-6 flex">
 
-          {Array.from({ length: rating }).map((_, index) => (
+          {Array.from({
+            length: Math.max(0, Math.min(5, Number(rating) || 0)),
+          }).map((_, index) => (
             <Star
-              key={index}
+              key={`star-${index}`}
               size={18}
               className="fill-yellow-400 text-yellow-400"
             />

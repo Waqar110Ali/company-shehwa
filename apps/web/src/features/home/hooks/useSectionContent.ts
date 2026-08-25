@@ -11,6 +11,11 @@ export function useSectionContent<K extends keyof PortfolioContent>(
 
   if (value === undefined || value === null) return fallback;
 
+  // Empty arrays from an unseeded portfolio should not wipe section defaults.
+  if (Array.isArray(fallback) && Array.isArray(value) && value.length === 0) {
+    return fallback;
+  }
+
   // If the fallback is an array but the fetched value isn't (bad/legacy DB data), use the fallback instead of crashing.
   if (Array.isArray(fallback) && !Array.isArray(value)) return fallback;
 

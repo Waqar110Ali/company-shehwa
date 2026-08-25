@@ -36,8 +36,14 @@ export default function Newsletter() {
     setSubmitting(true);
 
     try {
-      await api.post("/newsletter/subscribe", { email });
-      appToast.success("Subscribed! Thanks for joining us.");
+      const { data } = await api.post(
+        "/newsletter/subscribe",
+        { email },
+      );
+      appToast.success(
+        data?.message ??
+          "Subscribed! Thanks for joining us.",
+      );
       setEmail("");
     } catch (error: any) {
       const message =

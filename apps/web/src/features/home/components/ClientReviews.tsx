@@ -37,8 +37,11 @@ export default function ClientReviews() {
           </FadeUp>
 
           <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {reviews.map((review) => (
-              <ClientReviewCard key={review.id} {...review} />
+            {reviews.map((review, index) => (
+              <ClientReviewCard
+                key={`${review.id ?? "review"}-${review.name ?? "item"}-${index}`}
+                {...review}
+              />
             ))}
           </div>
 

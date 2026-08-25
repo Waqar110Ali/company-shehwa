@@ -42,7 +42,7 @@ export default function FAQPreview() {
           </FadeUp>
 
           <div className="mt-20">
-            <Accordion type="single" collapsible className="space-y-6">
+            <Accordion className="space-y-6">
               {items.map((faq, index) => (
                 <FadeUp key={faq.id} delay={index * 0.08}>
                   <AccordionItem

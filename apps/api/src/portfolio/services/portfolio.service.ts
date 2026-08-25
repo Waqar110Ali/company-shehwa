@@ -1,10 +1,43 @@
 import {
   Injectable,
-  NotFoundException, Inject } from "@nestjs/common";
+  Inject,
+} from "@nestjs/common";
 
 import {
   PortfolioRepository,
 } from "../repositories/portfolio.repository";
+
+/** Empty shell so public GET never 404s before admin seeds content. */
+const DEFAULT_PORTFOLIO_CONTENT: Record<string, unknown> = {
+  heroContent: {
+    badge: "",
+    title: "",
+    description: "",
+    primaryButton: "",
+    secondaryButton: "",
+  },
+  heroStats: [],
+  companyContent: {
+    title: "",
+    subtitle: "",
+    mission: "",
+    vision: "",
+  },
+  companyValues: [],
+  contactInfo: [],
+  faqs: [],
+  developmentProcess: [],
+  featuredProjects: [],
+  services: [],
+  statistics: [],
+  teamMembers: [],
+  technologyCategories: [],
+  testimonials: [],
+  technologies: [],
+  whyChooseUs: [],
+  achievements: [],
+  clientReviews: [],
+};
 
 @Injectable()
 export class PortfolioService {
@@ -19,15 +52,9 @@ export class PortfolioService {
     const portfolio =
       await this.portfolioRepository.get();
 
-    if (!portfolio) {
-      throw new NotFoundException(
-        "Portfolio content not found.",
-      );
-    }
-
     return {
       success: true,
-      data: portfolio.content,
+      data: portfolio?.content ?? DEFAULT_PORTFOLIO_CONTENT,
     };
   }
 

@@ -7,7 +7,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import PremiumButton from "@/components/premium/PremiumButton";
 
 import NavigationLink from "@/components/common/NavLink";
@@ -16,14 +17,13 @@ import { navigation } from "@/constants/navigation";
 export default function MobileNavigation() {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-white hover:bg-white/10 hover:text-cyan-300 lg:hidden"
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
+      <SheetTrigger
+        className={cn(
+          buttonVariants({ variant: "ghost", size: "icon" }),
+          "text-white hover:bg-white/10 hover:text-cyan-300 lg:hidden",
+        )}
+      >
+        <Menu className="h-5 w-5" />
       </SheetTrigger>
 
       <SheetContent
@@ -33,7 +33,7 @@ export default function MobileNavigation() {
         <div className="mt-10 flex flex-col gap-6">
           {navigation.map((item) => (
             <NavigationLink
-              key={item.href}
+              key={item.label}
               href={item.href}
               label={item.label}
               // Always render the "scrolled" (light text on dark bg)

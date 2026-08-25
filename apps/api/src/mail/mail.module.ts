@@ -51,7 +51,10 @@ import { UsersModule } from "@/users/users.module";
         },
 
         defaults: {
-          from: config.get("MAIL_FROM"),
+          from:
+            config.get("MAIL_FROM") ||
+            config.get("MAIL_USER") ||
+            "noreply@localhost",
         },
 
         template: {

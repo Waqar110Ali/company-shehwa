@@ -4,99 +4,55 @@ import {
 } from "@nestjs/common";
 
 import { MailService } from "@/mail/mail.service";
+import { NewsletterRepository } from "./repositories/newsletter.repository";
 
 @Injectable()
 export class NewsletterService {
   constructor(
     @Inject(MailService)
     private readonly mailService: MailService,
-  ) {
-    console.log(
-      "[NEWSLETTER] NewsletterService initialized",
-    );
-  }
+
+    private readonly newsletterRepository: NewsletterRepository,
+  ) {}
 
   async subscribe(email: string) {
-    console.log(
-      "========================================",
-    );
-    console.log(
-      "[NEWSLETTER] subscribe() called",
-    );
-    console.log(
-      "[NEWSLETTER] Email received:",
-      email,
+    const normalized = email.toLowerCase().trim();
+
+    const existing =
+      await this.newsletterRepository.findByEmail(
+        normalized,
+      );
+
+    if (existing) {
+      return {
+        success: true,
+        message:
+          "You're already subscribed. Thanks for staying with us.",
+        alreadySubscribed: true,
+      };
+    }
+
+    await this.newsletterRepository.create(
+      normalized,
     );
 
     try {
-      console.log(
-        "[NEWSLETTER] Starting email notification...",
-      );
-
       await this.mailService.sendNewsletterSubscriptionNotification(
-        email,
+        normalized,
       );
-
-      console.log(
-        "[NEWSLETTER] Email notification sent successfully",
-      );
-
-      const response = {
-        success: true,
-        message:
-          "Thanks for subscribing! We'll keep you posted.",
-      };
-
-      console.log(
-        "[NEWSLETTER] Returning response:",
-        response,
-      );
-
-      console.log(
-        "========================================",
-      );
-
-      return response;
     } catch (error: any) {
+      // Persist succeeded; SMTP may be missing in local/dev.
       console.error(
-        "========================================",
+        "[NEWSLETTER] Notification email failed (subscriber saved):",
+        error?.message ?? error,
       );
-      console.error(
-        "[NEWSLETTER] ❌ ERROR IN subscribe()",
-      );
-      console.error(
-        "[NEWSLETTER] Email:",
-        email,
-      );
-      console.error(
-        "[NEWSLETTER] Error:",
-        error,
-      );
-      console.error(
-        "[NEWSLETTER] Error message:",
-        error?.message,
-      );
-      console.error(
-        "[NEWSLETTER] Error name:",
-        error?.name,
-      );
-      console.error(
-        "[NEWSLETTER] Error code:",
-        error?.code,
-      );
-      console.error(
-        "[NEWSLETTER] Error response:",
-        error?.response,
-      );
-      console.error(
-        "[NEWSLETTER] Error stack:",
-        error?.stack,
-      );
-      console.error(
-        "========================================",
-      );
-
-      throw error;
     }
+
+    return {
+      success: true,
+      message:
+        "Thanks for subscribing! We'll keep you posted.",
+      alreadySubscribed: false,
+    };
   }
 }
