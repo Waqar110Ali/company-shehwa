@@ -19,10 +19,16 @@ export class NewsletterController {
     this.service = service;
   }
 
-  @Post("subscribe")
+    @Post("subscribe")
   subscribe(
     @Body() dto: SubscribeNewsletterDto,
   ) {
+    console.log(
+      "[NEWSLETTER DEBUG v3] this.service is:",
+      this.service,
+      "| typeof:",
+      typeof this.service,
+    );
     return this.service.subscribe(dto.email);
   }
 }
