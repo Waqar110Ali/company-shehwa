@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { NewsletterController } from "./Newsletter.controller";
+import { NewsletterController } from "./newsletter.controller";
 import { NewsletterService } from "./newsletter.service";
 import { NewsletterRepository } from "./repositories/newsletter.repository";
 import { MailModule } from "@/mail/mail.module";

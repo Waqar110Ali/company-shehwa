@@ -25,7 +25,7 @@ import { SettingsModule } from "./settings/settings.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { UpdatesModule } from "./updates/updates.module";
 import { FooterModule } from "./footer/footer.module";
-import { NewsletterModule } from "./newsletter/Newsletter.module";
+import { NewsletterModule } from "./newsletter/newsletter.module";
 // import { AssistantPublicModule } from "./assistant-public/assistant-public.module";
 @Module({
   imports: [

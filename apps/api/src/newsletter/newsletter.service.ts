@@ -1,19 +1,23 @@
-import {
-  Injectable,
-  Inject,
-} from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 
 import { MailService } from "@/mail/mail.service";
 import { NewsletterRepository } from "./repositories/newsletter.repository";
 
 @Injectable()
 export class NewsletterService {
+  private readonly mailService: MailService;
+  private readonly newsletterRepository: NewsletterRepository;
+
   constructor(
     @Inject(MailService)
-    private readonly mailService: MailService,
+    mailService: MailService,
 
-    private readonly newsletterRepository: NewsletterRepository,
-  ) {}
+    @Inject(NewsletterRepository)
+    newsletterRepository: NewsletterRepository,
+  ) {
+    this.mailService = mailService;
+    this.newsletterRepository = newsletterRepository;
+  }
 
   async subscribe(email: string) {
     const normalized = email.toLowerCase().trim();
