@@ -10,10 +10,14 @@ import { SubscribeNewsletterDto } from "./dto/subscribe-newsletter.dto";
 
 @Controller("newsletter")
 export class NewsletterController {
+  private readonly service: NewsletterService;
+
   constructor(
     @Inject(NewsletterService)
-    private readonly service: NewsletterService,
-  ) {}
+    service: NewsletterService,
+  ) {
+    this.service = service;
+  }
 
   @Post("subscribe")
   subscribe(
