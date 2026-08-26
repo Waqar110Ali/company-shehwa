@@ -74,3 +74,5 @@ Thumbs.db
 # Deploy / local
 # ==========================================
 .vercel
+
+/api/index.js
