@@ -43,12 +43,12 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 var import_core2 = require("@nestjs/core");
-var import_common89 = require("@nestjs/common");
+var import_common90 = require("@nestjs/common");
 var import_path2 = require("path");
 var import_swagger4 = require("@nestjs/swagger");
 
 // src/app.module.ts
-var import_common88 = require("@nestjs/common");
+var import_common89 = require("@nestjs/common");
 var import_config8 = require("@nestjs/config");
 
 // src/config/index.ts
@@ -86,7 +86,14 @@ var envValidationSchema = Joi.object({
   JWT_REFRESH_SECRET: Joi.string().min(32).required(),
   JWT_EXPIRES: Joi.string().default("15m"),
   JWT_REFRESH_EXPIRES: Joi.string().default("30d"),
-  GEMINI_API_KEY: Joi.string().allow("").optional()
+  GEMINI_API_KEY: Joi.string().allow("").optional(),
+  // Optional SMTP — newsletter notify emails need these
+  MAIL_HOST: Joi.string().optional(),
+  MAIL_PORT: Joi.number().optional(),
+  MAIL_USER: Joi.string().optional(),
+  MAIL_PASSWORD: Joi.string().optional(),
+  MAIL_FROM: Joi.string().optional(),
+  NEWSLETTER_NOTIFY_EMAIL: Joi.string().email().optional()
 });
 
 // src/database/database.module.ts
@@ -1229,7 +1236,6 @@ var import_uuid = require("uuid");
 
 // src/mail/mail.constants.ts
 var APP_NAME = "AI Company Management Platform";
-var NEWSLETTER_NOTIFY_EMAIL = "shehwa.technology110@gmail.com";
 
 // src/mail/mail.service.ts
 var MailService = class {
@@ -1245,12 +1251,26 @@ var MailService = class {
   // Generic Mail Sender
   // =====================================================
   async send(options) {
-    await this.mailerService.sendMail({
-      to: options.to,
-      subject: options.subject,
-      template: options.template,
-      context: options.context
-    });
+    try {
+      console.log("[MAIL] Sending email", {
+        to: options.to,
+        subject: options.subject,
+        template: options.template
+      });
+      await this.mailerService.sendMail({
+        to: options.to,
+        subject: options.subject,
+        template: options.template,
+        context: options.context
+      });
+      console.log("[MAIL] Email sent successfully");
+    } catch (error) {
+      console.error(
+        "[MAIL] Failed to send email:",
+        error
+      );
+      throw error;
+    }
   }
   // =====================================================
   // Welcome Email
@@ -1309,18 +1329,55 @@ var MailService = class {
     });
   }
   // =====================================================
-  // Newsletter Subscription Notification
+  // Newsletter Subscription Notification (to company)
   // =====================================================
+  resolveNotifyEmail() {
+    return this.configService.get(
+      "NEWSLETTER_NOTIFY_EMAIL"
+    ) || this.configService.get("MAIL_USER") || "";
+  }
+  isMailConfigured() {
+    return Boolean(
+      this.configService.get("MAIL_HOST") && this.configService.get("MAIL_USER") && this.configService.get("MAIL_PASSWORD")
+    );
+  }
   async sendNewsletterSubscriptionNotification(subscriberEmail) {
+    if (!this.isMailConfigured()) {
+      console.warn(
+        "[NEWSLETTER] SMTP not fully configured (MAIL_HOST/USER/PASSWORD) \u2014 skipping emails for",
+        subscriberEmail
+      );
+      return;
+    }
+    const notifyTo = this.resolveNotifyEmail();
+    console.log(
+      "[NEWSLETTER] New subscription:",
+      subscriberEmail
+    );
     await this.send({
-      to: NEWSLETTER_NOTIFY_EMAIL,
-      subject: "New Newsletter Subscriber",
-      template: "newsletter-subscription",
+      to: subscriberEmail,
+      subject: `You're subscribed to ${APP_NAME}`,
+      template: "newsletter-confirmation",
       context: {
         subscriberEmail,
         companyName: APP_NAME
       }
     });
+    if (notifyTo) {
+      console.log(
+        "[NEWSLETTER] Notification recipient:",
+        notifyTo
+      );
+      await this.send({
+        to: notifyTo,
+        subject: "New Newsletter Subscriber",
+        template: "newsletter-subscription",
+        context: {
+          subscriberEmail,
+          companyName: APP_NAME
+        }
+      });
+    }
   }
   // =====================================================
   // Email Verification
@@ -1889,7 +1946,7 @@ MailModule = __decorateClass([
             }
           },
           defaults: {
-            from: config.get("MAIL_FROM")
+            from: config.get("MAIL_FROM") || config.get("MAIL_USER") || "noreply@localhost"
           },
           template: {
             // esbuild only bundles code, not non-JS assets like .hbs
@@ -9629,6 +9686,36 @@ PortfolioRepository = __decorateClass([
 ], PortfolioRepository);
 
 // src/portfolio/services/portfolio.service.ts
+var DEFAULT_PORTFOLIO_CONTENT = {
+  heroContent: {
+    badge: "",
+    title: "",
+    description: "",
+    primaryButton: "",
+    secondaryButton: ""
+  },
+  heroStats: [],
+  companyContent: {
+    title: "",
+    subtitle: "",
+    mission: "",
+    vision: ""
+  },
+  companyValues: [],
+  contactInfo: [],
+  faqs: [],
+  developmentProcess: [],
+  featuredProjects: [],
+  services: [],
+  statistics: [],
+  teamMembers: [],
+  technologyCategories: [],
+  testimonials: [],
+  technologies: [],
+  whyChooseUs: [],
+  achievements: [],
+  clientReviews: []
+};
 var PortfolioService = class {
   constructor(portfolioRepository) {
     this.portfolioRepository = portfolioRepository;
@@ -9636,14 +9723,9 @@ var PortfolioService = class {
   portfolioRepository;
   async getPortfolio() {
     const portfolio = await this.portfolioRepository.get();
-    if (!portfolio) {
-      throw new import_common66.NotFoundException(
-        "Portfolio content not found."
-      );
-    }
     return {
       success: true,
-      data: portfolio.content
+      data: portfolio?.content ?? DEFAULT_PORTFOLIO_CONTENT
     };
   }
   async updatePortfolio(content) {
@@ -10550,57 +10632,163 @@ FooterModule = __decorateClass([
   })
 ], FooterModule);
 
-// src/newsletter/Newsletter.module.ts
-var import_common87 = require("@nestjs/common");
+// src/newsletter/newsletter.module.ts
+var import_common88 = require("@nestjs/common");
+var import_mongoose76 = require("@nestjs/mongoose");
 
-// src/newsletter/Newsletter.controller.ts
-var import_common85 = require("@nestjs/common");
-var NewsletterController = class {
-  constructor(service) {
-    this.service = service;
-  }
-  service;
-  subscribe(dto) {
-    return this.service.subscribe(dto.email);
-  }
-};
-__decorateClass([
-  (0, import_common85.Post)("subscribe"),
-  __decorateParam(0, (0, import_common85.Body)())
-], NewsletterController.prototype, "subscribe", 1);
-NewsletterController = __decorateClass([
-  (0, import_common85.Controller)("newsletter")
-], NewsletterController);
+// src/newsletter/newsletter.controller.ts
+var import_common87 = require("@nestjs/common");
 
 // src/newsletter/newsletter.service.ts
 var import_common86 = require("@nestjs/common");
-var NewsletterService = class {
-  constructor(mailService) {
-    this.mailService = mailService;
+
+// src/newsletter/repositories/newsletter.repository.ts
+var import_common85 = require("@nestjs/common");
+var import_mongoose75 = require("@nestjs/mongoose");
+
+// src/newsletter/schemas/newsletter-subscriber.schema.ts
+var import_mongoose74 = require("@nestjs/mongoose");
+var NewsletterSubscriberDoc = class {
+  email;
+  active;
+};
+__decorateClass([
+  (0, import_mongoose74.Prop)({
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    index: true
+  })
+], NewsletterSubscriberDoc.prototype, "email", 2);
+__decorateClass([
+  (0, import_mongoose74.Prop)({
+    type: Boolean,
+    default: true
+  })
+], NewsletterSubscriberDoc.prototype, "active", 2);
+NewsletterSubscriberDoc = __decorateClass([
+  (0, import_mongoose74.Schema)({
+    timestamps: true,
+    collection: "newsletter_subscribers"
+  })
+], NewsletterSubscriberDoc);
+var NewsletterSubscriberSchema = import_mongoose74.SchemaFactory.createForClass(
+  NewsletterSubscriberDoc
+);
+
+// src/newsletter/repositories/newsletter.repository.ts
+var NewsletterRepository = class {
+  constructor(model) {
+    this.model = model;
   }
+  model;
+  findByEmail(email) {
+    return this.model.findOne({ email: email.toLowerCase().trim() }).exec();
+  }
+  create(email) {
+    return this.model.create({
+      email: email.toLowerCase().trim(),
+      active: true
+    });
+  }
+};
+NewsletterRepository = __decorateClass([
+  (0, import_common85.Injectable)(),
+  __decorateParam(0, (0, import_mongoose75.InjectModel)(NewsletterSubscriberDoc.name))
+], NewsletterRepository);
+
+// src/newsletter/newsletter.service.ts
+var NewsletterService = class {
   mailService;
+  newsletterRepository;
+  constructor(mailService, newsletterRepository) {
+    this.mailService = mailService;
+    this.newsletterRepository = newsletterRepository;
+  }
   async subscribe(email) {
-    await this.mailService.sendNewsletterSubscriptionNotification(
-      email
+    const normalized = email.toLowerCase().trim();
+    const existing = await this.newsletterRepository.findByEmail(
+      normalized
     );
+    if (existing) {
+      return {
+        success: true,
+        message: "You're already subscribed. Thanks for staying with us.",
+        alreadySubscribed: true
+      };
+    }
+    await this.newsletterRepository.create(
+      normalized
+    );
+    try {
+      await this.mailService.sendNewsletterSubscriptionNotification(
+        normalized
+      );
+    } catch (error) {
+      console.error(
+        "[NEWSLETTER] Notification email failed (subscriber saved):",
+        error?.message ?? error
+      );
+    }
     return {
       success: true,
-      message: "Thanks for subscribing! We'll keep you posted."
+      message: "Thanks for subscribing! We'll keep you posted.",
+      alreadySubscribed: false
     };
   }
 };
 NewsletterService = __decorateClass([
-  (0, import_common86.Injectable)()
+  (0, import_common86.Injectable)(),
+  __decorateParam(0, (0, import_common86.Inject)(MailService)),
+  __decorateParam(1, (0, import_common86.Inject)(NewsletterRepository))
 ], NewsletterService);
 
-// src/newsletter/Newsletter.module.ts
+// src/newsletter/newsletter.controller.ts
+var NewsletterController = class {
+  service;
+  constructor(service) {
+    this.service = service;
+  }
+  subscribe(dto) {
+    console.log(
+      "[NEWSLETTER DEBUG v3] this.service is:",
+      this.service,
+      "| typeof:",
+      typeof this.service
+    );
+    return this.service.subscribe(dto.email);
+  }
+};
+__decorateClass([
+  (0, import_common87.Post)("subscribe"),
+  __decorateParam(0, (0, import_common87.Body)())
+], NewsletterController.prototype, "subscribe", 1);
+NewsletterController = __decorateClass([
+  (0, import_common87.Controller)("newsletter"),
+  __decorateParam(0, (0, import_common87.Inject)(NewsletterService))
+], NewsletterController);
+
+// src/newsletter/newsletter.module.ts
 var NewsletterModule = class {
 };
 NewsletterModule = __decorateClass([
-  (0, import_common87.Module)({
-    imports: [MailModule],
+  (0, import_common88.Module)({
+    imports: [
+      MailModule,
+      import_mongoose76.MongooseModule.forFeature([
+        {
+          name: NewsletterSubscriberDoc.name,
+          schema: NewsletterSubscriberSchema
+        }
+      ])
+    ],
     controllers: [NewsletterController],
-    providers: [NewsletterService]
+    providers: [
+      NewsletterService,
+      NewsletterRepository
+    ]
   })
 ], NewsletterModule);
 
@@ -10611,7 +10799,7 @@ var AppModule = class {
   }
 };
 AppModule = __decorateClass([
-  (0, import_common88.Module)({
+  (0, import_common89.Module)({
     imports: [
       import_config8.ConfigModule.forRoot({
         isGlobal: true,
@@ -10661,7 +10849,7 @@ async function bootstrap() {
     credentials: true
   });
   app.useGlobalPipes(
-    new import_common89.ValidationPipe({
+    new import_common90.ValidationPipe({
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,
