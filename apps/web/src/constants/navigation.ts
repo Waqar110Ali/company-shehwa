@@ -18,4 +18,5 @@ export const navigation: NavigationItem[] = [
   // nothing (no scroll happens, silently does nothing).
   { label: "Career", href: "/#career" },
   { label: "Contact", href: "/#contact" },
+  { label: "Book", href: "/book" },
 ];

@@ -9,6 +9,7 @@ import FadeUp from "@/components/motion/FadeUp";
 import GlassCard from "@/components/premium/GlassCard";
 import GradientText from "@/components/premium/GradientText";
 import PremiumButton from "@/components/premium/PremiumButton";
+import { ScheduleMeetingButton } from "@/features/booking";
 
 import { useSectionContent } from "../hooks/useSectionContent";
 import { getIcon } from "@/features/portfolio/utils/icon-map";
@@ -68,17 +69,16 @@ export default function ContactCTA() {
 
               <FadeUp delay={0.6}>
                 <div className="mt-12 flex flex-wrap gap-5">
-                  <PremiumButton>
-                    Start Your Project
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </PremiumButton>
+                  <a href="/#contact">
+                    <PremiumButton>
+                      Start Your Project
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </PremiumButton>
+                  </a>
 
-                  <PremiumButton
-                    variant="outline"
-                    className="border-white/20 bg-white/5 text-white hover:bg-white hover:text-slate-900"
-                  >
+                  <ScheduleMeetingButton className="border-white/20 bg-white/5 text-white hover:bg-white hover:text-slate-900">
                     Schedule Meeting
-                  </PremiumButton>
+                  </ScheduleMeetingButton>
                 </div>
               </FadeUp>
             </div>

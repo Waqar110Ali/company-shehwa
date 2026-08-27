@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
+import { CalendarDays, Plus } from "lucide-react";
 
 import { appToast } from "@/lib/toast";
+import { isCalConfigured } from "@/features/booking";
 
 import CalendarHeader from "../Components/CalendarHeader";
 import CalendarStats from "../Components/CalendarStats";
@@ -211,7 +213,7 @@ export default function CalendarPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <CalendarHeader
           currentMonth={new Date().toLocaleString(
             "default",
@@ -222,16 +224,28 @@ export default function CalendarPage() {
           )}
         />
 
-        <button
-          onClick={() => {
-            setEditingEvent(null);
-            setModalOpen(true);
-          }}
-          className="flex items-center gap-2 rounded-xl bg-cyan-500 px-5 py-3 font-semibold text-white transition hover:bg-cyan-600"
-        >
-          <Plus size={18} />
-          Add Event
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          {isCalConfigured() && (
+            <Link
+              to="/book"
+              className="flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-5 py-3 font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+            >
+              <CalendarDays size={18} />
+              Book Meeting
+            </Link>
+          )}
+
+          <button
+            onClick={() => {
+              setEditingEvent(null);
+              setModalOpen(true);
+            }}
+            className="flex items-center gap-2 rounded-xl bg-cyan-500 px-5 py-3 font-semibold text-white transition hover:bg-cyan-600"
+          >
+            <Plus size={18} />
+            Add Event
+          </button>
+        </div>
       </div>
 
       <CalendarStats

@@ -42,4 +42,12 @@ export const envValidationSchema =
     NEWSLETTER_NOTIFY_EMAIL: Joi.string()
       .email()
       .optional(),
+
+    // Cal.com — public booking via API (avoids broken iframe embed)
+    // Prefer CALCOM_LINK=username/event-slug (lowercase)
+    CALCOM_LINK: Joi.string().optional(),
+    CALCOM_USERNAME: Joi.string().optional(),
+    CALCOM_EVENT_SLUG: Joi.string().optional(),
+    CALCOM_TIMEZONE: Joi.string().optional(),
+    CALCOM_API_KEY: Joi.string().optional(),
   });

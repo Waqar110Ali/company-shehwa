@@ -9,6 +9,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 
 // Public
 import HomePage from "@/pages/public/HomePage";
+import { BookMeetingPage } from "@/features/booking";
 
 // Auth
 import LoginPage from "@/features/auth/pages/LoginPage";
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "book",
+        element: <BookMeetingPage />,
       },
     ],
   },
