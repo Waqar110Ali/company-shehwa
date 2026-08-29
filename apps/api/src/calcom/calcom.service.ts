@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   ServiceUnavailableException,
 } from "@nestjs/common";
@@ -22,10 +23,14 @@ type CalBookingResponse = {
 @Injectable()
 export class CalcomService {
   private readonly apiBase = "https://api.cal.com/v2";
+  private readonly config: ConfigService;
 
   constructor(
-    private readonly config: ConfigService,
-  ) {}
+    @Inject(ConfigService)
+    config: ConfigService,
+  ) {
+    this.config = config;
+  }
 
   isConfigured(): boolean {
     return Boolean(this.getUsername() && this.getEventSlug());

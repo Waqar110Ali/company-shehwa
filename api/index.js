@@ -49,7 +49,7 @@ var import_swagger4 = require("@nestjs/swagger");
 
 // src/app.module.ts
 var import_common92 = require("@nestjs/common");
-var import_config8 = require("@nestjs/config");
+var import_config9 = require("@nestjs/config");
 
 // src/config/index.ts
 var config_default = [
@@ -10807,12 +10807,13 @@ var import_common90 = require("@nestjs/common");
 
 // src/calcom/calcom.service.ts
 var import_common89 = require("@nestjs/common");
+var import_config8 = require("@nestjs/config");
 var CalcomService = class {
+  apiBase = "https://api.cal.com/v2";
+  config;
   constructor(config) {
     this.config = config;
   }
-  config;
-  apiBase = "https://api.cal.com/v2";
   isConfigured() {
     return Boolean(this.getUsername() && this.getEventSlug());
   }
@@ -10994,7 +10995,8 @@ var CalcomService = class {
   }
 };
 CalcomService = __decorateClass([
-  (0, import_common89.Injectable)()
+  (0, import_common89.Injectable)(),
+  __decorateParam(0, (0, import_common89.Inject)(import_config8.ConfigService))
 ], CalcomService);
 
 // src/calcom/calcom.controller.ts
@@ -11049,7 +11051,7 @@ var AppModule = class {
 AppModule = __decorateClass([
   (0, import_common92.Module)({
     imports: [
-      import_config8.ConfigModule.forRoot({
+      import_config9.ConfigModule.forRoot({
         isGlobal: true,
         cache: true,
         load: config_default,
