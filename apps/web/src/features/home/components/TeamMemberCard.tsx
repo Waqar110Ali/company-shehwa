@@ -20,6 +20,14 @@ interface TeamMemberCardProps {
   linkedin: string;
 }
 
+// Cycled by index so any number of skills stays visually varied
+// without ever breaking layout (no absolute positioning here).
+const SKILL_ACCENTS = [
+  "border-cyan-400/30 bg-cyan-500/10 text-cyan-300",
+  "border-blue-400/30 bg-blue-500/10 text-blue-300",
+  "border-violet-400/30 bg-violet-500/10 text-violet-300",
+];
+
 export default function TeamMemberCard({
   image,
   name,
@@ -32,95 +40,162 @@ export default function TeamMemberCard({
   return (
     <FadeUp>
 
-        <GlassCard className="group flex h-full flex-col overflow-hidden p-0">
+      <div className="group flex h-full flex-col">
 
-        {/* IMAGE */}
+        {/* ================================================
+            STAGE — floating cutout portrait in front of two
+            vertically-stacked glass panels, centered behind
+            the person for a compact, layered "badge" look.
+            ================================================ */}
 
-        <div className="relative overflow-hidden">
+        <div className="relative flex h-56 items-end justify-center">
 
-          <motion.img
-            whileHover={{ scale: 1.08 }}
-            transition={{ duration: 0.5 }}
-            src={image}
-            alt={name}
-            className="h-80 w-full object-cover"
+          {/* Back panel — long, centered, set slightly higher */}
+          <div
+            className="
+              absolute
+              left-1/2
+              top-3
+              h-32
+              w-36
+              -translate-x-1/2
+              -rotate-3
+              rounded-3xl
+              border
+              border-white/10
+              bg-gradient-to-b
+              from-cyan-500/10
+              via-white/5
+              to-transparent
+              backdrop-blur-xl
+              transition-transform
+              duration-500
+              group-hover:-rotate-1
+            "
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+          {/* Front panel — narrower, set slightly lower */}
+          <div
+            className="
+              absolute
+              left-1/2
+              top-9
+              h-24
+              w-32
+              -translate-x-1/2
+              rotate-3
+              rounded-3xl
+              border
+              border-white/10
+              bg-gradient-to-b
+              from-blue-500/10
+              via-white/5
+              to-transparent
+              backdrop-blur-xl
+              transition-transform
+              duration-500
+              group-hover:rotate-1
+            "
+          />
 
-          {/* Social Icons */}
+          {/* Ground glow */}
+          <div className="absolute bottom-1 h-3 w-24 rounded-full bg-cyan-400/30 blur-xl" />
+
+          {/* Floating cutout — object-contain, no border/frame */}
+          <motion.img
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.4 }}
+            src={image}
+            alt={name}
+            className="
+              relative
+              z-10
+              h-56
+              w-auto
+              object-contain
+              drop-shadow-[0_20px_28px_rgba(6,182,212,0.25)]
+            "
+          />
+
+          {/* Social Icons — appear on hover, top-right of the stage */}
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -8 }}
             whileHover={{ opacity: 1, y: 0 }}
-            className="absolute bottom-5 right-5 flex gap-3"
+            className="absolute right-2 top-2 z-20 flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             <a
               href={github}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl border border-white/10 bg-white/10 p-3 text-white backdrop-blur-xl transition hover:bg-cyan-500"
+              className="rounded-xl border border-white/10 bg-white/10 p-2.5 text-white backdrop-blur-xl transition hover:bg-cyan-500"
             >
-              <FaGithub />
+              <FaGithub size={14} />
             </a>
 
             <a
               href={linkedin}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl border border-white/10 bg-white/10 p-3 text-white backdrop-blur-xl transition hover:bg-cyan-500"
+              className="rounded-xl border border-white/10 bg-white/10 p-2.5 text-white backdrop-blur-xl transition hover:bg-cyan-500"
             >
-              <FaLinkedin />
+              <FaLinkedin size={14} />
             </a>
           </motion.div>
 
         </div>
 
-        {/* CONTENT */}
+        {/* ================================================
+            CONTENT — overlaps the stage slightly so the two
+            zones read as one composition.
+            ================================================ */}
 
-        <div className="flex flex-1 flex-col p-8">
+        <GlassCard className="relative z-10 -mt-5 flex flex-1 flex-col items-center rounded-3xl p-5 text-center">
 
-          <span className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-xs font-semibold text-cyan-300">
+          <span className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold text-cyan-300">
             {department}
           </span>
 
-          <h3 className="mt-6 text-2xl font-black text-white">
+          <h3 className="mt-4 text-2xl font-black text-white">
             {name}
           </h3>
 
-          <p className="mt-2 text-cyan-300">
+          <p className="mt-1 text-cyan-300">
             {designation}
           </p>
 
-         <div className="my-6 h-px bg-gradient-to-r from-cyan-500/50 to-transparent" />
+          <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
 
-          <div className="mb-8 flex flex-wrap gap-3">
+          {/* Skills — scattered jewel-toned chip cluster */}
 
-            {skills.map((skill) => (
-
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            {skills.map((skill, index) => (
               <motion.span
                 key={skill}
-                whileHover={{ scale: 1.05 }}
-                className="
+                whileHover={{ y: -3, scale: 1.05 }}
+                className={`
+                  inline-flex
+                  items-center
+                  gap-1.5
                   rounded-full
                   border
-                  border-cyan-400/20
-                  bg-cyan-500/10
-                  px-4
-                  py-2
-                  text-sm
-                  text-cyan-300
-                "
+                  px-3
+                  py-1.5
+                  text-xs
+                  font-medium
+                  backdrop-blur-xl
+                  ${SKILL_ACCENTS[index % SKILL_ACCENTS.length]}
+                  ${index % 2 === 0 ? "-translate-y-0.5" : "translate-y-0.5"}
+                `}
               >
+                <span className="h-1.5 w-1.5 rounded-full bg-current" />
                 {skill}
               </motion.span>
-
             ))}
-
           </div>
 
-        <PremiumButton
-            className="mt-auto w-full pt-8"
+          <PremiumButton
+            className="mt-auto w-full"
             variant="outline"
           >
             View Profile
@@ -129,9 +204,9 @@ export default function TeamMemberCard({
 
           </PremiumButton>
 
-        </div>
+        </GlassCard>
 
-      </GlassCard>
+      </div>
 
     </FadeUp>
   );
