@@ -43,12 +43,12 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 var import_core2 = require("@nestjs/core");
-var import_common90 = require("@nestjs/common");
+var import_common93 = require("@nestjs/common");
 var import_path2 = require("path");
 var import_swagger4 = require("@nestjs/swagger");
 
 // src/app.module.ts
-var import_common89 = require("@nestjs/common");
+var import_common92 = require("@nestjs/common");
 var import_config8 = require("@nestjs/config");
 
 // src/config/index.ts
@@ -93,7 +93,14 @@ var envValidationSchema = Joi.object({
   MAIL_USER: Joi.string().optional(),
   MAIL_PASSWORD: Joi.string().optional(),
   MAIL_FROM: Joi.string().optional(),
-  NEWSLETTER_NOTIFY_EMAIL: Joi.string().email().optional()
+  NEWSLETTER_NOTIFY_EMAIL: Joi.string().email().optional(),
+  // Cal.com — public booking via API (avoids broken iframe embed)
+  // Prefer CALCOM_LINK=username/event-slug (lowercase)
+  CALCOM_LINK: Joi.string().optional(),
+  CALCOM_USERNAME: Joi.string().optional(),
+  CALCOM_EVENT_SLUG: Joi.string().optional(),
+  CALCOM_TIMEZONE: Joi.string().optional(),
+  CALCOM_API_KEY: Joi.string().optional()
 });
 
 // src/database/database.module.ts
@@ -10792,6 +10799,247 @@ NewsletterModule = __decorateClass([
   })
 ], NewsletterModule);
 
+// src/calcom/calcom.module.ts
+var import_common91 = require("@nestjs/common");
+
+// src/calcom/calcom.controller.ts
+var import_common90 = require("@nestjs/common");
+
+// src/calcom/calcom.service.ts
+var import_common89 = require("@nestjs/common");
+var CalcomService = class {
+  constructor(config) {
+    this.config = config;
+  }
+  config;
+  apiBase = "https://api.cal.com/v2";
+  isConfigured() {
+    return Boolean(this.getUsername() && this.getEventSlug());
+  }
+  getPublicConfig() {
+    return {
+      configured: this.isConfigured(),
+      username: this.getUsername() || null,
+      eventSlug: this.getEventSlug() || null,
+      durationMinutes: 30
+    };
+  }
+  async getSlots(start, end) {
+    this.assertConfigured();
+    const username = this.getUsername();
+    const eventSlug = this.getEventSlug();
+    const timeZone = this.config.get("CALCOM_TIMEZONE") || "Asia/Karachi";
+    const url = new URL(`${this.apiBase}/slots`);
+    url.searchParams.set("username", username);
+    url.searchParams.set("eventTypeSlug", eventSlug);
+    url.searchParams.set("start", start);
+    url.searchParams.set("end", end);
+    url.searchParams.set("timeZone", timeZone);
+    const json = await this.calFetch(
+      url.toString(),
+      { method: "GET" },
+      "2024-09-04"
+    );
+    if (json.status !== "success") {
+      throw new import_common89.BadRequestException(
+        json.error?.message || "Unable to load available slots from Cal.com"
+      );
+    }
+    const days = json.data ?? {};
+    const slots = Object.entries(days).flatMap(
+      ([date, items]) => (items ?? []).map((item) => ({
+        date,
+        start: item.start
+      }))
+    );
+    return {
+      timeZone,
+      username,
+      eventSlug,
+      slots
+    };
+  }
+  async createBooking(dto) {
+    this.assertConfigured();
+    const username = this.getUsername();
+    const eventSlug = this.getEventSlug();
+    const timeZone = dto.timeZone || this.config.get("CALCOM_TIMEZONE") || "Asia/Karachi";
+    const body = {
+      start: this.toUtcIso(dto.start),
+      eventTypeSlug: eventSlug,
+      username,
+      attendee: {
+        name: dto.name.trim(),
+        email: dto.email.trim().toLowerCase(),
+        timeZone,
+        language: "en"
+      },
+      metadata: {}
+    };
+    if (dto.notes?.trim()) {
+      body.bookingFieldsResponses = {
+        notes: dto.notes.trim()
+      };
+    }
+    const json = await this.calFetch(
+      `${this.apiBase}/bookings`,
+      {
+        method: "POST",
+        body: JSON.stringify(body)
+      },
+      "2024-08-13"
+    );
+    if (json.status !== "success") {
+      throw new import_common89.BadRequestException(
+        json.error?.message || "Cal.com could not create the booking. Please try another time."
+      );
+    }
+    return {
+      success: true,
+      booking: json.data
+    };
+  }
+  getUsername() {
+    const fromParts = this.config.get("CALCOM_USERNAME");
+    if (fromParts?.trim()) {
+      return fromParts.trim().toLowerCase();
+    }
+    const link = this.parseLink();
+    return link?.username ?? "";
+  }
+  getEventSlug() {
+    const fromParts = this.config.get("CALCOM_EVENT_SLUG");
+    if (fromParts?.trim()) {
+      return fromParts.trim().toLowerCase();
+    }
+    const link = this.parseLink();
+    return link?.eventSlug ?? "";
+  }
+  parseLink() {
+    let raw = (this.config.get("CALCOM_LINK") || "").trim().replace(/^@/, "");
+    if (!raw) return null;
+    try {
+      if (/^https?:\/\//i.test(raw)) {
+        raw = new URL(raw).pathname.replace(/^\/+|\/+$/g, "");
+      }
+    } catch {
+    }
+    const parts = raw.replace(/\/embed$/i, "").replace(/^\/+|\/+$/g, "").toLowerCase().split("/").filter(Boolean);
+    if (parts.length < 2) return null;
+    return {
+      username: parts[0],
+      eventSlug: parts[1]
+    };
+  }
+  assertConfigured() {
+    if (!this.isConfigured()) {
+      throw new import_common89.ServiceUnavailableException(
+        "Cal.com is not configured. Set CALCOM_LINK=username/event-slug in the API env."
+      );
+    }
+  }
+  /** Ensure start is UTC ISO without timezone offset suffix issues. */
+  toUtcIso(start) {
+    const date = new Date(start);
+    if (Number.isNaN(date.getTime())) {
+      throw new import_common89.BadRequestException("Invalid start time");
+    }
+    return date.toISOString().replace(/\.\d{3}Z$/, "Z");
+  }
+  async calFetch(url, init, apiVersion) {
+    const headers = {
+      Accept: "application/json",
+      "cal-api-version": apiVersion,
+      ...init.headers
+    };
+    if (init.body) {
+      headers["Content-Type"] = "application/json";
+    }
+    const apiKey = this.config.get("CALCOM_API_KEY");
+    if (apiKey?.trim()) {
+      headers.Authorization = `Bearer ${apiKey.trim()}`;
+    }
+    let response;
+    try {
+      response = await fetch(url, {
+        ...init,
+        headers
+      });
+    } catch (error) {
+      console.error("[CALCOM] Network error:", error);
+      throw new import_common89.ServiceUnavailableException(
+        "Unable to reach Cal.com. Please try again shortly."
+      );
+    }
+    const text = await response.text();
+    let json;
+    try {
+      json = text ? JSON.parse(text) : {};
+    } catch {
+      console.error(
+        "[CALCOM] Non-JSON response",
+        response.status,
+        text.slice(0, 300)
+      );
+      throw new import_common89.ServiceUnavailableException(
+        "Unexpected response from Cal.com"
+      );
+    }
+    if (!response.ok) {
+      const message = json?.error?.message || json?.message || `Cal.com request failed (${response.status})`;
+      console.error("[CALCOM] Error", response.status, message);
+      throw new import_common89.BadRequestException(message);
+    }
+    return json;
+  }
+};
+CalcomService = __decorateClass([
+  (0, import_common89.Injectable)()
+], CalcomService);
+
+// src/calcom/calcom.controller.ts
+var CalcomController = class {
+  constructor(calcomService) {
+    this.calcomService = calcomService;
+  }
+  calcomService;
+  getConfig() {
+    return this.calcomService.getPublicConfig();
+  }
+  getSlots(query) {
+    return this.calcomService.getSlots(query.start, query.end);
+  }
+  createBooking(dto) {
+    return this.calcomService.createBooking(dto);
+  }
+};
+__decorateClass([
+  (0, import_common90.Get)("config")
+], CalcomController.prototype, "getConfig", 1);
+__decorateClass([
+  (0, import_common90.Get)("slots"),
+  __decorateParam(0, (0, import_common90.Query)())
+], CalcomController.prototype, "getSlots", 1);
+__decorateClass([
+  (0, import_common90.Post)("bookings"),
+  __decorateParam(0, (0, import_common90.Body)())
+], CalcomController.prototype, "createBooking", 1);
+CalcomController = __decorateClass([
+  (0, import_common90.Controller)("calcom"),
+  __decorateParam(0, (0, import_common90.Inject)(CalcomService))
+], CalcomController);
+
+// src/calcom/calcom.module.ts
+var CalcomModule = class {
+};
+CalcomModule = __decorateClass([
+  (0, import_common91.Module)({
+    controllers: [CalcomController],
+    providers: [CalcomService],
+    exports: [CalcomService]
+  })
+], CalcomModule);
+
 // src/app.module.ts
 var AppModule = class {
   configure(consumer) {
@@ -10799,7 +11047,7 @@ var AppModule = class {
   }
 };
 AppModule = __decorateClass([
-  (0, import_common89.Module)({
+  (0, import_common92.Module)({
     imports: [
       import_config8.ConfigModule.forRoot({
         isGlobal: true,
@@ -10825,7 +11073,8 @@ AppModule = __decorateClass([
       NotificationsModule,
       UpdatesModule,
       FooterModule,
-      NewsletterModule
+      NewsletterModule,
+      CalcomModule
       // AssistantPublicModule,
     ]
   })
@@ -10849,7 +11098,7 @@ async function bootstrap() {
     credentials: true
   });
   app.useGlobalPipes(
-    new import_common90.ValidationPipe({
+    new import_common93.ValidationPipe({
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,
