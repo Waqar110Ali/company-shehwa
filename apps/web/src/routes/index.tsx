@@ -37,6 +37,13 @@ import ReportsAccess from "@/features/reports/components/ReportsAccess";
 import PortfolioAdminPage from "@/features/portfolio/pages/PortfolioAdminPage";
 import AuroraBackground from "@/components/effects/AuroraBackground";
 
+import TutorialLandingPage from "@/features/tutorial/pages/TutorialLandingPage";
+import TutorialRegisterPage from "@/features/tutorial/pages/TutorialRegisterPage";
+import TutorialCoursesPage from "@/features/tutorial/pages/TutorialCoursesPage";
+import TutorialPaymentPage from "@/features/tutorial/pages/TutorialPaymentPage";
+import TutorialAdminPage from "@/features/tutorial/pages/TutorialAdminPage";
+import TutorialLearningPage from "@/features/tutorial/pages/TutorialLearningPage";
+
 // ==============================================================
 // Admin-only guard (mirrors ReportsAccess pattern)
 // ==============================================================
@@ -82,6 +89,34 @@ export const router = createBrowserRouter([
         </div>
       </AuroraBackground>
     ),
+  },
+
+  // ==========================================================
+  // Tutorial Flow
+  // ==========================================================
+  {
+    path: "/tutorial",
+    element: <TutorialLandingPage />,
+  },
+  {
+    path: "/tutorial/register",
+    element: <TutorialRegisterPage />,
+  },
+  {
+    path: "/tutorial/courses",
+    element: <TutorialCoursesPage />,
+  },
+  {
+    path: "/tutorial/payment",
+    element: <TutorialPaymentPage />,
+  },
+  {
+    path: "/tutorial/admin",
+    element: <TutorialAdminPage />,
+  },
+  {
+    path: "/tutorial/learning",
+    element: <TutorialLearningPage />,
   },
 
   // ==========================================================

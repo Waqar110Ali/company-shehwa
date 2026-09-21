@@ -4,7 +4,7 @@ import {
   NestModule,
 } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import configs from "./config";
+import configs from "./config/index";
 import { envValidationSchema } from "./config/env.validation";
 import { DatabaseModule } from "./database";
 import { UsersModule } from "./users/users.module";
@@ -27,6 +27,7 @@ import { UpdatesModule } from "./updates/updates.module";
 import { FooterModule } from "./footer/footer.module";
 import { NewsletterModule } from "./newsletter/newsletter.module";
 import { CalcomModule } from "./calcom/calcom.module";
+import { TutorialModule } from "./tutorial/tutorial.module";
 // import { AssistantPublicModule } from "./assistant-public/assistant-public.module";
 @Module({
   imports: [
@@ -54,9 +55,10 @@ import { CalcomModule } from "./calcom/calcom.module";
     SettingsModule,
     NotificationsModule,
     UpdatesModule,
-     FooterModule,
+    FooterModule,
     NewsletterModule,
     CalcomModule,
+    TutorialModule,
     // AssistantPublicModule,
   ],
 })
