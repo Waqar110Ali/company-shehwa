@@ -11,6 +11,7 @@ import {
   Bot,
   Settings,
   Globe,
+  GraduationCap,
 } from "lucide-react";
 
 import { Role } from "@/features/auth/types/role";
@@ -46,6 +47,12 @@ export const menu = [
         label: "Portfolio Content",
         icon: Globe,
         path: "/dashboard/portfolio",
+        roles: [Role.ADMIN],
+      },
+      {
+        label: "Tutorial Management",
+        icon: GraduationCap,
+        path: "/dashboard/tutorial-management",
         roles: [Role.ADMIN],
       },
     ],

@@ -13,4 +13,6 @@ export enum Role {
   MANAGER = "MANAGER",
   AI = "AI",
   CEO = "CEO",
+
+  STUDENT = "STUDENT",
 }

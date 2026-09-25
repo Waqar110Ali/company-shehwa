@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 
 import PublicLayout from "@/layouts/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import TutorialDashboardLayout from "@/layouts/TutorialDashboardLayout";
 
 // Public
 import HomePage from "@/pages/public/HomePage";
@@ -112,11 +113,37 @@ export const router = createBrowserRouter([
   },
   {
     path: "/tutorial/admin",
-    element: <TutorialAdminPage />,
+    element: (
+      <AdminOnly>
+        <Navigate to="/dashboard/tutorial-management" replace />
+      </AdminOnly>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <AdminOnly>
+        <Navigate to="/dashboard/tutorial-management" replace />
+      </AdminOnly>
+    ),
   },
   {
     path: "/tutorial/learning",
     element: <TutorialLearningPage />,
+  },
+  {
+    path: "/tutorial/dashboard",
+    element: (
+      <ProtectedRoute>
+        <TutorialDashboardLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { index: true, element: <Navigate to="courses" replace /> },
+      { path: "courses", element: <TutorialCoursesPage /> },
+      { path: "my-courses", element: <TutorialLearningPage /> },
+      { path: "payment", element: <TutorialPaymentPage /> },
+    ],
   },
 
   // ==========================================================
@@ -127,10 +154,10 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
 
-  // {
-  //   path: "/register",
-  //   element: <RegisterPage />,
-  // },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
 
   // ==========================================================
   // Dashboard
@@ -196,6 +223,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminOnly>
             <PortfolioAdminPage />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "tutorial-management",
+        element: (
+          <AdminOnly>
+            <TutorialAdminPage />
           </AdminOnly>
         ),
       },

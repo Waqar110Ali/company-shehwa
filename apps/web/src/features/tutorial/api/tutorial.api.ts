@@ -15,6 +15,11 @@ export async function getTutorialCourses() {
   return response.data;
 }
 
+export async function getTutorialMe() {
+  const response = await api.get("/tutorial/me");
+  return response.data;
+}
+
 export async function enrollCourse(userId: string, courseId: string) {
   const response = await api.post("/tutorial/enroll", {
     userId,
@@ -38,6 +43,11 @@ export async function getPayments(userId?: string) {
   const response = await api.get("/tutorial/payments", {
     params: userId ? { userId } : {},
   });
+  return response.data;
+}
+
+export async function getTutorialAdminOverview() {
+  const response = await api.get("/tutorial/admin-overview");
   return response.data;
 }
 

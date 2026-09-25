@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { enrollCourse, getTutorialCourses } from "../api/tutorial.api";
+import { getTutorialCourses, getTutorialMe } from "../api/tutorial.api";
+import { getAccessToken } from "@/features/auth/utils/auth-storage";
 
 export default function TutorialCoursesPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("userId") ?? "";
+  const queryUserId = searchParams.get("userId") ?? "";
+  const [userId, setUserId] = useState(queryUserId);
   const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -15,6 +17,10 @@ export default function TutorialCoursesPage() {
   useEffect(() => {
     async function load() {
       try {
+        if (getAccessToken()) {
+          const profile = await getTutorialMe();
+          setUserId(profile?.data?._id ?? "");
+        }
         const result = await getTutorialCourses();
         setCourses(result?.data ?? []);
       } catch (err: any) {
@@ -29,14 +35,13 @@ export default function TutorialCoursesPage() {
 
   async function handleEnroll(courseId: string) {
     if (!activeUserId) {
-      navigate("/tutorial/register");
+      navigate(`/login?redirect=${encodeURIComponent(`/tutorial/dashboard/courses?courseId=${courseId}`)}`);
       return;
     }
 
     setActionLoading(courseId);
     try {
-      await enrollCourse(activeUserId, courseId);
-      navigate(`/tutorial/payment?userId=${activeUserId}&courseId=${courseId}`);
+      navigate(`/tutorial/dashboard/payment?userId=${activeUserId}&courseId=${courseId}`);
     } catch (err: any) {
       setError(err?.response?.data?.message ?? "Enrollment failed.");
     } finally {
@@ -56,7 +61,7 @@ export default function TutorialCoursesPage() {
             <Link to="/tutorial/register">
               <Button variant="secondary" className="rounded-full">New student</Button>
             </Link>
-            <Link to={`/tutorial/learning?userId=${activeUserId}`}>
+            <Link to={`/tutorial/dashboard/my-courses?userId=${activeUserId}`}>
               <Button variant="outline" className="rounded-full border-white/20 bg-transparent text-white hover:bg-white/5">
                 My learning
               </Button>
@@ -96,7 +101,7 @@ export default function TutorialCoursesPage() {
                 disabled={actionLoading === course._id}
                 className="w-full rounded-xl bg-cyan-500 text-slate-950 hover:bg-cyan-400"
               >
-                {actionLoading === course._id ? "Processing..." : activeUserId ? "Enroll & continue" : "Register to enroll"}
+                {actionLoading === course._id ? "Processing..." : activeUserId ? "Enroll now" : "Login to enroll"}
               </Button>
             </div>
           ))}

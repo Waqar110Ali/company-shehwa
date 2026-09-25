@@ -9,12 +9,30 @@ import { RegisterTutorialUserDto } from "../dto/register-tutorial-user.dto";
 import { SubmitPaymentDto } from "../dto/submit-payment.dto";
 import { ReviewPaymentDto } from "../dto/review-payment.dto";
 import { TutorialRepository } from "../repositories/tutorial.repository";
+import { MailService } from "../../mail/mail.service";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class TutorialService {
   constructor(
     private readonly tutorialRepository: TutorialRepository,
+    private readonly mailService: MailService,
+    private readonly configService: ConfigService,
   ) {}
+
+  async getOrCreateAuthUser(authUser: { email: string; firstName?: string; lastName?: string }) {
+    const fullName = [authUser.firstName, authUser.lastName].filter(Boolean).join(" ") || authUser.email;
+    const user = await this.tutorialRepository.findOrCreateUser({
+      email: authUser.email,
+      fullName,
+      status: "pending",
+      hasAccess: false,
+      isPaymentVerified: false,
+      coins: 0,
+    });
+
+    return { success: true, data: user };
+  }
 
   async createTutorialUser(data: RegisterTutorialUserDto) {
     const normalizedEmail = data.email.trim().toLowerCase();
@@ -124,6 +142,28 @@ export class TutorialService {
     });
 
     await this.tutorialRepository.addPaymentHistory(userId, String(paymentRequest._id));
+    await this.tutorialRepository.addEnrollment(userId, dto.courseId);
+
+    const notifyTo = this.configService.get<string>("NEWSLETTER_NOTIFY_EMAIL") || this.configService.get<string>("MAIL_USER");
+    if (notifyTo) {
+      try {
+        await this.mailService.send({
+          to: notifyTo,
+          subject: "New tutorial enrollment payment requires review",
+          template: "tutorial-payment-submitted",
+          context: {
+            studentName: user.fullName,
+            studentEmail: user.email,
+            courseName: course.title,
+            amount: dto.amount,
+            paymentMethod: dto.paymentMethod,
+            screenshotUrl: dto.screenshotUrl ?? "",
+          },
+        });
+      } catch (error) {
+        console.error("[TUTORIAL] Admin notification email failed:", error);
+      }
+    }
 
     return {
       success: true,
@@ -138,6 +178,19 @@ export class TutorialService {
     return {
       success: true,
       data: payments,
+    };
+  }
+
+  async getAdminOverview() {
+    const [users, courses, payments] = await Promise.all([
+      this.tutorialRepository.listUsers(),
+      this.tutorialRepository.ensureCourseSeed(),
+      this.tutorialRepository.listPayments(),
+    ]);
+
+    return {
+      success: true,
+      data: { users, courses, payments },
     };
   }
 

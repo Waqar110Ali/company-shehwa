@@ -38,12 +38,22 @@ export class TutorialRepository {
     });
   }
 
+  async findOrCreateUser(data: Partial<TutorialUser>) {
+    const existing = await this.findUserByEmail(String(data.email).toLowerCase());
+    if (existing) return existing;
+    return this.createUser(data);
+  }
+
   async findUserByEmail(email: string) {
     return this.tutorialUserModel.findOne({ email }).exec();
   }
 
   async findUserById(id: string) {
     return this.tutorialUserModel.findById(id).exec();
+  }
+
+  async listUsers() {
+    return this.tutorialUserModel.find().sort({ createdAt: -1 }).lean().exec();
   }
 
   async updateUser(id: string, data: Record<string, any>) {
@@ -155,7 +165,7 @@ export class TutorialRepository {
 
   async listPayments(userId?: string) {
     const query = userId ? { userId } : {};
-    return this.tutorialPaymentModel.find(query).sort({ createdAt: -1 }).exec();
+    return this.tutorialPaymentModel.find(query).sort({ createdAt: -1 }).lean().exec();
   }
 
   async updatePaymentRequest(id: string, data: Record<string, any>) {

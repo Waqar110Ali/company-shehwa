@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   Link,
   useNavigate,
+  useSearchParams,
 } from "react-router-dom";
 
 import { api } from "@/lib/api";
@@ -11,9 +12,11 @@ import AuthCard from "./AuthCard";
 import AuthDivider from "./AuthDivider";
 import PasswordInput from "./PasswordInput";
 import SocialLogin from "./SocialLogin";
+import { Role } from "../types/role";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [email, setEmail] =
     useState("");
@@ -71,7 +74,8 @@ export default function LoginForm() {
 
       alert("Login Successful!");
 
-      navigate("/dashboard");
+      const redirect = searchParams.get("redirect");
+      navigate(redirect || (user.role === Role.STUDENT ? "/tutorial/dashboard" : "/dashboard"));
     } catch (error: any) {
       console.error(error);
 

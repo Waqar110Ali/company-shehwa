@@ -105,7 +105,7 @@ Clear-StalePort 8000
 
 Write-Host "Starting API..."
 $apiLog = Join-Path $logDir 'api.log'
-Start-Process -FilePath 'powershell' -WorkingDirectory $apiDir -ArgumentList @('-NoExit','-NoLogo','-ExecutionPolicy','Bypass','-Command', "npm run start 2>&1 | Tee-Object -FilePath '$apiLog'") | Out-Null
+Start-Process -FilePath 'powershell' -WorkingDirectory $apiDir -ArgumentList @('-NoExit','-NoLogo','-ExecutionPolicy','Bypass','-Command', "node dist/main.js 2>&1 | Tee-Object -FilePath '$apiLog'") | Out-Null
 
 Write-Host "Starting Web app..."
 $webLog = Join-Path $logDir 'web.log'
@@ -117,7 +117,37 @@ Start-Process -FilePath 'powershell' -WorkingDirectory $aiDir -ArgumentList @('-
 
 Write-Host ''
 Write-Host 'Waiting for services to initialize...'
-Start-Sleep -Seconds 20
+
+$startupChecks = @(
+    @{ Name = 'API'; Url = 'http://localhost:5000/docs'; Port = 5000 },
+    @{ Name = 'Web'; Url = 'http://localhost:5173'; Port = 5173 },
+    @{ Name = 'AI'; Url = 'http://localhost:8000/health'; Port = 8000 }
+)
+
+$startupDeadline = (Get-Date).AddSeconds(90)
+do {
+    $readyCount = 0
+    foreach ($startupCheck in $startupChecks) {
+        try {
+            $connection = Test-NetConnection -ComputerName localhost -Port $startupCheck.Port -WarningAction SilentlyContinue
+            if ($connection.TcpTestSucceeded) {
+                $response = Invoke-WebRequest -Uri $startupCheck.Url -UseBasicParsing -TimeoutSec 3
+                if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 400) {
+                    $readyCount++
+                }
+            }
+        }
+        catch {
+            # Service is still starting; check again.
+        }
+    }
+
+    if ($readyCount -eq $startupChecks.Count) {
+        break
+    }
+
+    Start-Sleep -Seconds 2
+} while ((Get-Date) -lt $startupDeadline)
 
 $checks = @(
     @{ Name = 'API'; Urls = @('http://localhost:5000/docs'); Port = 5000 },

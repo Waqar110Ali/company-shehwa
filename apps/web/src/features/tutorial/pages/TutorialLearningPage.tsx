@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { getTutorialProfile, getTutorialCourses, watchLecture } from "../api/tutorial.api";
+import { getTutorialProfile, getTutorialCourses, getTutorialMe, watchLecture } from "../api/tutorial.api";
+import { getAccessToken } from "@/features/auth/utils/auth-storage";
 
 export default function TutorialLearningPage() {
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("userId") ?? "";
+  const queryUserId = searchParams.get("userId") ?? "";
+  const [userId, setUserId] = useState(queryUserId);
   const [profile, setProfile] = useState<any>(null);
   const [courses, setCourses] = useState<any[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
@@ -13,11 +15,12 @@ export default function TutorialLearningPage() {
 
   useEffect(() => {
     async function load() {
-      if (!userId) return;
-
       try {
+        const resolvedUserId = userId || (getAccessToken() ? (await getTutorialMe())?.data?._id : "");
+        if (!resolvedUserId) return;
+        setUserId(resolvedUserId);
         const [profileResult, coursesResult] = await Promise.all([
-          getTutorialProfile(userId),
+          getTutorialProfile(resolvedUserId),
           getTutorialCourses(),
         ]);
 

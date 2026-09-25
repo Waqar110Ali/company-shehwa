@@ -51,6 +51,14 @@ createUser(
     );
   }
 
+  @Post("register")
+  register(@Body() dto: RegisterDto) {
+    return this.authService.createUser({
+      ...dto,
+      role: Role.STUDENT,
+    });
+  }
+
   /**
    * Every role can refresh their own session — this list was
    * previously missing Role.INTERN, Role.CLIENT, and Role.CEO,
@@ -70,6 +78,7 @@ createUser(
     Role.CLIENT,
     Role.CEO,
     Role.AI,
+    Role.STUDENT,
   )
   @Post("refresh")
   refresh(
@@ -101,6 +110,7 @@ createUser(
     Role.CLIENT,
     Role.CEO,
     Role.AI,
+    Role.STUDENT,
   )
   @Get("me")
   me(
@@ -128,6 +138,7 @@ createUser(
     Role.CLIENT,
     Role.CEO,
     Role.AI,
+    Role.STUDENT,
   )
   @Post("logout")
   logout(

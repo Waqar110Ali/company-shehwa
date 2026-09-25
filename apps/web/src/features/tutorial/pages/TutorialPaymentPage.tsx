@@ -61,7 +61,7 @@ export default function TutorialPaymentPage() {
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Payment</p>
             <h1 className="mt-2 text-3xl font-bold">Complete your enrollment</h1>
           </div>
-          <Link to="/tutorial/courses" className="text-sm text-cyan-300 hover:text-cyan-200">Back to courses</Link>
+          <Link to="/tutorial/dashboard/courses" className="text-sm text-cyan-300 hover:text-cyan-200">Back to courses</Link>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1.4fr]">

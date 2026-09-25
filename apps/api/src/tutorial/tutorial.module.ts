@@ -16,9 +16,11 @@ import {
   TutorialUser,
   TutorialUserSchema,
 } from "./schemas/tutorial-user.schema";
+import { MailModule } from "../mail/mail.module";
 
 @Module({
   imports: [
+    MailModule,
     MongooseModule.forFeature([
       {
         name: TutorialUser.name,

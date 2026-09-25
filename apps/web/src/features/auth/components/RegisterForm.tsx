@@ -4,7 +4,6 @@ import { api } from "@/lib/api";
 import AuthCard from "./AuthCard";
 import PasswordInput from "./PasswordInput";
 import PremiumButton from "@/components/premium/PremiumButton";
-import RoleSelector from "./RoleSelector";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -13,7 +12,6 @@ export default function RegisterForm() {
     phone: "",
     password: "",
     confirmPassword: "",
-    role: "",
   });
 
   const updateField = (key: string, value: string) => {
@@ -50,7 +48,6 @@ export default function RegisterForm() {
         email: form.email,
         password: form.password,
         phone: form.phone,
-        role: form.role,
       },
     );
 
@@ -105,13 +102,6 @@ export default function RegisterForm() {
             updateField("phone", e.target.value)
           }
           className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 px-5 text-white placeholder:text-slate-400"
-        />
-
-        <RoleSelector
-          value={form.role}
-          onChange={(value) =>
-            updateField("role", value)
-          }
         />
 
         <PasswordInput
