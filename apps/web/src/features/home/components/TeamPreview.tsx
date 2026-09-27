@@ -1,4 +1,6 @@
 // features/home/components/TeamPreview.tsx
+import { useState } from "react";
+
 import AuroraBackground from "@/components/effects/AuroraBackground";
 import Container from "@/components/common/Container";
 import Section from "@/components/common/Section";
@@ -11,8 +13,15 @@ import TeamMemberCard from "./TeamMemberCard";
 import { useSectionContent } from "../hooks/useSectionContent";
 import { teamMembers } from "../constants/team";
 
+const INITIAL_VISIBLE_COUNT = 4;
+
 export default function TeamPreview() {
   const members = useSectionContent("teamMembers", teamMembers);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleMembers = showAll
+    ? members
+    : members.slice(0, INITIAL_VISIBLE_COUNT);
 
   return (
     <AuroraBackground>
@@ -38,7 +47,7 @@ export default function TeamPreview() {
           </FadeUp>
 
           <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {members.map((member) => (
+            {visibleMembers.map((member) => (
               <TeamMemberCard
                 key={member.id}
                 image={member.image}
@@ -52,9 +61,13 @@ export default function TeamPreview() {
             ))}
           </div>
 
-          <div className="mt-16 flex justify-center">
-            <PremiumButton>View Complete Team</PremiumButton>
-          </div>
+          {members.length > INITIAL_VISIBLE_COUNT && (
+            <div className="mt-16 flex justify-center">
+              <PremiumButton onClick={() => setShowAll((prev) => !prev)}>
+                {showAll ? "Show Less" : "View Complete Team"}
+              </PremiumButton>
+            </div>
+          )}
         </Container>
       </Section>
     </AuroraBackground>

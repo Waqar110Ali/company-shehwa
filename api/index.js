@@ -43,12 +43,12 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 var import_core2 = require("@nestjs/core");
-var import_common93 = require("@nestjs/common");
+var import_common97 = require("@nestjs/common");
 var import_path2 = require("path");
 var import_swagger4 = require("@nestjs/swagger");
 
 // src/app.module.ts
-var import_common92 = require("@nestjs/common");
+var import_common96 = require("@nestjs/common");
 var import_config9 = require("@nestjs/config");
 
 // src/config/index.ts
@@ -185,6 +185,7 @@ var Role = /* @__PURE__ */ ((Role2) => {
   Role2["MANAGER"] = "MANAGER";
   Role2["AI"] = "AI";
   Role2["CEO"] = "CEO";
+  Role2["STUDENT"] = "STUDENT";
   return Role2;
 })(Role || {});
 
@@ -2418,6 +2419,12 @@ var AuthController = class {
       dto
     );
   }
+  register(dto) {
+    return this.authService.createUser({
+      ...dto,
+      role: "STUDENT" /* STUDENT */
+    });
+  }
   refresh(dto) {
     return this.authService.refresh(
       dto.refreshToken
@@ -2448,6 +2455,10 @@ __decorateClass([
   __decorateParam(0, (0, import_common21.Body)())
 ], AuthController.prototype, "login", 1);
 __decorateClass([
+  (0, import_common21.Post)("register"),
+  __decorateParam(0, (0, import_common21.Body)())
+], AuthController.prototype, "register", 1);
+__decorateClass([
   (0, import_common21.UseGuards)(
     JwtAuthGuard,
     RolesGuard
@@ -2460,7 +2471,8 @@ __decorateClass([
     "INTERN" /* INTERN */,
     "CLIENT" /* CLIENT */,
     "CEO" /* CEO */,
-    "AI" /* AI */
+    "AI" /* AI */,
+    "STUDENT" /* STUDENT */
   ),
   (0, import_common21.Post)("refresh"),
   __decorateParam(0, (0, import_common21.Body)())
@@ -2478,7 +2490,8 @@ __decorateClass([
     "INTERN" /* INTERN */,
     "CLIENT" /* CLIENT */,
     "CEO" /* CEO */,
-    "AI" /* AI */
+    "AI" /* AI */,
+    "STUDENT" /* STUDENT */
   ),
   (0, import_common21.Get)("me"),
   __decorateParam(0, CurrentUser())
@@ -2496,7 +2509,8 @@ __decorateClass([
     "INTERN" /* INTERN */,
     "CLIENT" /* CLIENT */,
     "CEO" /* CEO */,
-    "AI" /* AI */
+    "AI" /* AI */,
+    "STUDENT" /* STUDENT */
   ),
   (0, import_common21.Post)("logout"),
   __decorateParam(0, CurrentUser())
@@ -11042,6 +11056,719 @@ CalcomModule = __decorateClass([
   })
 ], CalcomModule);
 
+// src/tutorial/tutorial.module.ts
+var import_common95 = require("@nestjs/common");
+var import_mongoose82 = require("@nestjs/mongoose");
+
+// src/tutorial/controllers/tutorial.controller.ts
+var import_common92 = require("@nestjs/common");
+var TutorialController = class {
+  constructor(tutorialService) {
+    this.tutorialService = tutorialService;
+  }
+  tutorialService;
+  register(dto) {
+    return this.tutorialService.createTutorialUser(dto);
+  }
+  getCourses() {
+    return this.tutorialService.listCourses();
+  }
+  getProfile(req) {
+    const userId = req?.user?.id ?? req?.query?.userId;
+    if (!userId) {
+      return {
+        success: false,
+        message: "User id is required."
+      };
+    }
+    return this.tutorialService.getTutorialProfile(userId);
+  }
+  getMyProfile(req) {
+    return this.tutorialService.getOrCreateAuthUser(req.user);
+  }
+  enroll(dto) {
+    return this.tutorialService.enrollCourse(
+      dto.userId,
+      dto.courseId
+    );
+  }
+  submitPayment(dto) {
+    return this.tutorialService.submitPayment(
+      dto.userId,
+      dto
+    );
+  }
+  getPayments(userId) {
+    return this.tutorialService.listPayments(userId);
+  }
+  getAdminOverview() {
+    return this.tutorialService.getAdminOverview();
+  }
+  reviewPayment(id, dto) {
+    return this.tutorialService.reviewPayment(
+      id,
+      dto
+    );
+  }
+  watchLecture(dto) {
+    return this.tutorialService.watchLecture(
+      dto.userId,
+      dto.courseId,
+      dto.lectureId
+    );
+  }
+};
+__decorateClass([
+  (0, import_common92.Post)("register"),
+  __decorateParam(0, (0, import_common92.Body)())
+], TutorialController.prototype, "register", 1);
+__decorateClass([
+  (0, import_common92.Get)("courses")
+], TutorialController.prototype, "getCourses", 1);
+__decorateClass([
+  (0, import_common92.Get)("profile"),
+  __decorateParam(0, (0, import_common92.Req)())
+], TutorialController.prototype, "getProfile", 1);
+__decorateClass([
+  (0, import_common92.Get)("me"),
+  (0, import_common92.UseGuards)(JwtAuthGuard),
+  __decorateParam(0, (0, import_common92.Req)())
+], TutorialController.prototype, "getMyProfile", 1);
+__decorateClass([
+  (0, import_common92.Post)("enroll"),
+  __decorateParam(0, (0, import_common92.Body)())
+], TutorialController.prototype, "enroll", 1);
+__decorateClass([
+  (0, import_common92.Post)("payment/submit"),
+  __decorateParam(0, (0, import_common92.Body)())
+], TutorialController.prototype, "submitPayment", 1);
+__decorateClass([
+  (0, import_common92.Get)("payments"),
+  __decorateParam(0, (0, import_common92.Query)("userId"))
+], TutorialController.prototype, "getPayments", 1);
+__decorateClass([
+  (0, import_common92.Get)("admin-overview"),
+  (0, import_common92.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles("ADMIN" /* ADMIN */)
+], TutorialController.prototype, "getAdminOverview", 1);
+__decorateClass([
+  (0, import_common92.Post)("payments/:id/review"),
+  (0, import_common92.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles("ADMIN" /* ADMIN */),
+  __decorateParam(0, (0, import_common92.Param)("id")),
+  __decorateParam(1, (0, import_common92.Body)())
+], TutorialController.prototype, "reviewPayment", 1);
+__decorateClass([
+  (0, import_common92.Post)("lecture/watch"),
+  __decorateParam(0, (0, import_common92.Body)())
+], TutorialController.prototype, "watchLecture", 1);
+TutorialController = __decorateClass([
+  (0, import_common92.Controller)("tutorial")
+], TutorialController);
+
+// src/tutorial/repositories/tutorial.repository.ts
+var import_common93 = require("@nestjs/common");
+var import_mongoose80 = require("@nestjs/mongoose");
+var import_mongoose81 = require("mongoose");
+
+// src/tutorial/schemas/tutorial-course.schema.ts
+var import_mongoose77 = require("@nestjs/mongoose");
+var TutorialLecture = class {
+  title;
+  duration;
+  coinCost;
+  videoUrl;
+  isUnlocked;
+  watched;
+};
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: String, required: true })
+], TutorialLecture.prototype, "title", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Number, required: true })
+], TutorialLecture.prototype, "duration", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Number, default: 0 })
+], TutorialLecture.prototype, "coinCost", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: String, default: "" })
+], TutorialLecture.prototype, "videoUrl", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Boolean, default: false })
+], TutorialLecture.prototype, "isUnlocked", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Boolean, default: false })
+], TutorialLecture.prototype, "watched", 2);
+TutorialLecture = __decorateClass([
+  (0, import_mongoose77.Schema)({ timestamps: true })
+], TutorialLecture);
+var TutorialCourse = class {
+  title;
+  description;
+  price;
+  rewardCoins;
+  lectures;
+};
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: String, required: true, trim: true })
+], TutorialCourse.prototype, "title", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: String, required: true, trim: true })
+], TutorialCourse.prototype, "description", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Number, required: true, default: 0 })
+], TutorialCourse.prototype, "price", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: Number, default: 0 })
+], TutorialCourse.prototype, "rewardCoins", 2);
+__decorateClass([
+  (0, import_mongoose77.Prop)({ type: [TutorialLecture], default: [] })
+], TutorialCourse.prototype, "lectures", 2);
+TutorialCourse = __decorateClass([
+  (0, import_mongoose77.Schema)({ timestamps: true })
+], TutorialCourse);
+var TutorialLectureSchema = import_mongoose77.SchemaFactory.createForClass(TutorialLecture);
+var TutorialCourseSchema = import_mongoose77.SchemaFactory.createForClass(TutorialCourse);
+
+// src/tutorial/schemas/tutorial-payment-request.schema.ts
+var import_mongoose78 = require("@nestjs/mongoose");
+var TutorialPaymentRequest = class {
+  userId;
+  courseId;
+  amount;
+  paymentMethod;
+  screenshotUrl;
+  status;
+  rejectionReason;
+  reviewedBy;
+};
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, required: true })
+], TutorialPaymentRequest.prototype, "userId", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, required: true })
+], TutorialPaymentRequest.prototype, "courseId", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: Number, required: true })
+], TutorialPaymentRequest.prototype, "amount", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, required: true })
+], TutorialPaymentRequest.prototype, "paymentMethod", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, default: "" })
+], TutorialPaymentRequest.prototype, "screenshotUrl", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, default: "pending" })
+], TutorialPaymentRequest.prototype, "status", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, default: "" })
+], TutorialPaymentRequest.prototype, "rejectionReason", 2);
+__decorateClass([
+  (0, import_mongoose78.Prop)({ type: String, default: "" })
+], TutorialPaymentRequest.prototype, "reviewedBy", 2);
+TutorialPaymentRequest = __decorateClass([
+  (0, import_mongoose78.Schema)({ timestamps: true })
+], TutorialPaymentRequest);
+var TutorialPaymentRequestSchema = import_mongoose78.SchemaFactory.createForClass(TutorialPaymentRequest);
+
+// src/tutorial/schemas/tutorial-user.schema.ts
+var import_mongoose79 = require("@nestjs/mongoose");
+var TutorialUser = class {
+  fullName;
+  email;
+  phone;
+  city;
+  status;
+  hasAccess;
+  isPaymentVerified;
+  coins;
+  enrollments;
+  paymentHistory;
+};
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: String, required: true, trim: true })
+], TutorialUser.prototype, "fullName", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: String, required: true, unique: true, lowercase: true, trim: true })
+], TutorialUser.prototype, "email", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: String, default: "" })
+], TutorialUser.prototype, "phone", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: String, default: "" })
+], TutorialUser.prototype, "city", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: String, default: "pending" })
+], TutorialUser.prototype, "status", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: Boolean, default: false })
+], TutorialUser.prototype, "hasAccess", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: Boolean, default: false })
+], TutorialUser.prototype, "isPaymentVerified", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: Number, default: 0 })
+], TutorialUser.prototype, "coins", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: [{ courseId: String, enrolledAt: Date, isActive: Boolean }], default: [] })
+], TutorialUser.prototype, "enrollments", 2);
+__decorateClass([
+  (0, import_mongoose79.Prop)({ type: [{ paymentId: String, createdAt: Date }], default: [] })
+], TutorialUser.prototype, "paymentHistory", 2);
+TutorialUser = __decorateClass([
+  (0, import_mongoose79.Schema)({ timestamps: true })
+], TutorialUser);
+var TutorialUserSchema = import_mongoose79.SchemaFactory.createForClass(TutorialUser);
+
+// src/tutorial/repositories/tutorial.repository.ts
+var TutorialRepository = class {
+  constructor(tutorialUserModel, tutorialCourseModel, tutorialPaymentModel) {
+    this.tutorialUserModel = tutorialUserModel;
+    this.tutorialCourseModel = tutorialCourseModel;
+    this.tutorialPaymentModel = tutorialPaymentModel;
+  }
+  tutorialUserModel;
+  tutorialCourseModel;
+  tutorialPaymentModel;
+  async createUser(data) {
+    return this.tutorialUserModel.create({
+      ...data,
+      coins: 0,
+      status: "pending",
+      hasAccess: false,
+      isPaymentVerified: false,
+      enrollments: [],
+      paymentHistory: []
+    });
+  }
+  async findOrCreateUser(data) {
+    const existing = await this.findUserByEmail(String(data.email).toLowerCase());
+    if (existing) return existing;
+    return this.createUser(data);
+  }
+  async findUserByEmail(email) {
+    return this.tutorialUserModel.findOne({ email }).exec();
+  }
+  async findUserById(id) {
+    return this.tutorialUserModel.findById(id).exec();
+  }
+  async listUsers() {
+    return this.tutorialUserModel.find().sort({ createdAt: -1 }).lean().exec();
+  }
+  async updateUser(id, data) {
+    return this.tutorialUserModel.findByIdAndUpdate(id, data, { new: true }).exec();
+  }
+  async addEnrollment(userId, courseId) {
+    return this.tutorialUserModel.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: {
+          enrollments: {
+            courseId,
+            enrolledAt: /* @__PURE__ */ new Date(),
+            isActive: true
+          }
+        }
+      },
+      { new: true }
+    ).exec();
+  }
+  async ensureCourseSeed() {
+    const count = await this.tutorialCourseModel.countDocuments();
+    if (count > 0) {
+      return this.tutorialCourseModel.find().exec();
+    }
+    const seedCourses = [
+      {
+        title: "HTML & CSS Fundamentals",
+        description: "Build strong frontend foundations and learn page structure, styling, and responsive layouts.",
+        price: 2500,
+        rewardCoins: 40,
+        lectures: [
+          {
+            _id: new import_mongoose81.Types.ObjectId(),
+            title: "Intro to HTML",
+            duration: 12,
+            coinCost: 10,
+            videoUrl: "https://example.com/video/html-intro.mp4",
+            isUnlocked: true,
+            watched: false
+          },
+          {
+            _id: new import_mongoose81.Types.ObjectId(),
+            title: "CSS Layouts",
+            duration: 15,
+            coinCost: 12,
+            videoUrl: "https://example.com/video/css-layouts.mp4",
+            isUnlocked: false,
+            watched: false
+          }
+        ]
+      },
+      {
+        title: "JavaScript Essentials",
+        description: "Understand variables, functions, loops, events, and web interactions.",
+        price: 4200,
+        rewardCoins: 60,
+        lectures: [
+          {
+            _id: new import_mongoose81.Types.ObjectId(),
+            title: "Variables & Functions",
+            duration: 18,
+            coinCost: 12,
+            videoUrl: "https://example.com/video/js-functions.mp4",
+            isUnlocked: true,
+            watched: false
+          },
+          {
+            _id: new import_mongoose81.Types.ObjectId(),
+            title: "DOM Events",
+            duration: 20,
+            coinCost: 15,
+            videoUrl: "https://example.com/video/js-events.mp4",
+            isUnlocked: false,
+            watched: false
+          }
+        ]
+      }
+    ];
+    return this.tutorialCourseModel.insertMany(seedCourses);
+  }
+  async findCourses() {
+    return this.tutorialCourseModel.find().exec();
+  }
+  async findCourseById(id) {
+    return this.tutorialCourseModel.findById(id).exec();
+  }
+  async createPaymentRequest(data) {
+    return this.tutorialPaymentModel.create(data);
+  }
+  async findPaymentById(id) {
+    return this.tutorialPaymentModel.findById(id).exec();
+  }
+  async listPayments(userId) {
+    const query = userId ? { userId } : {};
+    return this.tutorialPaymentModel.find(query).sort({ createdAt: -1 }).lean().exec();
+  }
+  async updatePaymentRequest(id, data) {
+    return this.tutorialPaymentModel.findByIdAndUpdate(id, data, { new: true }).exec();
+  }
+  async addPaymentHistory(userId, paymentId) {
+    return this.tutorialUserModel.findByIdAndUpdate(
+      userId,
+      {
+        $push: {
+          paymentHistory: {
+            paymentId,
+            createdAt: /* @__PURE__ */ new Date()
+          }
+        }
+      },
+      { new: true }
+    ).exec();
+  }
+  async setLectureUnlock(courseId, lectureId, unlocked) {
+    return this.tutorialCourseModel.findOneAndUpdate(
+      { _id: courseId, "lectures._id": lectureId },
+      {
+        $set: {
+          "lectures.$.isUnlocked": unlocked
+        }
+      },
+      { new: true }
+    ).exec();
+  }
+  async markLectureWatched(courseId, lectureId) {
+    return this.tutorialCourseModel.findOneAndUpdate(
+      { _id: courseId, "lectures._id": lectureId },
+      {
+        $set: {
+          "lectures.$.watched": true
+        }
+      },
+      { new: true }
+    ).exec();
+  }
+};
+TutorialRepository = __decorateClass([
+  (0, import_common93.Injectable)(),
+  __decorateParam(0, (0, import_mongoose80.InjectModel)(TutorialUser.name)),
+  __decorateParam(1, (0, import_mongoose80.InjectModel)(TutorialCourse.name)),
+  __decorateParam(2, (0, import_mongoose80.InjectModel)(TutorialPaymentRequest.name))
+], TutorialRepository);
+
+// src/tutorial/services/tutorial.service.ts
+var import_common94 = require("@nestjs/common");
+var TutorialService = class {
+  constructor(tutorialRepository, mailService, configService) {
+    this.tutorialRepository = tutorialRepository;
+    this.mailService = mailService;
+    this.configService = configService;
+  }
+  tutorialRepository;
+  mailService;
+  configService;
+  async getOrCreateAuthUser(authUser) {
+    const fullName = [authUser.firstName, authUser.lastName].filter(Boolean).join(" ") || authUser.email;
+    const user = await this.tutorialRepository.findOrCreateUser({
+      email: authUser.email,
+      fullName,
+      status: "pending",
+      hasAccess: false,
+      isPaymentVerified: false,
+      coins: 0
+    });
+    return { success: true, data: user };
+  }
+  async createTutorialUser(data) {
+    const normalizedEmail = data.email.trim().toLowerCase();
+    const existing = await this.tutorialRepository.findUserByEmail(normalizedEmail);
+    if (existing) {
+      throw new import_common94.BadRequestException("This email is already registered.");
+    }
+    const user = await this.tutorialRepository.createUser({
+      fullName: data.fullName.trim(),
+      email: normalizedEmail,
+      phone: data.phone ?? "",
+      city: data.city ?? "",
+      status: "pending",
+      hasAccess: false,
+      isPaymentVerified: false,
+      coins: 0
+    });
+    return {
+      success: true,
+      data: user
+    };
+  }
+  async listCourses() {
+    const courses = await this.tutorialRepository.ensureCourseSeed();
+    return {
+      success: true,
+      data: courses
+    };
+  }
+  async getTutorialProfile(userId) {
+    const user = await this.tutorialRepository.findUserById(userId);
+    if (!user) {
+      throw new import_common94.NotFoundException("Tutorial user not found.");
+    }
+    return {
+      success: true,
+      data: user
+    };
+  }
+  async enrollCourse(userId, courseId) {
+    const user = await this.tutorialRepository.findUserById(userId);
+    if (!user) {
+      throw new import_common94.NotFoundException("User not found.");
+    }
+    const course = await this.tutorialRepository.findCourseById(courseId);
+    if (!course) {
+      throw new import_common94.NotFoundException("Course not found.");
+    }
+    const alreadyEnrolled = (user.enrollments ?? []).some(
+      (entry) => String(entry.courseId) === String(courseId)
+    );
+    if (alreadyEnrolled) {
+      return {
+        success: false,
+        message: "User is already enrolled in this course."
+      };
+    }
+    const updatedUser = await this.tutorialRepository.addEnrollment(userId, courseId);
+    return {
+      success: true,
+      message: "Enrollment created successfully.",
+      data: {
+        user: updatedUser,
+        course
+      }
+    };
+  }
+  async submitPayment(userId, dto) {
+    const user = await this.tutorialRepository.findUserById(userId);
+    if (!user) {
+      throw new import_common94.NotFoundException("User not found.");
+    }
+    const course = await this.tutorialRepository.findCourseById(dto.courseId);
+    if (!course) {
+      throw new import_common94.NotFoundException("Course not found.");
+    }
+    const paymentRequest = await this.tutorialRepository.createPaymentRequest({
+      userId,
+      courseId: dto.courseId,
+      amount: dto.amount,
+      paymentMethod: dto.paymentMethod,
+      screenshotUrl: dto.screenshotUrl ?? "",
+      status: "pending",
+      rejectionReason: "",
+      reviewedBy: ""
+    });
+    await this.tutorialRepository.addPaymentHistory(userId, String(paymentRequest._id));
+    await this.tutorialRepository.addEnrollment(userId, dto.courseId);
+    const notifyTo = this.configService.get("NEWSLETTER_NOTIFY_EMAIL") || this.configService.get("MAIL_USER");
+    if (notifyTo) {
+      try {
+        await this.mailService.send({
+          to: notifyTo,
+          subject: "New tutorial enrollment payment requires review",
+          template: "tutorial-payment-submitted",
+          context: {
+            studentName: user.fullName,
+            studentEmail: user.email,
+            courseName: course.title,
+            amount: dto.amount,
+            paymentMethod: dto.paymentMethod,
+            screenshotUrl: dto.screenshotUrl ?? ""
+          }
+        });
+      } catch (error) {
+        console.error("[TUTORIAL] Admin notification email failed:", error);
+      }
+    }
+    return {
+      success: true,
+      message: "Payment request submitted successfully. Admin review is pending.",
+      data: paymentRequest
+    };
+  }
+  async listPayments(userId) {
+    const payments = await this.tutorialRepository.listPayments(userId);
+    return {
+      success: true,
+      data: payments
+    };
+  }
+  async getAdminOverview() {
+    const [users, courses, payments] = await Promise.all([
+      this.tutorialRepository.listUsers(),
+      this.tutorialRepository.ensureCourseSeed(),
+      this.tutorialRepository.listPayments()
+    ]);
+    return {
+      success: true,
+      data: { users, courses, payments }
+    };
+  }
+  async reviewPayment(id, dto) {
+    const payment = await this.tutorialRepository.findPaymentById(id);
+    if (!payment) {
+      throw new import_common94.NotFoundException("Payment request not found.");
+    }
+    const user = await this.tutorialRepository.findUserById(String(payment.userId));
+    if (!user) {
+      throw new import_common94.NotFoundException("User not found for payment review.");
+    }
+    const course = await this.tutorialRepository.findCourseById(String(payment.courseId));
+    if (!course) {
+      throw new import_common94.NotFoundException("Course not found for payment review.");
+    }
+    if (dto.status === "approved") {
+      await this.tutorialRepository.updateUser(String(user._id), {
+        status: "approved",
+        hasAccess: true,
+        isPaymentVerified: true,
+        coins: Number(user.coins ?? 0) + Number(course.rewardCoins ?? 0)
+      });
+    } else if (dto.status === "rejected") {
+      await this.tutorialRepository.updateUser(String(user._id), {
+        status: "rejected",
+        hasAccess: false,
+        isPaymentVerified: false
+      });
+    }
+    const updatedPayment = await this.tutorialRepository.updatePaymentRequest(id, {
+      status: dto.status,
+      rejectionReason: dto.rejectionReason ?? "",
+      reviewedBy: dto.reviewedBy ?? "admin"
+    });
+    return {
+      success: true,
+      data: updatedPayment
+    };
+  }
+  async watchLecture(userId, courseId, lectureId) {
+    const user = await this.tutorialRepository.findUserById(userId);
+    if (!user) {
+      throw new import_common94.NotFoundException("User not found.");
+    }
+    if (user.status !== "approved" || !user.hasAccess) {
+      throw new import_common94.UnauthorizedException("User access is not approved yet.");
+    }
+    const course = await this.tutorialRepository.findCourseById(courseId);
+    if (!course) {
+      throw new import_common94.NotFoundException("Course not found.");
+    }
+    const lecture = (course.lectures ?? []).find(
+      (item) => String(item._id) === String(lectureId)
+    );
+    if (!lecture) {
+      throw new import_common94.NotFoundException("Lecture not found.");
+    }
+    if (lecture.watched) {
+      return {
+        success: true,
+        message: "Lecture already watched.",
+        data: lecture
+      };
+    }
+    const requiredCoins = Number(lecture.coinCost ?? 0);
+    const currentCoins = Number(user.coins ?? 0);
+    if (currentCoins < requiredCoins) {
+      throw new import_common94.BadRequestException(
+        `You need ${requiredCoins} coins to unlock this lecture.`
+      );
+    }
+    const updatedUser = await this.tutorialRepository.updateUser(userId, {
+      coins: currentCoins - requiredCoins
+    });
+    await this.tutorialRepository.markLectureWatched(courseId, lectureId);
+    return {
+      success: true,
+      message: "Lecture completed and coins deducted successfully.",
+      data: {
+        user: updatedUser,
+        lecture: {
+          ...lecture,
+          watched: true
+        }
+      }
+    };
+  }
+};
+TutorialService = __decorateClass([
+  (0, import_common94.Injectable)()
+], TutorialService);
+
+// src/tutorial/tutorial.module.ts
+var TutorialModule = class {
+};
+TutorialModule = __decorateClass([
+  (0, import_common95.Module)({
+    imports: [
+      MailModule,
+      import_mongoose82.MongooseModule.forFeature([
+        {
+          name: TutorialUser.name,
+          schema: TutorialUserSchema
+        },
+        {
+          name: TutorialCourse.name,
+          schema: TutorialCourseSchema
+        },
+        {
+          name: TutorialPaymentRequest.name,
+          schema: TutorialPaymentRequestSchema
+        }
+      ])
+    ],
+    controllers: [TutorialController],
+    providers: [TutorialRepository, TutorialService],
+    exports: [TutorialService, TutorialRepository]
+  })
+], TutorialModule);
+
 // src/app.module.ts
 var AppModule = class {
   configure(consumer) {
@@ -11049,7 +11776,7 @@ var AppModule = class {
   }
 };
 AppModule = __decorateClass([
-  (0, import_common92.Module)({
+  (0, import_common96.Module)({
     imports: [
       import_config9.ConfigModule.forRoot({
         isGlobal: true,
@@ -11076,7 +11803,8 @@ AppModule = __decorateClass([
       UpdatesModule,
       FooterModule,
       NewsletterModule,
-      CalcomModule
+      CalcomModule,
+      TutorialModule
       // AssistantPublicModule,
     ]
   })
@@ -11100,7 +11828,7 @@ async function bootstrap() {
     credentials: true
   });
   app.useGlobalPipes(
-    new import_common93.ValidationPipe({
+    new import_common97.ValidationPipe({
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,

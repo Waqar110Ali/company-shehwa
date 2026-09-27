@@ -82,6 +82,7 @@ import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { ValidationPipe } from "@nestjs/common";
 import { join } from "path";
+import { json, urlencoded } from "express";
 import {
   DocumentBuilder,
   SwaggerModule,
@@ -93,7 +94,17 @@ async function bootstrap() {
   const app =
     await NestFactory.create<NestExpressApplication>(
       AppModule,
+      { bodyParser: false },
     );
+
+  // Raised from Express's 100kb default so base64-encoded image
+  // uploads (e.g. tutorial payment screenshots) don't hit 413
+  // Payload Too Large. This replaces Nest's built-in body parser
+  // (disabled above via { bodyParser: false }), so every route
+  // that previously relied on JSON/urlencoded body parsing keeps
+  // working exactly as before — just with a higher size ceiling.
+  app.use(json({ limit: "10mb" }));
+  app.use(urlencoded({ limit: "10mb", extended: true }));
 
   // Serve uploaded files (e.g. employee avatars) at /uploads/...
   app.useStaticAssets(
@@ -108,7 +119,29 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      // Allow non-browser requests (no Origin header, e.g. curl/Postman)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      // Always allow the configured production/client URL
+      if (origin === process.env.CLIENT_URL) {
+        return callback(null, true);
+      }
+
+      // In development, allow any local Vite dev server port so a
+      // stray leftover process on one port never blocks a new
+      // session that starts on a different one.
+      if (
+        process.env.NODE_ENV !== "production" &&
+        /^http:\/\/localhost:\d+$/.test(origin)
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"), false);
+    },
     credentials: true,
   });
 

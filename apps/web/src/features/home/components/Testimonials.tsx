@@ -1,4 +1,6 @@
-// features/home/components/Testimonials.tsx
+﻿// features/home/components/Testimonials.tsx
+import { useState } from "react";
+
 import AuroraBackground from "@/components/effects/AuroraBackground";
 import Container from "@/components/common/Container";
 import Section from "@/components/common/Section";
@@ -11,8 +13,15 @@ import TestimonialCard from "./TestimonialCard";
 import { useSectionContent } from "../hooks/useSectionContent";
 import { testimonials } from "../constants/testimonials";
 
+const INITIAL_VISIBLE_COUNT = 3;
+
 export default function Testimonials() {
   const items = useSectionContent("testimonials", testimonials);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleItems = showAll
+    ? items
+    : items.slice(0, INITIAL_VISIBLE_COUNT);
 
   return (
     <AuroraBackground>
@@ -37,14 +46,18 @@ export default function Testimonials() {
           </FadeUp>
 
           <div className="mt-20 grid gap-8 lg:grid-cols-3">
-            {items.map((testimonial) => (
+            {visibleItems.map((testimonial) => (
               <TestimonialCard key={testimonial.id} {...testimonial} />
             ))}
           </div>
 
-          <div className="mt-16 flex justify-center">
-            <PremiumButton>View More Reviews</PremiumButton>
-          </div>
+          {items.length > INITIAL_VISIBLE_COUNT && (
+            <div className="mt-16 flex justify-center">
+              <PremiumButton onClick={() => setShowAll((prev) => !prev)}>
+                {showAll ? "Show Less" : "View More Reviews"}
+              </PremiumButton>
+            </div>
+          )}
         </Container>
       </Section>
     </AuroraBackground>
