@@ -1,22 +1,26 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 
 import { RegisterTutorialUserDto } from "../dto/register-tutorial-user.dto";
 import { SubmitPaymentDto } from "../dto/submit-payment.dto";
 import { ReviewPaymentDto } from "../dto/review-payment.dto";
 import { TutorialRepository } from "../repositories/tutorial.repository";
 import { MailService } from "../../mail/mail.service";
-import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class TutorialService {
   constructor(
+    @Inject(TutorialRepository)
     private readonly tutorialRepository: TutorialRepository,
+    @Inject(MailService)
     private readonly mailService: MailService,
+    @Inject(ConfigService)
     private readonly configService: ConfigService,
   ) {}
 

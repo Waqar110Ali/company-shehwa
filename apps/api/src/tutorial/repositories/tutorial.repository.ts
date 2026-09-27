@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 
@@ -19,10 +19,13 @@ import {
 export class TutorialRepository {
   constructor(
     @InjectModel(TutorialUser.name)
+    @Inject(Model)
     private readonly tutorialUserModel: Model<TutorialUserDocument>,
     @InjectModel(TutorialCourse.name)
+    @Inject(Model)
     private readonly tutorialCourseModel: Model<TutorialCourseDocument>,
     @InjectModel(TutorialPaymentRequest.name)
+    @Inject(Model)
     private readonly tutorialPaymentModel: Model<TutorialPaymentRequestDocument>,
   ) {}
 

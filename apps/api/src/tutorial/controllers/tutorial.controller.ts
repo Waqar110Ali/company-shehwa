@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Param,
   Post,
   Query,
@@ -23,6 +24,7 @@ import { Role } from "../../users/enums/role.enum";
 @Controller("tutorial")
 export class TutorialController {
   constructor(
+    @Inject(TutorialService)
     private readonly tutorialService: TutorialService,
   ) {}
 
