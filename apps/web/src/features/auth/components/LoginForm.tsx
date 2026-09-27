@@ -160,18 +160,16 @@ export default function LoginForm() {
 
         <SocialLogin />
 
-        {/* <p className="text-center text-sm text-slate-400">
-          Don't have an account?{" "}
+        <p className="text-center text-sm text-slate-400">
+          Contact your administrator to receive your login credentials, or{" "}
           <Link
-            to="/register"
+            to="/tutorial/register"
             className="font-semibold text-cyan-300 hover:text-cyan-200"
           >
-            Register
+            register for a tutorial course
           </Link>
-        </p> */}
-        <p className="text-center text-sm text-slate-400">
-  Contact your administrator to receive your login credentials.
-</p>
+          .
+        </p>
       </form>
     </AuthCard>
   );

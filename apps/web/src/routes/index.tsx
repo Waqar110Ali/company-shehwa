@@ -1,4 +1,3 @@
-
 // apps/web/src/routes/router.tsx
 
 import { createBrowserRouter, Navigate } from "react-router-dom";
@@ -44,6 +43,8 @@ import TutorialCoursesPage from "@/features/tutorial/pages/TutorialCoursesPage";
 import TutorialPaymentPage from "@/features/tutorial/pages/TutorialPaymentPage";
 import TutorialAdminPage from "@/features/tutorial/pages/TutorialAdminPage";
 import TutorialLearningPage from "@/features/tutorial/pages/TutorialLearningPage";
+import TutorialCourseLearnPage from "@/features/tutorial/pages/TutorialLearningPage";
+import TutorialWalletPage from "@/features/tutorial/pages/Tutorialwalletpage";
 
 // ==============================================================
 // Admin-only guard (mirrors ReportsAccess pattern)
@@ -104,12 +105,10 @@ export const router = createBrowserRouter([
     element: <TutorialRegisterPage />,
   },
   {
+    // Public catalog browsing — no login required. Enrolling from
+    // here sends an unauthenticated visitor to /login first.
     path: "/tutorial/courses",
     element: <TutorialCoursesPage />,
-  },
-  {
-    path: "/tutorial/payment",
-    element: <TutorialPaymentPage />,
   },
   {
     path: "/tutorial/admin",
@@ -128,10 +127,10 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/tutorial/learning",
-    element: <TutorialLearningPage />,
-  },
-  {
+    // Separate, secure, per-student dashboard — completely apart
+    // from the company admin dashboard. Everything below requires
+    // a logged-in session (ProtectedRoute) and only ever shows the
+    // signed-in student's own data.
     path: "/tutorial/dashboard",
     element: (
       <ProtectedRoute>
@@ -141,8 +140,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="courses" replace /> },
       { path: "courses", element: <TutorialCoursesPage /> },
+      { path: "payment/:courseId", element: <TutorialPaymentPage /> },
       { path: "my-courses", element: <TutorialLearningPage /> },
-      { path: "payment", element: <TutorialPaymentPage /> },
+      { path: "my-courses/:courseId", element: <TutorialCourseLearnPage /> },
+      { path: "wallet", element: <TutorialWalletPage /> },
     ],
   },
 
@@ -241,4 +242,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-

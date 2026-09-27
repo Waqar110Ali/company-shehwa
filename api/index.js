@@ -36,7 +36,7 @@ var __decorateClass = (decorators, target, key, kind) => {
 };
 var __decorateParam = (index, decorator) => (target, key) => decorator(target, key, index);
 
-// api/index.ts
+// apps/api/api/index.ts
 var index_exports = {};
 __export(index_exports, {
   default: () => handler
@@ -47,11 +47,11 @@ var import_common97 = require("@nestjs/common");
 var import_path2 = require("path");
 var import_swagger4 = require("@nestjs/swagger");
 
-// src/app.module.ts
+// apps/api/src/app.module.ts
 var import_common96 = require("@nestjs/common");
-var import_config9 = require("@nestjs/config");
+var import_config10 = require("@nestjs/config");
 
-// src/config/index.ts
+// apps/api/src/config/index.ts
 var config_default = [
   () => ({
     app: {
@@ -73,7 +73,7 @@ var config_default = [
   })
 ];
 
-// src/config/env.validation.ts
+// apps/api/src/config/env.validation.ts
 var Joi = __toESM(require("joi"));
 var envValidationSchema = Joi.object({
   PORT: Joi.number().default(5e3),
@@ -103,12 +103,12 @@ var envValidationSchema = Joi.object({
   CALCOM_API_KEY: Joi.string().optional()
 });
 
-// src/database/database.module.ts
+// apps/api/src/database/database.module.ts
 var import_common2 = require("@nestjs/common");
 var import_config = require("@nestjs/config");
 var import_mongoose = require("@nestjs/mongoose");
 
-// src/database/database.service.ts
+// apps/api/src/database/database.service.ts
 var import_common = require("@nestjs/common");
 var DatabaseService = class {
   logger = new import_common.Logger(DatabaseService.name);
@@ -126,7 +126,7 @@ DatabaseService = __decorateClass([
   (0, import_common.Injectable)()
 ], DatabaseService);
 
-// src/database/database.module.ts
+// apps/api/src/database/database.module.ts
 var DatabaseModule = class {
 };
 DatabaseModule = __decorateClass([
@@ -156,25 +156,25 @@ DatabaseModule = __decorateClass([
   })
 ], DatabaseModule);
 
-// src/users/users.module.ts
+// apps/api/src/users/users.module.ts
 var import_common18 = require("@nestjs/common");
 var import_mongoose11 = require("@nestjs/mongoose");
 
-// src/users/controllers/users.controller.ts
+// apps/api/src/users/controllers/users.controller.ts
 var import_common5 = require("@nestjs/common");
 
-// src/users/services/users.service.ts
+// apps/api/src/users/services/users.service.ts
 var import_common4 = require("@nestjs/common");
 
-// src/users/repositories/users.repository.ts
+// apps/api/src/users/repositories/users.repository.ts
 var import_common3 = require("@nestjs/common");
 var import_mongoose3 = require("@nestjs/mongoose");
 var import_mongoose4 = require("mongoose");
 
-// src/users/schemas/user.schema.ts
+// apps/api/src/users/schemas/user.schema.ts
 var import_mongoose2 = require("@nestjs/mongoose");
 
-// src/users/enums/role.enum.ts
+// apps/api/src/users/enums/role.enum.ts
 var Role = /* @__PURE__ */ ((Role2) => {
   Role2["ADMIN"] = "ADMIN";
   Role2["HR"] = "HR";
@@ -189,7 +189,7 @@ var Role = /* @__PURE__ */ ((Role2) => {
   return Role2;
 })(Role || {});
 
-// src/users/schemas/user.schema.ts
+// apps/api/src/users/schemas/user.schema.ts
 var User = class {
   firstName;
   lastName;
@@ -347,7 +347,7 @@ User = __decorateClass([
 ], User);
 var UserSchema = import_mongoose2.SchemaFactory.createForClass(User);
 
-// src/users/repositories/users.repository.ts
+// apps/api/src/users/repositories/users.repository.ts
 var UsersRepository = class {
   constructor(userModel) {
     this.userModel = userModel;
@@ -554,7 +554,7 @@ UsersRepository = __decorateClass([
   __decorateParam(0, (0, import_common3.Inject)(import_mongoose4.Model))
 ], UsersRepository);
 
-// src/users/services/users.service.ts
+// apps/api/src/users/services/users.service.ts
 var UsersService = class {
   constructor(repository) {
     this.repository = repository;
@@ -715,7 +715,7 @@ UsersService = __decorateClass([
   __decorateParam(0, (0, import_common4.Inject)(UsersRepository))
 ], UsersService);
 
-// src/users/controllers/users.controller.ts
+// apps/api/src/users/controllers/users.controller.ts
 var UsersController = class {
   constructor(usersService) {
     this.usersService = usersService;
@@ -740,15 +740,15 @@ UsersController = __decorateClass([
   __decorateParam(0, (0, import_common5.Inject)(UsersService))
 ], UsersController);
 
-// src/employees/employees.module.ts
+// apps/api/src/employees/employees.module.ts
 var import_common17 = require("@nestjs/common");
 var import_mongoose10 = require("@nestjs/mongoose");
 
-// src/employees/schemas/employee.schema.ts
+// apps/api/src/employees/schemas/employee.schema.ts
 var import_mongoose5 = require("@nestjs/mongoose");
 var import_mongoose6 = require("mongoose");
 
-// src/employees/enums/employment-type.enum.ts
+// apps/api/src/employees/enums/employment-type.enum.ts
 var EmploymentType = /* @__PURE__ */ ((EmploymentType2) => {
   EmploymentType2["FULL_TIME"] = "FULL_TIME";
   EmploymentType2["PART_TIME"] = "PART_TIME";
@@ -758,7 +758,7 @@ var EmploymentType = /* @__PURE__ */ ((EmploymentType2) => {
   return EmploymentType2;
 })(EmploymentType || {});
 
-// src/employees/enums/employee-status.enum.ts
+// apps/api/src/employees/enums/employee-status.enum.ts
 var EmployeeStatus = /* @__PURE__ */ ((EmployeeStatus2) => {
   EmployeeStatus2["PENDING"] = "PENDING";
   EmployeeStatus2["ACTIVE"] = "ACTIVE";
@@ -768,7 +768,7 @@ var EmployeeStatus = /* @__PURE__ */ ((EmployeeStatus2) => {
   return EmployeeStatus2;
 })(EmployeeStatus || {});
 
-// src/employees/enums/gender.enum.ts
+// apps/api/src/employees/enums/gender.enum.ts
 var Gender = /* @__PURE__ */ ((Gender2) => {
   Gender2["MALE"] = "MALE";
   Gender2["FEMALE"] = "FEMALE";
@@ -776,7 +776,7 @@ var Gender = /* @__PURE__ */ ((Gender2) => {
   return Gender2;
 })(Gender || {});
 
-// src/employees/schemas/employee.schema.ts
+// apps/api/src/employees/schemas/employee.schema.ts
 var Employee = class {
   employeeId;
   user;
@@ -968,11 +968,11 @@ EmployeeSchema.set("toObject", {
   virtuals: true
 });
 
-// src/employees/controllers/employees.controller.ts
+// apps/api/src/employees/controllers/employees.controller.ts
 var import_common14 = require("@nestjs/common");
 var import_platform_express = require("@nestjs/platform-express");
 
-// src/auth/guards/jwt-auth.guard.ts
+// apps/api/src/auth/guards/jwt-auth.guard.ts
 var import_common6 = require("@nestjs/common");
 var import_passport = require("@nestjs/passport");
 var JwtAuthGuard = class extends (0, import_passport.AuthGuard)(
@@ -983,11 +983,11 @@ JwtAuthGuard = __decorateClass([
   (0, import_common6.Injectable)()
 ], JwtAuthGuard);
 
-// src/auth/guards/roles.guard.ts
+// apps/api/src/auth/guards/roles.guard.ts
 var import_common8 = require("@nestjs/common");
 var import_core = require("@nestjs/core");
 
-// src/auth/decorators/roles.decorator.ts
+// apps/api/src/auth/decorators/roles.decorator.ts
 var import_common7 = require("@nestjs/common");
 var ROLES_KEY = "roles";
 var Roles = (...roles) => (0, import_common7.SetMetadata)(
@@ -995,7 +995,7 @@ var Roles = (...roles) => (0, import_common7.SetMetadata)(
   roles
 );
 
-// src/auth/guards/roles.guard.ts
+// apps/api/src/auth/guards/roles.guard.ts
 var RolesGuard = class {
   constructor(reflector) {
     this.reflector = reflector;
@@ -1024,7 +1024,7 @@ RolesGuard = __decorateClass([
   __decorateParam(0, (0, import_common8.Inject)(import_core.Reflector))
 ], RolesGuard);
 
-// src/auth/constants/role-groups.ts
+// apps/api/src/auth/constants/role-groups.ts
 var VIEW_ROLES = [
   "ADMIN" /* ADMIN */,
   "HR" /* HR */,
@@ -1043,12 +1043,12 @@ var ADMIN_ONLY = [
   "ADMIN" /* ADMIN */
 ];
 
-// src/employees/services/employees.service.ts
+// apps/api/src/employees/services/employees.service.ts
 var import_common13 = require("@nestjs/common");
 var import_mongoose9 = require("mongoose");
 var bcrypt = __toESM(require("bcrypt"));
 
-// src/employees/repositories/employees.repository.ts
+// apps/api/src/employees/repositories/employees.repository.ts
 var import_common9 = require("@nestjs/common");
 var import_mongoose7 = require("@nestjs/mongoose");
 var import_mongoose8 = require("mongoose");
@@ -1236,16 +1236,16 @@ EmployeesRepository = __decorateClass([
   __decorateParam(0, (0, import_common9.Inject)(import_mongoose8.Model))
 ], EmployeesRepository);
 
-// src/mail/mail.service.ts
+// apps/api/src/mail/mail.service.ts
 var import_common10 = require("@nestjs/common");
 var import_config2 = require("@nestjs/config");
 var import_mailer = require("@nestjs-modules/mailer");
 var import_uuid = require("uuid");
 
-// src/mail/mail.constants.ts
+// apps/api/src/mail/mail.constants.ts
 var APP_NAME = "AI Company Management Platform";
 
-// src/mail/mail.service.ts
+// apps/api/src/mail/mail.service.ts
 var MailService = class {
   constructor(mailerService, configService, usersService) {
     this.mailerService = mailerService;
@@ -1420,7 +1420,7 @@ MailService = __decorateClass([
   ))
 ], MailService);
 
-// src/employees/config/Avatar-upload.config.ts
+// apps/api/src/employees/config/Avatar-upload.config.ts
 var import_common11 = require("@nestjs/common");
 var import_multer = require("multer");
 var AVATAR_CLOUDINARY_FOLDER = "avatars";
@@ -1448,7 +1448,7 @@ function isCloudinaryAvatarUrl(avatar) {
   return !!avatar && avatar.includes("res.cloudinary.com") && avatar.includes(`/${AVATAR_CLOUDINARY_FOLDER}/`);
 }
 
-// src/common/cloudinary/cloudinary.service.ts
+// apps/api/src/common/cloudinary/cloudinary.service.ts
 var import_common12 = require("@nestjs/common");
 var CloudinaryService = class {
   constructor(cloudinary2) {
@@ -1487,7 +1487,7 @@ CloudinaryService = __decorateClass([
   __decorateParam(0, (0, import_common12.Inject)("CLOUDINARY"))
 ], CloudinaryService);
 
-// src/employees/services/employees.service.ts
+// apps/api/src/employees/services/employees.service.ts
 var EmployeesService = class {
   constructor(repository, usersService, mailService, cloudinaryService) {
     this.repository = repository;
@@ -1842,7 +1842,7 @@ EmployeesService = __decorateClass([
   __decorateParam(3, (0, import_common13.Inject)(CloudinaryService))
 ], EmployeesService);
 
-// src/employees/controllers/employees.controller.ts
+// apps/api/src/employees/controllers/employees.controller.ts
 var EmployeesController = class {
   constructor(service) {
     this.service = service;
@@ -1923,7 +1923,7 @@ EmployeesController = __decorateClass([
   __decorateParam(0, (0, import_common14.Inject)(EmployeesService))
 ], EmployeesController);
 
-// src/mail/mail.module.ts
+// apps/api/src/mail/mail.module.ts
 var import_common15 = require("@nestjs/common");
 var import_config3 = require("@nestjs/config");
 var import_mailer2 = require("@nestjs-modules/mailer");
@@ -1979,10 +1979,10 @@ MailModule = __decorateClass([
   })
 ], MailModule);
 
-// src/common/cloudinary/cloudinary.module.ts
+// apps/api/src/common/cloudinary/cloudinary.module.ts
 var import_common16 = require("@nestjs/common");
 
-// src/common/cloudinary/cloudinary.provider.ts
+// apps/api/src/common/cloudinary/cloudinary.provider.ts
 var import_cloudinary2 = require("cloudinary");
 var import_config4 = require("@nestjs/config");
 var CloudinaryProvider = {
@@ -2004,7 +2004,7 @@ var CloudinaryProvider = {
   inject: [import_config4.ConfigService]
 };
 
-// src/common/cloudinary/cloudinary.module.ts
+// apps/api/src/common/cloudinary/cloudinary.module.ts
 var CloudinaryModule = class {
 };
 CloudinaryModule = __decorateClass([
@@ -2019,7 +2019,7 @@ CloudinaryModule = __decorateClass([
   })
 ], CloudinaryModule);
 
-// src/employees/employees.module.ts
+// apps/api/src/employees/employees.module.ts
 var EmployeesModule = class {
 };
 EmployeesModule = __decorateClass([
@@ -2049,7 +2049,7 @@ EmployeesModule = __decorateClass([
   })
 ], EmployeesModule);
 
-// src/users/users.module.ts
+// apps/api/src/users/users.module.ts
 var UsersModule = class {
 };
 UsersModule = __decorateClass([
@@ -2078,16 +2078,16 @@ UsersModule = __decorateClass([
   })
 ], UsersModule);
 
-// src/auth/auth.module.ts
+// apps/api/src/auth/auth.module.ts
 var import_common23 = require("@nestjs/common");
 var import_config7 = require("@nestjs/config");
 var import_jwt2 = require("@nestjs/jwt");
 var import_passport3 = require("@nestjs/passport");
 
-// src/auth/controllers/auth.controller.ts
+// apps/api/src/auth/controllers/auth.controller.ts
 var import_common21 = require("@nestjs/common");
 
-// src/auth/services/auth.service.ts
+// apps/api/src/auth/services/auth.service.ts
 var import_common19 = require("@nestjs/common");
 var import_jwt = require("@nestjs/jwt");
 var import_config5 = require("@nestjs/config");
@@ -2396,7 +2396,7 @@ AuthService = __decorateClass([
   __decorateParam(4, (0, import_common19.Inject)(EmployeesRepository))
 ], AuthService);
 
-// src/auth/decorators/current-user.decorator.ts
+// apps/api/src/auth/decorators/current-user.decorator.ts
 var import_common20 = require("@nestjs/common");
 var CurrentUser = (0, import_common20.createParamDecorator)(
   (_data, ctx) => {
@@ -2405,7 +2405,7 @@ var CurrentUser = (0, import_common20.createParamDecorator)(
   }
 );
 
-// src/auth/controllers/auth.controller.ts
+// apps/api/src/auth/controllers/auth.controller.ts
 var AuthController = class {
   constructor(authService) {
     this.authService = authService;
@@ -2520,7 +2520,7 @@ AuthController = __decorateClass([
   __decorateParam(0, (0, import_common21.Inject)(AuthService))
 ], AuthController);
 
-// src/auth/strategies/jwt.strategy.ts
+// apps/api/src/auth/strategies/jwt.strategy.ts
 var import_common22 = require("@nestjs/common");
 var import_config6 = require("@nestjs/config");
 var import_passport2 = require("@nestjs/passport");
@@ -2546,7 +2546,7 @@ JwtStrategy = __decorateClass([
   __decorateParam(0, (0, import_common22.Inject)(import_config6.ConfigService))
 ], JwtStrategy);
 
-// src/auth/auth.module.ts
+// apps/api/src/auth/auth.module.ts
 var AuthModule = class {
 };
 AuthModule = __decorateClass([
@@ -2593,15 +2593,15 @@ AuthModule = __decorateClass([
   })
 ], AuthModule);
 
-// src/dashboard/dashboard.module.ts
+// apps/api/src/dashboard/dashboard.module.ts
 var import_common27 = require("@nestjs/common");
 var import_mongoose18 = require("@nestjs/mongoose");
 
-// src/projects/schemas/project.schema.ts
+// apps/api/src/projects/schemas/project.schema.ts
 var import_mongoose12 = require("@nestjs/mongoose");
 var import_mongoose13 = require("mongoose");
 
-// src/projects/enums/project-priority.enum.ts
+// apps/api/src/projects/enums/project-priority.enum.ts
 var ProjectPriority = /* @__PURE__ */ ((ProjectPriority2) => {
   ProjectPriority2["LOW"] = "Low";
   ProjectPriority2["MEDIUM"] = "Medium";
@@ -2610,7 +2610,7 @@ var ProjectPriority = /* @__PURE__ */ ((ProjectPriority2) => {
   return ProjectPriority2;
 })(ProjectPriority || {});
 
-// src/projects/enums/project-status.enum.ts
+// apps/api/src/projects/enums/project-status.enum.ts
 var ProjectStatus = /* @__PURE__ */ ((ProjectStatus2) => {
   ProjectStatus2["PLANNING"] = "Planning";
   ProjectStatus2["ACTIVE"] = "Active";
@@ -2619,7 +2619,7 @@ var ProjectStatus = /* @__PURE__ */ ((ProjectStatus2) => {
   return ProjectStatus2;
 })(ProjectStatus || {});
 
-// src/projects/schemas/project.schema.ts
+// apps/api/src/projects/schemas/project.schema.ts
 var Project = class {
   name;
   description;
@@ -2710,11 +2710,11 @@ Project = __decorateClass([
 ], Project);
 var ProjectSchema = import_mongoose12.SchemaFactory.createForClass(Project);
 
-// src/tasks/schemas/task.schema.ts
+// apps/api/src/tasks/schemas/task.schema.ts
 var import_mongoose14 = require("@nestjs/mongoose");
 var import_mongoose15 = require("mongoose");
 
-// src/tasks/enums/task-priority.enum.ts
+// apps/api/src/tasks/enums/task-priority.enum.ts
 var TaskPriority = /* @__PURE__ */ ((TaskPriority2) => {
   TaskPriority2["LOW"] = "Low";
   TaskPriority2["MEDIUM"] = "Medium";
@@ -2723,7 +2723,7 @@ var TaskPriority = /* @__PURE__ */ ((TaskPriority2) => {
   return TaskPriority2;
 })(TaskPriority || {});
 
-// src/tasks/enums/task-status.enum.ts
+// apps/api/src/tasks/enums/task-status.enum.ts
 var TaskStatus = /* @__PURE__ */ ((TaskStatus2) => {
   TaskStatus2["TODO"] = "Todo";
   TaskStatus2["IN_PROGRESS"] = "In Progress";
@@ -2732,7 +2732,7 @@ var TaskStatus = /* @__PURE__ */ ((TaskStatus2) => {
   return TaskStatus2;
 })(TaskStatus || {});
 
-// src/tasks/schemas/task.schema.ts
+// apps/api/src/tasks/schemas/task.schema.ts
 var Task = class {
   title;
   description;
@@ -2806,14 +2806,14 @@ Task = __decorateClass([
 ], Task);
 var TaskSchema = import_mongoose14.SchemaFactory.createForClass(Task);
 
-// src/dashboard/controllers/dashboard.controller.ts
+// apps/api/src/dashboard/controllers/dashboard.controller.ts
 var import_common26 = require("@nestjs/common");
 var import_swagger = require("@nestjs/swagger");
 
-// src/dashboard/services/dashboard.service.ts
+// apps/api/src/dashboard/services/dashboard.service.ts
 var import_common25 = require("@nestjs/common");
 
-// src/dashboard/repositories/dashboard.repository.ts
+// apps/api/src/dashboard/repositories/dashboard.repository.ts
 var import_common24 = require("@nestjs/common");
 var import_mongoose16 = require("@nestjs/mongoose");
 var import_mongoose17 = require("mongoose");
@@ -2969,7 +2969,7 @@ DashboardRepository = __decorateClass([
   __decorateParam(2, (0, import_common24.Inject)(import_mongoose17.Model))
 ], DashboardRepository);
 
-// src/dashboard/services/dashboard.service.ts
+// apps/api/src/dashboard/services/dashboard.service.ts
 var DashboardService = class {
   constructor(repository) {
     this.repository = repository;
@@ -3003,7 +3003,7 @@ DashboardService = __decorateClass([
   __decorateParam(0, (0, import_common25.Inject)(DashboardRepository))
 ], DashboardService);
 
-// src/dashboard/controllers/dashboard.controller.ts
+// apps/api/src/dashboard/controllers/dashboard.controller.ts
 var DashboardController = class {
   constructor(dashboardService) {
     this.dashboardService = dashboardService;
@@ -3028,7 +3028,7 @@ DashboardController = __decorateClass([
   __decorateParam(0, (0, import_common26.Inject)(DashboardService))
 ], DashboardController);
 
-// src/dashboard/dashboard.module.ts
+// apps/api/src/dashboard/dashboard.module.ts
 var DashboardModule = class {
 };
 DashboardModule = __decorateClass([
@@ -3063,18 +3063,18 @@ DashboardModule = __decorateClass([
   })
 ], DashboardModule);
 
-// src/projects/projects.module.ts
+// apps/api/src/projects/projects.module.ts
 var import_common31 = require("@nestjs/common");
 var import_mongoose21 = require("@nestjs/mongoose");
 
-// src/projects/controllers/projects.controller.ts
+// apps/api/src/projects/controllers/projects.controller.ts
 var import_common30 = require("@nestjs/common");
 var import_swagger2 = require("@nestjs/swagger");
 
-// src/projects/services/projects.service.ts
+// apps/api/src/projects/services/projects.service.ts
 var import_common29 = require("@nestjs/common");
 
-// src/projects/mappers/project.mapper.ts
+// apps/api/src/projects/mappers/project.mapper.ts
 var ProjectMapper = class {
   static toList(project) {
     return {
@@ -3116,7 +3116,7 @@ var ProjectMapper = class {
   }
 };
 
-// src/projects/repositories/projects.repository.ts
+// apps/api/src/projects/repositories/projects.repository.ts
 var import_common28 = require("@nestjs/common");
 var import_mongoose19 = require("@nestjs/mongoose");
 var import_mongoose20 = require("mongoose");
@@ -3283,7 +3283,7 @@ ProjectsRepository = __decorateClass([
   __decorateParam(0, (0, import_common28.Inject)(import_mongoose20.Model))
 ], ProjectsRepository);
 
-// src/projects/services/projects.service.ts
+// apps/api/src/projects/services/projects.service.ts
 var ProjectsService = class {
   constructor(repository) {
     this.repository = repository;
@@ -3343,7 +3343,7 @@ ProjectsService = __decorateClass([
   __decorateParam(0, (0, import_common29.Inject)(ProjectsRepository))
 ], ProjectsService);
 
-// src/projects/controllers/projects.controller.ts
+// apps/api/src/projects/controllers/projects.controller.ts
 var ProjectsController = class {
   constructor(projectsService) {
     this.projectsService = projectsService;
@@ -3418,7 +3418,7 @@ ProjectsController = __decorateClass([
   __decorateParam(0, (0, import_common30.Inject)(ProjectsService))
 ], ProjectsController);
 
-// src/projects/projects.module.ts
+// apps/api/src/projects/projects.module.ts
 var ProjectsModule = class {
 };
 ProjectsModule = __decorateClass([
@@ -3449,17 +3449,17 @@ ProjectsModule = __decorateClass([
   })
 ], ProjectsModule);
 
-// src/tasks/tasks.module.ts
+// apps/api/src/tasks/tasks.module.ts
 var import_common36 = require("@nestjs/common");
 var import_mongoose24 = require("@nestjs/mongoose");
 
-// src/tasks/controllers/tasks.controller.ts
+// apps/api/src/tasks/controllers/tasks.controller.ts
 var import_common34 = require("@nestjs/common");
 
-// src/tasks/services/tasks.service.ts
+// apps/api/src/tasks/services/tasks.service.ts
 var import_common33 = require("@nestjs/common");
 
-// src/tasks/repositories/tasks.repository.ts
+// apps/api/src/tasks/repositories/tasks.repository.ts
 var import_common32 = require("@nestjs/common");
 var import_mongoose22 = require("@nestjs/mongoose");
 var import_mongoose23 = require("mongoose");
@@ -3583,7 +3583,7 @@ TaskRepository = __decorateClass([
   __decorateParam(0, (0, import_common32.Inject)(import_mongoose23.Model))
 ], TaskRepository);
 
-// src/tasks/services/tasks.service.ts
+// apps/api/src/tasks/services/tasks.service.ts
 var TaskService = class {
   constructor(tasksRepository) {
     this.tasksRepository = tasksRepository;
@@ -3666,7 +3666,7 @@ TaskService = __decorateClass([
   __decorateParam(0, (0, import_common33.Inject)(TaskRepository))
 ], TaskService);
 
-// src/tasks/controllers/tasks.controller.ts
+// apps/api/src/tasks/controllers/tasks.controller.ts
 var TaskController = class {
   constructor(taskService) {
     this.taskService = taskService;
@@ -3739,7 +3739,7 @@ TaskController = __decorateClass([
   __decorateParam(0, (0, import_common34.Inject)(TaskService))
 ], TaskController);
 
-// src/tasks/mappers/tasks.mapper.ts
+// apps/api/src/tasks/mappers/tasks.mapper.ts
 var import_common35 = require("@nestjs/common");
 var TasksMapper = class {
   toResponse(task) {
@@ -3770,7 +3770,7 @@ TasksMapper = __decorateClass([
   (0, import_common35.Injectable)()
 ], TasksMapper);
 
-// src/tasks/tasks.module.ts
+// apps/api/src/tasks/tasks.module.ts
 var TaskModule = class {
 };
 TaskModule = __decorateClass([
@@ -3796,7 +3796,7 @@ TaskModule = __decorateClass([
   })
 ], TaskModule);
 
-// src/common/middleware/logger.middleware.ts
+// apps/api/src/common/middleware/logger.middleware.ts
 var import_common37 = require("@nestjs/common");
 var LoggerMiddleware = class {
   use(req, res, next) {
@@ -3816,15 +3816,15 @@ LoggerMiddleware = __decorateClass([
   (0, import_common37.Injectable)()
 ], LoggerMiddleware);
 
-// src/attendance/attendance.module.ts
+// apps/api/src/attendance/attendance.module.ts
 var import_common42 = require("@nestjs/common");
 var import_mongoose29 = require("@nestjs/mongoose");
 
-// src/attendance/schemas/attendance.schema.ts
+// apps/api/src/attendance/schemas/attendance.schema.ts
 var import_mongoose25 = require("@nestjs/mongoose");
 var import_mongoose26 = require("mongoose");
 
-// src/attendance/enums/attendance-status.enum.ts
+// apps/api/src/attendance/enums/attendance-status.enum.ts
 var AttendanceStatus = /* @__PURE__ */ ((AttendanceStatus2) => {
   AttendanceStatus2["PRESENT"] = "Present";
   AttendanceStatus2["LATE"] = "Late";
@@ -3833,7 +3833,7 @@ var AttendanceStatus = /* @__PURE__ */ ((AttendanceStatus2) => {
   return AttendanceStatus2;
 })(AttendanceStatus || {});
 
-// src/attendance/schemas/attendance.schema.ts
+// apps/api/src/attendance/schemas/attendance.schema.ts
 var Attendance = class {
   employee;
   date;
@@ -3887,13 +3887,13 @@ var AttendanceSchema = import_mongoose25.SchemaFactory.createForClass(
   Attendance
 );
 
-// src/attendance/controllers/attendance.controller.ts
+// apps/api/src/attendance/controllers/attendance.controller.ts
 var import_common40 = require("@nestjs/common");
 
-// src/attendance/services/attendance.service.ts
+// apps/api/src/attendance/services/attendance.service.ts
 var import_common39 = require("@nestjs/common");
 
-// src/attendance/repositories/attendance.repository.ts
+// apps/api/src/attendance/repositories/attendance.repository.ts
 var import_common38 = require("@nestjs/common");
 var import_mongoose27 = require("@nestjs/mongoose");
 var import_mongoose28 = require("mongoose");
@@ -4040,7 +4040,7 @@ AttendanceRepository = __decorateClass([
   __decorateParam(0, (0, import_common38.Inject)(import_mongoose28.Model))
 ], AttendanceRepository);
 
-// src/attendance/services/attendance.service.ts
+// apps/api/src/attendance/services/attendance.service.ts
 var AttendanceService = class {
   constructor(attendanceRepository) {
     this.attendanceRepository = attendanceRepository;
@@ -4119,7 +4119,7 @@ AttendanceService = __decorateClass([
   __decorateParam(0, (0, import_common39.Inject)(AttendanceRepository))
 ], AttendanceService);
 
-// src/attendance/controllers/attendance.controller.ts
+// apps/api/src/attendance/controllers/attendance.controller.ts
 var AttendanceController = class {
   constructor(attendanceService) {
     this.attendanceService = attendanceService;
@@ -4185,7 +4185,7 @@ AttendanceController = __decorateClass([
   __decorateParam(0, (0, import_common40.Inject)(AttendanceService))
 ], AttendanceController);
 
-// src/attendance/mapper/attendance.mapper.ts
+// apps/api/src/attendance/mapper/attendance.mapper.ts
 var import_common41 = require("@nestjs/common");
 var AttendanceMapper = class {
   toResponse(attendance) {
@@ -4214,7 +4214,7 @@ AttendanceMapper = __decorateClass([
   (0, import_common41.Injectable)()
 ], AttendanceMapper);
 
-// src/attendance/attendance.module.ts
+// apps/api/src/attendance/attendance.module.ts
 var AttendanceModule = class {
 };
 AttendanceModule = __decorateClass([
@@ -4246,15 +4246,15 @@ AttendanceModule = __decorateClass([
   })
 ], AttendanceModule);
 
-// src/calender/calender.module.ts
+// apps/api/src/calender/calender.module.ts
 var import_common47 = require("@nestjs/common");
 var import_mongoose35 = require("@nestjs/mongoose");
 
-// src/calender/schemas/calendar-event.schema.ts
+// apps/api/src/calender/schemas/calendar-event.schema.ts
 var import_mongoose30 = require("@nestjs/mongoose");
 var import_mongoose31 = require("mongoose");
 
-// src/calender/enums/calendar-event-type.enum.ts
+// apps/api/src/calender/enums/calendar-event-type.enum.ts
 var CalendarEventType = /* @__PURE__ */ ((CalendarEventType2) => {
   CalendarEventType2["MEETING"] = "Meeting";
   CalendarEventType2["PROJECT"] = "Project";
@@ -4266,7 +4266,7 @@ var CalendarEventType = /* @__PURE__ */ ((CalendarEventType2) => {
   return CalendarEventType2;
 })(CalendarEventType || {});
 
-// src/calender/schemas/calendar-event.schema.ts
+// apps/api/src/calender/schemas/calendar-event.schema.ts
 var CalendarEvent = class {
   title;
   description;
@@ -4353,14 +4353,14 @@ var CalendarEventSchema = import_mongoose30.SchemaFactory.createForClass(
   CalendarEvent
 );
 
-// src/calender/controller/calendar.controller.ts
+// apps/api/src/calender/controller/calendar.controller.ts
 var import_common46 = require("@nestjs/common");
 
-// src/calender/service/calendar.service.ts
+// apps/api/src/calender/service/calendar.service.ts
 var import_common45 = require("@nestjs/common");
 var import_mongoose34 = require("mongoose");
 
-// src/calender/repository/calendar.repository.ts
+// apps/api/src/calender/repository/calendar.repository.ts
 var import_common43 = require("@nestjs/common");
 var import_mongoose32 = require("@nestjs/mongoose");
 var import_mongoose33 = require("mongoose");
@@ -4533,7 +4533,7 @@ CalendarRepository = __decorateClass([
   __decorateParam(0, (0, import_common43.Inject)(import_mongoose33.Model))
 ], CalendarRepository);
 
-// src/calender/mapper/calendar.mapper.ts
+// apps/api/src/calender/mapper/calendar.mapper.ts
 var import_common44 = require("@nestjs/common");
 var CalendarMapper = class {
   toResponse(event) {
@@ -4585,7 +4585,7 @@ CalendarMapper = __decorateClass([
   (0, import_common44.Injectable)()
 ], CalendarMapper);
 
-// src/calender/service/calendar.service.ts
+// apps/api/src/calender/service/calendar.service.ts
 var CalendarService = class {
   constructor(calendarRepository, calendarMapper) {
     this.calendarRepository = calendarRepository;
@@ -4710,7 +4710,7 @@ CalendarService = __decorateClass([
   __decorateParam(1, (0, import_common45.Inject)(CalendarMapper))
 ], CalendarService);
 
-// src/calender/controller/calendar.controller.ts
+// apps/api/src/calender/controller/calendar.controller.ts
 var CalendarController = class {
   constructor(calendarService) {
     this.calendarService = calendarService;
@@ -4782,7 +4782,7 @@ CalendarController = __decorateClass([
   __decorateParam(0, (0, import_common46.Inject)(CalendarService))
 ], CalendarController);
 
-// src/calender/calender.module.ts
+// apps/api/src/calender/calender.module.ts
 var CalendarModule = class {
 };
 CalendarModule = __decorateClass([
@@ -4810,36 +4810,36 @@ CalendarModule = __decorateClass([
   })
 ], CalendarModule);
 
-// src/chat/chat.module.ts
+// apps/api/src/chat/chat.module.ts
 var import_common53 = require("@nestjs/common");
 var import_mongoose44 = require("@nestjs/mongoose");
 var import_platform_express3 = require("@nestjs/platform-express");
 
-// src/chat/controller/chat.controller.ts
+// apps/api/src/chat/controller/chat.controller.ts
 var import_common52 = require("@nestjs/common");
 var import_platform_express2 = require("@nestjs/platform-express");
 var import_swagger3 = require("@nestjs/swagger");
 
-// src/chat/service/chat.service.ts
+// apps/api/src/chat/service/chat.service.ts
 var import_common51 = require("@nestjs/common");
 
-// src/chat/repository/chat.repository.ts
+// apps/api/src/chat/repository/chat.repository.ts
 var import_common48 = require("@nestjs/common");
 var import_mongoose40 = require("@nestjs/mongoose");
 var import_mongoose41 = require("mongoose");
 
-// src/chat/schema/conversation.schema.ts
+// apps/api/src/chat/schema/conversation.schema.ts
 var import_mongoose36 = require("@nestjs/mongoose");
 var import_mongoose37 = require("mongoose");
 
-// src/chat/enums/conversation-type.enum.ts
+// apps/api/src/chat/enums/conversation-type.enum.ts
 var ConversationType = /* @__PURE__ */ ((ConversationType2) => {
   ConversationType2["DIRECT"] = "DIRECT";
   ConversationType2["GROUP"] = "GROUP";
   return ConversationType2;
 })(ConversationType || {});
 
-// src/chat/schema/conversation.schema.ts
+// apps/api/src/chat/schema/conversation.schema.ts
 var Conversation = class {
   participants;
   type;
@@ -4903,11 +4903,11 @@ ConversationSchema.index({
   type: 1
 });
 
-// src/chat/schema/message.schema.ts
+// apps/api/src/chat/schema/message.schema.ts
 var import_mongoose38 = require("@nestjs/mongoose");
 var import_mongoose39 = require("mongoose");
 
-// src/chat/enums/message-status.enum.ts
+// apps/api/src/chat/enums/message-status.enum.ts
 var MessageType = /* @__PURE__ */ ((MessageType2) => {
   MessageType2["TEXT"] = "TEXT";
   MessageType2["IMAGE"] = "IMAGE";
@@ -4925,7 +4925,7 @@ var CallLogStatus = /* @__PURE__ */ ((CallLogStatus2) => {
   return CallLogStatus2;
 })(CallLogStatus || {});
 
-// src/chat/schema/message.schema.ts
+// apps/api/src/chat/schema/message.schema.ts
 var Message = class {
   conversation;
   sender;
@@ -5108,7 +5108,7 @@ MessageSchema.index({
   read: 1
 });
 
-// src/chat/repository/chat.repository.ts
+// apps/api/src/chat/repository/chat.repository.ts
 var ChatRepository = class {
   constructor(conversationModel, messageModel) {
     this.conversationModel = conversationModel;
@@ -5380,7 +5380,7 @@ ChatRepository = __decorateClass([
   __decorateParam(1, (0, import_common48.Inject)(import_mongoose41.Model))
 ], ChatRepository);
 
-// src/chat/mapper/chat.mapper.ts
+// apps/api/src/chat/mapper/chat.mapper.ts
 var import_common49 = require("@nestjs/common");
 var ChatMapper = class {
   // =====================================================
@@ -5479,7 +5479,7 @@ ChatMapper = __decorateClass([
   (0, import_common49.Injectable)()
 ], ChatMapper);
 
-// src/chat/gateway/chat.gateway.ts
+// apps/api/src/chat/gateway/chat.gateway.ts
 var import_websockets = require("@nestjs/websockets");
 var import_mongoose42 = require("mongoose");
 var import_common50 = require("@nestjs/common");
@@ -6684,7 +6684,7 @@ ChatGateway = __decorateClass([
   __decorateParam(1, (0, import_common50.Inject)(ChatMapper))
 ], ChatGateway);
 
-// src/chat/service/chat.service.ts
+// apps/api/src/chat/service/chat.service.ts
 var import_mongoose43 = require("mongoose");
 var ChatService = class {
   constructor(repository, employeesRepository, mapper, gateway, cloudinary2) {
@@ -7019,7 +7019,7 @@ ChatService = __decorateClass([
   __decorateParam(4, (0, import_common51.Inject)(CloudinaryService))
 ], ChatService);
 
-// src/chat/controller/chat.controller.ts
+// apps/api/src/chat/controller/chat.controller.ts
 var ChatController = class {
   constructor(service) {
     this.service = service;
@@ -7159,7 +7159,7 @@ ChatController = __decorateClass([
   __decorateParam(0, (0, import_common52.Inject)(ChatService))
 ], ChatController);
 
-// src/chat/chat.module.ts
+// apps/api/src/chat/chat.module.ts
 var ChatModule = class {
 };
 ChatModule = __decorateClass([
@@ -7201,28 +7201,28 @@ ChatModule = __decorateClass([
   })
 ], ChatModule);
 
-// src/files/files.module.ts
+// apps/api/src/files/files.module.ts
 var import_common58 = require("@nestjs/common");
 var import_mongoose50 = require("@nestjs/mongoose");
 
-// src/files/controllers/files.controller.ts
+// apps/api/src/files/controllers/files.controller.ts
 var import_common57 = require("@nestjs/common");
 var import_platform_express4 = require("@nestjs/platform-express");
 
-// src/files/services/files.service.ts
+// apps/api/src/files/services/files.service.ts
 var import_common56 = require("@nestjs/common");
 var import_mongoose49 = require("mongoose");
 
-// src/files/repository/files.repository.ts
+// apps/api/src/files/repository/files.repository.ts
 var import_common54 = require("@nestjs/common");
 var import_mongoose47 = require("@nestjs/mongoose");
 var import_mongoose48 = require("mongoose");
 
-// src/files/schemas/file.schema.ts
+// apps/api/src/files/schemas/file.schema.ts
 var import_mongoose45 = require("@nestjs/mongoose");
 var import_mongoose46 = require("mongoose");
 
-// src/files/enums/file-type.enum.ts
+// apps/api/src/files/enums/file-type.enum.ts
 var FileType = /* @__PURE__ */ ((FileType2) => {
   FileType2["FOLDER"] = "folder";
   FileType2["IMAGE"] = "image";
@@ -7235,7 +7235,7 @@ var FileType = /* @__PURE__ */ ((FileType2) => {
   return FileType2;
 })(FileType || {});
 
-// src/files/schemas/file.schema.ts
+// apps/api/src/files/schemas/file.schema.ts
 var File = class {
   name;
   originalName;
@@ -7393,7 +7393,7 @@ FileSchema.index({
   name: "text"
 });
 
-// src/files/repository/files.repository.ts
+// apps/api/src/files/repository/files.repository.ts
 var FilesRepository = class {
   constructor(fileModel) {
     this.fileModel = fileModel;
@@ -7631,7 +7631,7 @@ FilesRepository = __decorateClass([
   __decorateParam(0, (0, import_common54.Inject)(import_mongoose48.Model))
 ], FilesRepository);
 
-// src/files/mapper/files.mapper.ts
+// apps/api/src/files/mapper/files.mapper.ts
 var import_common55 = require("@nestjs/common");
 var FilesMapper = class {
   // =====================================================
@@ -7766,7 +7766,7 @@ FilesMapper = __decorateClass([
   (0, import_common55.Injectable)()
 ], FilesMapper);
 
-// src/files/services/files.service.ts
+// apps/api/src/files/services/files.service.ts
 var FilesService = class {
   constructor(repository, employeesRepository, mapper, cloudinary2) {
     this.repository = repository;
@@ -8267,7 +8267,7 @@ FilesService = __decorateClass([
   __decorateParam(3, (0, import_common56.Inject)(CloudinaryService))
 ], FilesService);
 
-// src/files/controllers/files.controller.ts
+// apps/api/src/files/controllers/files.controller.ts
 var FilesController = class {
   constructor(filesService) {
     this.filesService = filesService;
@@ -8399,7 +8399,7 @@ FilesController = __decorateClass([
   __decorateParam(0, (0, import_common57.Inject)(FilesService))
 ], FilesController);
 
-// src/files/files.module.ts
+// apps/api/src/files/files.module.ts
 var FilesModule = class {
 };
 FilesModule = __decorateClass([
@@ -8430,17 +8430,17 @@ FilesModule = __decorateClass([
   })
 ], FilesModule);
 
-// src/reports/reports.module.ts
+// apps/api/src/reports/reports.module.ts
 var import_common64 = require("@nestjs/common");
 var import_mongoose53 = require("@nestjs/mongoose");
 
-// src/reports/controllers/reports.controller.ts
+// apps/api/src/reports/controllers/reports.controller.ts
 var import_common63 = require("@nestjs/common");
 
-// src/reports/services/reports.service.ts
+// apps/api/src/reports/services/reports.service.ts
 var import_common60 = require("@nestjs/common");
 
-// src/reports/repositories/reports.repository.ts
+// apps/api/src/reports/repositories/reports.repository.ts
 var import_common59 = require("@nestjs/common");
 var import_mongoose51 = require("@nestjs/mongoose");
 var import_mongoose52 = require("mongoose");
@@ -9158,7 +9158,7 @@ ReportsRepository = __decorateClass([
   __decorateParam(3, (0, import_common59.Inject)(import_mongoose52.Model))
 ], ReportsRepository);
 
-// src/reports/services/reports.service.ts
+// apps/api/src/reports/services/reports.service.ts
 var ReportsService = class {
   constructor(reportsRepository) {
     this.reportsRepository = reportsRepository;
@@ -9173,7 +9173,7 @@ ReportsService = __decorateClass([
   __decorateParam(0, (0, import_common60.Inject)(ReportsRepository))
 ], ReportsService);
 
-// src/reports/services/reports-export.service.ts
+// apps/api/src/reports/services/reports-export.service.ts
 var import_common61 = require("@nestjs/common");
 var import_exceljs = __toESM(require("exceljs"));
 var import_pdfkit = __toESM(require("pdfkit"));
@@ -9480,7 +9480,7 @@ ReportsExportService = __decorateClass([
   __decorateParam(0, (0, import_common61.Inject)(ReportsRepository))
 ], ReportsExportService);
 
-// src/reports/guards/reports-access.guard.ts
+// apps/api/src/reports/guards/reports-access.guard.ts
 var import_common62 = require("@nestjs/common");
 var import_passport4 = require("@nestjs/passport");
 var ReportsAccessGuard = class extends (0, import_passport4.AuthGuard)("jwt") {
@@ -9513,7 +9513,7 @@ ReportsAccessGuard = __decorateClass([
   (0, import_common62.Injectable)()
 ], ReportsAccessGuard);
 
-// src/reports/controllers/reports.controller.ts
+// apps/api/src/reports/controllers/reports.controller.ts
 var ReportsController = class {
   constructor(reportsService, reportsExportService) {
     this.reportsService = reportsService;
@@ -9592,7 +9592,7 @@ ReportsController = __decorateClass([
   __decorateParam(1, (0, import_common63.Inject)(ReportsExportService))
 ], ReportsController);
 
-// src/reports/reports.module.ts
+// apps/api/src/reports/reports.module.ts
 var ReportsModule = class {
 };
 ReportsModule = __decorateClass([
@@ -9629,23 +9629,23 @@ ReportsModule = __decorateClass([
   })
 ], ReportsModule);
 
-// src/portfolio/portfolio.module.ts
+// apps/api/src/portfolio/portfolio.module.ts
 var import_common68 = require("@nestjs/common");
 var import_mongoose57 = require("@nestjs/mongoose");
 
-// src/portfolio/controllers/portfolio.controller.ts
+// apps/api/src/portfolio/controllers/portfolio.controller.ts
 var import_common67 = require("@nestjs/common");
 var import_platform_express5 = require("@nestjs/platform-express");
 
-// src/portfolio/services/portfolio.service.ts
+// apps/api/src/portfolio/services/portfolio.service.ts
 var import_common66 = require("@nestjs/common");
 
-// src/portfolio/repositories/portfolio.repository.ts
+// apps/api/src/portfolio/repositories/portfolio.repository.ts
 var import_common65 = require("@nestjs/common");
 var import_mongoose55 = require("@nestjs/mongoose");
 var import_mongoose56 = require("mongoose");
 
-// src/portfolio/schemas/portfolio.schema.ts
+// apps/api/src/portfolio/schemas/portfolio.schema.ts
 var import_mongoose54 = require("@nestjs/mongoose");
 var PortfolioContent = class {
   content;
@@ -9665,7 +9665,7 @@ var PortfolioContentSchema = import_mongoose54.SchemaFactory.createForClass(
   PortfolioContent
 );
 
-// src/portfolio/repositories/portfolio.repository.ts
+// apps/api/src/portfolio/repositories/portfolio.repository.ts
 var PortfolioRepository = class {
   constructor(portfolioModel) {
     this.portfolioModel = portfolioModel;
@@ -9706,7 +9706,7 @@ PortfolioRepository = __decorateClass([
   __decorateParam(0, (0, import_common65.Inject)(import_mongoose56.Model))
 ], PortfolioRepository);
 
-// src/portfolio/services/portfolio.service.ts
+// apps/api/src/portfolio/services/portfolio.service.ts
 var DEFAULT_PORTFOLIO_CONTENT = {
   heroContent: {
     badge: "",
@@ -9770,7 +9770,7 @@ PortfolioService = __decorateClass([
   __decorateParam(0, (0, import_common66.Inject)(PortfolioRepository))
 ], PortfolioService);
 
-// src/portfolio/controllers/portfolio.controller.ts
+// apps/api/src/portfolio/controllers/portfolio.controller.ts
 var PortfolioController = class {
   constructor(portfolioService, cloudinary2) {
     this.portfolioService = portfolioService;
@@ -9845,7 +9845,7 @@ PortfolioController = __decorateClass([
   __decorateParam(1, (0, import_common67.Inject)(CloudinaryService))
 ], PortfolioController);
 
-// src/portfolio/portfolio.module.ts
+// apps/api/src/portfolio/portfolio.module.ts
 var PortfolioModule = class {
 };
 PortfolioModule = __decorateClass([
@@ -9872,22 +9872,22 @@ PortfolioModule = __decorateClass([
   })
 ], PortfolioModule);
 
-// src/settings/settings.module.ts
+// apps/api/src/settings/settings.module.ts
 var import_common72 = require("@nestjs/common");
 var import_mongoose61 = require("@nestjs/mongoose");
 
-// src/settings/controllers/settings.controller.ts
+// apps/api/src/settings/controllers/settings.controller.ts
 var import_common71 = require("@nestjs/common");
 
-// src/settings/services/settings.service.ts
+// apps/api/src/settings/services/settings.service.ts
 var import_common70 = require("@nestjs/common");
 
-// src/settings/repositories/settings.repository.ts
+// apps/api/src/settings/repositories/settings.repository.ts
 var import_common69 = require("@nestjs/common");
 var import_mongoose59 = require("@nestjs/mongoose");
 var import_mongoose60 = require("mongoose");
 
-// src/settings/schemas/user-settings.schema.ts
+// apps/api/src/settings/schemas/user-settings.schema.ts
 var import_mongoose58 = require("@nestjs/mongoose");
 var UserSettingsDoc = class {
   userId;
@@ -9916,7 +9916,7 @@ var UserSettingsSchema = import_mongoose58.SchemaFactory.createForClass(
   UserSettingsDoc
 );
 
-// src/settings/repositories/settings.repository.ts
+// apps/api/src/settings/repositories/settings.repository.ts
 var SettingsRepository = class {
   constructor(settingsModel) {
     this.settingsModel = settingsModel;
@@ -9942,7 +9942,7 @@ SettingsRepository = __decorateClass([
   __decorateParam(0, (0, import_common69.Inject)(import_mongoose60.Model))
 ], SettingsRepository);
 
-// src/settings/services/settings.service.ts
+// apps/api/src/settings/services/settings.service.ts
 var SettingsService = class {
   constructor(settingsRepository) {
     this.settingsRepository = settingsRepository;
@@ -9974,7 +9974,7 @@ SettingsService = __decorateClass([
   __decorateParam(0, (0, import_common70.Inject)(SettingsRepository))
 ], SettingsService);
 
-// src/settings/controllers/settings.controller.ts
+// apps/api/src/settings/controllers/settings.controller.ts
 var ADMIN_ONLY_FIELDS = [
   "company",
   "website",
@@ -10023,7 +10023,7 @@ SettingsController = __decorateClass([
   __decorateParam(0, (0, import_common71.Inject)(SettingsService))
 ], SettingsController);
 
-// src/settings/settings.module.ts
+// apps/api/src/settings/settings.module.ts
 var SettingsModule = class {
 };
 SettingsModule = __decorateClass([
@@ -10049,22 +10049,22 @@ SettingsModule = __decorateClass([
   })
 ], SettingsModule);
 
-// src/notifications/notifications.module.ts
+// apps/api/src/notifications/notifications.module.ts
 var import_common76 = require("@nestjs/common");
 var import_mongoose65 = require("@nestjs/mongoose");
 
-// src/notifications/controllers/notifications.controller.ts
+// apps/api/src/notifications/controllers/notifications.controller.ts
 var import_common75 = require("@nestjs/common");
 
-// src/notifications/services/notifications.service.ts
+// apps/api/src/notifications/services/notifications.service.ts
 var import_common74 = require("@nestjs/common");
 
-// src/notifications/repositories/notifications.repository.ts
+// apps/api/src/notifications/repositories/notifications.repository.ts
 var import_common73 = require("@nestjs/common");
 var import_mongoose63 = require("@nestjs/mongoose");
 var import_mongoose64 = require("mongoose");
 
-// src/notifications/schemas/notification.schema.ts
+// apps/api/src/notifications/schemas/notification.schema.ts
 var import_mongoose62 = require("@nestjs/mongoose");
 var NotificationDoc = class {
   userId;
@@ -10121,7 +10121,7 @@ var NotificationSchema = import_mongoose62.SchemaFactory.createForClass(
   NotificationDoc
 );
 
-// src/notifications/repositories/notifications.repository.ts
+// apps/api/src/notifications/repositories/notifications.repository.ts
 var NotificationsRepository = class {
   constructor(notificationModel) {
     this.notificationModel = notificationModel;
@@ -10158,7 +10158,7 @@ NotificationsRepository = __decorateClass([
   __decorateParam(0, (0, import_common73.Inject)(import_mongoose64.Model))
 ], NotificationsRepository);
 
-// src/notifications/services/notifications.service.ts
+// apps/api/src/notifications/services/notifications.service.ts
 var NotificationsService = class {
   constructor(notificationsRepository) {
     this.notificationsRepository = notificationsRepository;
@@ -10219,7 +10219,7 @@ NotificationsService = __decorateClass([
   __decorateParam(0, (0, import_common74.Inject)(NotificationsRepository))
 ], NotificationsService);
 
-// src/notifications/controllers/notifications.controller.ts
+// apps/api/src/notifications/controllers/notifications.controller.ts
 var NotificationsController = class {
   constructor(notificationsService) {
     this.notificationsService = notificationsService;
@@ -10270,7 +10270,7 @@ NotificationsController = __decorateClass([
   __decorateParam(0, (0, import_common75.Inject)(NotificationsService))
 ], NotificationsController);
 
-// src/notifications/notifications.module.ts
+// apps/api/src/notifications/notifications.module.ts
 var NotificationsModule = class {
 };
 NotificationsModule = __decorateClass([
@@ -10296,23 +10296,23 @@ NotificationsModule = __decorateClass([
   })
 ], NotificationsModule);
 
-// src/updates/updates.module.ts
+// apps/api/src/updates/updates.module.ts
 var import_common80 = require("@nestjs/common");
 var import_mongoose69 = require("@nestjs/mongoose");
 
-// src/updates/controllers/updates.controller.ts
+// apps/api/src/updates/controllers/updates.controller.ts
 var import_common79 = require("@nestjs/common");
 var import_platform_express6 = require("@nestjs/platform-express");
 
-// src/updates/services/updates.service.ts
+// apps/api/src/updates/services/updates.service.ts
 var import_common78 = require("@nestjs/common");
 
-// src/updates/repositories/updates.repository.ts
+// apps/api/src/updates/repositories/updates.repository.ts
 var import_common77 = require("@nestjs/common");
 var import_mongoose67 = require("@nestjs/mongoose");
 var import_mongoose68 = require("mongoose");
 
-// src/updates/schemas/updates-content.schema.ts
+// apps/api/src/updates/schemas/updates-content.schema.ts
 var import_mongoose66 = require("@nestjs/mongoose");
 var UpdatesContent = class {
   content;
@@ -10332,7 +10332,7 @@ var UpdatesContentSchema = import_mongoose66.SchemaFactory.createForClass(
   UpdatesContent
 );
 
-// src/updates/repositories/updates.repository.ts
+// apps/api/src/updates/repositories/updates.repository.ts
 var UpdatesRepository = class {
   constructor(updatesModel) {
     this.updatesModel = updatesModel;
@@ -10361,7 +10361,7 @@ UpdatesRepository = __decorateClass([
   __decorateParam(0, (0, import_common77.Inject)(import_mongoose68.Model))
 ], UpdatesRepository);
 
-// src/updates/services/updates.service.ts
+// apps/api/src/updates/services/updates.service.ts
 var UpdatesService = class {
   constructor(updatesRepository) {
     this.updatesRepository = updatesRepository;
@@ -10405,7 +10405,7 @@ UpdatesService = __decorateClass([
   __decorateParam(0, (0, import_common78.Inject)(UpdatesRepository))
 ], UpdatesService);
 
-// src/updates/controllers/updates.controller.ts
+// apps/api/src/updates/controllers/updates.controller.ts
 var UpdatesController = class {
   constructor(updatesService, cloudinary2) {
     this.updatesService = updatesService;
@@ -10502,7 +10502,7 @@ UpdatesController = __decorateClass([
   __decorateParam(1, (0, import_common79.Inject)(CloudinaryService))
 ], UpdatesController);
 
-// src/updates/updates.module.ts
+// apps/api/src/updates/updates.module.ts
 var UpdatesModule = class {
 };
 UpdatesModule = __decorateClass([
@@ -10529,22 +10529,22 @@ UpdatesModule = __decorateClass([
   })
 ], UpdatesModule);
 
-// src/footer/footer.module.ts
+// apps/api/src/footer/footer.module.ts
 var import_common84 = require("@nestjs/common");
 var import_mongoose73 = require("@nestjs/mongoose");
 
-// src/footer/controllers/footer.controller.ts
+// apps/api/src/footer/controllers/footer.controller.ts
 var import_common83 = require("@nestjs/common");
 
-// src/footer/services/footer.service.ts
+// apps/api/src/footer/services/footer.service.ts
 var import_common82 = require("@nestjs/common");
 
-// src/footer/repositories/footer.repository.ts
+// apps/api/src/footer/repositories/footer.repository.ts
 var import_common81 = require("@nestjs/common");
 var import_mongoose71 = require("@nestjs/mongoose");
 var import_mongoose72 = require("mongoose");
 
-// src/footer/schemas/footer-content.schema.ts
+// apps/api/src/footer/schemas/footer-content.schema.ts
 var import_mongoose70 = require("@nestjs/mongoose");
 var FooterContentDoc = class {
   content;
@@ -10557,7 +10557,7 @@ FooterContentDoc = __decorateClass([
 ], FooterContentDoc);
 var FooterContentSchema = import_mongoose70.SchemaFactory.createForClass(FooterContentDoc);
 
-// src/footer/repositories/footer.repository.ts
+// apps/api/src/footer/repositories/footer.repository.ts
 var FooterRepository = class {
   constructor(footerModel) {
     this.footerModel = footerModel;
@@ -10580,7 +10580,7 @@ FooterRepository = __decorateClass([
   __decorateParam(0, (0, import_common81.Inject)(import_mongoose72.Model))
 ], FooterRepository);
 
-// src/footer/services/footer.service.ts
+// apps/api/src/footer/services/footer.service.ts
 var DEFAULT_CONTENT = {
   description: "Building scalable web, mobile, AI and cloud solutions for startups, businesses and enterprises.",
   copyrightText: "AI Company Management Platform. All rights reserved.",
@@ -10610,7 +10610,7 @@ FooterService = __decorateClass([
   __decorateParam(0, (0, import_common82.Inject)(FooterRepository))
 ], FooterService);
 
-// src/footer/controllers/footer.controller.ts
+// apps/api/src/footer/controllers/footer.controller.ts
 var FooterController = class {
   constructor(footerService) {
     this.footerService = footerService;
@@ -10637,7 +10637,7 @@ FooterController = __decorateClass([
   __decorateParam(0, (0, import_common83.Inject)(FooterService))
 ], FooterController);
 
-// src/footer/footer.module.ts
+// apps/api/src/footer/footer.module.ts
 var FooterModule = class {
 };
 FooterModule = __decorateClass([
@@ -10653,21 +10653,21 @@ FooterModule = __decorateClass([
   })
 ], FooterModule);
 
-// src/newsletter/newsletter.module.ts
+// apps/api/src/newsletter/newsletter.module.ts
 var import_common88 = require("@nestjs/common");
 var import_mongoose76 = require("@nestjs/mongoose");
 
-// src/newsletter/newsletter.controller.ts
+// apps/api/src/newsletter/newsletter.controller.ts
 var import_common87 = require("@nestjs/common");
 
-// src/newsletter/newsletter.service.ts
+// apps/api/src/newsletter/newsletter.service.ts
 var import_common86 = require("@nestjs/common");
 
-// src/newsletter/repositories/newsletter.repository.ts
+// apps/api/src/newsletter/repositories/newsletter.repository.ts
 var import_common85 = require("@nestjs/common");
 var import_mongoose75 = require("@nestjs/mongoose");
 
-// src/newsletter/schemas/newsletter-subscriber.schema.ts
+// apps/api/src/newsletter/schemas/newsletter-subscriber.schema.ts
 var import_mongoose74 = require("@nestjs/mongoose");
 var NewsletterSubscriberDoc = class {
   email;
@@ -10699,7 +10699,7 @@ var NewsletterSubscriberSchema = import_mongoose74.SchemaFactory.createForClass(
   NewsletterSubscriberDoc
 );
 
-// src/newsletter/repositories/newsletter.repository.ts
+// apps/api/src/newsletter/repositories/newsletter.repository.ts
 var NewsletterRepository = class {
   constructor(model) {
     this.model = model;
@@ -10720,7 +10720,7 @@ NewsletterRepository = __decorateClass([
   __decorateParam(0, (0, import_mongoose75.InjectModel)(NewsletterSubscriberDoc.name))
 ], NewsletterRepository);
 
-// src/newsletter/newsletter.service.ts
+// apps/api/src/newsletter/newsletter.service.ts
 var NewsletterService = class {
   mailService;
   newsletterRepository;
@@ -10766,7 +10766,7 @@ NewsletterService = __decorateClass([
   __decorateParam(1, (0, import_common86.Inject)(NewsletterRepository))
 ], NewsletterService);
 
-// src/newsletter/newsletter.controller.ts
+// apps/api/src/newsletter/newsletter.controller.ts
 var NewsletterController = class {
   service;
   constructor(service) {
@@ -10791,7 +10791,7 @@ NewsletterController = __decorateClass([
   __decorateParam(0, (0, import_common87.Inject)(NewsletterService))
 ], NewsletterController);
 
-// src/newsletter/newsletter.module.ts
+// apps/api/src/newsletter/newsletter.module.ts
 var NewsletterModule = class {
 };
 NewsletterModule = __decorateClass([
@@ -10813,13 +10813,13 @@ NewsletterModule = __decorateClass([
   })
 ], NewsletterModule);
 
-// src/calcom/calcom.module.ts
+// apps/api/src/calcom/calcom.module.ts
 var import_common91 = require("@nestjs/common");
 
-// src/calcom/calcom.controller.ts
+// apps/api/src/calcom/calcom.controller.ts
 var import_common90 = require("@nestjs/common");
 
-// src/calcom/calcom.service.ts
+// apps/api/src/calcom/calcom.service.ts
 var import_common89 = require("@nestjs/common");
 var import_config8 = require("@nestjs/config");
 var CalcomService = class {
@@ -11013,7 +11013,7 @@ CalcomService = __decorateClass([
   __decorateParam(0, (0, import_common89.Inject)(import_config8.ConfigService))
 ], CalcomService);
 
-// src/calcom/calcom.controller.ts
+// apps/api/src/calcom/calcom.controller.ts
 var CalcomController = class {
   constructor(calcomService) {
     this.calcomService = calcomService;
@@ -11045,7 +11045,7 @@ CalcomController = __decorateClass([
   __decorateParam(0, (0, import_common90.Inject)(CalcomService))
 ], CalcomController);
 
-// src/calcom/calcom.module.ts
+// apps/api/src/calcom/calcom.module.ts
 var CalcomModule = class {
 };
 CalcomModule = __decorateClass([
@@ -11056,122 +11056,23 @@ CalcomModule = __decorateClass([
   })
 ], CalcomModule);
 
-// src/tutorial/tutorial.module.ts
+// apps/api/src/tutorial/tutorial.module.ts
 var import_common95 = require("@nestjs/common");
 var import_mongoose82 = require("@nestjs/mongoose");
 
-// src/tutorial/controllers/tutorial.controller.ts
-var import_common92 = require("@nestjs/common");
-var TutorialController = class {
-  constructor(tutorialService) {
-    this.tutorialService = tutorialService;
-  }
-  tutorialService;
-  register(dto) {
-    return this.tutorialService.createTutorialUser(dto);
-  }
-  getCourses() {
-    return this.tutorialService.listCourses();
-  }
-  getProfile(req) {
-    const userId = req?.user?.id ?? req?.query?.userId;
-    if (!userId) {
-      return {
-        success: false,
-        message: "User id is required."
-      };
-    }
-    return this.tutorialService.getTutorialProfile(userId);
-  }
-  getMyProfile(req) {
-    return this.tutorialService.getOrCreateAuthUser(req.user);
-  }
-  enroll(dto) {
-    return this.tutorialService.enrollCourse(
-      dto.userId,
-      dto.courseId
-    );
-  }
-  submitPayment(dto) {
-    return this.tutorialService.submitPayment(
-      dto.userId,
-      dto
-    );
-  }
-  getPayments(userId) {
-    return this.tutorialService.listPayments(userId);
-  }
-  getAdminOverview() {
-    return this.tutorialService.getAdminOverview();
-  }
-  reviewPayment(id, dto) {
-    return this.tutorialService.reviewPayment(
-      id,
-      dto
-    );
-  }
-  watchLecture(dto) {
-    return this.tutorialService.watchLecture(
-      dto.userId,
-      dto.courseId,
-      dto.lectureId
-    );
-  }
-};
-__decorateClass([
-  (0, import_common92.Post)("register"),
-  __decorateParam(0, (0, import_common92.Body)())
-], TutorialController.prototype, "register", 1);
-__decorateClass([
-  (0, import_common92.Get)("courses")
-], TutorialController.prototype, "getCourses", 1);
-__decorateClass([
-  (0, import_common92.Get)("profile"),
-  __decorateParam(0, (0, import_common92.Req)())
-], TutorialController.prototype, "getProfile", 1);
-__decorateClass([
-  (0, import_common92.Get)("me"),
-  (0, import_common92.UseGuards)(JwtAuthGuard),
-  __decorateParam(0, (0, import_common92.Req)())
-], TutorialController.prototype, "getMyProfile", 1);
-__decorateClass([
-  (0, import_common92.Post)("enroll"),
-  __decorateParam(0, (0, import_common92.Body)())
-], TutorialController.prototype, "enroll", 1);
-__decorateClass([
-  (0, import_common92.Post)("payment/submit"),
-  __decorateParam(0, (0, import_common92.Body)())
-], TutorialController.prototype, "submitPayment", 1);
-__decorateClass([
-  (0, import_common92.Get)("payments"),
-  __decorateParam(0, (0, import_common92.Query)("userId"))
-], TutorialController.prototype, "getPayments", 1);
-__decorateClass([
-  (0, import_common92.Get)("admin-overview"),
-  (0, import_common92.UseGuards)(JwtAuthGuard, RolesGuard),
-  Roles("ADMIN" /* ADMIN */)
-], TutorialController.prototype, "getAdminOverview", 1);
-__decorateClass([
-  (0, import_common92.Post)("payments/:id/review"),
-  (0, import_common92.UseGuards)(JwtAuthGuard, RolesGuard),
-  Roles("ADMIN" /* ADMIN */),
-  __decorateParam(0, (0, import_common92.Param)("id")),
-  __decorateParam(1, (0, import_common92.Body)())
-], TutorialController.prototype, "reviewPayment", 1);
-__decorateClass([
-  (0, import_common92.Post)("lecture/watch"),
-  __decorateParam(0, (0, import_common92.Body)())
-], TutorialController.prototype, "watchLecture", 1);
-TutorialController = __decorateClass([
-  (0, import_common92.Controller)("tutorial")
-], TutorialController);
+// apps/api/src/tutorial/controllers/tutorial.controller.ts
+var import_common94 = require("@nestjs/common");
 
-// src/tutorial/repositories/tutorial.repository.ts
+// apps/api/src/tutorial/services/tutorial.service.ts
 var import_common93 = require("@nestjs/common");
+var import_config9 = require("@nestjs/config");
+
+// apps/api/src/tutorial/repositories/tutorial.repository.ts
+var import_common92 = require("@nestjs/common");
 var import_mongoose80 = require("@nestjs/mongoose");
 var import_mongoose81 = require("mongoose");
 
-// src/tutorial/schemas/tutorial-course.schema.ts
+// apps/api/src/tutorial/schemas/tutorial-course.schema.ts
 var import_mongoose77 = require("@nestjs/mongoose");
 var TutorialLecture = class {
   title;
@@ -11230,7 +11131,7 @@ TutorialCourse = __decorateClass([
 var TutorialLectureSchema = import_mongoose77.SchemaFactory.createForClass(TutorialLecture);
 var TutorialCourseSchema = import_mongoose77.SchemaFactory.createForClass(TutorialCourse);
 
-// src/tutorial/schemas/tutorial-payment-request.schema.ts
+// apps/api/src/tutorial/schemas/tutorial-payment-request.schema.ts
 var import_mongoose78 = require("@nestjs/mongoose");
 var TutorialPaymentRequest = class {
   userId;
@@ -11271,7 +11172,7 @@ TutorialPaymentRequest = __decorateClass([
 ], TutorialPaymentRequest);
 var TutorialPaymentRequestSchema = import_mongoose78.SchemaFactory.createForClass(TutorialPaymentRequest);
 
-// src/tutorial/schemas/tutorial-user.schema.ts
+// apps/api/src/tutorial/schemas/tutorial-user.schema.ts
 var import_mongoose79 = require("@nestjs/mongoose");
 var TutorialUser = class {
   fullName;
@@ -11320,7 +11221,7 @@ TutorialUser = __decorateClass([
 ], TutorialUser);
 var TutorialUserSchema = import_mongoose79.SchemaFactory.createForClass(TutorialUser);
 
-// src/tutorial/repositories/tutorial.repository.ts
+// apps/api/src/tutorial/repositories/tutorial.repository.ts
 var TutorialRepository = class {
   constructor(tutorialUserModel, tutorialCourseModel, tutorialPaymentModel) {
     this.tutorialUserModel = tutorialUserModel;
@@ -11491,14 +11392,16 @@ var TutorialRepository = class {
   }
 };
 TutorialRepository = __decorateClass([
-  (0, import_common93.Injectable)(),
+  (0, import_common92.Injectable)(),
   __decorateParam(0, (0, import_mongoose80.InjectModel)(TutorialUser.name)),
+  __decorateParam(0, (0, import_common92.Inject)(import_mongoose81.Model)),
   __decorateParam(1, (0, import_mongoose80.InjectModel)(TutorialCourse.name)),
-  __decorateParam(2, (0, import_mongoose80.InjectModel)(TutorialPaymentRequest.name))
+  __decorateParam(1, (0, import_common92.Inject)(import_mongoose81.Model)),
+  __decorateParam(2, (0, import_mongoose80.InjectModel)(TutorialPaymentRequest.name)),
+  __decorateParam(2, (0, import_common92.Inject)(import_mongoose81.Model))
 ], TutorialRepository);
 
-// src/tutorial/services/tutorial.service.ts
-var import_common94 = require("@nestjs/common");
+// apps/api/src/tutorial/services/tutorial.service.ts
 var TutorialService = class {
   constructor(tutorialRepository, mailService, configService) {
     this.tutorialRepository = tutorialRepository;
@@ -11524,7 +11427,7 @@ var TutorialService = class {
     const normalizedEmail = data.email.trim().toLowerCase();
     const existing = await this.tutorialRepository.findUserByEmail(normalizedEmail);
     if (existing) {
-      throw new import_common94.BadRequestException("This email is already registered.");
+      throw new import_common93.BadRequestException("This email is already registered.");
     }
     const user = await this.tutorialRepository.createUser({
       fullName: data.fullName.trim(),
@@ -11551,7 +11454,7 @@ var TutorialService = class {
   async getTutorialProfile(userId) {
     const user = await this.tutorialRepository.findUserById(userId);
     if (!user) {
-      throw new import_common94.NotFoundException("Tutorial user not found.");
+      throw new import_common93.NotFoundException("Tutorial user not found.");
     }
     return {
       success: true,
@@ -11561,11 +11464,11 @@ var TutorialService = class {
   async enrollCourse(userId, courseId) {
     const user = await this.tutorialRepository.findUserById(userId);
     if (!user) {
-      throw new import_common94.NotFoundException("User not found.");
+      throw new import_common93.NotFoundException("User not found.");
     }
     const course = await this.tutorialRepository.findCourseById(courseId);
     if (!course) {
-      throw new import_common94.NotFoundException("Course not found.");
+      throw new import_common93.NotFoundException("Course not found.");
     }
     const alreadyEnrolled = (user.enrollments ?? []).some(
       (entry) => String(entry.courseId) === String(courseId)
@@ -11589,11 +11492,11 @@ var TutorialService = class {
   async submitPayment(userId, dto) {
     const user = await this.tutorialRepository.findUserById(userId);
     if (!user) {
-      throw new import_common94.NotFoundException("User not found.");
+      throw new import_common93.NotFoundException("User not found.");
     }
     const course = await this.tutorialRepository.findCourseById(dto.courseId);
     if (!course) {
-      throw new import_common94.NotFoundException("Course not found.");
+      throw new import_common93.NotFoundException("Course not found.");
     }
     const paymentRequest = await this.tutorialRepository.createPaymentRequest({
       userId,
@@ -11654,15 +11557,15 @@ var TutorialService = class {
   async reviewPayment(id, dto) {
     const payment = await this.tutorialRepository.findPaymentById(id);
     if (!payment) {
-      throw new import_common94.NotFoundException("Payment request not found.");
+      throw new import_common93.NotFoundException("Payment request not found.");
     }
     const user = await this.tutorialRepository.findUserById(String(payment.userId));
     if (!user) {
-      throw new import_common94.NotFoundException("User not found for payment review.");
+      throw new import_common93.NotFoundException("User not found for payment review.");
     }
     const course = await this.tutorialRepository.findCourseById(String(payment.courseId));
     if (!course) {
-      throw new import_common94.NotFoundException("Course not found for payment review.");
+      throw new import_common93.NotFoundException("Course not found for payment review.");
     }
     if (dto.status === "approved") {
       await this.tutorialRepository.updateUser(String(user._id), {
@@ -11691,20 +11594,20 @@ var TutorialService = class {
   async watchLecture(userId, courseId, lectureId) {
     const user = await this.tutorialRepository.findUserById(userId);
     if (!user) {
-      throw new import_common94.NotFoundException("User not found.");
+      throw new import_common93.NotFoundException("User not found.");
     }
     if (user.status !== "approved" || !user.hasAccess) {
-      throw new import_common94.UnauthorizedException("User access is not approved yet.");
+      throw new import_common93.UnauthorizedException("User access is not approved yet.");
     }
     const course = await this.tutorialRepository.findCourseById(courseId);
     if (!course) {
-      throw new import_common94.NotFoundException("Course not found.");
+      throw new import_common93.NotFoundException("Course not found.");
     }
     const lecture = (course.lectures ?? []).find(
       (item) => String(item._id) === String(lectureId)
     );
     if (!lecture) {
-      throw new import_common94.NotFoundException("Lecture not found.");
+      throw new import_common93.NotFoundException("Lecture not found.");
     }
     if (lecture.watched) {
       return {
@@ -11716,7 +11619,7 @@ var TutorialService = class {
     const requiredCoins = Number(lecture.coinCost ?? 0);
     const currentCoins = Number(user.coins ?? 0);
     if (currentCoins < requiredCoins) {
-      throw new import_common94.BadRequestException(
+      throw new import_common93.BadRequestException(
         `You need ${requiredCoins} coins to unlock this lecture.`
       );
     }
@@ -11738,10 +11641,119 @@ var TutorialService = class {
   }
 };
 TutorialService = __decorateClass([
-  (0, import_common94.Injectable)()
+  (0, import_common93.Injectable)(),
+  __decorateParam(0, (0, import_common93.Inject)(TutorialRepository)),
+  __decorateParam(1, (0, import_common93.Inject)(MailService)),
+  __decorateParam(2, (0, import_common93.Inject)(import_config9.ConfigService))
 ], TutorialService);
 
-// src/tutorial/tutorial.module.ts
+// apps/api/src/tutorial/controllers/tutorial.controller.ts
+var TutorialController = class {
+  constructor(tutorialService) {
+    this.tutorialService = tutorialService;
+  }
+  tutorialService;
+  register(dto) {
+    return this.tutorialService.createTutorialUser(dto);
+  }
+  getCourses() {
+    return this.tutorialService.listCourses();
+  }
+  getProfile(req) {
+    const userId = req?.user?.id ?? req?.query?.userId;
+    if (!userId) {
+      return {
+        success: false,
+        message: "User id is required."
+      };
+    }
+    return this.tutorialService.getTutorialProfile(userId);
+  }
+  getMyProfile(req) {
+    return this.tutorialService.getOrCreateAuthUser(req.user);
+  }
+  enroll(dto) {
+    return this.tutorialService.enrollCourse(
+      dto.userId,
+      dto.courseId
+    );
+  }
+  submitPayment(dto) {
+    return this.tutorialService.submitPayment(
+      dto.userId,
+      dto
+    );
+  }
+  getPayments(userId) {
+    return this.tutorialService.listPayments(userId);
+  }
+  getAdminOverview() {
+    return this.tutorialService.getAdminOverview();
+  }
+  reviewPayment(id, dto) {
+    return this.tutorialService.reviewPayment(
+      id,
+      dto
+    );
+  }
+  watchLecture(dto) {
+    return this.tutorialService.watchLecture(
+      dto.userId,
+      dto.courseId,
+      dto.lectureId
+    );
+  }
+};
+__decorateClass([
+  (0, import_common94.Post)("register"),
+  __decorateParam(0, (0, import_common94.Body)())
+], TutorialController.prototype, "register", 1);
+__decorateClass([
+  (0, import_common94.Get)("courses")
+], TutorialController.prototype, "getCourses", 1);
+__decorateClass([
+  (0, import_common94.Get)("profile"),
+  __decorateParam(0, (0, import_common94.Req)())
+], TutorialController.prototype, "getProfile", 1);
+__decorateClass([
+  (0, import_common94.Get)("me"),
+  (0, import_common94.UseGuards)(JwtAuthGuard),
+  __decorateParam(0, (0, import_common94.Req)())
+], TutorialController.prototype, "getMyProfile", 1);
+__decorateClass([
+  (0, import_common94.Post)("enroll"),
+  __decorateParam(0, (0, import_common94.Body)())
+], TutorialController.prototype, "enroll", 1);
+__decorateClass([
+  (0, import_common94.Post)("payment/submit"),
+  __decorateParam(0, (0, import_common94.Body)())
+], TutorialController.prototype, "submitPayment", 1);
+__decorateClass([
+  (0, import_common94.Get)("payments"),
+  __decorateParam(0, (0, import_common94.Query)("userId"))
+], TutorialController.prototype, "getPayments", 1);
+__decorateClass([
+  (0, import_common94.Get)("admin-overview"),
+  (0, import_common94.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles("ADMIN" /* ADMIN */)
+], TutorialController.prototype, "getAdminOverview", 1);
+__decorateClass([
+  (0, import_common94.Post)("payments/:id/review"),
+  (0, import_common94.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles("ADMIN" /* ADMIN */),
+  __decorateParam(0, (0, import_common94.Param)("id")),
+  __decorateParam(1, (0, import_common94.Body)())
+], TutorialController.prototype, "reviewPayment", 1);
+__decorateClass([
+  (0, import_common94.Post)("lecture/watch"),
+  __decorateParam(0, (0, import_common94.Body)())
+], TutorialController.prototype, "watchLecture", 1);
+TutorialController = __decorateClass([
+  (0, import_common94.Controller)("tutorial"),
+  __decorateParam(0, (0, import_common94.Inject)(TutorialService))
+], TutorialController);
+
+// apps/api/src/tutorial/tutorial.module.ts
 var TutorialModule = class {
 };
 TutorialModule = __decorateClass([
@@ -11769,7 +11781,7 @@ TutorialModule = __decorateClass([
   })
 ], TutorialModule);
 
-// src/app.module.ts
+// apps/api/src/app.module.ts
 var AppModule = class {
   configure(consumer) {
     consumer.apply(LoggerMiddleware).forRoutes("*");
@@ -11778,7 +11790,7 @@ var AppModule = class {
 AppModule = __decorateClass([
   (0, import_common96.Module)({
     imports: [
-      import_config9.ConfigModule.forRoot({
+      import_config10.ConfigModule.forRoot({
         isGlobal: true,
         cache: true,
         load: config_default,
@@ -11810,7 +11822,7 @@ AppModule = __decorateClass([
   })
 ], AppModule);
 
-// api/index.ts
+// apps/api/api/index.ts
 var cachedApp;
 async function bootstrap() {
   const app = await import_core2.NestFactory.create(

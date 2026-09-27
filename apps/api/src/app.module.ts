@@ -27,7 +27,7 @@ import { UpdatesModule } from "./updates/updates.module";
 import { FooterModule } from "./footer/footer.module";
 import { NewsletterModule } from "./newsletter/newsletter.module";
 import { CalcomModule } from "./calcom/calcom.module";
-import { TutorialModule } from "./tutorial/tutorial.module";
+import { TutorialsModule } from "./tutorial/tutorial.module";
 // import { AssistantPublicModule } from "./assistant-public/assistant-public.module";
 @Module({
   imports: [
@@ -58,7 +58,7 @@ import { TutorialModule } from "./tutorial/tutorial.module";
     FooterModule,
     NewsletterModule,
     CalcomModule,
-    TutorialModule,
+    TutorialsModule,
     // AssistantPublicModule,
   ],
 })

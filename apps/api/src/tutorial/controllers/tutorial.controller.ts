@@ -2,109 +2,142 @@ import {
   Body,
   Controller,
   Get,
-  Inject,
   Param,
   Post,
-  Query,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
 
-import { TutorialService } from "../services/tutorial.service";
-import { RegisterTutorialUserDto } from "../dto/register-tutorial-user.dto";
-import { EnrollCourseDto } from "../dto/enroll-course.dto";
-import { SubmitPaymentDto } from "../dto/submit-payment.dto";
-import { ReviewPaymentDto } from "../dto/review-payment.dto";
-import { WatchLectureDto } from "../dto/watch-lecture.dto";
-import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
-import { RolesGuard } from "../../auth/guards/roles.guard";
-import { Roles } from "../../auth/decorators/roles.decorator";
-import { Role } from "../../users/enums/role.enum";
+import { FileInterceptor } from "@nestjs/platform-express";
 
-@Controller("tutorial")
-export class TutorialController {
+import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
+
+import { TutorialsAuthService } from "../services/tutorial.auth.service";
+import { CoursesService } from "../services/courses.services";
+import { WalletService } from "../services/wallet.services";
+import { EnrollmentService } from "../services/enrollment.service";
+
+import { TutorialRegisterDto } from "../dto/tutorial-register.dto";
+import { CreateEnrollmentDto } from "../dto/create-enrollment.dto";
+import { CreateTopupDto } from "../dto/create-topup.dto";
+
+// Everything here is intentionally separate from /auth/create-user
+// (admin-only) and from the main company dashboard's data — this
+// controller is the entire surface area of the public "apply for a
+// tutorial" flow.
+@Controller("tutorials")
+export class TutorialsController {
   constructor(
-    @Inject(TutorialService)
-    private readonly tutorialService: TutorialService,
+    private readonly tutorialsAuthService: TutorialsAuthService,
+    private readonly coursesService: CoursesService,
+    private readonly walletService: WalletService,
+    private readonly enrollmentService: EnrollmentService,
   ) {}
 
+  // =====================================================
+  // Public
+  // =====================================================
+
   @Post("register")
-  register(@Body() dto: RegisterTutorialUserDto) {
-    return this.tutorialService.createTutorialUser(dto);
+  register(
+    @Body()
+    dto: TutorialRegisterDto,
+  ) {
+    return this.tutorialsAuthService.register(dto);
   }
 
   @Get("courses")
-  getCourses() {
-    return this.tutorialService.listCourses();
+  listCourses() {
+    return this.coursesService.listPublished();
   }
 
-  @Get("profile")
-  getProfile(@Req() req: any) {
-    const userId = req?.user?.id ?? req?.query?.userId;
+  // =====================================================
+  // Authenticated student
+  // =====================================================
 
-    if (!userId) {
-      return {
-        success: false,
-        message: "User id is required.",
-      };
-    }
-
-    return this.tutorialService.getTutorialProfile(userId);
-  }
-
-  @Get("me")
   @UseGuards(JwtAuthGuard)
-  getMyProfile(@Req() req: any) {
-    return this.tutorialService.getOrCreateAuthUser(req.user);
-  }
-
-  @Post("enroll")
-  enroll(@Body() dto: EnrollCourseDto) {
-    return this.tutorialService.enrollCourse(
-      dto.userId,
-      dto.courseId,
-    );
-  }
-
-  @Post("payment/submit")
-  submitPayment(@Body() dto: SubmitPaymentDto) {
-    return this.tutorialService.submitPayment(
-      dto.userId,
-      dto,
-    );
-  }
-
-  @Get("payments")
-  getPayments(@Query("userId") userId?: string) {
-    return this.tutorialService.listPayments(userId);
-  }
-
-  @Get("admin-overview")
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  getAdminOverview() {
-    return this.tutorialService.getAdminOverview();
-  }
-
-  @Post("payments/:id/review")
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  reviewPayment(
+  @Get("courses/:id")
+  courseDetail(
+    @Req() req: any,
     @Param("id") id: string,
-    @Body() dto: ReviewPaymentDto,
   ) {
-    return this.tutorialService.reviewPayment(
+    return this.enrollmentService.courseDetail(
+      req.user.sub,
       id,
-      dto,
     );
   }
 
-  @Post("lecture/watch")
-  watchLecture(@Body() dto: WatchLectureDto) {
-    return this.tutorialService.watchLecture(
-      dto.userId,
+  @UseGuards(JwtAuthGuard)
+  @Post("enrollments")
+  @UseInterceptors(
+    FileInterceptor("proof", {
+      limits: { fileSize: 10 * 1024 * 1024 },
+    }),
+  )
+  enroll(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() dto: CreateEnrollmentDto,
+  ) {
+    return this.enrollmentService.requestEnrollment(
+      req.user.sub,
       dto.courseId,
-      dto.lectureId,
+      file,
+      dto.note,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("enrollments/me")
+  myEnrollments(@Req() req: any) {
+    return this.enrollmentService.myEnrollments(req.user.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("my-courses")
+  myCourses(@Req() req: any) {
+    return this.enrollmentService.myCourses(req.user.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("wallet")
+  wallet(@Req() req: any) {
+    return this.walletService.getWallet(req.user.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("wallet/topup")
+  @UseInterceptors(
+    FileInterceptor("proof", {
+      limits: { fileSize: 10 * 1024 * 1024 },
+    }),
+  )
+  topup(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() dto: CreateTopupDto,
+  ) {
+    return this.enrollmentService.requestTopup(
+      req.user.sub,
+      dto.coinsRequested,
+      file,
+      dto.note,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("courses/:courseId/videos/:videoId/watch")
+  watchVideo(
+    @Req() req: any,
+    @Param("courseId") courseId: string,
+    @Param("videoId") videoId: string,
+  ) {
+    return this.enrollmentService.watchVideo(
+      req.user.sub,
+      courseId,
+      videoId,
     );
   }
 }

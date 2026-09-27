@@ -1,146 +1,315 @@
+// import { useEffect, useState } from "react";
+// import { Link, useSearchParams } from "react-router-dom";
+// import { Button } from "@/components/ui/button";
+// import { getTutorialProfile, getTutorialCourses, getTutorialMe, watchLecture } from "../api/tutorial.api";
+// import { getAccessToken } from "@/features/auth/utils/auth-storage";
+
+// export default function TutorialLearningPage() {
+//   const [searchParams] = useSearchParams();
+//   const queryUserId = searchParams.get("userId") ?? "";
+//   const [userId, setUserId] = useState(queryUserId);
+//   const [profile, setProfile] = useState<any>(null);
+//   const [courses, setCourses] = useState<any[]>([]);
+//   const [selectedCourse, setSelectedCourse] = useState<string>("");
+//   const [message, setMessage] = useState("");
+
+//   useEffect(() => {
+//     async function load() {
+//       try {
+//         const resolvedUserId = userId || (getAccessToken() ? (await getTutorialMe())?.data?._id : "");
+//         if (!resolvedUserId) return;
+//         setUserId(resolvedUserId);
+//         const [profileResult, coursesResult] = await Promise.all([
+//           getTutorialProfile(resolvedUserId),
+//           getTutorialCourses(),
+//         ]);
+
+//         const user = profileResult?.data ?? null;
+//         setProfile(user);
+//         setCourses(coursesResult?.data ?? []);
+//         if ((coursesResult?.data ?? []).length) {
+//           setSelectedCourse((coursesResult.data[0]._id));
+//         }
+//       } catch (error: any) {
+//         setMessage(error?.response?.data?.message ?? "Could not load tutorial profile.");
+//       }
+//     }
+
+//     load();
+//   }, [userId]);
+
+//   const course = courses.find((item) => item._id === selectedCourse) ?? courses[0] ?? null;
+
+//   async function handleWatch(lectureId: string) {
+//     if (!userId || !course) return;
+
+//     try {
+//       const result = await watchLecture(userId, course._id, lectureId);
+//       setMessage(result?.message ?? "Lecture unlocked.");
+
+//       setCourses((prev) =>
+//         prev.map((item) =>
+//           item._id === course._id
+//             ? {
+//                 ...item,
+//                 lectures: item.lectures.map((lecture: any) =>
+//                   lecture._id === lectureId ? { ...lecture, watched: true } : lecture,
+//                 ),
+//               }
+//             : item,
+//         ),
+//       );
+
+//       const updatedProfile = await getTutorialProfile(userId);
+//       setProfile(updatedProfile?.data ?? null);
+//     } catch (error: any) {
+//       setMessage(error?.response?.data?.message ?? "Lecture could not be unlocked.");
+//     }
+//   }
+
+//   return (
+//     <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
+//       <div className="mx-auto max-w-6xl space-y-6">
+//         <div className="flex items-center justify-between">
+//           <div>
+//             <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Student portal</p>
+//             <h1 className="mt-2 text-4xl font-bold">Your learning dashboard</h1>
+//           </div>
+//           <Link to="/tutorial/courses" className="text-sm text-cyan-300 hover:text-cyan-200">Browse courses</Link>
+//         </div>
+
+//         <div className="grid gap-6 md:grid-cols-3">
+//           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+//             <p className="text-sm text-slate-400">Status</p>
+//             <p className="mt-2 text-2xl font-semibold">{profile?.status ?? "pending"}</p>
+//           </div>
+//           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+//             <p className="text-sm text-slate-400">Coins</p>
+//             <p className="mt-2 text-2xl font-semibold">{profile?.coins ?? 0}</p>
+//           </div>
+//           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+//             <p className="text-sm text-slate-400">Access</p>
+//             <p className="mt-2 text-2xl font-semibold">{profile?.hasAccess ? "Active" : "Locked"}</p>
+//           </div>
+//         </div>
+
+//         {message ? <p className="text-sm text-cyan-300">{message}</p> : null}
+
+//         {course ? (
+//           <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
+//             <aside className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+//               {courses.map((item) => (
+//                 <button
+//                   key={item._id}
+//                   onClick={() => setSelectedCourse(item._id)}
+//                   className={`w-full rounded-xl border px-4 py-3 text-left text-sm ${selectedCourse === item._id ? "border-cyan-500 bg-cyan-500/10 text-white" : "border-white/10 bg-slate-900 text-slate-300"}`}
+//                 >
+//                   {item.title}
+//                 </button>
+//               ))}
+//             </aside>
+
+//             <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+//               <h2 className="mb-4 text-2xl font-semibold">{course.title}</h2>
+//               <p className="mb-5 text-slate-300">{course.description}</p>
+
+//               <div className="space-y-3">
+//                 {(course.lectures ?? []).map((lecture: any) => (
+//                   <div key={lecture._id} className="flex flex-col gap-3 rounded-xl border border-white/10 bg-slate-900 p-4 md:flex-row md:items-center md:justify-between">
+//                     <div>
+//                       <p className="font-medium">{lecture.title}</p>
+//                       <p className="text-sm text-slate-400">{lecture.duration} min • {lecture.coinCost ?? 0} coins</p>
+//                     </div>
+//                     <div className="flex items-center gap-3">
+//                       <span className="rounded-full bg-slate-800 px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-300">
+//                         {lecture.watched ? "watched" : lecture.isUnlocked ? "ready" : "locked"}
+//                       </span>
+//                       <Button
+//                         onClick={() => handleWatch(lecture._id)}
+//                         disabled={lecture.watched || !lecture.isUnlocked}
+//                         className="rounded-xl bg-cyan-500 text-slate-950 hover:bg-cyan-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+//                       >
+//                         {lecture.watched ? "Completed" : "Watch"}
+//                       </Button>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         ) : (
+//           <p className="text-slate-300">No courses available yet.</p>
+//         )}
+//       </div>
+//     </main>
+//   );
+// }
+
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { getTutorialProfile, getTutorialCourses, getTutorialMe, watchLecture } from "../api/tutorial.api";
-import { getAccessToken } from "@/features/auth/utils/auth-storage";
+import { Link } from "react-router-dom";
+import { Clock3, GraduationCap, PlayCircle, XCircle } from "lucide-react";
+
+import {
+  getMyEnrollmentRequests,
+  getMyTutorialCourses,
+  type TutorialMyCourse,
+  type TutorialPaymentRequest,
+} from "../api/tutorial.api";
 
 export default function TutorialLearningPage() {
-  const [searchParams] = useSearchParams();
-  const queryUserId = searchParams.get("userId") ?? "";
-  const [userId, setUserId] = useState(queryUserId);
-  const [profile, setProfile] = useState<any>(null);
-  const [courses, setCourses] = useState<any[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState<string>("");
-  const [message, setMessage] = useState("");
+  const [courses, setCourses] = useState<TutorialMyCourse[]>([]);
+  const [requests, setRequests] = useState<TutorialPaymentRequest[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    async function load() {
-      try {
-        const resolvedUserId = userId || (getAccessToken() ? (await getTutorialMe())?.data?._id : "");
-        if (!resolvedUserId) return;
-        setUserId(resolvedUserId);
-        const [profileResult, coursesResult] = await Promise.all([
-          getTutorialProfile(resolvedUserId),
-          getTutorialCourses(),
-        ]);
-
-        const user = profileResult?.data ?? null;
-        setProfile(user);
-        setCourses(coursesResult?.data ?? []);
-        if ((coursesResult?.data ?? []).length) {
-          setSelectedCourse((coursesResult.data[0]._id));
-        }
-      } catch (error: any) {
-        setMessage(error?.response?.data?.message ?? "Could not load tutorial profile.");
-      }
-    }
-
     load();
-  }, [userId]);
+  }, []);
 
-  const course = courses.find((item) => item._id === selectedCourse) ?? courses[0] ?? null;
-
-  async function handleWatch(lectureId: string) {
-    if (!userId || !course) return;
-
+  async function load() {
+    setLoading(true);
+    setError("");
     try {
-      const result = await watchLecture(userId, course._id, lectureId);
-      setMessage(result?.message ?? "Lecture unlocked.");
-
-      setCourses((prev) =>
-        prev.map((item) =>
-          item._id === course._id
-            ? {
-                ...item,
-                lectures: item.lectures.map((lecture: any) =>
-                  lecture._id === lectureId ? { ...lecture, watched: true } : lecture,
-                ),
-              }
-            : item,
-        ),
+      const [myCourses, myRequests] = await Promise.all([
+        getMyTutorialCourses(),
+        getMyEnrollmentRequests(),
+      ]);
+      setCourses(myCourses ?? []);
+      setRequests(
+        (myRequests ?? []).filter((r) => r.type === "ENROLLMENT"),
       );
-
-      const updatedProfile = await getTutorialProfile(userId);
-      setProfile(updatedProfile?.data ?? null);
-    } catch (error: any) {
-      setMessage(error?.response?.data?.message ?? "Lecture could not be unlocked.");
+    } catch (err: any) {
+      setError(
+        err?.response?.data?.message ?? "Unable to load your courses.",
+      );
+    } finally {
+      setLoading(false);
     }
   }
 
+  const pendingOrRejected = requests.filter((r) => r.status !== "APPROVED");
+
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
-      <div className="mx-auto max-w-6xl space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Student portal</p>
-            <h1 className="mt-2 text-4xl font-bold">Your learning dashboard</h1>
-          </div>
-          <Link to="/tutorial/courses" className="text-sm text-cyan-300 hover:text-cyan-200">Browse courses</Link>
+    <section className="space-y-8 text-white">
+      <header>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
+          Your learning
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+          My courses
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm text-slate-400">
+          Courses you have full access to. Enroll in more from the catalog.
+        </p>
+      </header>
+
+      {error ? (
+        <div className="rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-200">
+          {error}
         </div>
+      ) : null}
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <p className="text-sm text-slate-400">Status</p>
-            <p className="mt-2 text-2xl font-semibold">{profile?.status ?? "pending"}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <p className="text-sm text-slate-400">Coins</p>
-            <p className="mt-2 text-2xl font-semibold">{profile?.coins ?? 0}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <p className="text-sm text-slate-400">Access</p>
-            <p className="mt-2 text-2xl font-semibold">{profile?.hasAccess ? "Active" : "Locked"}</p>
-          </div>
-        </div>
-
-        {message ? <p className="text-sm text-cyan-300">{message}</p> : null}
-
-        {course ? (
-          <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
-            <aside className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-              {courses.map((item) => (
-                <button
-                  key={item._id}
-                  onClick={() => setSelectedCourse(item._id)}
-                  className={`w-full rounded-xl border px-4 py-3 text-left text-sm ${selectedCourse === item._id ? "border-cyan-500 bg-cyan-500/10 text-white" : "border-white/10 bg-slate-900 text-slate-300"}`}
+      {loading ? (
+        <p className="text-sm text-slate-400">Loading...</p>
+      ) : (
+        <>
+          {courses.length === 0 ? (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-sm text-slate-400">
+              You don&apos;t have access to any course yet.{" "}
+              <Link
+                to="/tutorial/dashboard/courses"
+                className="font-semibold text-cyan-300 hover:text-cyan-200"
+              >
+                Browse the catalog
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {courses.map(({ enrollmentId, course }) => (
+                <Link
+                  key={enrollmentId}
+                  to={`/tutorial/dashboard/my-courses/${course.id}`}
+                  className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition hover:border-cyan-400/40"
                 >
-                  {item.title}
-                </button>
-              ))}
-            </aside>
-
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <h2 className="mb-4 text-2xl font-semibold">{course.title}</h2>
-              <p className="mb-5 text-slate-300">{course.description}</p>
-
-              <div className="space-y-3">
-                {(course.lectures ?? []).map((lecture: any) => (
-                  <div key={lecture._id} className="flex flex-col gap-3 rounded-xl border border-white/10 bg-slate-900 p-4 md:flex-row md:items-center md:justify-between">
-                    <div>
-                      <p className="font-medium">{lecture.title}</p>
-                      <p className="text-sm text-slate-400">{lecture.duration} min • {lecture.coinCost ?? 0} coins</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="rounded-full bg-slate-800 px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-300">
-                        {lecture.watched ? "watched" : lecture.isUnlocked ? "ready" : "locked"}
-                      </span>
-                      <Button
-                        onClick={() => handleWatch(lecture._id)}
-                        disabled={lecture.watched || !lecture.isUnlocked}
-                        className="rounded-xl bg-cyan-500 text-slate-950 hover:bg-cyan-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
-                      >
-                        {lecture.watched ? "Completed" : "Watch"}
-                      </Button>
-                    </div>
+                  <div className="flex h-32 items-center justify-center bg-gradient-to-br from-cyan-500/20 to-slate-900/40">
+                    {course.thumbnailUrl ? (
+                      <img
+                        src={course.thumbnailUrl}
+                        alt={course.title}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <GraduationCap className="text-cyan-300/70" size={32} />
+                    )}
                   </div>
-                ))}
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="font-semibold">{course.title}</p>
+                    <p className="mt-2 text-xs text-slate-400">
+                      {course.videosCount} lectures
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-cyan-300">
+                      <PlayCircle size={14} />
+                      Continue learning
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {pendingOrRejected.length > 0 ? (
+            <div>
+              <h2 className="mb-3 text-sm font-semibold text-slate-300">
+                Pending / past requests
+              </h2>
+              <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.04]">
+                {pendingOrRejected.map((request) => {
+                  const courseTitle =
+                    typeof request.course === "object" && request.course
+                      ? request.course.title
+                      : "Course";
+
+                  return (
+                    <div
+                      key={request._id}
+                      className="flex items-center justify-between gap-4 p-4"
+                    >
+                      <div>
+                        <p className="text-sm font-medium">{courseTitle}</p>
+                        <p className="text-xs text-slate-500">
+                          {new Date(request.createdAt).toLocaleDateString()}
+                        </p>
+                        {request.status === "REJECTED" &&
+                        request.rejectionReason ? (
+                          <p className="mt-1 text-xs text-red-300">
+                            {request.rejectionReason}
+                          </p>
+                        ) : null}
+                      </div>
+                      <span
+                        className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
+                          request.status === "PENDING"
+                            ? "bg-amber-400/10 text-amber-300"
+                            : "bg-red-400/10 text-red-300"
+                        }`}
+                      >
+                        {request.status === "PENDING" ? (
+                          <Clock3 size={12} />
+                        ) : (
+                          <XCircle size={12} />
+                        )}
+                        {request.status === "PENDING"
+                          ? "Pending review"
+                          : "Rejected"}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          </div>
-        ) : (
-          <p className="text-slate-300">No courses available yet.</p>
-        )}
-      </div>
-    </main>
+          ) : null}
+        </>
+      )}
+    </section>
   );
 }
