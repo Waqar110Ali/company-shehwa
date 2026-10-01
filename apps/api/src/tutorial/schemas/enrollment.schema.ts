@@ -6,7 +6,7 @@ import {
 
 import { HydratedDocument, Types } from "mongoose";
 
-import { EnrollmentStatus } from "../enums/Enrollment-status-enums";
+import { EnrollmentStatus } from "../enums/enrollment-status.enum";
 
 export type EnrollmentDocument = HydratedDocument<Enrollment>;
 

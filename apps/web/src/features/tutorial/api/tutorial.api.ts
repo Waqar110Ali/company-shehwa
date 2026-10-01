@@ -76,6 +76,14 @@ export interface TutorialWallet {
   transactions: TutorialCoinTransaction[];
 }
 
+export interface TutorialPaymentSettings {
+  qrCodeUrl: string;
+  accountTitle: string;
+  accountNumber: string;
+  bankName: string;
+  instructions: string;
+}
+
 // ========================================================
 // Public
 // ========================================================
@@ -99,6 +107,14 @@ export async function listTutorialCourses() {
   return response.data as {
     success: boolean;
     data: TutorialCourseSummary[];
+  };
+}
+
+export async function getTutorialPaymentSettings() {
+  const response = await api.get("/tutorials/payment-settings");
+  return response.data as {
+    success: boolean;
+    data: TutorialPaymentSettings;
   };
 }
 
@@ -306,4 +322,33 @@ export async function adminRejectRequest(id: string, reason: string) {
     { reason },
   );
   return response.data as { success: boolean; message: string; data: any };
+}
+
+export async function adminGetPaymentSettings() {
+  const response = await api.get("/tutorials/admin/payment-settings");
+  return response.data as {
+    success: boolean;
+    data: TutorialPaymentSettings;
+  };
+}
+
+export async function adminUpdatePaymentSettings(
+  data: Partial<TutorialPaymentSettings>,
+) {
+  const response = await api.patch(
+    "/tutorials/admin/payment-settings",
+    data,
+  );
+  return response.data as {
+    success: boolean;
+    message: string;
+    data: TutorialPaymentSettings;
+  };
+}
+
+export async function adminUploadQrCode(file: File) {
+  const form = new FormData();
+  form.append("file", file);
+  const response = await api.post("/tutorials/admin/upload-qr-code", form);
+  return response.data as { success: boolean; data: { url: string } };
 }

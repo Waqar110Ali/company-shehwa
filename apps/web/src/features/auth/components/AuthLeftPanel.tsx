@@ -12,7 +12,7 @@ export default function AuthLeftPanel() {
         <FadeUp>
 
           <span className="inline-flex w-fit rounded-full border border-cyan-400/20 bg-cyan-500/10 px-5 py-2 text-sm font-medium text-cyan-300 backdrop-blur-xl">
-            Shehwa Technology
+            SARMAYA X
           </span>
 
         </FadeUp>

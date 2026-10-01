@@ -18,6 +18,10 @@ import FooterEditor from "@/features/footer/components/FooterEditor";
 import { footerApi } from "@/features/footer/api/footer.api";
 import { DEFAULT_FOOTER_CONTENT } from "@/features/footer/types/footer";
 
+import TutorialAdminCourses from "@/features/tutorial/components/TutorialAdminCourses";
+import TutorialAdminRequests from "@/features/tutorial/components/TutorialAdminRequests";
+import PaymentSettingsEditor from "@/features/tutorial/components/PaymentSettingsEditor";
+
 const SECTION_LABELS: Record<keyof PortfolioContent, string> = {
   heroContent: "Hero",
   heroStats: "Hero Stats",
@@ -85,6 +89,17 @@ export default function PortfolioAdminPage() {
   });
 
   const [editingFooter, setEditingFooter] = useState(false);
+
+  // ==========================================================
+  // Tutorials (courses, lectures, payment requests, QR settings)
+  // — managed right here, same as every other section, rather
+  // than as a separate admin page.
+  // ==========================================================
+
+  const [tutorialPanel, setTutorialPanel] = useState<
+    "requests" | "courses" | null
+  >(null);
+  const [editingPaymentSettings, setEditingPaymentSettings] = useState(false);
 
   if (isLoading) {
     return (
@@ -185,6 +200,44 @@ export default function PortfolioAdminPage() {
             {footerLoading ? "Loading..." : "Edit footer content"}
           </p>
         </button>
+
+        {/* ==================== Tutorials ==================== */}
+
+        <button
+          onClick={() => setTutorialPanel("requests")}
+          className="rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition hover:border-cyan-400/40"
+        >
+          <h3 className="font-semibold text-white">
+            Tutorial Payment Requests
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            Review & approve enrollment / wallet top-up proofs
+          </p>
+        </button>
+
+        <button
+          onClick={() => setTutorialPanel("courses")}
+          className="rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition hover:border-cyan-400/40"
+        >
+          <h3 className="font-semibold text-white">
+            Tutorial Courses & Lectures
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            Add courses, publish them, manage lectures
+          </p>
+        </button>
+
+        <button
+          onClick={() => setEditingPaymentSettings(true)}
+          className="rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition hover:border-cyan-400/40"
+        >
+          <h3 className="font-semibold text-white">
+            Tutorial Payment Settings
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            QR code & bank details shown to students
+          </p>
+        </button>
       </div>
 
       {activeKey && (
@@ -218,6 +271,46 @@ export default function PortfolioAdminPage() {
           initial={footerData ?? DEFAULT_FOOTER_CONTENT}
           onClose={() => setEditingFooter(false)}
           onSaved={() => setEditingFooter(false)}
+        />
+      )}
+
+      {tutorialPanel && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6"
+          onClick={() => setTutorialPanel(null)}
+        >
+          <div
+            className="max-h-[85vh] w-full max-w-5xl overflow-y-auto rounded-3xl border border-white/10 bg-slate-950 p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">
+                {tutorialPanel === "requests"
+                  ? "Tutorial Payment Requests"
+                  : "Tutorial Courses & Lectures"}
+              </h2>
+              <button
+                onClick={() => setTutorialPanel(null)}
+                className="rounded-xl border border-white/10 px-4 py-2 text-sm text-white hover:bg-white/5"
+              >
+                Close
+              </button>
+            </div>
+
+            {tutorialPanel === "requests" ? (
+              <TutorialAdminRequests />
+            ) : (
+              <TutorialAdminCourses />
+            )}
+          </div>
+        </div>
+      )}
+
+      {editingPaymentSettings && (
+        <PaymentSettingsEditor
+          onClose={() => setEditingPaymentSettings(false)}
         />
       )}
     </div>

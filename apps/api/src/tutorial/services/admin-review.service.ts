@@ -4,17 +4,17 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 
-import { PaymentRequestsRepository } from "../repositories/payment-request.repository";
-import { EnrollmentsRepository } from "../repositories/enrollment.repository";
+import { PaymentRequestsRepository } from "../repositories/payment-requests.repository";
+import { EnrollmentsRepository } from "../repositories/enrollments.repository";
 import { CoursesRepository } from "../repositories/courses.repository";
 
-import { WalletService } from "../services/wallet.services";
+import { WalletService } from "./wallet.service";
 
-import { EnrollmentStatus } from "../enums/Enrollment-status-enums";
+import { EnrollmentStatus } from "../enums/enrollment-status.enum";
 import {
   PaymentRequestStatus,
   PaymentRequestType,
-} from "../enums/payment-request-enums";
+} from "../enums/payment-request.enum";
 
 import { ApproveRequestDto } from "../dto/approve-request.dto";
 import { RejectRequestDto } from "../dto/reject-request.dto";

@@ -1,3 +1,4 @@
+
 // apps/web/src/routes/router.tsx
 
 import { createBrowserRouter, Navigate } from "react-router-dom";
@@ -41,10 +42,9 @@ import TutorialLandingPage from "@/features/tutorial/pages/TutorialLandingPage";
 import TutorialRegisterPage from "@/features/tutorial/pages/TutorialRegisterPage";
 import TutorialCoursesPage from "@/features/tutorial/pages/TutorialCoursesPage";
 import TutorialPaymentPage from "@/features/tutorial/pages/TutorialPaymentPage";
-import TutorialAdminPage from "@/features/tutorial/pages/TutorialAdminPage";
 import TutorialLearningPage from "@/features/tutorial/pages/TutorialLearningPage";
-import TutorialCourseLearnPage from "@/features/tutorial/pages/TutorialLearningPage";
-import TutorialWalletPage from "@/features/tutorial/pages/Tutorialwalletpage";
+import TutorialCourseLearnPage from "@/features/tutorial/pages/TutorialCourseLearnPage";
+import TutorialWalletPage from "@/features/tutorial/pages/TutorialWalletPage";
 
 // ==============================================================
 // Admin-only guard (mirrors ReportsAccess pattern)
@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
     path: "/tutorial/admin",
     element: (
       <AdminOnly>
-        <Navigate to="/dashboard/tutorial-management" replace />
+        <Navigate to="/dashboard/portfolio" replace />
       </AdminOnly>
     ),
   },
@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
     path: "/admin",
     element: (
       <AdminOnly>
-        <Navigate to="/dashboard/tutorial-management" replace />
+        <Navigate to="/dashboard/portfolio" replace />
       </AdminOnly>
     ),
   },
@@ -228,17 +228,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "tutorial-management",
-        element: (
-          <AdminOnly>
-            <TutorialAdminPage />
-          </AdminOnly>
-        ),
-      },
-      {
         path: "settings",
         element: <SettingsPage />,
       },
     ],
   },
 ]);
+

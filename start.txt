@@ -1,9 +1,9 @@
 # Starts API + Web in two new terminal windows.
-# Run from this folder (company-shehwa) or via the cmd below.
+# Run from this folder (company-SARMAYA) or via the cmd below.
 
 $root = $PWD.Path
 if (-not (Test-Path (Join-Path $root "apps\api"))) {
-  $root = Join-Path $root "company-shehwa"
+  $root = Join-Path $root "company-SARMAYA"
 }
 
 $api = Join-Path $root "apps\api"

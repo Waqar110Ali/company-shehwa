@@ -14,10 +14,11 @@ import { FileInterceptor } from "@nestjs/platform-express";
 
 import { JwtAuthGuard } from "@/auth/guards/jwt-auth.guard";
 
-import { TutorialsAuthService } from "../services/tutorial.auth.service";
-import { CoursesService } from "../services/courses.services";
-import { WalletService } from "../services/wallet.services";
+import { TutorialsAuthService } from "../services/tutorials-auth.service";
+import { CoursesService } from "../services/courses.service";
+import { WalletService } from "../services/wallet.service";
 import { EnrollmentService } from "../services/enrollment.service";
+import { PaymentSettingsService } from "../services/payment-settings.service";
 
 import { TutorialRegisterDto } from "../dto/tutorial-register.dto";
 import { CreateEnrollmentDto } from "../dto/create-enrollment.dto";
@@ -34,6 +35,7 @@ export class TutorialsController {
     private readonly coursesService: CoursesService,
     private readonly walletService: WalletService,
     private readonly enrollmentService: EnrollmentService,
+    private readonly paymentSettingsService: PaymentSettingsService,
   ) {}
 
   // =====================================================
@@ -51,6 +53,16 @@ export class TutorialsController {
   @Get("courses")
   listCourses() {
     return this.coursesService.listPublished();
+  }
+
+  // QR code / bank details shown on the payment & top-up pages.
+  // Public (no guard) so it can render on the payment page even in
+  // the split second before the JWT interceptor has attached, and
+  // there's nothing sensitive in it — it's meant to be shown to
+  // anyone who's about to pay.
+  @Get("payment-settings")
+  paymentSettings() {
+    return this.paymentSettingsService.get();
   }
 
   // =====================================================

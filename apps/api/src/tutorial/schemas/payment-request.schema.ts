@@ -9,7 +9,7 @@ import { HydratedDocument, Types } from "mongoose";
 import {
   PaymentRequestStatus,
   PaymentRequestType,
-} from "../enums/payment-request-enums";
+} from "../enums/payment-request.enum";
 
 export type PaymentRequestDocument =
   HydratedDocument<PaymentRequest>;

@@ -22,8 +22,9 @@ import { Role } from "@/users/enums/role.enum";
 
 import { CloudinaryService } from "@/common/cloudinary/cloudinary.service";
 
-import { CoursesService } from "../services/courses.services";
-import { AdminReviewService } from "../services/adminreview.service";
+import { CoursesService } from "../services/courses.service";
+import { AdminReviewService } from "../services/admin-review.service";
+import { PaymentSettingsService } from "../services/payment-settings.service";
 
 import { CreateCourseDto } from "../dto/create-course.dto";
 import { UpdateCourseDto } from "../dto/update-course.dto";
@@ -31,11 +32,12 @@ import { AddVideoDto } from "../dto/add-video.dto";
 import { UpdateVideoDto } from "../dto/update-video.dto";
 import { ApproveRequestDto } from "../dto/approve-request.dto";
 import { RejectRequestDto } from "../dto/reject-request.dto";
+import { UpdatePaymentSettingsDto } from "../dto/update-payment-settings.dto";
 
 import {
   PaymentRequestStatus,
   PaymentRequestType,
-} from "../enums/payment-request-enums";
+} from "../enums/payment-request.enum";
 
 // Deliberately its own controller/prefix (/tutorials/admin/*) —
 // gated by the ADMIN role for security, but not wired into any of
@@ -49,6 +51,7 @@ export class TutorialsAdminController {
   constructor(
     private readonly coursesService: CoursesService,
     private readonly adminReviewService: AdminReviewService,
+    private readonly paymentSettingsService: PaymentSettingsService,
     private readonly cloudinary: CloudinaryService,
   ) {}
 
@@ -196,5 +199,38 @@ export class TutorialsAdminController {
     @Body() dto: RejectRequestDto,
   ) {
     return this.adminReviewService.reject(id, req.user.sub, dto);
+  }
+
+  // =====================================================
+  // Payment settings (QR code + bank details) — edited the same
+  // way as any other content section, just scoped to tutorials.
+  // =====================================================
+
+  @Get("payment-settings")
+  getPaymentSettings() {
+    return this.paymentSettingsService.get();
+  }
+
+  @Patch("payment-settings")
+  updatePaymentSettings(@Body() dto: UpdatePaymentSettingsDto) {
+    return this.paymentSettingsService.update(dto);
+  }
+
+  @Post("upload-qr-code")
+  @UseInterceptors(
+    FileInterceptor("file", {
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  async uploadQrCode(@UploadedFile() file: Express.Multer.File) {
+    const upload: any = await this.cloudinary.uploadFile(
+      file,
+      "company-management/tutorials/payment-qr",
+    );
+
+    return {
+      success: true,
+      data: { url: upload.secure_url },
+    };
   }
 }

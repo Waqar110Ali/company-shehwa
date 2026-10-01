@@ -6,7 +6,7 @@ import {
   Enrollment,
   EnrollmentDocument,
 } from "../schemas/enrollment.schema";
-import { EnrollmentStatus } from "../enums/Enrollment-status-enums";
+import { EnrollmentStatus } from "../enums/enrollment-status.enum";
 
 @Injectable()
 export class EnrollmentsRepository {

@@ -7,18 +7,18 @@ import {
 
 import { CloudinaryService } from "@/common/cloudinary/cloudinary.service";
 
-import { CoursesService } from "./courses.services";
-import { WalletService } from "./wallet.services";
+import { CoursesService } from "./courses.service";
+import { WalletService } from "./wallet.service";
 
-import { EnrollmentsRepository } from "../repositories/enrollment.repository";
-import { PaymentRequestsRepository } from "../repositories/payment-request.repository";
+import { EnrollmentsRepository } from "../repositories/enrollments.repository";
+import { PaymentRequestsRepository } from "../repositories/payment-requests.repository";
 import { VideoAccessRepository } from "../repositories/video-access.repository";
 
-import { EnrollmentStatus } from "../enums/Enrollment-status-enums";
+import { EnrollmentStatus } from "../enums/enrollment-status.enum";
 import {
   PaymentRequestStatus,
   PaymentRequestType,
-} from "../enums/payment-request-enums";
+} from "../enums/payment-request.enum";
 
 const PROOF_FOLDER = "company-management/tutorials/payment-proofs";
 

@@ -9,7 +9,7 @@ import {
 import {
   PaymentRequestStatus,
   PaymentRequestType,
-} from "../enums/payment-request-enums";
+} from "../enums/payment-request.enum";
 
 @Injectable()
 export class PaymentRequestsRepository {

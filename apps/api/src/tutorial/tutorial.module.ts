@@ -24,22 +24,28 @@ import {
   VideoAccess,
   VideoAccessSchema,
 } from "./schemas/video-access.schema";
+import {
+  PaymentSettings,
+  PaymentSettingsSchema,
+} from "./schemas/payment-settings.schema";
 
 import { CoursesRepository } from "./repositories/courses.repository";
-import { EnrollmentsRepository } from "./repositories/enrollment.repository";
-import { WalletsRepository } from "./repositories/wallet.repository";
-import { CoinTransactionsRepository } from "./repositories/coin-transaction.repository";
-import { PaymentRequestsRepository } from "./repositories/payment-request.repository";
+import { EnrollmentsRepository } from "./repositories/enrollments.repository";
+import { WalletsRepository } from "./repositories/wallets.repository";
+import { CoinTransactionsRepository } from "./repositories/coin-transactions.repository";
+import { PaymentRequestsRepository } from "./repositories/payment-requests.repository";
 import { VideoAccessRepository } from "./repositories/video-access.repository";
+import { PaymentSettingsRepository } from "./repositories/payment-settings.repository";
 
-import { CoursesService } from "./services/courses.services";
-import { WalletService } from "./services/wallet.services";
-import { TutorialsAuthService } from "./services/tutorial.auth.service";
+import { CoursesService } from "./services/courses.service";
+import { WalletService } from "./services/wallet.service";
+import { TutorialsAuthService } from "./services/tutorials-auth.service";
 import { EnrollmentService } from "./services/enrollment.service";
-import { AdminReviewService } from "./services/adminreview.service";
+import { AdminReviewService } from "./services/admin-review.service";
+import { PaymentSettingsService } from "./services/payment-settings.service";
 
-import { TutorialsController } from "./controllers/tutorial.controller";
-import { TutorialsAdminController } from "./controllers/tutorialadmin.controller";
+import { TutorialsController } from "./controllers/tutorials.controller";
+import { TutorialsAdminController } from "./controllers/tutorials-admin.controller";
 
 @Module({
   imports: [
@@ -50,6 +56,7 @@ import { TutorialsAdminController } from "./controllers/tutorialadmin.controller
       { name: CoinTransaction.name, schema: CoinTransactionSchema },
       { name: PaymentRequest.name, schema: PaymentRequestSchema },
       { name: VideoAccess.name, schema: VideoAccessSchema },
+      { name: PaymentSettings.name, schema: PaymentSettingsSchema },
     ]),
 
     AuthModule,
@@ -70,12 +77,14 @@ import { TutorialsAdminController } from "./controllers/tutorialadmin.controller
     CoinTransactionsRepository,
     PaymentRequestsRepository,
     VideoAccessRepository,
+    PaymentSettingsRepository,
 
     CoursesService,
     WalletService,
     TutorialsAuthService,
     EnrollmentService,
     AdminReviewService,
+    PaymentSettingsService,
   ],
 })
 export class TutorialsModule {}

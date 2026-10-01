@@ -3,8 +3,8 @@ import {
   Injectable,
 } from "@nestjs/common";
 
-import { WalletsRepository } from "../repositories/wallet.repository";
-import { CoinTransactionsRepository } from "../repositories/coin-transaction.repository";
+import { WalletsRepository } from "../repositories/wallets.repository";
+import { CoinTransactionsRepository } from "../repositories/coin-transactions.repository";
 import { CoinTransactionType } from "../schemas/coin-transaction.schema";
 
 @Injectable()

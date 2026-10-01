@@ -4,61 +4,34 @@ import {
   SchemaFactory,
 } from "@nestjs/mongoose";
 
-import {
-  HydratedDocument,
-  Types,
-} from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 
-export type VideoAccessDocument =
-  HydratedDocument<VideoAccess>;
+export type VideoAccessDocument = HydratedDocument<VideoAccess>;
 
-// Once a student spends coins to unlock a video, we record it here
-// so they never get charged again for the same video and can
-// rewatch it anytime from their dashboard.
-
-@Schema({
-  timestamps: true,
-})
+// Created once, the first time a student spends coins to unlock a
+// video. Its existence IS the unlock — checked before ever
+// charging coins again for the same video, so re-watching is free.
+@Schema({ timestamps: true })
 export class VideoAccess {
-  @Prop({
-    type: Types.ObjectId,
-    ref: "User",
-    required: true,
-  })
+  @Prop({ type: Types.ObjectId, ref: "User", required: true })
   user!: Types.ObjectId;
 
-  @Prop({
-    type: Types.ObjectId,
-    ref: "Course",
-    required: true,
-  })
+  @Prop({ type: Types.ObjectId, ref: "Course", required: true })
   course!: Types.ObjectId;
 
-  @Prop({
-    type: String,
-    required: true,
-  })
+  // Sub-document id of the video inside Course.videos — stored as
+  // a plain string since it's compared against route params.
+  @Prop({ type: String, required: true })
   videoId!: string;
 
-  @Prop({
-    type: Number,
-    default: 0,
-  })
+  @Prop({ type: Number, required: true, default: 0 })
   coinsSpent!: number;
-
-  createdAt!: Date;
-  updatedAt!: Date;
 }
 
 export const VideoAccessSchema =
   SchemaFactory.createForClass(VideoAccess);
 
 VideoAccessSchema.index(
-  {
-    user: 1,
-    videoId: 1,
-  },
-  {
-    unique: true,
-  },
+  { user: 1, videoId: 1 },
+  { unique: true },
 );

@@ -8,9 +8,11 @@ import {
 
 import {
   getMyEnrollmentRequests,
+  getTutorialPaymentSettings,
   getTutorialWallet,
   submitTopup,
   type TutorialPaymentRequest,
+  type TutorialPaymentSettings,
   type TutorialWallet,
 } from "../api/tutorial.api";
 
@@ -18,6 +20,8 @@ export default function TutorialWalletPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [wallet, setWallet] = useState<TutorialWallet | null>(null);
+  const [paymentSettings, setPaymentSettings] =
+    useState<TutorialPaymentSettings | null>(null);
   const [topupRequests, setTopupRequests] = useState<TutorialPaymentRequest[]>(
     [],
   );
@@ -32,6 +36,9 @@ export default function TutorialWalletPage() {
 
   useEffect(() => {
     load();
+    getTutorialPaymentSettings()
+      .then((res) => setPaymentSettings(res.data))
+      .catch(() => setPaymentSettings(null));
   }, []);
 
   async function load() {
@@ -143,6 +150,32 @@ export default function TutorialWalletPage() {
             className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5"
           >
             <p className="text-sm font-semibold">Request a top-up</p>
+
+            {paymentSettings?.qrCodeUrl ? (
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-4 sm:flex-row sm:items-start">
+                <img
+                  src={paymentSettings.qrCodeUrl}
+                  alt="Payment QR code"
+                  className="h-28 w-28 shrink-0 rounded-lg bg-white object-contain p-1.5"
+                />
+                <div className="text-xs text-slate-300">
+                  <p className="font-semibold text-cyan-300">Scan to pay</p>
+                  {paymentSettings.bankName ? (
+                    <p className="mt-1">
+                      {paymentSettings.bankName}
+                      {paymentSettings.accountNumber
+                        ? ` — ${paymentSettings.accountNumber}`
+                        : ""}
+                    </p>
+                  ) : null}
+                  {paymentSettings.instructions ? (
+                    <p className="mt-2 text-slate-400">
+                      {paymentSettings.instructions}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
 
             {error ? (
               <div className="rounded-lg border border-red-400/20 bg-red-400/10 px-3 py-2 text-xs text-red-200">
