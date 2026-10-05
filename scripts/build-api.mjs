@@ -1,10 +1,17 @@
 import { build } from "esbuild";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
-import { cpSync } from "fs";
+import { cpSync, readFileSync } from "fs";
+import { createRequire } from "module";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(scriptDir, "..");
+const apiRequire = createRequire(resolve(rootDir, "apps/api/package.json"));
+const ts = apiRequire("typescript");
+const tsconfigPath = resolve(rootDir, "apps/api/tsconfig.json");
+const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+if (error) throw new Error(ts.flattenDiagnosticMessageText(error.messageText, "\n"));
+const { options } = ts.parseJsonConfigFileContent(config, ts.sys, dirname(tsconfigPath));
 
 await build({
   entryPoints: [
@@ -19,6 +26,27 @@ await build({
   outfile: resolve(rootDir, "api/index.js"),
 
   packages: "external",
+
+  // Nest uses emitted metadata for dependency injection and DTO validation.
+  // esbuild alone does not emit it, so compile TypeScript before bundling.
+  plugins: [{
+    name: "nest-decorator-metadata",
+    setup(builder) {
+      builder.onLoad({ filter: /\.ts$/ }, async ({ path }) => ({
+        contents: ts.transpileModule(readFileSync(path, "utf8"), {
+          fileName: path,
+          compilerOptions: {
+            ...options,
+            module: ts.ModuleKind.ESNext,
+            sourceMap: false,
+            declaration: false,
+          },
+        }).outputText,
+        loader: "js",
+        resolveDir: dirname(path),
+      }));
+    },
+  }],
 
   sourcemap: false,
 

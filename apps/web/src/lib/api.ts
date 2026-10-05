@@ -87,6 +87,8 @@ api.interceptors.response.use(
       };
 
     if (
+      originalRequest?.url === "/auth/login" ||
+      originalRequest?.url?.startsWith("/auth/verify-email/") ||
       error.response?.status !==
         401 ||
       originalRequest._retry

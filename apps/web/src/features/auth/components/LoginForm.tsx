@@ -46,7 +46,7 @@ export default function LoginForm() {
         await api.post(
           "/auth/login",
           {
-            email,
+            email: email.trim(),
             password,
           },
         );

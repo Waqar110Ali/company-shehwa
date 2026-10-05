@@ -98,6 +98,18 @@ Ensure-NodeDeps $apiDir
 Ensure-NodeDeps $webDir
 Ensure-PythonEnv $aiDir
 
+Write-Host 'Building API...'
+Push-Location $apiDir
+try {
+    npm run build
+    if ($LASTEXITCODE -ne 0) {
+        throw 'API build failed. Existing services have not been stopped.'
+    }
+}
+finally {
+    Pop-Location
+}
+
 Clear-StalePort 5000
 Clear-StalePort 5173
 Clear-StalePort 5174

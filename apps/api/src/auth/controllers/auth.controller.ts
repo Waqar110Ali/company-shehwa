@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseGuards, Inject } from "@nestjs/common";
 
@@ -49,6 +50,11 @@ createUser(
     return this.authService.login(
       dto,
     );
+  }
+
+  @Post("verify-email/:token")
+  verifyEmail(@Param("token") token: string) {
+    return this.authService.verifyEmail(token);
   }
 
   @Post("register")

@@ -22,6 +22,12 @@ import {
 
 @Injectable()
 export class MailService {
+  private get frontendUrl(): string {
+    return (
+      this.configService.get<string>("FRONTEND_URL") ||
+      this.configService.getOrThrow<string>("CLIENT_URL")
+    ).replace(/\/+$/, "");
+  }
   constructor(
     @Inject(MailerService)
     private readonly mailerService: MailerService,
@@ -87,9 +93,7 @@ async sendWelcomeEmail(
   );
 
   const verificationUrl =
-    `${this.configService.get(
-      "FRONTEND_URL",
-    )}/verify-email/${verificationToken}`;
+    `${this.frontendUrl}/verify-email/${verificationToken}`;
 
   await this.send({
     to: user.email,
@@ -136,9 +140,7 @@ async sendWelcomeEmail(
     resetToken: string,
   ): Promise<void> {
     const resetUrl =
-      `${this.configService.get(
-        "FRONTEND_URL",
-      )}/reset-password/${resetToken}`;
+      `${this.frontendUrl}/reset-password/${resetToken}`;
 
     await this.send({
       to: user.email,
@@ -247,9 +249,7 @@ async sendWelcomeEmail(
     );
 
     const verifyUrl =
-      `${this.configService.get(
-        "FRONTEND_URL",
-      )}/verify-email/${verificationToken}`;
+      `${this.frontendUrl}/verify-email/${verificationToken}`;
 
     await this.send({
       to: user.email,

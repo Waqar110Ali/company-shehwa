@@ -15,6 +15,7 @@ import { BookMeetingPage } from "@/features/booking";
 // Auth
 import LoginPage from "@/features/auth/pages/LoginPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
+import VerifyEmailPage from "@/features/pages/auth/VerifyEmailPage";
 import { Role } from "@/features/auth/types/role";
 import { getUser } from "@/features/auth/utils/auth-storage";
 
@@ -158,6 +159,11 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+
+  {
+    path: "/verify-email/:token",
+    element: <VerifyEmailPage />,
   },
 
   // ==========================================================

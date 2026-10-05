@@ -26,32 +26,23 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __decorateClass = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
-  for (var i = decorators.length - 1, decorator; i >= 0; i--)
-    if (decorator = decorators[i])
-      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result) __defProp(target, key, result);
-  return result;
-};
-var __decorateParam = (index, decorator) => (target, key) => decorator(target, key, index);
 
-// apps/api/api/index.ts
+// api/index.ts
 var index_exports = {};
 __export(index_exports, {
   default: () => handler
 });
 module.exports = __toCommonJS(index_exports);
 var import_core2 = require("@nestjs/core");
-var import_common97 = require("@nestjs/common");
+var import_common109 = require("@nestjs/common");
 var import_path2 = require("path");
-var import_swagger4 = require("@nestjs/swagger");
+var import_swagger7 = require("@nestjs/swagger");
 
-// apps/api/src/app.module.ts
-var import_common96 = require("@nestjs/common");
-var import_config10 = require("@nestjs/config");
+// src/app.module.ts
+var import_common108 = require("@nestjs/common");
+var import_config9 = require("@nestjs/config");
 
-// apps/api/src/config/index.ts
+// src/config/index.ts
 var config_default = [
   () => ({
     app: {
@@ -73,13 +64,11 @@ var config_default = [
   })
 ];
 
-// apps/api/src/config/env.validation.ts
+// src/config/env.validation.ts
 var Joi = __toESM(require("joi"));
 var envValidationSchema = Joi.object({
   PORT: Joi.number().default(5e3),
-  NODE_ENV: Joi.string().default(
-    "development"
-  ),
+  NODE_ENV: Joi.string().default("development"),
   CLIENT_URL: Joi.string().required(),
   MONGODB_URI: Joi.string().required(),
   JWT_SECRET: Joi.string().min(32).required(),
@@ -87,15 +76,12 @@ var envValidationSchema = Joi.object({
   JWT_EXPIRES: Joi.string().default("15m"),
   JWT_REFRESH_EXPIRES: Joi.string().default("30d"),
   GEMINI_API_KEY: Joi.string().allow("").optional(),
-  // Optional SMTP — newsletter notify emails need these
   MAIL_HOST: Joi.string().optional(),
   MAIL_PORT: Joi.number().optional(),
   MAIL_USER: Joi.string().optional(),
   MAIL_PASSWORD: Joi.string().optional(),
   MAIL_FROM: Joi.string().optional(),
   NEWSLETTER_NOTIFY_EMAIL: Joi.string().email().optional(),
-  // Cal.com — public booking via API (avoids broken iframe embed)
-  // Prefer CALCOM_LINK=username/event-slug (lowercase)
   CALCOM_LINK: Joi.string().optional(),
   CALCOM_USERNAME: Joi.string().optional(),
   CALCOM_EVENT_SLUG: Joi.string().optional(),
@@ -103,15 +89,22 @@ var envValidationSchema = Joi.object({
   CALCOM_API_KEY: Joi.string().optional()
 });
 
-// apps/api/src/database/database.module.ts
+// src/database/database.module.ts
 var import_common2 = require("@nestjs/common");
 var import_config = require("@nestjs/config");
 var import_mongoose = require("@nestjs/mongoose");
 
-// apps/api/src/database/database.service.ts
+// src/database/database.service.ts
 var import_common = require("@nestjs/common");
-var DatabaseService = class {
-  logger = new import_common.Logger(DatabaseService.name);
+var __decorate = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var DatabaseService_1;
+var DatabaseService = DatabaseService_1 = class DatabaseService2 {
+  logger = new import_common.Logger(DatabaseService_1.name);
   connected() {
     this.logger.log("\u2705 MongoDB Connected Successfully");
   }
@@ -122,14 +115,20 @@ var DatabaseService = class {
     this.logger.error("MongoDB Connection Error", error);
   }
 };
-DatabaseService = __decorateClass([
+DatabaseService = DatabaseService_1 = __decorate([
   (0, import_common.Injectable)()
 ], DatabaseService);
 
-// apps/api/src/database/database.module.ts
-var DatabaseModule = class {
+// src/database/database.module.ts
+var __decorate2 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-DatabaseModule = __decorateClass([
+var DatabaseModule = class DatabaseModule2 {
+};
+DatabaseModule = __decorate2([
   (0, import_common2.Global)(),
   (0, import_common2.Module)({
     imports: [
@@ -156,41 +155,51 @@ DatabaseModule = __decorateClass([
   })
 ], DatabaseModule);
 
-// apps/api/src/users/users.module.ts
+// src/users/users.module.ts
 var import_common18 = require("@nestjs/common");
 var import_mongoose11 = require("@nestjs/mongoose");
 
-// apps/api/src/users/controllers/users.controller.ts
+// src/users/controllers/users.controller.ts
 var import_common5 = require("@nestjs/common");
 
-// apps/api/src/users/services/users.service.ts
+// src/users/services/users.service.ts
 var import_common4 = require("@nestjs/common");
 
-// apps/api/src/users/repositories/users.repository.ts
+// src/users/repositories/users.repository.ts
 var import_common3 = require("@nestjs/common");
 var import_mongoose3 = require("@nestjs/mongoose");
 var import_mongoose4 = require("mongoose");
 
-// apps/api/src/users/schemas/user.schema.ts
+// src/users/schemas/user.schema.ts
 var import_mongoose2 = require("@nestjs/mongoose");
 
-// apps/api/src/users/enums/role.enum.ts
-var Role = /* @__PURE__ */ ((Role2) => {
-  Role2["ADMIN"] = "ADMIN";
-  Role2["HR"] = "HR";
-  Role2["PROJECT_MANAGER"] = "PROJECT_MANAGER";
-  Role2["EMPLOYEE"] = "EMPLOYEE";
-  Role2["CLIENT"] = "CLIENT";
-  Role2["INTERN"] = "INTERN";
-  Role2["MANAGER"] = "MANAGER";
-  Role2["AI"] = "AI";
-  Role2["CEO"] = "CEO";
-  Role2["STUDENT"] = "STUDENT";
-  return Role2;
-})(Role || {});
+// src/users/enums/role.enum.ts
+var Role;
+(function(Role3) {
+  Role3["ADMIN"] = "ADMIN";
+  Role3["HR"] = "HR";
+  Role3["PROJECT_MANAGER"] = "PROJECT_MANAGER";
+  Role3["EMPLOYEE"] = "EMPLOYEE";
+  Role3["CLIENT"] = "CLIENT";
+  Role3["INTERN"] = "INTERN";
+  Role3["MANAGER"] = "MANAGER";
+  Role3["AI"] = "AI";
+  Role3["CEO"] = "CEO";
+  Role3["STUDENT"] = "STUDENT";
+})(Role || (Role = {}));
 
-// apps/api/src/users/schemas/user.schema.ts
-var User = class {
+// src/users/schemas/user.schema.ts
+var __decorate3 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+var User = class User2 {
   firstName;
   lastName;
   email;
@@ -210,158 +219,183 @@ var User = class {
   loginAttempts;
   lockUntil;
   lastPasswordChangedAt;
-  // =====================================================
-  // Timestamps
-  // =====================================================
   createdAt;
   updatedAt;
 };
-__decorateClass([
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], User.prototype, "firstName", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "firstName", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], User.prototype, "lastName", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "lastName", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     required: true,
     unique: true,
     lowercase: true,
     trim: true
-  })
-], User.prototype, "email", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     required: true,
     select: false
-  })
-], User.prototype, "password", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     default: ""
-  })
-], User.prototype, "phone", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     default: ""
-  })
-], User.prototype, "avatar", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", String)
+], User.prototype, "avatar", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     enum: Role,
-    default: "EMPLOYEE" /* EMPLOYEE */
-  })
-], User.prototype, "role", 2);
-__decorateClass([
+    default: Role.EMPLOYEE
+  }),
+  __metadata("design:type", typeof (_a = typeof Role !== "undefined" && Role) === "function" ? _a : Object)
+], User.prototype, "role", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Boolean,
     default: true
-  })
-], User.prototype, "isActive", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Boolean)
+], User.prototype, "isActive", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Boolean,
     default: false
-  })
-], User.prototype, "isVerified", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Boolean)
+], User.prototype, "isVerified", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Boolean,
     default: true
-  })
-], User.prototype, "mustChangePassword", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Boolean)
+], User.prototype, "mustChangePassword", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     default: null,
     select: false
-  })
-], User.prototype, "refreshToken", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "refreshToken", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     default: null,
     select: false
-  })
-], User.prototype, "emailVerificationToken", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "emailVerificationToken", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: String,
     default: null,
     select: false
-  })
-], User.prototype, "passwordResetToken", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "passwordResetToken", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Date,
     default: null
-  })
-], User.prototype, "passwordResetExpires", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "passwordResetExpires", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Date,
     default: null
-  })
-], User.prototype, "emailVerifiedAt", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "emailVerifiedAt", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Date,
     default: null
-  })
-], User.prototype, "lastLogin", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "lastLogin", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Number,
     default: 0
-  })
-], User.prototype, "loginAttempts", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Number)
+], User.prototype, "loginAttempts", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Date,
     default: null
-  })
-], User.prototype, "lockUntil", 2);
-__decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "lockUntil", void 0);
+__decorate3([
   (0, import_mongoose2.Prop)({
     type: Date,
     default: null
-  })
-], User.prototype, "lastPasswordChangedAt", 2);
-User = __decorateClass([
+  }),
+  __metadata("design:type", Object)
+], User.prototype, "lastPasswordChangedAt", void 0);
+User = __decorate3([
   (0, import_mongoose2.Schema)({
     timestamps: true
   })
 ], User);
 var UserSchema = import_mongoose2.SchemaFactory.createForClass(User);
 
-// apps/api/src/users/repositories/users.repository.ts
-var UsersRepository = class {
+// src/users/repositories/users.repository.ts
+var __decorate4 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata2 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a2;
+var UsersRepository = class UsersRepository2 {
+  userModel;
   constructor(userModel) {
     this.userModel = userModel;
   }
-  userModel;
-  // =====================================================
-  // Create
-  // =====================================================
   async createUser(data) {
     return this.userModel.create(data);
   }
-  // =====================================================
-  // Find
-  // =====================================================
   async findAll() {
     return this.userModel.find().exec();
   }
@@ -376,23 +410,17 @@ var UsersRepository = class {
   async findByEmailWithPassword(email) {
     return this.userModel.findOne({
       email
-    }).select(
-      "+password +refreshToken +emailVerificationToken +passwordResetToken"
-    ).exec();
+    }).select("+password +refreshToken +emailVerificationToken +passwordResetToken").exec();
   }
   async findByVerificationToken(token) {
     return this.userModel.findOne({
       emailVerificationToken: token
-    }).select(
-      "+emailVerificationToken"
-    ).exec();
+    }).select("+emailVerificationToken").exec();
   }
   async findByPasswordResetToken(token) {
     return this.userModel.findOne({
       passwordResetToken: token
-    }).select(
-      "+passwordResetToken"
-    ).exec();
+    }).select("+passwordResetToken").exec();
   }
   async existsByEmail(email) {
     const exists = await this.userModel.exists({
@@ -400,175 +428,126 @@ var UsersRepository = class {
     });
     return !!exists;
   }
-  // =====================================================
-  // Update
-  // =====================================================
   async update(id, data) {
-    return this.userModel.findByIdAndUpdate(
-      id,
-      data,
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(id, data, {
+      new: true
+    }).exec();
   }
   async delete(id) {
     return this.userModel.findByIdAndDelete(id).exec();
   }
-  // =====================================================
-  // Password
-  // =====================================================
   async updatePassword(userId, password) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        password,
-        mustChangePassword: false,
-        passwordResetToken: null,
-        passwordResetExpires: null,
-        lastPasswordChangedAt: /* @__PURE__ */ new Date()
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      password,
+      mustChangePassword: false,
+      passwordResetToken: null,
+      passwordResetExpires: null,
+      lastPasswordChangedAt: /* @__PURE__ */ new Date()
+    }, {
+      new: true
+    }).exec();
   }
   async savePasswordResetToken(userId, token, expires) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        passwordResetToken: token,
-        passwordResetExpires: expires
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      passwordResetToken: token,
+      passwordResetExpires: expires
+    }, {
+      new: true
+    }).exec();
   }
-  // =====================================================
-  // Email Verification
-  // =====================================================
   async saveVerificationToken(userId, token) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        emailVerificationToken: token
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      emailVerificationToken: token
+    }, {
+      new: true
+    }).exec();
   }
   async updateVerificationToken(userId, token, expires) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        emailVerificationToken: token,
-        passwordResetExpires: expires
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      emailVerificationToken: token,
+      passwordResetExpires: expires
+    }, {
+      new: true
+    }).exec();
   }
   async verifyEmail(userId) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        isVerified: true,
-        emailVerificationToken: null,
-        emailVerifiedAt: /* @__PURE__ */ new Date()
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      isVerified: true,
+      emailVerificationToken: null,
+      emailVerifiedAt: /* @__PURE__ */ new Date()
+    }, {
+      new: true
+    }).exec();
   }
-  // =====================================================
-  // Refresh Token
-  // =====================================================
   async updateRefreshToken(userId, refreshToken) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        refreshToken
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      refreshToken
+    }, {
+      new: true
+    }).exec();
   }
   async clearRefreshToken(userId) {
-    return this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        refreshToken: null
-      },
-      {
-        new: true
-      }
-    ).exec();
+    return this.userModel.findByIdAndUpdate(userId, {
+      refreshToken: null
+    }, {
+      new: true
+    }).exec();
   }
-  // =====================================================
-  // Login Tracking
-  // =====================================================
   async updateLastLogin(userId) {
-    await this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        lastLogin: /* @__PURE__ */ new Date()
-      }
-    );
+    await this.userModel.findByIdAndUpdate(userId, {
+      lastLogin: /* @__PURE__ */ new Date()
+    });
   }
   async incrementLoginAttempts(userId) {
-    await this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        $inc: {
-          loginAttempts: 1
-        }
+    await this.userModel.findByIdAndUpdate(userId, {
+      $inc: {
+        loginAttempts: 1
       }
-    );
+    });
   }
   async resetLoginAttempts(userId) {
-    await this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        loginAttempts: 0,
-        lockUntil: null
-      }
-    );
+    await this.userModel.findByIdAndUpdate(userId, {
+      loginAttempts: 0,
+      lockUntil: null
+    });
   }
   async lockAccount(userId, until) {
-    await this.userModel.findByIdAndUpdate(
-      userId,
-      {
-        lockUntil: until
-      }
-    );
+    await this.userModel.findByIdAndUpdate(userId, {
+      lockUntil: until
+    });
   }
 };
-UsersRepository = __decorateClass([
+UsersRepository = __decorate4([
   (0, import_common3.Injectable)(),
-  __decorateParam(0, (0, import_mongoose3.InjectModel)(User.name)),
-  __decorateParam(0, (0, import_common3.Inject)(import_mongoose4.Model))
+  __param(0, (0, import_mongoose3.InjectModel)(User.name)),
+  __param(0, (0, import_common3.Inject)(import_mongoose4.Model)),
+  __metadata2("design:paramtypes", [typeof (_a2 = typeof import_mongoose4.Model !== "undefined" && import_mongoose4.Model) === "function" ? _a2 : Object])
 ], UsersRepository);
 
-// apps/api/src/users/services/users.service.ts
-var UsersService = class {
+// src/users/services/users.service.ts
+var __decorate5 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata3 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param2 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a3;
+var UsersService = class UsersService2 {
+  repository;
   constructor(repository) {
     this.repository = repository;
   }
-  repository;
-  // =====================================================
-  // Create
-  // =====================================================
   async createUser(dto) {
     return this.repository.createUser(dto);
   }
-  // =====================================================
-  // Read
-  // =====================================================
   async findAll() {
     return this.repository.findAll();
   }
@@ -582,145 +561,98 @@ var UsersService = class {
     return this.repository.findByEmail(email);
   }
   async findByEmailWithPassword(email) {
-    return this.repository.findByEmailWithPassword(
-      email
-    );
+    return this.repository.findByEmailWithPassword(email);
   }
   async findByVerificationToken(token) {
-    return this.repository.findByVerificationToken(
-      token
-    );
+    return this.repository.findByVerificationToken(token);
   }
   async findByPasswordResetToken(token) {
-    return this.repository.findByPasswordResetToken(
-      token
-    );
+    return this.repository.findByPasswordResetToken(token);
   }
   async existsByEmail(email) {
-    return this.repository.existsByEmail(
-      email
-    );
+    return this.repository.existsByEmail(email);
   }
-  // =====================================================
-  // Update
-  // =====================================================
   async update(id, dto) {
-    return this.repository.update(
-      id,
-      dto
-    );
+    return this.repository.update(id, dto);
   }
   async delete(id) {
     return this.repository.delete(id);
   }
-  // =====================================================
-  // Password
-  // =====================================================
   async updatePassword(userId, password) {
-    return this.repository.updatePassword(
-      userId,
-      password
-    );
+    return this.repository.updatePassword(userId, password);
   }
   async savePasswordResetToken(userId, token, expires) {
-    return this.repository.savePasswordResetToken(
-      userId,
-      token,
-      expires
-    );
+    return this.repository.savePasswordResetToken(userId, token, expires);
   }
-  // =====================================================
-  // Email Verification
-  // =====================================================
   async saveVerificationToken(userId, token) {
-    return this.repository.saveVerificationToken(
-      userId,
-      token
-    );
+    return this.repository.saveVerificationToken(userId, token);
   }
   async updateVerificationToken(userId, token, expires) {
-    return this.repository.updateVerificationToken(
-      userId,
-      token,
-      expires
-    );
+    return this.repository.updateVerificationToken(userId, token, expires);
   }
   async verifyEmail(userId) {
-    return this.repository.verifyEmail(
-      userId
-    );
+    return this.repository.verifyEmail(userId);
   }
-  // =====================================================
-  // Refresh Token
-  // =====================================================
   async updateRefreshToken(userId, token) {
-    return this.repository.updateRefreshToken(
-      userId,
-      token
-    );
+    return this.repository.updateRefreshToken(userId, token);
   }
   async clearRefreshToken(userId) {
-    return this.repository.clearRefreshToken(
-      userId
-    );
+    return this.repository.clearRefreshToken(userId);
   }
-  // =====================================================
-  // Login Tracking
-  // =====================================================
   async updateLastLogin(userId) {
-    await this.repository.updateLastLogin(
-      userId
-    );
+    await this.repository.updateLastLogin(userId);
   }
   async incrementLoginAttempts(userId) {
-    await this.repository.incrementLoginAttempts(
-      userId
-    );
+    await this.repository.incrementLoginAttempts(userId);
   }
   async resetLoginAttempts(userId) {
-    await this.repository.resetLoginAttempts(
-      userId
-    );
+    await this.repository.resetLoginAttempts(userId);
   }
   async lockAccount(userId, until) {
-    await this.repository.lockAccount(
-      userId,
-      until
-    );
+    await this.repository.lockAccount(userId, until);
   }
-  // =====================================================
-  // Helpers
-  // =====================================================
   async requireUser(id) {
     const user = await this.findById(id);
     if (!user) {
-      throw new import_common4.NotFoundException(
-        "User not found."
-      );
+      throw new import_common4.NotFoundException("User not found.");
     }
     return user;
   }
   async requireUserByEmail(email) {
     const user = await this.findByEmail(email);
     if (!user) {
-      throw new import_common4.NotFoundException(
-        "User not found."
-      );
+      throw new import_common4.NotFoundException("User not found.");
     }
     return user;
   }
 };
-UsersService = __decorateClass([
+UsersService = __decorate5([
   (0, import_common4.Injectable)(),
-  __decorateParam(0, (0, import_common4.Inject)(UsersRepository))
+  __param2(0, (0, import_common4.Inject)(UsersRepository)),
+  __metadata3("design:paramtypes", [typeof (_a3 = typeof UsersRepository !== "undefined" && UsersRepository) === "function" ? _a3 : Object])
 ], UsersService);
 
-// apps/api/src/users/controllers/users.controller.ts
-var UsersController = class {
+// src/users/controllers/users.controller.ts
+var __decorate6 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata4 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param3 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a4;
+var UsersController = class UsersController2 {
+  usersService;
   constructor(usersService) {
     this.usersService = usersService;
   }
-  usersService;
   findAll() {
     return this.usersService.findAll();
   }
@@ -728,56 +660,78 @@ var UsersController = class {
     return this.usersService.findById(id);
   }
 };
-__decorateClass([
-  (0, import_common5.Get)()
-], UsersController.prototype, "findAll", 1);
-__decorateClass([
+__decorate6([
+  (0, import_common5.Get)(),
+  __metadata4("design:type", Function),
+  __metadata4("design:paramtypes", []),
+  __metadata4("design:returntype", void 0)
+], UsersController.prototype, "findAll", null);
+__decorate6([
   (0, import_common5.Get)(":id"),
-  __decorateParam(0, (0, import_common5.Param)("id"))
-], UsersController.prototype, "findOne", 1);
-UsersController = __decorateClass([
+  __param3(0, (0, import_common5.Param)("id")),
+  __metadata4("design:type", Function),
+  __metadata4("design:paramtypes", [String]),
+  __metadata4("design:returntype", void 0)
+], UsersController.prototype, "findOne", null);
+UsersController = __decorate6([
   (0, import_common5.Controller)("users"),
-  __decorateParam(0, (0, import_common5.Inject)(UsersService))
+  __param3(0, (0, import_common5.Inject)(UsersService)),
+  __metadata4("design:paramtypes", [typeof (_a4 = typeof UsersService !== "undefined" && UsersService) === "function" ? _a4 : Object])
 ], UsersController);
 
-// apps/api/src/employees/employees.module.ts
+// src/employees/employees.module.ts
 var import_common17 = require("@nestjs/common");
 var import_mongoose10 = require("@nestjs/mongoose");
 
-// apps/api/src/employees/schemas/employee.schema.ts
+// src/employees/schemas/employee.schema.ts
 var import_mongoose5 = require("@nestjs/mongoose");
 var import_mongoose6 = require("mongoose");
 
-// apps/api/src/employees/enums/employment-type.enum.ts
-var EmploymentType = /* @__PURE__ */ ((EmploymentType2) => {
+// src/employees/enums/employment-type.enum.ts
+var EmploymentType;
+(function(EmploymentType2) {
   EmploymentType2["FULL_TIME"] = "FULL_TIME";
   EmploymentType2["PART_TIME"] = "PART_TIME";
   EmploymentType2["CONTRACT"] = "CONTRACT";
   EmploymentType2["INTERN"] = "INTERN";
   EmploymentType2["FREELANCER"] = "FREELANCER";
-  return EmploymentType2;
-})(EmploymentType || {});
+})(EmploymentType || (EmploymentType = {}));
 
-// apps/api/src/employees/enums/employee-status.enum.ts
-var EmployeeStatus = /* @__PURE__ */ ((EmployeeStatus2) => {
+// src/employees/enums/employee-status.enum.ts
+var EmployeeStatus;
+(function(EmployeeStatus2) {
   EmployeeStatus2["PENDING"] = "PENDING";
   EmployeeStatus2["ACTIVE"] = "ACTIVE";
   EmployeeStatus2["ON_LEAVE"] = "ON_LEAVE";
   EmployeeStatus2["RESIGNED"] = "RESIGNED";
   EmployeeStatus2["TERMINATED"] = "TERMINATED";
-  return EmployeeStatus2;
-})(EmployeeStatus || {});
+})(EmployeeStatus || (EmployeeStatus = {}));
 
-// apps/api/src/employees/enums/gender.enum.ts
-var Gender = /* @__PURE__ */ ((Gender2) => {
+// src/employees/enums/gender.enum.ts
+var Gender;
+(function(Gender2) {
   Gender2["MALE"] = "MALE";
   Gender2["FEMALE"] = "FEMALE";
   Gender2["OTHER"] = "OTHER";
-  return Gender2;
-})(Gender || {});
+})(Gender || (Gender = {}));
 
-// apps/api/src/employees/schemas/employee.schema.ts
-var Employee = class {
+// src/employees/schemas/employee.schema.ts
+var __decorate7 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata5 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a5;
+var _b;
+var _c;
+var _d;
+var _e;
+var _f;
+var Employee = class Employee2 {
   employeeId;
   user;
   firstName;
@@ -803,15 +757,16 @@ var Employee = class {
   performance;
   attendance;
 };
-__decorateClass([
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true,
     unique: true,
     trim: true
-  })
-], Employee.prototype, "employeeId", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "employeeId", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: import_mongoose6.Types.ObjectId,
     ref: User.name,
@@ -819,140 +774,163 @@ __decorateClass([
     unique: true,
     sparse: true,
     index: true
-  })
-], Employee.prototype, "user", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", typeof (_a5 = typeof import_mongoose6.Types !== "undefined" && import_mongoose6.Types.ObjectId) === "function" ? _a5 : Object)
+], Employee.prototype, "user", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], Employee.prototype, "firstName", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "firstName", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], Employee.prototype, "lastName", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "lastName", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], Employee.prototype, "fullName", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "fullName", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true,
     lowercase: true,
     unique: true,
     trim: true
-  })
-], Employee.prototype, "email", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "email", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "phone", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "phone", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     enum: Gender
-  })
-], Employee.prototype, "gender", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", typeof (_b = typeof Gender !== "undefined" && Gender) === "function" ? _b : Object)
+], Employee.prototype, "gender", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: Date
-  })
-], Employee.prototype, "dateOfBirth", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], Employee.prototype, "dateOfBirth", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "cnic", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "cnic", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true
-  })
-], Employee.prototype, "department", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "department", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     required: true
-  })
-], Employee.prototype, "designation", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "designation", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     enum: EmploymentType,
-    default: "FULL_TIME" /* FULL_TIME */
-  })
-], Employee.prototype, "employmentType", 2);
-__decorateClass([
+    default: EmploymentType.FULL_TIME
+  }),
+  __metadata5("design:type", typeof (_d = typeof EmploymentType !== "undefined" && EmploymentType) === "function" ? _d : Object)
+], Employee.prototype, "employmentType", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: Date
-  })
-], Employee.prototype, "joiningDate", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", typeof (_e = typeof Date !== "undefined" && Date) === "function" ? _e : Object)
+], Employee.prototype, "joiningDate", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: Number,
     default: 0
-  })
-], Employee.prototype, "salary", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", Number)
+], Employee.prototype, "salary", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     enum: EmployeeStatus,
-    default: "ACTIVE" /* ACTIVE */
-  })
-], Employee.prototype, "status", 2);
-__decorateClass([
+    default: EmployeeStatus.ACTIVE
+  }),
+  __metadata5("design:type", typeof (_f = typeof EmployeeStatus !== "undefined" && EmployeeStatus) === "function" ? _f : Object)
+], Employee.prototype, "status", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "address", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "address", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "city", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "city", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "country", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "country", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "emergencyContactName", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "emergencyContactName", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String
-  })
-], Employee.prototype, "emergencyContactPhone", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "emergencyContactPhone", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: String,
     default: ""
-  })
-], Employee.prototype, "avatar", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", String)
+], Employee.prototype, "avatar", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: Number,
     default: 0
-  })
-], Employee.prototype, "performance", 2);
-__decorateClass([
+  }),
+  __metadata5("design:type", Number)
+], Employee.prototype, "performance", void 0);
+__decorate7([
   (0, import_mongoose5.Prop)({
     type: Number,
     default: 0
-  })
-], Employee.prototype, "attendance", 2);
-Employee = __decorateClass([
+  }),
+  __metadata5("design:type", Number)
+], Employee.prototype, "attendance", void 0);
+Employee = __decorate7([
   (0, import_mongoose5.Schema)({
     timestamps: true
   })
@@ -968,39 +946,55 @@ EmployeeSchema.set("toObject", {
   virtuals: true
 });
 
-// apps/api/src/employees/controllers/employees.controller.ts
+// src/employees/controllers/employees.controller.ts
 var import_common14 = require("@nestjs/common");
 var import_platform_express = require("@nestjs/platform-express");
 
-// apps/api/src/auth/guards/jwt-auth.guard.ts
+// src/auth/guards/jwt-auth.guard.ts
 var import_common6 = require("@nestjs/common");
 var import_passport = require("@nestjs/passport");
-var JwtAuthGuard = class extends (0, import_passport.AuthGuard)(
-  "jwt"
-) {
+var __decorate8 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-JwtAuthGuard = __decorateClass([
+var JwtAuthGuard = class JwtAuthGuard2 extends (0, import_passport.AuthGuard)("jwt") {
+};
+JwtAuthGuard = __decorate8([
   (0, import_common6.Injectable)()
 ], JwtAuthGuard);
 
-// apps/api/src/auth/guards/roles.guard.ts
+// src/auth/guards/roles.guard.ts
 var import_common8 = require("@nestjs/common");
 var import_core = require("@nestjs/core");
 
-// apps/api/src/auth/decorators/roles.decorator.ts
+// src/auth/decorators/roles.decorator.ts
 var import_common7 = require("@nestjs/common");
 var ROLES_KEY = "roles";
-var Roles = (...roles) => (0, import_common7.SetMetadata)(
-  ROLES_KEY,
-  roles
-);
+var Roles = (...roles) => (0, import_common7.SetMetadata)(ROLES_KEY, roles);
 
-// apps/api/src/auth/guards/roles.guard.ts
-var RolesGuard = class {
+// src/auth/guards/roles.guard.ts
+var __decorate9 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata6 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param4 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a6;
+var RolesGuard = class RolesGuard2 {
+  reflector;
   constructor(reflector) {
     this.reflector = reflector;
   }
-  reflector;
   canActivate(context) {
     const requiredRoles = this.reflector.getAllAndOverride(ROLES_KEY, [
       context.getHandler(),
@@ -1014,58 +1008,66 @@ var RolesGuard = class {
     if (!user) {
       return false;
     }
-    return requiredRoles.includes(
-      user.role
-    );
+    return requiredRoles.includes(user.role);
   }
 };
-RolesGuard = __decorateClass([
+RolesGuard = __decorate9([
   (0, import_common8.Injectable)(),
-  __decorateParam(0, (0, import_common8.Inject)(import_core.Reflector))
+  __param4(0, (0, import_common8.Inject)(import_core.Reflector)),
+  __metadata6("design:paramtypes", [typeof (_a6 = typeof import_core.Reflector !== "undefined" && import_core.Reflector) === "function" ? _a6 : Object])
 ], RolesGuard);
 
-// apps/api/src/auth/constants/role-groups.ts
+// src/auth/constants/role-groups.ts
 var VIEW_ROLES = [
-  "ADMIN" /* ADMIN */,
-  "HR" /* HR */,
-  "MANAGER" /* MANAGER */,
-  "EMPLOYEE" /* EMPLOYEE */,
-  "INTERN" /* INTERN */,
-  "CLIENT" /* CLIENT */,
-  "CEO" /* CEO */,
-  "AI" /* AI */
+  Role.ADMIN,
+  Role.HR,
+  Role.MANAGER,
+  Role.EMPLOYEE,
+  Role.INTERN,
+  Role.CLIENT,
+  Role.CEO,
+  Role.AI
 ];
 var MANAGE_ROLES = [
-  "ADMIN" /* ADMIN */,
-  "HR" /* HR */
+  Role.ADMIN,
+  Role.HR
 ];
 var ADMIN_ONLY = [
-  "ADMIN" /* ADMIN */
+  Role.ADMIN
 ];
 
-// apps/api/src/employees/services/employees.service.ts
+// src/employees/services/employees.service.ts
 var import_common13 = require("@nestjs/common");
 var import_mongoose9 = require("mongoose");
 var bcrypt = __toESM(require("bcrypt"));
 
-// apps/api/src/employees/repositories/employees.repository.ts
+// src/employees/repositories/employees.repository.ts
 var import_common9 = require("@nestjs/common");
 var import_mongoose7 = require("@nestjs/mongoose");
 var import_mongoose8 = require("mongoose");
-var EmployeesRepository = class {
+var __decorate10 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata7 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param5 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a7;
+var EmployeesRepository = class EmployeesRepository2 {
+  employeeModel;
   constructor(employeeModel) {
     this.employeeModel = employeeModel;
   }
-  employeeModel;
-  // ======================================================
-  // Create
-  // ======================================================
   async create(employee) {
     return this.employeeModel.create(employee);
   }
-  // ======================================================
-  // Find All
-  // ======================================================
   async findAll(query) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
@@ -1111,9 +1113,7 @@ var EmployeesRepository = class {
     if (query.employmentType) {
       filter.employmentType = query.employmentType;
     }
-    const total = await this.employeeModel.countDocuments(
-      filter
-    );
+    const total = await this.employeeModel.countDocuments(filter);
     const items = await this.employeeModel.find(filter).populate({
       path: "user",
       select: "firstName lastName email avatar role"
@@ -1126,15 +1126,10 @@ var EmployeesRepository = class {
         total,
         page,
         limit,
-        totalPages: Math.ceil(
-          total / limit
-        )
+        totalPages: Math.ceil(total / limit)
       }
     };
   }
-  // ======================================================
-  // Find By Id
-  // ======================================================
   async findById(id) {
     if (!import_mongoose8.Types.ObjectId.isValid(id)) {
       return null;
@@ -1144,27 +1139,17 @@ var EmployeesRepository = class {
       select: "firstName lastName email avatar role"
     }).lean();
   }
-  // ======================================================
-  // Find By User Id
-  // ======================================================
   async findByUserId(userId) {
-    if (!import_mongoose8.Types.ObjectId.isValid(
-      userId
-    )) {
+    if (!import_mongoose8.Types.ObjectId.isValid(userId)) {
       return null;
     }
     return this.employeeModel.findOne({
-      user: new import_mongoose8.Types.ObjectId(
-        userId
-      )
+      user: new import_mongoose8.Types.ObjectId(userId)
     }).populate({
       path: "user",
       select: "firstName lastName email avatar role"
     });
   }
-  // ======================================================
-  // Find By Employee Id
-  // ======================================================
   async findByEmployeeId(employeeId) {
     return this.employeeModel.findOne({
       employeeId
@@ -1173,91 +1158,85 @@ var EmployeesRepository = class {
       select: "firstName lastName email avatar role"
     });
   }
-  // ======================================================
-  // Find By Email
-  // ======================================================
   async findByEmail(email) {
     return this.employeeModel.findOne({
       email
     });
   }
-  // ======================================================
-  // Exists By User
-  // ======================================================
   async existsByUser(userId) {
-    if (!import_mongoose8.Types.ObjectId.isValid(
-      userId
-    )) {
+    if (!import_mongoose8.Types.ObjectId.isValid(userId)) {
       return false;
     }
-    const exists = await this.employeeModel.exists(
-      {
-        user: new import_mongoose8.Types.ObjectId(
-          userId
-        )
-      }
-    );
+    const exists = await this.employeeModel.exists({
+      user: new import_mongoose8.Types.ObjectId(userId)
+    });
     return !!exists;
   }
-  // ======================================================
-  // Update
-  // ======================================================
   async update(id, data) {
     if (!import_mongoose8.Types.ObjectId.isValid(id)) {
       return null;
     }
-    return this.employeeModel.findByIdAndUpdate(
-      id,
-      data,
-      {
-        new: true,
-        runValidators: true
-      }
-    ).populate({
+    return this.employeeModel.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true
+    }).populate({
       path: "user",
       select: "firstName lastName email avatar role"
     }).lean();
   }
-  // ======================================================
-  // Delete
-  // ======================================================
   async delete(id) {
     if (!import_mongoose8.Types.ObjectId.isValid(id)) {
       return null;
     }
-    return this.employeeModel.findByIdAndDelete(
-      id
-    );
+    return this.employeeModel.findByIdAndDelete(id);
   }
 };
-EmployeesRepository = __decorateClass([
+EmployeesRepository = __decorate10([
   (0, import_common9.Injectable)(),
-  __decorateParam(0, (0, import_mongoose7.InjectModel)(Employee.name)),
-  __decorateParam(0, (0, import_common9.Inject)(import_mongoose8.Model))
+  __param5(0, (0, import_mongoose7.InjectModel)(Employee.name)),
+  __param5(0, (0, import_common9.Inject)(import_mongoose8.Model)),
+  __metadata7("design:paramtypes", [typeof (_a7 = typeof import_mongoose8.Model !== "undefined" && import_mongoose8.Model) === "function" ? _a7 : Object])
 ], EmployeesRepository);
 
-// apps/api/src/mail/mail.service.ts
+// src/mail/mail.service.ts
 var import_common10 = require("@nestjs/common");
 var import_config2 = require("@nestjs/config");
 var import_mailer = require("@nestjs-modules/mailer");
 var import_uuid = require("uuid");
 
-// apps/api/src/mail/mail.constants.ts
+// src/mail/mail.constants.ts
 var APP_NAME = "AI Company Management Platform";
 
-// apps/api/src/mail/mail.service.ts
-var MailService = class {
+// src/mail/mail.service.ts
+var __decorate11 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata8 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param6 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a8;
+var _b2;
+var _c2;
+var MailService = class MailService2 {
+  mailerService;
+  configService;
+  usersService;
+  get frontendUrl() {
+    return (this.configService.get("FRONTEND_URL") || this.configService.getOrThrow("CLIENT_URL")).replace(/\/+$/, "");
+  }
   constructor(mailerService, configService, usersService) {
     this.mailerService = mailerService;
     this.configService = configService;
     this.usersService = usersService;
   }
-  mailerService;
-  configService;
-  usersService;
-  // =====================================================
-  // Generic Mail Sender
-  // =====================================================
   async send(options) {
     try {
       console.log("[MAIL] Sending email", {
@@ -1273,58 +1252,33 @@ var MailService = class {
       });
       console.log("[MAIL] Email sent successfully");
     } catch (error) {
-      console.error(
-        "[MAIL] Failed to send email:",
-        error
-      );
+      console.error("[MAIL] Failed to send email:", error);
       throw error;
     }
   }
-  // =====================================================
-  // Welcome Email
-  // =====================================================
-  // =====================================================
-  // Welcome Email
-  // =====================================================
   async sendWelcomeEmail(user, temporaryPassword) {
     const verificationToken = (0, import_uuid.v4)();
-    await this.usersService.saveVerificationToken(
-      user.id,
-      verificationToken
-    );
-    const verificationUrl = `${this.configService.get(
-      "FRONTEND_URL"
-    )}/verify-email/${verificationToken}`;
+    await this.usersService.saveVerificationToken(user.id, verificationToken);
+    const verificationUrl = `${this.frontendUrl}/verify-email/${verificationToken}`;
     await this.send({
       to: user.email,
       subject: "Welcome to AI Company",
       template: "welcome",
       context: {
-        // User Information
         firstName: user.firstName,
         lastName: user.lastName,
         fullName: `${user.firstName} ${user.lastName}`,
         email: user.email,
         role: user.role,
-        // Login Information
         password: temporaryPassword,
-        // Verification
         verificationUrl,
-        // Company Information
         companyName: "AI Company Management Platform",
-        supportEmail: this.configService.get(
-          "MAIL_FROM"
-        )
+        supportEmail: this.configService.get("MAIL_FROM")
       }
     });
   }
-  // =====================================================
-  // Password Reset
-  // =====================================================
   async sendResetPasswordEmail(user, resetToken) {
-    const resetUrl = `${this.configService.get(
-      "FRONTEND_URL"
-    )}/reset-password/${resetToken}`;
+    const resetUrl = `${this.frontendUrl}/reset-password/${resetToken}`;
     await this.send({
       to: user.email,
       subject: "Reset Your Password",
@@ -1336,32 +1290,19 @@ var MailService = class {
       }
     });
   }
-  // =====================================================
-  // Newsletter Subscription Notification (to company)
-  // =====================================================
   resolveNotifyEmail() {
-    return this.configService.get(
-      "NEWSLETTER_NOTIFY_EMAIL"
-    ) || this.configService.get("MAIL_USER") || "";
+    return this.configService.get("NEWSLETTER_NOTIFY_EMAIL") || this.configService.get("MAIL_USER") || "";
   }
   isMailConfigured() {
-    return Boolean(
-      this.configService.get("MAIL_HOST") && this.configService.get("MAIL_USER") && this.configService.get("MAIL_PASSWORD")
-    );
+    return Boolean(this.configService.get("MAIL_HOST") && this.configService.get("MAIL_USER") && this.configService.get("MAIL_PASSWORD"));
   }
   async sendNewsletterSubscriptionNotification(subscriberEmail) {
     if (!this.isMailConfigured()) {
-      console.warn(
-        "[NEWSLETTER] SMTP not fully configured (MAIL_HOST/USER/PASSWORD) \u2014 skipping emails for",
-        subscriberEmail
-      );
+      console.warn("[NEWSLETTER] SMTP not fully configured (MAIL_HOST/USER/PASSWORD) \u2014 skipping emails for", subscriberEmail);
       return;
     }
     const notifyTo = this.resolveNotifyEmail();
-    console.log(
-      "[NEWSLETTER] New subscription:",
-      subscriberEmail
-    );
+    console.log("[NEWSLETTER] New subscription:", subscriberEmail);
     await this.send({
       to: subscriberEmail,
       subject: `You're subscribed to ${APP_NAME}`,
@@ -1372,10 +1313,7 @@ var MailService = class {
       }
     });
     if (notifyTo) {
-      console.log(
-        "[NEWSLETTER] Notification recipient:",
-        notifyTo
-      );
+      console.log("[NEWSLETTER] Notification recipient:", notifyTo);
       await this.send({
         to: notifyTo,
         subject: "New Newsletter Subscriber",
@@ -1387,18 +1325,10 @@ var MailService = class {
       });
     }
   }
-  // =====================================================
-  // Email Verification
-  // =====================================================
   async sendVerificationEmail(user) {
     const verificationToken = (0, import_uuid.v4)();
-    await this.usersService.saveVerificationToken(
-      user.id,
-      verificationToken
-    );
-    const verifyUrl = `${this.configService.get(
-      "FRONTEND_URL"
-    )}/verify-email/${verificationToken}`;
+    await this.usersService.saveVerificationToken(user.id, verificationToken);
+    const verifyUrl = `${this.frontendUrl}/verify-email/${verificationToken}`;
     await this.send({
       to: user.email,
       subject: "Verify Your Email",
@@ -1411,16 +1341,15 @@ var MailService = class {
     });
   }
 };
-MailService = __decorateClass([
+MailService = __decorate11([
   (0, import_common10.Injectable)(),
-  __decorateParam(0, (0, import_common10.Inject)(import_mailer.MailerService)),
-  __decorateParam(1, (0, import_common10.Inject)(import_config2.ConfigService)),
-  __decorateParam(2, (0, import_common10.Inject)(
-    (0, import_common10.forwardRef)(() => UsersService)
-  ))
+  __param6(0, (0, import_common10.Inject)(import_mailer.MailerService)),
+  __param6(1, (0, import_common10.Inject)(import_config2.ConfigService)),
+  __param6(2, (0, import_common10.Inject)((0, import_common10.forwardRef)(() => UsersService))),
+  __metadata8("design:paramtypes", [typeof (_a8 = typeof import_mailer.MailerService !== "undefined" && import_mailer.MailerService) === "function" ? _a8 : Object, typeof (_b2 = typeof import_config2.ConfigService !== "undefined" && import_config2.ConfigService) === "function" ? _b2 : Object, typeof (_c2 = typeof UsersService !== "undefined" && UsersService) === "function" ? _c2 : Object])
 ], MailService);
 
-// apps/api/src/employees/config/Avatar-upload.config.ts
+// src/employees/config/Avatar-upload.config.ts
 var import_common11 = require("@nestjs/common");
 var import_multer = require("multer");
 var AVATAR_CLOUDINARY_FOLDER = "avatars";
@@ -1433,12 +1362,7 @@ var avatarUploadOptions = {
   },
   fileFilter: (_req, file, callback) => {
     if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
-      callback(
-        new import_common11.BadRequestException(
-          "Only JPG, PNG, or WEBP images are allowed for the profile picture."
-        ),
-        false
-      );
+      callback(new import_common11.BadRequestException("Only JPG, PNG, or WEBP images are allowed for the profile picture."), false);
       return;
     }
     callback(null, true);
@@ -1448,33 +1372,44 @@ function isCloudinaryAvatarUrl(avatar) {
   return !!avatar && avatar.includes("res.cloudinary.com") && avatar.includes(`/${AVATAR_CLOUDINARY_FOLDER}/`);
 }
 
-// apps/api/src/common/cloudinary/cloudinary.service.ts
+// src/common/cloudinary/cloudinary.service.ts
 var import_common12 = require("@nestjs/common");
-var CloudinaryService = class {
+var __decorate12 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata9 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param7 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var CloudinaryService = class CloudinaryService2 {
+  cloudinary;
   constructor(cloudinary2) {
     this.cloudinary = cloudinary2;
   }
-  cloudinary;
   async uploadFile(file, folder) {
     return new Promise((resolve, reject) => {
-      const stream = this.cloudinary.uploader.upload_stream(
-        {
-          folder,
-          resource_type: "auto"
-        },
-        (error, result) => {
-          if (error) {
-            return reject(error);
-          }
-          console.log("=========== CLOUDINARY ===========");
-          console.log(result);
-          console.log("resource_type =", result.resource_type);
-          console.log("format =", result.format);
-          console.log("secure_url =", result.secure_url);
-          console.log("==================================");
-          resolve(result);
+      const stream = this.cloudinary.uploader.upload_stream({
+        folder,
+        resource_type: "auto"
+      }, (error, result) => {
+        if (error) {
+          return reject(error);
         }
-      );
+        console.log("=========== CLOUDINARY ===========");
+        console.log(result);
+        console.log("resource_type =", result.resource_type);
+        console.log("format =", result.format);
+        console.log("secure_url =", result.secure_url);
+        console.log("==================================");
+        resolve(result);
+      });
       stream.end(file.buffer);
     });
   }
@@ -1482,57 +1417,60 @@ var CloudinaryService = class {
     await this.cloudinary.uploader.destroy(publicId);
   }
 };
-CloudinaryService = __decorateClass([
+CloudinaryService = __decorate12([
   (0, import_common12.Injectable)(),
-  __decorateParam(0, (0, import_common12.Inject)("CLOUDINARY"))
+  __param7(0, (0, import_common12.Inject)("CLOUDINARY")),
+  __metadata9("design:paramtypes", [Object])
 ], CloudinaryService);
 
-// apps/api/src/employees/services/employees.service.ts
-var EmployeesService = class {
+// src/employees/services/employees.service.ts
+var __decorate13 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata10 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param8 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a9;
+var _b3;
+var _c3;
+var _d2;
+var EmployeesService = class EmployeesService2 {
+  repository;
+  usersService;
+  mailService;
+  cloudinaryService;
   constructor(repository, usersService, mailService, cloudinaryService) {
     this.repository = repository;
     this.usersService = usersService;
     this.mailService = mailService;
     this.cloudinaryService = cloudinaryService;
   }
-  repository;
-  usersService;
-  mailService;
-  cloudinaryService;
-  // =====================================================
-  // Create Employee
-  // =====================================================
   async create(dto, avatarFile) {
     if (!avatarFile) {
-      throw new import_common13.BadRequestException(
-        "A profile picture is required to add an employee."
-      );
+      throw new import_common13.BadRequestException("A profile picture is required to add an employee.");
     }
     const avatarUploadResult = await this.cloudinaryService.uploadFile(avatarFile, "avatars");
     const avatarUrl = avatarUploadResult.secure_url;
-    const employeeExists = await this.repository.findByEmail(
-      dto.email
-    );
+    const employeeExists = await this.repository.findByEmail(dto.email);
     if (employeeExists) {
       await this.removeAvatarFile(avatarUrl);
-      throw new import_common13.BadRequestException(
-        "Employee email already exists."
-      );
+      throw new import_common13.BadRequestException("Employee email already exists.");
     }
-    const userExists = await this.usersService.findByEmail(
-      dto.email
-    );
+    const userExists = await this.usersService.findByEmail(dto.email);
     if (userExists) {
       await this.removeAvatarFile(avatarUrl);
-      throw new import_common13.BadRequestException(
-        "User already exists."
-      );
+      throw new import_common13.BadRequestException("User already exists.");
     }
     const temporaryPassword = this.generateTemporaryPassword();
-    const hashedPassword = await bcrypt.hash(
-      temporaryPassword,
-      10
-    );
+    const hashedPassword = await bcrypt.hash(temporaryPassword, 10);
     const user = await this.usersService.createUser({
       firstName: dto.firstName,
       lastName: dto.lastName,
@@ -1556,8 +1494,8 @@ var EmployeesService = class {
       phone: dto.phone,
       designation: dto.designation,
       department: dto.department,
-      employmentType: dto.employmentType ?? "FULL_TIME" /* FULL_TIME */,
-      status: dto.status ?? "ACTIVE" /* ACTIVE */,
+      employmentType: dto.employmentType ?? EmploymentType.FULL_TIME,
+      status: dto.status ?? EmployeeStatus.ACTIVE,
       gender: dto.gender,
       salary: dto.salary ?? 0,
       cnic: dto.cnic,
@@ -1569,23 +1507,13 @@ var EmployeesService = class {
       avatar: avatarUrl,
       performance: dto.performance ?? 0,
       attendance: dto.attendance ?? 0,
-      dateOfBirth: dto.dateOfBirth ? new Date(
-        dto.dateOfBirth
-      ) : void 0,
-      joiningDate: dto.joiningDate ? new Date(
-        dto.joiningDate
-      ) : void 0
+      dateOfBirth: dto.dateOfBirth ? new Date(dto.dateOfBirth) : void 0,
+      joiningDate: dto.joiningDate ? new Date(dto.joiningDate) : void 0
     });
     try {
-      await this.mailService.sendWelcomeEmail(
-        user,
-        temporaryPassword
-      );
+      await this.mailService.sendWelcomeEmail(user, temporaryPassword);
     } catch (error) {
-      console.error(
-        "Failed to send welcome email:",
-        error
-      );
+      console.error("Failed to send welcome email:", error);
     }
     return {
       success: true,
@@ -1593,42 +1521,23 @@ var EmployeesService = class {
       data: employee
     };
   }
-  // =====================================================
-  // Find All Employees
-  // =====================================================
   async findAll(query) {
-    return this.repository.findAll(
-      query
-    );
+    return this.repository.findAll(query);
   }
-  // =====================================================
-  // Find Employee By Id
-  // =====================================================
   async findById(id) {
-    const employee = await this.repository.findById(
-      id
-    );
+    const employee = await this.repository.findById(id);
     if (!employee) {
-      throw new import_common13.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common13.NotFoundException("Employee not found.");
     }
     return {
       success: true,
       data: employee
     };
   }
-  // =====================================================
-  // Update Employee
-  // =====================================================
   async update(id, dto, avatarFile) {
-    const employee = await this.repository.findById(
-      id
-    );
+    const employee = await this.repository.findById(id);
     if (!employee) {
-      throw new import_common13.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common13.NotFoundException("Employee not found.");
     }
     const updateData = {
       ...dto
@@ -1654,10 +1563,7 @@ var EmployeesService = class {
     if (dto.joiningDate) {
       updateData.joiningDate = new Date(dto.joiningDate);
     }
-    const updatedEmployee = await this.repository.update(
-      id,
-      updateData
-    );
+    const updatedEmployee = await this.repository.update(id, updateData);
     let userId = "";
     if (employee.user instanceof import_mongoose9.Types.ObjectId) {
       userId = employee.user.toString();
@@ -1665,21 +1571,16 @@ var EmployeesService = class {
       userId = employee.user._id.toString();
     }
     if (userId) {
-      const user = await this.usersService.findById(
-        userId
-      );
+      const user = await this.usersService.findById(userId);
       if (user) {
-        await this.usersService.update(
-          userId,
-          {
-            firstName: dto.firstName ?? user.firstName,
-            lastName: dto.lastName ?? user.lastName,
-            email: dto.email ?? user.email,
-            phone: dto.phone ?? user.phone,
-            avatar: newAvatarUrl ?? user.avatar,
-            role: dto.role ?? user.role
-          }
-        );
+        await this.usersService.update(userId, {
+          firstName: dto.firstName ?? user.firstName,
+          lastName: dto.lastName ?? user.lastName,
+          email: dto.email ?? user.email,
+          phone: dto.phone ?? user.phone,
+          avatar: newAvatarUrl ?? user.avatar,
+          role: dto.role ?? user.role
+        });
       }
     }
     return {
@@ -1688,17 +1589,10 @@ var EmployeesService = class {
       data: updatedEmployee
     };
   }
-  // =====================================================
-  // Delete Employee
-  // =====================================================
   async delete(id) {
-    const employee = await this.repository.findById(
-      id
-    );
+    const employee = await this.repository.findById(id);
     if (!employee) {
-      throw new import_common13.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common13.NotFoundException("Employee not found.");
     }
     let userId = "";
     if (employee.user instanceof import_mongoose9.Types.ObjectId) {
@@ -1707,37 +1601,23 @@ var EmployeesService = class {
       userId = employee.user._id.toString();
     }
     if (userId) {
-      await this.usersService.delete(
-        userId
-      );
+      await this.usersService.delete(userId);
     }
     await this.removeAvatarFile(employee.avatar);
-    await this.repository.delete(
-      id
-    );
+    await this.repository.delete(id);
     return {
       success: true,
       message: "Employee deleted successfully."
     };
   }
-  // =====================================================
-  // Approve Employee
-  // =====================================================
   async approve(id) {
-    const employee = await this.repository.findById(
-      id
-    );
+    const employee = await this.repository.findById(id);
     if (!employee) {
-      throw new import_common13.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common13.NotFoundException("Employee not found.");
     }
-    await this.repository.update(
-      id,
-      {
-        status: "ACTIVE" /* ACTIVE */
-      }
-    );
+    await this.repository.update(id, {
+      status: EmployeeStatus.ACTIVE
+    });
     let userId = "";
     if (employee.user instanceof import_mongoose9.Types.ObjectId) {
       userId = employee.user.toString();
@@ -1745,30 +1625,20 @@ var EmployeesService = class {
       userId = employee.user._id.toString();
     }
     if (userId) {
-      await this.usersService.update(
-        userId,
-        {
-          isActive: true,
-          isVerified: true
-        }
-      );
+      await this.usersService.update(userId, {
+        isActive: true,
+        isVerified: true
+      });
     }
     return {
       success: true,
       message: "Employee approved successfully."
     };
   }
-  // =====================================================
-  // Reject Employee
-  // =====================================================
   async reject(id) {
-    const employee = await this.repository.findById(
-      id
-    );
+    const employee = await this.repository.findById(id);
     if (!employee) {
-      throw new import_common13.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common13.NotFoundException("Employee not found.");
     }
     let userId = "";
     if (employee.user instanceof import_mongoose9.Types.ObjectId) {
@@ -1777,49 +1647,28 @@ var EmployeesService = class {
       userId = employee.user._id.toString();
     }
     if (userId) {
-      await this.usersService.delete(
-        userId
-      );
+      await this.usersService.delete(userId);
     }
     await this.removeAvatarFile(employee.avatar);
-    await this.repository.delete(
-      id
-    );
+    await this.repository.delete(id);
     return {
       success: true,
       message: "Employee rejected successfully."
     };
   }
-  // =====================================================
-  // Generate Employee ID
-  // =====================================================
   async generateEmployeeId() {
     const year = (/* @__PURE__ */ new Date()).getFullYear();
-    const random = Math.floor(
-      1e3 + Math.random() * 9e3
-    );
+    const random = Math.floor(1e3 + Math.random() * 9e3);
     return `EMP-${year}-${random}`;
   }
-  // =====================================================
-  // Generate Temporary Password
-  // =====================================================
   generateTemporaryPassword() {
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
     let password = "";
     for (let i = 0; i < 12; i++) {
-      password += chars[Math.floor(
-        Math.random() * chars.length
-      )];
+      password += chars[Math.floor(Math.random() * chars.length)];
     }
     return password;
   }
-  // =====================================================
-  // Avatar file cleanup
-  //
-  // Only ever deletes assets that live in our own Cloudinary
-  // "avatars" folder (isCloudinaryAvatarUrl guards against trying
-  // to delete some unrelated external URL or an empty string).
-  // =====================================================
   async removeAvatarFile(avatarPath) {
     if (!isCloudinaryAvatarUrl(avatarPath)) {
       return;
@@ -1834,20 +1683,305 @@ var EmployeesService = class {
     }
   }
 };
-EmployeesService = __decorateClass([
+EmployeesService = __decorate13([
   (0, import_common13.Injectable)(),
-  __decorateParam(0, (0, import_common13.Inject)(EmployeesRepository)),
-  __decorateParam(1, (0, import_common13.Inject)(UsersService)),
-  __decorateParam(2, (0, import_common13.Inject)(MailService)),
-  __decorateParam(3, (0, import_common13.Inject)(CloudinaryService))
+  __param8(0, (0, import_common13.Inject)(EmployeesRepository)),
+  __param8(1, (0, import_common13.Inject)(UsersService)),
+  __param8(2, (0, import_common13.Inject)(MailService)),
+  __param8(3, (0, import_common13.Inject)(CloudinaryService)),
+  __metadata10("design:paramtypes", [typeof (_a9 = typeof EmployeesRepository !== "undefined" && EmployeesRepository) === "function" ? _a9 : Object, typeof (_b3 = typeof UsersService !== "undefined" && UsersService) === "function" ? _b3 : Object, typeof (_c3 = typeof MailService !== "undefined" && MailService) === "function" ? _c3 : Object, typeof (_d2 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _d2 : Object])
 ], EmployeesService);
 
-// apps/api/src/employees/controllers/employees.controller.ts
-var EmployeesController = class {
+// src/employees/dto/create-employee.dto.ts
+var import_class_validator = require("class-validator");
+var import_class_transformer = require("class-transformer");
+var __decorate14 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata11 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a10;
+var _b4;
+var _c4;
+var _d3;
+var CreateEmployeeDto = class {
+  firstName;
+  lastName;
+  email;
+  phone;
+  designation;
+  department;
+  status;
+  employmentType;
+  gender;
+  joiningDate;
+  dateOfBirth;
+  cnic;
+  salary;
+  address;
+  city;
+  country;
+  emergencyContactName;
+  emergencyContactPhone;
+  user;
+  performance;
+  attendance;
+  joinedAt;
+  role;
+  password;
+};
+__decorate14([
+  (0, import_class_validator.IsString)(),
+  (0, import_class_validator.MinLength)(2),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "firstName", void 0);
+__decorate14([
+  (0, import_class_validator.IsString)(),
+  (0, import_class_validator.MinLength)(2),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "lastName", void 0);
+__decorate14([
+  (0, import_class_validator.IsEmail)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "email", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "phone", void 0);
+__decorate14([
+  (0, import_class_validator.IsString)(),
+  (0, import_class_validator.MinLength)(2),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "designation", void 0);
+__decorate14([
+  (0, import_class_validator.IsString)(),
+  (0, import_class_validator.MinLength)(2),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "department", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsEnum)(EmployeeStatus),
+  __metadata11("design:type", typeof (_a10 = typeof EmployeeStatus !== "undefined" && EmployeeStatus) === "function" ? _a10 : Object)
+], CreateEmployeeDto.prototype, "status", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsEnum)(EmploymentType),
+  __metadata11("design:type", typeof (_b4 = typeof EmploymentType !== "undefined" && EmploymentType) === "function" ? _b4 : Object)
+], CreateEmployeeDto.prototype, "employmentType", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsEnum)(Gender),
+  __metadata11("design:type", typeof (_c4 = typeof Gender !== "undefined" && Gender) === "function" ? _c4 : Object)
+], CreateEmployeeDto.prototype, "gender", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsDateString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "joiningDate", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsDateString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "dateOfBirth", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "cnic", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_transformer.Type)(() => Number),
+  (0, import_class_validator.IsNumber)(),
+  (0, import_class_validator.Min)(0),
+  __metadata11("design:type", Number)
+], CreateEmployeeDto.prototype, "salary", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "address", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "city", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "country", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "emergencyContactName", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "emergencyContactPhone", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsMongoId)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "user", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_transformer.Type)(() => Number),
+  (0, import_class_validator.IsNumber)(),
+  (0, import_class_validator.Min)(0),
+  __metadata11("design:type", Number)
+], CreateEmployeeDto.prototype, "performance", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_transformer.Type)(() => Number),
+  (0, import_class_validator.IsNumber)(),
+  (0, import_class_validator.Min)(0),
+  __metadata11("design:type", Number)
+], CreateEmployeeDto.prototype, "attendance", void 0);
+__decorate14([
+  (0, import_class_validator.IsOptional)(),
+  (0, import_class_validator.IsDateString)(),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "joinedAt", void 0);
+__decorate14([
+  (0, import_class_validator.IsEnum)(Role),
+  __metadata11("design:type", typeof (_d3 = typeof Role !== "undefined" && Role) === "function" ? _d3 : Object)
+], CreateEmployeeDto.prototype, "role", void 0);
+__decorate14([
+  (0, import_class_validator.IsString)(),
+  (0, import_class_validator.MinLength)(8),
+  (0, import_class_validator.Matches)(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
+    message: "Password must contain uppercase, lowercase and number"
+  }),
+  __metadata11("design:type", String)
+], CreateEmployeeDto.prototype, "password", void 0);
+
+// src/employees/dto/update-employee.dto.ts
+var import_mapped_types = require("@nestjs/mapped-types");
+var UpdateEmployeeDto = class extends (0, import_mapped_types.PartialType)(CreateEmployeeDto) {
+  firstName;
+  lastName;
+  joiningDate;
+  dateOfBirth;
+  email;
+  phone;
+  role;
+};
+
+// src/employees/dto/employee-query.dto.ts
+var import_class_validator2 = require("class-validator");
+var import_class_transformer2 = require("class-transformer");
+var __decorate15 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata12 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a11;
+var _b5;
+var EmployeeQueryDto = class {
+  page = 1;
+  limit = 10;
+  search;
+  department;
+  designation;
+  status;
+  employmentType;
+  sortBy = "createdAt";
+  order = "desc";
+};
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Type)(() => Number),
+  (0, import_class_validator2.IsNumber)(),
+  __metadata12("design:type", Number)
+], EmployeeQueryDto.prototype, "page", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Type)(() => Number),
+  (0, import_class_validator2.IsNumber)(),
+  __metadata12("design:type", Number)
+], EmployeeQueryDto.prototype, "limit", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsString)(),
+  __metadata12("design:type", String)
+], EmployeeQueryDto.prototype, "search", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsString)(),
+  __metadata12("design:type", String)
+], EmployeeQueryDto.prototype, "department", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsString)(),
+  __metadata12("design:type", String)
+], EmployeeQueryDto.prototype, "designation", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsEnum)(EmployeeStatus),
+  __metadata12("design:type", typeof (_a11 = typeof EmployeeStatus !== "undefined" && EmployeeStatus) === "function" ? _a11 : Object)
+], EmployeeQueryDto.prototype, "status", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsEnum)(EmploymentType),
+  __metadata12("design:type", typeof (_b5 = typeof EmploymentType !== "undefined" && EmploymentType) === "function" ? _b5 : Object)
+], EmployeeQueryDto.prototype, "employmentType", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsString)(),
+  __metadata12("design:type", String)
+], EmployeeQueryDto.prototype, "sortBy", void 0);
+__decorate15([
+  (0, import_class_validator2.IsOptional)(),
+  (0, import_class_transformer2.Transform)(({ value }) => value === "" ? void 0 : value),
+  (0, import_class_validator2.IsIn)(["asc", "desc"]),
+  __metadata12("design:type", String)
+], EmployeeQueryDto.prototype, "order", void 0);
+
+// src/employees/controllers/employees.controller.ts
+var __decorate16 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata13 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param9 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a12;
+var _b6;
+var _c5;
+var _d4;
+var _e2;
+var _f2;
+var _g;
+var _h;
+var EmployeesController = class EmployeesController2 {
+  service;
   constructor(service) {
     this.service = service;
   }
-  service;
   create(dto, avatar) {
     return this.service.create(dto, avatar);
   }
@@ -1858,11 +1992,7 @@ var EmployeesController = class {
     return this.service.findById(id);
   }
   update(id, dto, avatar) {
-    return this.service.update(
-      id,
-      dto,
-      avatar
-    );
+    return this.service.update(id, dto, avatar);
   }
   approve(id) {
     return this.service.approve(id);
@@ -1874,64 +2004,89 @@ var EmployeesController = class {
     return this.service.delete(id);
   }
 };
-__decorateClass([
+__decorate16([
   (0, import_common14.Post)(),
   Roles(...MANAGE_ROLES),
   (0, import_common14.UseInterceptors)((0, import_platform_express.FileInterceptor)("avatar", avatarUploadOptions)),
-  __decorateParam(0, (0, import_common14.Body)()),
-  __decorateParam(1, (0, import_common14.UploadedFile)())
-], EmployeesController.prototype, "create", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Body)()),
+  __param9(1, (0, import_common14.UploadedFile)()),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [typeof (_b6 = typeof CreateEmployeeDto !== "undefined" && CreateEmployeeDto) === "function" ? _b6 : Object, typeof (_d4 = typeof Express !== "undefined" && (_c5 = Express.Multer) !== void 0 && _c5.File) === "function" ? _d4 : Object]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "create", null);
+__decorate16([
   (0, import_common14.Get)(),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common14.Query)())
-], EmployeesController.prototype, "findAll", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Query)()),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [typeof (_e2 = typeof EmployeeQueryDto !== "undefined" && EmployeeQueryDto) === "function" ? _e2 : Object]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "findAll", null);
+__decorate16([
   (0, import_common14.Get)(":id"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common14.Param)("id"))
-], EmployeesController.prototype, "findOne", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Param)("id")),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [String]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "findOne", null);
+__decorate16([
   (0, import_common14.Patch)(":id"),
   Roles(...MANAGE_ROLES),
   (0, import_common14.UseInterceptors)((0, import_platform_express.FileInterceptor)("avatar", avatarUploadOptions)),
-  __decorateParam(0, (0, import_common14.Param)("id")),
-  __decorateParam(1, (0, import_common14.Body)()),
-  __decorateParam(2, (0, import_common14.UploadedFile)())
-], EmployeesController.prototype, "update", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Param)("id")),
+  __param9(1, (0, import_common14.Body)()),
+  __param9(2, (0, import_common14.UploadedFile)()),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [String, typeof (_f2 = typeof UpdateEmployeeDto !== "undefined" && UpdateEmployeeDto) === "function" ? _f2 : Object, typeof (_h = typeof Express !== "undefined" && (_g = Express.Multer) !== void 0 && _g.File) === "function" ? _h : Object]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "update", null);
+__decorate16([
   (0, import_common14.Patch)(":id/approve"),
   Roles(...ADMIN_ONLY),
-  __decorateParam(0, (0, import_common14.Param)("id"))
-], EmployeesController.prototype, "approve", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Param)("id")),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [String]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "approve", null);
+__decorate16([
   (0, import_common14.Delete)(":id/reject"),
   Roles(...ADMIN_ONLY),
-  __decorateParam(0, (0, import_common14.Param)("id"))
-], EmployeesController.prototype, "reject", 1);
-__decorateClass([
+  __param9(0, (0, import_common14.Param)("id")),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [String]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "reject", null);
+__decorate16([
   (0, import_common14.Delete)(":id"),
   Roles(...ADMIN_ONLY),
-  __decorateParam(0, (0, import_common14.Param)("id"))
-], EmployeesController.prototype, "remove", 1);
-EmployeesController = __decorateClass([
-  (0, import_common14.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
+  __param9(0, (0, import_common14.Param)("id")),
+  __metadata13("design:type", Function),
+  __metadata13("design:paramtypes", [String]),
+  __metadata13("design:returntype", void 0)
+], EmployeesController.prototype, "remove", null);
+EmployeesController = __decorate16([
+  (0, import_common14.UseGuards)(JwtAuthGuard, RolesGuard),
   (0, import_common14.Controller)("employees"),
-  __decorateParam(0, (0, import_common14.Inject)(EmployeesService))
+  __param9(0, (0, import_common14.Inject)(EmployeesService)),
+  __metadata13("design:paramtypes", [typeof (_a12 = typeof EmployeesService !== "undefined" && EmployeesService) === "function" ? _a12 : Object])
 ], EmployeesController);
 
-// apps/api/src/mail/mail.module.ts
+// src/mail/mail.module.ts
 var import_common15 = require("@nestjs/common");
 var import_config3 = require("@nestjs/config");
 var import_mailer2 = require("@nestjs-modules/mailer");
 var import_handlebars = require("@nestjs-modules/mailer/adapters/handlebars.adapter");
 var import_path = require("path");
-var MailModule = class {
+var __decorate17 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-MailModule = __decorateClass([
+var MailModule = class MailModule2 {
+};
+MailModule = __decorate17([
   (0, import_common15.Module)({
     imports: [
       import_config3.ConfigModule,
@@ -1942,30 +2097,18 @@ MailModule = __decorateClass([
         useFactory: (config) => ({
           transport: {
             host: config.get("MAIL_HOST"),
-            port: Number(
-              config.get("MAIL_PORT")
-            ),
+            port: Number(config.get("MAIL_PORT")),
             secure: false,
             auth: {
               user: config.get("MAIL_USER"),
-              pass: config.get(
-                "MAIL_PASSWORD"
-              )
+              pass: config.get("MAIL_PASSWORD")
             }
           },
           defaults: {
             from: config.get("MAIL_FROM") || config.get("MAIL_USER") || "noreply@localhost"
           },
           template: {
-            // esbuild only bundles code, not non-JS assets like .hbs
-            // files, so on Vercel the templates are copied by
-            // scripts/build-api.mjs into api/src/mail/templates
-            // alongside the bundled function. Locally, process.cwd()
-            // is apps/api, so the original relative path still applies.
-            dir: (0, import_path.join)(
-              process.cwd(),
-              process.env.VERCEL ? "api/src/mail/templates" : "src/mail/templates"
-            ),
+            dir: (0, import_path.join)(process.cwd(), process.env.VERCEL ? "api/src/mail/templates" : "src/mail/templates"),
             adapter: new import_handlebars.HandlebarsAdapter(),
             options: {
               strict: true
@@ -1979,35 +2122,35 @@ MailModule = __decorateClass([
   })
 ], MailModule);
 
-// apps/api/src/common/cloudinary/cloudinary.module.ts
+// src/common/cloudinary/cloudinary.module.ts
 var import_common16 = require("@nestjs/common");
 
-// apps/api/src/common/cloudinary/cloudinary.provider.ts
+// src/common/cloudinary/cloudinary.provider.ts
 var import_cloudinary2 = require("cloudinary");
 var import_config4 = require("@nestjs/config");
 var CloudinaryProvider = {
   provide: "CLOUDINARY",
   useFactory: (configService) => {
     import_cloudinary2.v2.config({
-      cloud_name: configService.get(
-        "CLOUDINARY_CLOUD_NAME"
-      ),
-      api_key: configService.get(
-        "CLOUDINARY_API_KEY"
-      ),
-      api_secret: configService.get(
-        "CLOUDINARY_API_SECRET"
-      )
+      cloud_name: configService.get("CLOUDINARY_CLOUD_NAME"),
+      api_key: configService.get("CLOUDINARY_API_KEY"),
+      api_secret: configService.get("CLOUDINARY_API_SECRET")
     });
     return import_cloudinary2.v2;
   },
   inject: [import_config4.ConfigService]
 };
 
-// apps/api/src/common/cloudinary/cloudinary.module.ts
-var CloudinaryModule = class {
+// src/common/cloudinary/cloudinary.module.ts
+var __decorate18 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-CloudinaryModule = __decorateClass([
+var CloudinaryModule = class CloudinaryModule2 {
+};
+CloudinaryModule = __decorate18([
   (0, import_common16.Module)({
     providers: [
       CloudinaryProvider,
@@ -2019,10 +2162,16 @@ CloudinaryModule = __decorateClass([
   })
 ], CloudinaryModule);
 
-// apps/api/src/employees/employees.module.ts
-var EmployeesModule = class {
+// src/employees/employees.module.ts
+var __decorate19 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-EmployeesModule = __decorateClass([
+var EmployeesModule = class EmployeesModule2 {
+};
+EmployeesModule = __decorate19([
   (0, import_common17.Module)({
     imports: [
       import_mongoose10.MongooseModule.forFeature([
@@ -2049,10 +2198,16 @@ EmployeesModule = __decorateClass([
   })
 ], EmployeesModule);
 
-// apps/api/src/users/users.module.ts
-var UsersModule = class {
+// src/users/users.module.ts
+var __decorate20 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-UsersModule = __decorateClass([
+var UsersModule = class UsersModule2 {
+};
+UsersModule = __decorate20([
   (0, import_common18.Module)({
     imports: [
       import_mongoose11.MongooseModule.forFeature([
@@ -2078,22 +2233,46 @@ UsersModule = __decorateClass([
   })
 ], UsersModule);
 
-// apps/api/src/auth/auth.module.ts
+// src/auth/auth.module.ts
 var import_common23 = require("@nestjs/common");
 var import_config7 = require("@nestjs/config");
 var import_jwt2 = require("@nestjs/jwt");
 var import_passport3 = require("@nestjs/passport");
 
-// apps/api/src/auth/controllers/auth.controller.ts
+// src/auth/controllers/auth.controller.ts
 var import_common21 = require("@nestjs/common");
 
-// apps/api/src/auth/services/auth.service.ts
+// src/auth/services/auth.service.ts
 var import_common19 = require("@nestjs/common");
 var import_jwt = require("@nestjs/jwt");
 var import_config5 = require("@nestjs/config");
 var bcrypt2 = __toESM(require("bcrypt"));
 var import_crypto = require("crypto");
-var AuthService = class {
+var __decorate21 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata14 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param10 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a13;
+var _b7;
+var _c6;
+var _d5;
+var _e3;
+var AuthService = class AuthService2 {
+  usersService;
+  jwtService;
+  configService;
+  mailService;
+  employeesRepository;
   constructor(usersService, jwtService, configService, mailService, employeesRepository) {
     this.usersService = usersService;
     this.jwtService = jwtService;
@@ -2101,22 +2280,10 @@ var AuthService = class {
     this.mailService = mailService;
     this.employeesRepository = employeesRepository;
   }
-  usersService;
-  jwtService;
-  configService;
-  mailService;
-  employeesRepository;
-  // =====================================================
-  // Register
-  // =====================================================
   async createUser(dto) {
-    const exists = await this.usersService.existsByEmail(
-      dto.email
-    );
+    const exists = await this.usersService.existsByEmail(dto.email);
     if (exists) {
-      throw new import_common19.BadRequestException(
-        "Email already exists."
-      );
+      throw new import_common19.BadRequestException("Email already exists.");
     }
     const hashedPassword = await bcrypt2.hash(dto.password, 10);
     const user = await this.usersService.createUser({
@@ -2126,70 +2293,34 @@ var AuthService = class {
       mustChangePassword: false
     });
     const token = (0, import_crypto.randomUUID)();
-    const expires = new Date(
-      Date.now() + 1e3 * 60 * 60 * 24
-    );
-    await this.usersService.updateVerificationToken(
-      String(user._id),
-      token,
-      expires
-    );
-    await this.mailService.sendVerificationEmail(
-      user
-    );
+    const expires = new Date(Date.now() + 1e3 * 60 * 60 * 24);
+    await this.usersService.updateVerificationToken(String(user._id), token, expires);
+    await this.mailService.sendVerificationEmail(user);
     return {
       success: true,
       message: "Account created successfully. Verification email sent."
     };
   }
-  // =====================================================
-  // Login
-  // =====================================================
   async login(dto) {
-    const user = await this.usersService.findByEmailWithPassword(
-      dto.email
-    );
+    const user = await this.usersService.findByEmailWithPassword(dto.email);
     if (!user) {
-      throw new import_common19.UnauthorizedException(
-        "Invalid email or password."
-      );
+      throw new import_common19.UnauthorizedException("Invalid email or password.");
     }
     if (user.lockUntil && user.lockUntil > /* @__PURE__ */ new Date()) {
-      throw new import_common19.ForbiddenException(
-        "Account temporarily locked."
-      );
+      throw new import_common19.ForbiddenException("Account temporarily locked.");
     }
-    const matched = await bcrypt2.compare(
-      dto.password,
-      user.password
-    );
+    const matched = await bcrypt2.compare(dto.password, user.password);
     if (!matched) {
-      await this.usersService.incrementLoginAttempts(
-        String(user._id)
-      );
-      throw new import_common19.UnauthorizedException(
-        "Invalid email or password."
-      );
+      await this.usersService.incrementLoginAttempts(String(user._id));
+      throw new import_common19.UnauthorizedException("Invalid email or password.");
     }
-    await this.usersService.resetLoginAttempts(
-      String(user._id)
-    );
-    await this.usersService.updateLastLogin(
-      String(user._id)
-    );
+    await this.usersService.resetLoginAttempts(String(user._id));
+    await this.usersService.updateLastLogin(String(user._id));
     const accessToken = await this.generateAccessToken(user);
     const refreshToken = await this.generateRefreshToken(user);
-    const hashedRefresh = await bcrypt2.hash(
-      refreshToken,
-      10
-    );
-    await this.usersService.updateRefreshToken(
-      String(user._id),
-      hashedRefresh
-    );
-    const employee = await this.employeesRepository.findByUserId(
-      String(user._id)
-    );
+    const hashedRefresh = await bcrypt2.hash(refreshToken, 10);
+    await this.usersService.updateRefreshToken(String(user._id), hashedRefresh);
+    const employee = await this.employeesRepository.findByUserId(String(user._id));
     return {
       success: true,
       data: {
@@ -2210,142 +2341,76 @@ var AuthService = class {
       }
     };
   }
-  // =====================================================
-  // Forgot Password
-  // =====================================================
   async forgotPassword(email) {
-    const user = await this.usersService.findByEmail(
-      email
-    );
+    const user = await this.usersService.findByEmail(email);
     if (!user) {
       return {
         success: true
       };
     }
     const token = (0, import_crypto.randomUUID)();
-    const expires = new Date(
-      Date.now() + 1e3 * 60 * 60
-    );
-    await this.usersService.savePasswordResetToken(
-      String(user._id),
-      token,
-      expires
-    );
-    await this.mailService.sendResetPasswordEmail(
-      user,
-      token
-    );
+    const expires = new Date(Date.now() + 1e3 * 60 * 60);
+    await this.usersService.savePasswordResetToken(String(user._id), token, expires);
+    await this.mailService.sendResetPasswordEmail(user, token);
     return {
       success: true
     };
   }
-  // =====================================================
-  // Reset Password
-  // =====================================================
   async resetPassword(token, password) {
-    const user = await this.usersService.findByPasswordResetToken(
-      token
-    );
+    const user = await this.usersService.findByPasswordResetToken(token);
     if (!user) {
-      throw new import_common19.BadRequestException(
-        "Invalid token."
-      );
+      throw new import_common19.BadRequestException("Invalid token.");
     }
     if (user.passwordResetExpires && user.passwordResetExpires < /* @__PURE__ */ new Date()) {
-      throw new import_common19.BadRequestException(
-        "Token expired."
-      );
+      throw new import_common19.BadRequestException("Token expired.");
     }
-    const hashed = await bcrypt2.hash(
-      password,
-      10
-    );
-    await this.usersService.updatePassword(
-      String(user._id),
-      hashed
-    );
+    const hashed = await bcrypt2.hash(password, 10);
+    await this.usersService.updatePassword(String(user._id), hashed);
     return {
       success: true,
       message: "Password updated."
     };
   }
-  // =====================================================
-  // Verify Email
-  // =====================================================
   async verifyEmail(token) {
-    const user = await this.usersService.findByVerificationToken(
-      token
-    );
+    const user = await this.usersService.findByVerificationToken(token);
     if (!user) {
-      throw new import_common19.BadRequestException(
-        "Invalid verification link."
-      );
+      throw new import_common19.BadRequestException("Invalid verification link.");
     }
-    await this.usersService.verifyEmail(
-      String(user._id)
-    );
+    await this.usersService.verifyEmail(String(user._id));
     return {
       success: true,
       message: "Email verified."
     };
   }
-  // =====================================================
-  // Refresh
-  // =====================================================
   async refresh(refreshToken) {
-    const payload = await this.jwtService.verifyAsync(
-      refreshToken,
-      {
-        secret: this.configService.get(
-          "JWT_REFRESH_SECRET"
-        )
-      }
-    );
-    const user = await this.usersService.findById(
-      payload.sub
-    );
+    const payload = await this.jwtService.verifyAsync(refreshToken, {
+      secret: this.configService.get("JWT_REFRESH_SECRET")
+    });
+    const user = await this.usersService.findById(payload.sub);
     if (!user) {
       throw new import_common19.UnauthorizedException();
     }
     const access = await this.generateAccessToken(user);
     const refresh = await this.generateRefreshToken(user);
-    const hash3 = await bcrypt2.hash(
-      refresh,
-      10
-    );
-    await this.usersService.updateRefreshToken(
-      user.id,
-      hash3
-    );
+    const hash4 = await bcrypt2.hash(refresh, 10);
+    await this.usersService.updateRefreshToken(user.id, hash4);
     return {
       accessToken: access,
       refreshToken: refresh
     };
   }
-  // =====================================================
-  // Logout
-  // =====================================================
   async logout(userId) {
-    await this.usersService.clearRefreshToken(
-      userId
-    );
+    await this.usersService.clearRefreshToken(userId);
     return {
       success: true
     };
   }
-  // =====================================================
-  // Current User
-  // =====================================================
   async me(userId) {
-    const user = await this.usersService.findById(
-      userId
-    );
+    const user = await this.usersService.findById(userId);
     if (!user) {
       throw new import_common19.UnauthorizedException();
     }
-    const employee = await this.employeesRepository.findByUserId(
-      String(user._id)
-    );
+    const employee = await this.employeesRepository.findByUserId(String(user._id));
     return {
       success: true,
       data: {
@@ -2361,9 +2426,6 @@ var AuthService = class {
       }
     };
   }
-  // =====================================================
-  // JWT
-  // =====================================================
   generateAccessToken(user) {
     return this.jwtService.signAsync({
       sub: String(user._id),
@@ -2372,184 +2434,307 @@ var AuthService = class {
     });
   }
   generateRefreshToken(user) {
-    return this.jwtService.signAsync(
-      {
-        sub: String(user._id),
-        email: user.email,
-        role: user.role
-      },
-      {
-        secret: this.configService.get(
-          "JWT_REFRESH_SECRET"
-        ),
-        expiresIn: "30d"
-      }
-    );
+    return this.jwtService.signAsync({
+      sub: String(user._id),
+      email: user.email,
+      role: user.role
+    }, {
+      secret: this.configService.get("JWT_REFRESH_SECRET"),
+      expiresIn: "30d"
+    });
   }
 };
-AuthService = __decorateClass([
+AuthService = __decorate21([
   (0, import_common19.Injectable)(),
-  __decorateParam(0, (0, import_common19.Inject)(UsersService)),
-  __decorateParam(1, (0, import_common19.Inject)(import_jwt.JwtService)),
-  __decorateParam(2, (0, import_common19.Inject)(import_config5.ConfigService)),
-  __decorateParam(3, (0, import_common19.Inject)(MailService)),
-  __decorateParam(4, (0, import_common19.Inject)(EmployeesRepository))
+  __param10(0, (0, import_common19.Inject)(UsersService)),
+  __param10(1, (0, import_common19.Inject)(import_jwt.JwtService)),
+  __param10(2, (0, import_common19.Inject)(import_config5.ConfigService)),
+  __param10(3, (0, import_common19.Inject)(MailService)),
+  __param10(4, (0, import_common19.Inject)(EmployeesRepository)),
+  __metadata14("design:paramtypes", [typeof (_a13 = typeof UsersService !== "undefined" && UsersService) === "function" ? _a13 : Object, typeof (_b7 = typeof import_jwt.JwtService !== "undefined" && import_jwt.JwtService) === "function" ? _b7 : Object, typeof (_c6 = typeof import_config5.ConfigService !== "undefined" && import_config5.ConfigService) === "function" ? _c6 : Object, typeof (_d5 = typeof MailService !== "undefined" && MailService) === "function" ? _d5 : Object, typeof (_e3 = typeof EmployeesRepository !== "undefined" && EmployeesRepository) === "function" ? _e3 : Object])
 ], AuthService);
 
-// apps/api/src/auth/decorators/current-user.decorator.ts
-var import_common20 = require("@nestjs/common");
-var CurrentUser = (0, import_common20.createParamDecorator)(
-  (_data, ctx) => {
-    const request = ctx.switchToHttp().getRequest();
-    return request.user;
-  }
-);
+// src/auth/dto/login.dto.ts
+var import_class_validator3 = require("class-validator");
+var __decorate22 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata15 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var LoginDto = class {
+  email;
+  password;
+};
+__decorate22([
+  (0, import_class_validator3.IsEmail)(),
+  __metadata15("design:type", String)
+], LoginDto.prototype, "email", void 0);
+__decorate22([
+  (0, import_class_validator3.IsString)(),
+  __metadata15("design:type", String)
+], LoginDto.prototype, "password", void 0);
 
-// apps/api/src/auth/controllers/auth.controller.ts
-var AuthController = class {
+// src/auth/dto/refresh-token.dto.ts
+var import_class_validator4 = require("class-validator");
+var __decorate23 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata16 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var RefreshTokenDto = class {
+  refreshToken;
+};
+__decorate23([
+  (0, import_class_validator4.IsString)(),
+  __metadata16("design:type", String)
+], RefreshTokenDto.prototype, "refreshToken", void 0);
+
+// src/auth/dto/register.dto.ts
+var import_class_validator5 = require("class-validator");
+
+// src/auth/enums/role.enum.ts
+var Role2;
+(function(Role3) {
+  Role3["ADMIN"] = "ADMIN";
+  Role3["HR"] = "HR";
+  Role3["PROJECT_MANAGER"] = "PROJECT_MANAGER";
+  Role3["EMPLOYEE"] = "EMPLOYEE";
+  Role3["CLIENT"] = "CLIENT";
+  Role3["INTERN"] = "INTERN";
+  Role3["MANAGER"] = "MANAGER";
+  Role3["AI"] = "AI";
+  Role3["CEO"] = "CEO";
+  Role3["STUDENT"] = "STUDENT";
+})(Role2 || (Role2 = {}));
+
+// src/auth/dto/register.dto.ts
+var __decorate24 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata17 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a14;
+var RegisterDto = class {
+  firstName;
+  lastName;
+  email;
+  password;
+  phone;
+  role;
+};
+__decorate24([
+  (0, import_class_validator5.IsString)(),
+  (0, import_class_validator5.MinLength)(2),
+  __metadata17("design:type", String)
+], RegisterDto.prototype, "firstName", void 0);
+__decorate24([
+  (0, import_class_validator5.IsString)(),
+  (0, import_class_validator5.MinLength)(2),
+  __metadata17("design:type", String)
+], RegisterDto.prototype, "lastName", void 0);
+__decorate24([
+  (0, import_class_validator5.IsEmail)(),
+  __metadata17("design:type", String)
+], RegisterDto.prototype, "email", void 0);
+__decorate24([
+  (0, import_class_validator5.IsString)(),
+  (0, import_class_validator5.MinLength)(8),
+  (0, import_class_validator5.Matches)(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
+    message: "Password must contain uppercase, lowercase and number"
+  }),
+  __metadata17("design:type", String)
+], RegisterDto.prototype, "password", void 0);
+__decorate24([
+  (0, import_class_validator5.IsOptional)(),
+  (0, import_class_validator5.IsString)(),
+  __metadata17("design:type", String)
+], RegisterDto.prototype, "phone", void 0);
+__decorate24([
+  (0, import_class_validator5.IsOptional)(),
+  (0, import_class_validator5.IsEnum)(Role2),
+  __metadata17("design:type", typeof (_a14 = typeof Role2 !== "undefined" && Role2) === "function" ? _a14 : Object)
+], RegisterDto.prototype, "role", void 0);
+
+// src/auth/decorators/current-user.decorator.ts
+var import_common20 = require("@nestjs/common");
+var CurrentUser = (0, import_common20.createParamDecorator)((_data, ctx) => {
+  const request = ctx.switchToHttp().getRequest();
+  return request.user;
+});
+
+// src/auth/controllers/auth.controller.ts
+var __decorate25 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata18 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param11 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a15;
+var _b8;
+var _c7;
+var _d6;
+var _e4;
+var AuthController = class AuthController2 {
+  authService;
   constructor(authService) {
     this.authService = authService;
   }
-  authService;
   createUser(dto) {
     return this.authService.createUser(dto);
   }
   login(dto) {
-    return this.authService.login(
-      dto
-    );
+    return this.authService.login(dto);
+  }
+  verifyEmail(token) {
+    return this.authService.verifyEmail(token);
   }
   register(dto) {
     return this.authService.createUser({
       ...dto,
-      role: "STUDENT" /* STUDENT */
+      role: Role.STUDENT
     });
   }
   refresh(dto) {
-    return this.authService.refresh(
-      dto.refreshToken
-    );
+    return this.authService.refresh(dto.refreshToken);
   }
   me(user) {
-    return this.authService.me(
-      user.sub
-    );
+    return this.authService.me(user.sub);
   }
   logout(user) {
-    return this.authService.logout(
-      user.sub
-    );
+    return this.authService.logout(user.sub);
   }
 };
-__decorateClass([
-  (0, import_common21.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+__decorate25([
+  (0, import_common21.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common21.Post)("create-user"),
-  __decorateParam(0, (0, import_common21.Body)())
-], AuthController.prototype, "createUser", 1);
-__decorateClass([
+  __param11(0, (0, import_common21.Body)()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [typeof (_b8 = typeof RegisterDto !== "undefined" && RegisterDto) === "function" ? _b8 : Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "createUser", null);
+__decorate25([
   (0, import_common21.Post)("login"),
-  __decorateParam(0, (0, import_common21.Body)())
-], AuthController.prototype, "login", 1);
-__decorateClass([
+  __param11(0, (0, import_common21.Body)()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [typeof (_c7 = typeof LoginDto !== "undefined" && LoginDto) === "function" ? _c7 : Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "login", null);
+__decorate25([
+  (0, import_common21.Post)("verify-email/:token"),
+  __param11(0, (0, import_common21.Param)("token")),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [String]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "verifyEmail", null);
+__decorate25([
   (0, import_common21.Post)("register"),
-  __decorateParam(0, (0, import_common21.Body)())
-], AuthController.prototype, "register", 1);
-__decorateClass([
-  (0, import_common21.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles(
-    "ADMIN" /* ADMIN */,
-    "MANAGER" /* MANAGER */,
-    "HR" /* HR */,
-    "EMPLOYEE" /* EMPLOYEE */,
-    "INTERN" /* INTERN */,
-    "CLIENT" /* CLIENT */,
-    "CEO" /* CEO */,
-    "AI" /* AI */,
-    "STUDENT" /* STUDENT */
-  ),
+  __param11(0, (0, import_common21.Body)()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [typeof (_d6 = typeof RegisterDto !== "undefined" && RegisterDto) === "function" ? _d6 : Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "register", null);
+__decorate25([
+  (0, import_common21.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN, Role.MANAGER, Role.HR, Role.EMPLOYEE, Role.INTERN, Role.CLIENT, Role.CEO, Role.AI, Role.STUDENT),
   (0, import_common21.Post)("refresh"),
-  __decorateParam(0, (0, import_common21.Body)())
-], AuthController.prototype, "refresh", 1);
-__decorateClass([
-  (0, import_common21.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles(
-    "ADMIN" /* ADMIN */,
-    "MANAGER" /* MANAGER */,
-    "HR" /* HR */,
-    "EMPLOYEE" /* EMPLOYEE */,
-    "INTERN" /* INTERN */,
-    "CLIENT" /* CLIENT */,
-    "CEO" /* CEO */,
-    "AI" /* AI */,
-    "STUDENT" /* STUDENT */
-  ),
+  __param11(0, (0, import_common21.Body)()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [typeof (_e4 = typeof RefreshTokenDto !== "undefined" && RefreshTokenDto) === "function" ? _e4 : Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "refresh", null);
+__decorate25([
+  (0, import_common21.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN, Role.MANAGER, Role.HR, Role.EMPLOYEE, Role.INTERN, Role.CLIENT, Role.CEO, Role.AI, Role.STUDENT),
   (0, import_common21.Get)("me"),
-  __decorateParam(0, CurrentUser())
-], AuthController.prototype, "me", 1);
-__decorateClass([
-  (0, import_common21.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles(
-    "ADMIN" /* ADMIN */,
-    "MANAGER" /* MANAGER */,
-    "HR" /* HR */,
-    "EMPLOYEE" /* EMPLOYEE */,
-    "INTERN" /* INTERN */,
-    "CLIENT" /* CLIENT */,
-    "CEO" /* CEO */,
-    "AI" /* AI */,
-    "STUDENT" /* STUDENT */
-  ),
+  __param11(0, CurrentUser()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "me", null);
+__decorate25([
+  (0, import_common21.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN, Role.MANAGER, Role.HR, Role.EMPLOYEE, Role.INTERN, Role.CLIENT, Role.CEO, Role.AI, Role.STUDENT),
   (0, import_common21.Post)("logout"),
-  __decorateParam(0, CurrentUser())
-], AuthController.prototype, "logout", 1);
-AuthController = __decorateClass([
+  __param11(0, CurrentUser()),
+  __metadata18("design:type", Function),
+  __metadata18("design:paramtypes", [Object]),
+  __metadata18("design:returntype", void 0)
+], AuthController.prototype, "logout", null);
+AuthController = __decorate25([
   (0, import_common21.Controller)("auth"),
-  __decorateParam(0, (0, import_common21.Inject)(AuthService))
+  __param11(0, (0, import_common21.Inject)(AuthService)),
+  __metadata18("design:paramtypes", [typeof (_a15 = typeof AuthService !== "undefined" && AuthService) === "function" ? _a15 : Object])
 ], AuthController);
 
-// apps/api/src/auth/strategies/jwt.strategy.ts
+// src/auth/strategies/jwt.strategy.ts
 var import_common22 = require("@nestjs/common");
 var import_config6 = require("@nestjs/config");
 var import_passport2 = require("@nestjs/passport");
 var import_passport_jwt = require("passport-jwt");
-var JwtStrategy = class extends (0, import_passport2.PassportStrategy)(
-  import_passport_jwt.Strategy
-) {
+var __decorate26 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata19 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param12 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a16;
+var JwtStrategy = class JwtStrategy2 extends (0, import_passport2.PassportStrategy)(import_passport_jwt.Strategy) {
   constructor(configService) {
     super({
       jwtFromRequest: import_passport_jwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.getOrThrow(
-        "JWT_SECRET"
-      )
+      secretOrKey: configService.getOrThrow("JWT_SECRET")
     });
   }
   async validate(payload) {
     return payload;
   }
 };
-JwtStrategy = __decorateClass([
+JwtStrategy = __decorate26([
   (0, import_common22.Injectable)(),
-  __decorateParam(0, (0, import_common22.Inject)(import_config6.ConfigService))
+  __param12(0, (0, import_common22.Inject)(import_config6.ConfigService)),
+  __metadata19("design:paramtypes", [typeof (_a16 = typeof import_config6.ConfigService !== "undefined" && import_config6.ConfigService) === "function" ? _a16 : Object])
 ], JwtStrategy);
 
-// apps/api/src/auth/auth.module.ts
-var AuthModule = class {
+// src/auth/auth.module.ts
+var __decorate27 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-AuthModule = __decorateClass([
+var AuthModule = class AuthModule2 {
+};
+AuthModule = __decorate27([
   (0, import_common23.Module)({
     imports: [
       import_config7.ConfigModule,
@@ -2563,13 +2748,9 @@ AuthModule = __decorateClass([
         imports: [import_config7.ConfigModule],
         inject: [import_config7.ConfigService],
         useFactory: (config) => ({
-          secret: config.getOrThrow(
-            "JWT_SECRET"
-          ),
+          secret: config.getOrThrow("JWT_SECRET"),
           signOptions: {
-            expiresIn: config.get(
-              "JWT_EXPIRES"
-            ) ?? "15m"
+            expiresIn: config.get("JWT_EXPIRES") ?? "15m"
           }
         })
       })
@@ -2593,34 +2774,47 @@ AuthModule = __decorateClass([
   })
 ], AuthModule);
 
-// apps/api/src/dashboard/dashboard.module.ts
+// src/dashboard/dashboard.module.ts
 var import_common27 = require("@nestjs/common");
 var import_mongoose18 = require("@nestjs/mongoose");
 
-// apps/api/src/projects/schemas/project.schema.ts
+// src/projects/schemas/project.schema.ts
 var import_mongoose12 = require("@nestjs/mongoose");
 var import_mongoose13 = require("mongoose");
 
-// apps/api/src/projects/enums/project-priority.enum.ts
-var ProjectPriority = /* @__PURE__ */ ((ProjectPriority2) => {
+// src/projects/enums/project-priority.enum.ts
+var ProjectPriority;
+(function(ProjectPriority2) {
   ProjectPriority2["LOW"] = "Low";
   ProjectPriority2["MEDIUM"] = "Medium";
   ProjectPriority2["HIGH"] = "High";
   ProjectPriority2["CRITICAL"] = "Critical";
-  return ProjectPriority2;
-})(ProjectPriority || {});
+})(ProjectPriority || (ProjectPriority = {}));
 
-// apps/api/src/projects/enums/project-status.enum.ts
-var ProjectStatus = /* @__PURE__ */ ((ProjectStatus2) => {
+// src/projects/enums/project-status.enum.ts
+var ProjectStatus;
+(function(ProjectStatus2) {
   ProjectStatus2["PLANNING"] = "Planning";
   ProjectStatus2["ACTIVE"] = "Active";
   ProjectStatus2["ON_HOLD"] = "On Hold";
   ProjectStatus2["COMPLETED"] = "Completed";
-  return ProjectStatus2;
-})(ProjectStatus || {});
+})(ProjectStatus || (ProjectStatus = {}));
 
-// apps/api/src/projects/schemas/project.schema.ts
-var Project = class {
+// src/projects/schemas/project.schema.ts
+var __decorate28 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata20 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a17;
+var _b9;
+var _c8;
+var _d7;
+var Project = class Project2 {
   name;
   description;
   status;
@@ -2632,67 +2826,76 @@ var Project = class {
   dueDate;
   members;
 };
-__decorateClass([
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], Project.prototype, "name", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", String)
+], Project.prototype, "name", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: String,
     default: "",
     trim: true
-  })
-], Project.prototype, "description", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", String)
+], Project.prototype, "description", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: String,
     enum: ProjectStatus,
-    default: "Planning" /* PLANNING */
-  })
-], Project.prototype, "status", 2);
-__decorateClass([
+    default: ProjectStatus.PLANNING
+  }),
+  __metadata20("design:type", typeof (_a17 = typeof ProjectStatus !== "undefined" && ProjectStatus) === "function" ? _a17 : Object)
+], Project.prototype, "status", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: String,
     enum: ProjectPriority,
-    default: "Medium" /* MEDIUM */
-  })
-], Project.prototype, "priority", 2);
-__decorateClass([
+    default: ProjectPriority.MEDIUM
+  }),
+  __metadata20("design:type", typeof (_b9 = typeof ProjectPriority !== "undefined" && ProjectPriority) === "function" ? _b9 : Object)
+], Project.prototype, "priority", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: Number,
     default: 0,
     min: 0,
     max: 100
-  })
-], Project.prototype, "progress", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", Number)
+], Project.prototype, "progress", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: Number,
     default: 0
-  })
-], Project.prototype, "totalTasks", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", Number)
+], Project.prototype, "totalTasks", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: Number,
     default: 0
-  })
-], Project.prototype, "completedTasks", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", Number)
+], Project.prototype, "completedTasks", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: Date,
     required: true
-  })
-], Project.prototype, "startDate", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", typeof (_c8 = typeof Date !== "undefined" && Date) === "function" ? _c8 : Object)
+], Project.prototype, "startDate", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: Date,
     required: true
-  })
-], Project.prototype, "dueDate", 2);
-__decorateClass([
+  }),
+  __metadata20("design:type", typeof (_d7 = typeof Date !== "undefined" && Date) === "function" ? _d7 : Object)
+], Project.prototype, "dueDate", void 0);
+__decorate28([
   (0, import_mongoose12.Prop)({
     type: [
       {
@@ -2701,39 +2904,54 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], Project.prototype, "members", 2);
-Project = __decorateClass([
+  }),
+  __metadata20("design:type", Array)
+], Project.prototype, "members", void 0);
+Project = __decorate28([
   (0, import_mongoose12.Schema)({
     timestamps: true
   })
 ], Project);
 var ProjectSchema = import_mongoose12.SchemaFactory.createForClass(Project);
 
-// apps/api/src/tasks/schemas/task.schema.ts
+// src/tasks/schemas/task.schema.ts
 var import_mongoose14 = require("@nestjs/mongoose");
 var import_mongoose15 = require("mongoose");
 
-// apps/api/src/tasks/enums/task-priority.enum.ts
-var TaskPriority = /* @__PURE__ */ ((TaskPriority2) => {
+// src/tasks/enums/task-priority.enum.ts
+var TaskPriority;
+(function(TaskPriority2) {
   TaskPriority2["LOW"] = "Low";
   TaskPriority2["MEDIUM"] = "Medium";
   TaskPriority2["HIGH"] = "High";
   TaskPriority2["CRITICAL"] = "Critical";
-  return TaskPriority2;
-})(TaskPriority || {});
+})(TaskPriority || (TaskPriority = {}));
 
-// apps/api/src/tasks/enums/task-status.enum.ts
-var TaskStatus = /* @__PURE__ */ ((TaskStatus2) => {
+// src/tasks/enums/task-status.enum.ts
+var TaskStatus;
+(function(TaskStatus2) {
   TaskStatus2["TODO"] = "Todo";
   TaskStatus2["IN_PROGRESS"] = "In Progress";
   TaskStatus2["REVIEW"] = "Review";
   TaskStatus2["COMPLETED"] = "Completed";
-  return TaskStatus2;
-})(TaskStatus || {});
+})(TaskStatus || (TaskStatus = {}));
 
-// apps/api/src/tasks/schemas/task.schema.ts
-var Task = class {
+// src/tasks/schemas/task.schema.ts
+var __decorate29 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata21 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a18;
+var _b10;
+var _c9;
+var _d8;
+var _e5;
+var Task = class Task2 {
   title;
   description;
   project;
@@ -2743,95 +2961,116 @@ var Task = class {
   progress;
   dueDate;
 };
-__decorateClass([
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], Task.prototype, "title", 2);
-__decorateClass([
+  }),
+  __metadata21("design:type", String)
+], Task.prototype, "title", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: String,
     default: "",
     trim: true
-  })
-], Task.prototype, "description", 2);
-__decorateClass([
+  }),
+  __metadata21("design:type", String)
+], Task.prototype, "description", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: import_mongoose15.Types.ObjectId,
     ref: "Project",
     required: true
-  })
-], Task.prototype, "project", 2);
-__decorateClass([
+  }),
+  __metadata21("design:type", typeof (_a18 = typeof import_mongoose15.Types !== "undefined" && import_mongoose15.Types.ObjectId) === "function" ? _a18 : Object)
+], Task.prototype, "project", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: import_mongoose15.Types.ObjectId,
     ref: "Employee",
     required: true
-  })
-], Task.prototype, "assignedTo", 2);
-__decorateClass([
+  }),
+  __metadata21("design:type", typeof (_b10 = typeof import_mongoose15.Types !== "undefined" && import_mongoose15.Types.ObjectId) === "function" ? _b10 : Object)
+], Task.prototype, "assignedTo", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: String,
     enum: TaskStatus,
-    default: "Todo" /* TODO */
-  })
-], Task.prototype, "status", 2);
-__decorateClass([
+    default: TaskStatus.TODO
+  }),
+  __metadata21("design:type", typeof (_c9 = typeof TaskStatus !== "undefined" && TaskStatus) === "function" ? _c9 : Object)
+], Task.prototype, "status", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: String,
     enum: TaskPriority,
-    default: "Medium" /* MEDIUM */
-  })
-], Task.prototype, "priority", 2);
-__decorateClass([
+    default: TaskPriority.MEDIUM
+  }),
+  __metadata21("design:type", typeof (_d8 = typeof TaskPriority !== "undefined" && TaskPriority) === "function" ? _d8 : Object)
+], Task.prototype, "priority", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: Number,
     min: 0,
     max: 100,
     default: 0
-  })
-], Task.prototype, "progress", 2);
-__decorateClass([
+  }),
+  __metadata21("design:type", Number)
+], Task.prototype, "progress", void 0);
+__decorate29([
   (0, import_mongoose14.Prop)({
     type: Date,
     required: true
-  })
-], Task.prototype, "dueDate", 2);
-Task = __decorateClass([
+  }),
+  __metadata21("design:type", typeof (_e5 = typeof Date !== "undefined" && Date) === "function" ? _e5 : Object)
+], Task.prototype, "dueDate", void 0);
+Task = __decorate29([
   (0, import_mongoose14.Schema)({
     timestamps: true
   })
 ], Task);
 var TaskSchema = import_mongoose14.SchemaFactory.createForClass(Task);
 
-// apps/api/src/dashboard/controllers/dashboard.controller.ts
+// src/dashboard/controllers/dashboard.controller.ts
 var import_common26 = require("@nestjs/common");
 var import_swagger = require("@nestjs/swagger");
 
-// apps/api/src/dashboard/services/dashboard.service.ts
+// src/dashboard/services/dashboard.service.ts
 var import_common25 = require("@nestjs/common");
 
-// apps/api/src/dashboard/repositories/dashboard.repository.ts
+// src/dashboard/repositories/dashboard.repository.ts
 var import_common24 = require("@nestjs/common");
 var import_mongoose16 = require("@nestjs/mongoose");
 var import_mongoose17 = require("mongoose");
-var DashboardRepository = class {
+var __decorate30 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata22 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param13 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a19;
+var _b11;
+var _c10;
+var DashboardRepository = class DashboardRepository2 {
+  employeeModel;
+  projectModel;
+  taskModel;
   constructor(employeeModel, projectModel, taskModel) {
     this.employeeModel = employeeModel;
     this.projectModel = projectModel;
     this.taskModel = taskModel;
   }
-  employeeModel;
-  projectModel;
-  taskModel;
   async getStatistics() {
-    const [
-      employees,
-      projects,
-      tasks
-    ] = await Promise.all([
+    const [employees, projects, tasks] = await Promise.all([
       this.employeeModel.countDocuments(),
       this.projectModel.countDocuments(),
       this.taskModel.countDocuments()
@@ -2877,112 +3116,81 @@ var DashboardRepository = class {
       "Nov",
       "Dec"
     ];
-    return analytics.map(
-      (item) => ({
-        month: months[item._id.month - 1],
-        employees: item.employees,
-        revenue: 0
-      })
-    );
+    return analytics.map((item) => ({
+      month: months[item._id.month - 1],
+      employees: item.employees,
+      revenue: 0
+    }));
   }
   async getRecentActivities() {
     const employees = await this.employeeModel.find().sort({
       joiningDate: -1
-    }).limit(5).select(
-      "firstName lastName joiningDate"
-    ).lean();
-    return employees.map(
-      (employee) => ({
-        id: employee._id.toString(),
-        title: `${employee.firstName} ${employee.lastName} joined the company`,
-        time: employee.joiningDate ? new Date(
-          employee.joiningDate
-        ).toLocaleDateString() : ""
-      })
-    );
+    }).limit(5).select("firstName lastName joiningDate").lean();
+    return employees.map((employee) => ({
+      id: employee._id.toString(),
+      title: `${employee.firstName} ${employee.lastName} joined the company`,
+      time: employee.joiningDate ? new Date(employee.joiningDate).toLocaleDateString() : ""
+    }));
   }
-  // async getPendingApprovals() {
-  //   const employees =
-  //     await this.employeeModel
-  //       .find({
-  //         status:
-  //           EmployeeStatus.ACTIVE,
-  //       })
-  //       .limit(5)
-  //       .select(
-  //         "firstName lastName designation",
-  //       )
-  //       .lean();
-  //   return employees.map(
-  //     (employee: any) => ({
-  //       id:
-  //         employee._id.toString(),
-  //       name:
-  //         `${employee.firstName} ${employee.lastName}`,
-  //       role:
-  //         employee.designation,
-  //       status:
-  //         employee.status,
-  //     }),
-  //   );
-  // }
   async getLatestProjects() {
     const projects = await this.projectModel.find().sort({
       createdAt: -1
     }).limit(5).lean();
-    return projects.map(
-      (project) => ({
-        id: project._id.toString(),
-        name: project.name,
-        progress: project.progress,
-        due: project.dueDate ? new Date(
-          project.dueDate
-        ).toLocaleDateString() : "",
-        members: project.members?.length ?? 0,
-        status: project.status
-      })
-    );
+    return projects.map((project) => ({
+      id: project._id.toString(),
+      name: project.name,
+      progress: project.progress,
+      due: project.dueDate ? new Date(project.dueDate).toLocaleDateString() : "",
+      members: project.members?.length ?? 0,
+      status: project.status
+    }));
   }
   async getPerformance() {
     const employees = await this.employeeModel.find().sort({
       performance: -1
-    }).limit(5).select(
-      "firstName lastName designation performance"
-    ).lean();
-    return employees.map(
-      (employee) => ({
-        id: employee._id.toString(),
-        name: `${employee.firstName} ${employee.lastName}`,
-        role: employee.designation,
-        performance: employee.performance ?? 0
-      })
-    );
+    }).limit(5).select("firstName lastName designation performance").lean();
+    return employees.map((employee) => ({
+      id: employee._id.toString(),
+      name: `${employee.firstName} ${employee.lastName}`,
+      role: employee.designation,
+      performance: employee.performance ?? 0
+    }));
   }
 };
-DashboardRepository = __decorateClass([
+DashboardRepository = __decorate30([
   (0, import_common24.Injectable)(),
-  __decorateParam(0, (0, import_mongoose16.InjectModel)(Employee.name)),
-  __decorateParam(0, (0, import_common24.Inject)(import_mongoose17.Model)),
-  __decorateParam(1, (0, import_mongoose16.InjectModel)(Project.name)),
-  __decorateParam(1, (0, import_common24.Inject)(import_mongoose17.Model)),
-  __decorateParam(2, (0, import_mongoose16.InjectModel)(Task.name)),
-  __decorateParam(2, (0, import_common24.Inject)(import_mongoose17.Model))
+  __param13(0, (0, import_mongoose16.InjectModel)(Employee.name)),
+  __param13(0, (0, import_common24.Inject)(import_mongoose17.Model)),
+  __param13(1, (0, import_mongoose16.InjectModel)(Project.name)),
+  __param13(1, (0, import_common24.Inject)(import_mongoose17.Model)),
+  __param13(2, (0, import_mongoose16.InjectModel)(Task.name)),
+  __param13(2, (0, import_common24.Inject)(import_mongoose17.Model)),
+  __metadata22("design:paramtypes", [typeof (_a19 = typeof import_mongoose17.Model !== "undefined" && import_mongoose17.Model) === "function" ? _a19 : Object, typeof (_b11 = typeof import_mongoose17.Model !== "undefined" && import_mongoose17.Model) === "function" ? _b11 : Object, typeof (_c10 = typeof import_mongoose17.Model !== "undefined" && import_mongoose17.Model) === "function" ? _c10 : Object])
 ], DashboardRepository);
 
-// apps/api/src/dashboard/services/dashboard.service.ts
-var DashboardService = class {
+// src/dashboard/services/dashboard.service.ts
+var __decorate31 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata23 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param14 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a20;
+var DashboardService = class DashboardService2 {
+  repository;
   constructor(repository) {
     this.repository = repository;
   }
-  repository;
   async getDashboard() {
-    const [
-      statistics,
-      analytics,
-      activities,
-      latestProjects,
-      performance
-    ] = await Promise.all([
+    const [statistics, analytics, activities, latestProjects, performance] = await Promise.all([
       this.repository.getStatistics(),
       this.repository.getAnalytics(),
       this.repository.getRecentActivities(),
@@ -2998,40 +3206,63 @@ var DashboardService = class {
     };
   }
 };
-DashboardService = __decorateClass([
+DashboardService = __decorate31([
   (0, import_common25.Injectable)(),
-  __decorateParam(0, (0, import_common25.Inject)(DashboardRepository))
+  __param14(0, (0, import_common25.Inject)(DashboardRepository)),
+  __metadata23("design:paramtypes", [typeof (_a20 = typeof DashboardRepository !== "undefined" && DashboardRepository) === "function" ? _a20 : Object])
 ], DashboardService);
 
-// apps/api/src/dashboard/controllers/dashboard.controller.ts
-var DashboardController = class {
+// src/dashboard/controllers/dashboard.controller.ts
+var __decorate32 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata24 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param15 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a21;
+var DashboardController = class DashboardController2 {
+  dashboardService;
   constructor(dashboardService) {
     this.dashboardService = dashboardService;
   }
-  dashboardService;
   getDashboard() {
     return this.dashboardService.getDashboard();
   }
 };
-__decorateClass([
+__decorate32([
   (0, import_common26.Get)(),
-  Roles(...VIEW_ROLES)
-], DashboardController.prototype, "getDashboard", 1);
-DashboardController = __decorateClass([
+  Roles(...VIEW_ROLES),
+  __metadata24("design:type", Function),
+  __metadata24("design:paramtypes", []),
+  __metadata24("design:returntype", void 0)
+], DashboardController.prototype, "getDashboard", null);
+DashboardController = __decorate32([
   (0, import_swagger.ApiTags)("Dashboard"),
   (0, import_swagger.ApiBearerAuth)(),
-  (0, import_common26.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
+  (0, import_common26.UseGuards)(JwtAuthGuard, RolesGuard),
   (0, import_common26.Controller)("dashboard"),
-  __decorateParam(0, (0, import_common26.Inject)(DashboardService))
+  __param15(0, (0, import_common26.Inject)(DashboardService)),
+  __metadata24("design:paramtypes", [typeof (_a21 = typeof DashboardService !== "undefined" && DashboardService) === "function" ? _a21 : Object])
 ], DashboardController);
 
-// apps/api/src/dashboard/dashboard.module.ts
-var DashboardModule = class {
+// src/dashboard/dashboard.module.ts
+var __decorate33 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-DashboardModule = __decorateClass([
+var DashboardModule = class DashboardModule2 {
+};
+DashboardModule = __decorate33([
   (0, import_common27.Module)({
     imports: [
       import_mongoose18.MongooseModule.forFeature([
@@ -3063,18 +3294,143 @@ DashboardModule = __decorateClass([
   })
 ], DashboardModule);
 
-// apps/api/src/projects/projects.module.ts
+// src/projects/projects.module.ts
 var import_common31 = require("@nestjs/common");
 var import_mongoose21 = require("@nestjs/mongoose");
 
-// apps/api/src/projects/controllers/projects.controller.ts
+// src/projects/controllers/projects.controller.ts
 var import_common30 = require("@nestjs/common");
-var import_swagger2 = require("@nestjs/swagger");
+var import_swagger3 = require("@nestjs/swagger");
 
-// apps/api/src/projects/services/projects.service.ts
+// src/projects/dto/create-project.dto.ts
+var import_class_validator6 = require("class-validator");
+var __decorate34 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata25 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a22;
+var _b12;
+var CreateProjectDto = class {
+  name;
+  description;
+  status;
+  priority;
+  startDate;
+  dueDate;
+  members;
+};
+__decorate34([
+  (0, import_class_validator6.IsString)(),
+  (0, import_class_validator6.MinLength)(3),
+  __metadata25("design:type", String)
+], CreateProjectDto.prototype, "name", void 0);
+__decorate34([
+  (0, import_class_validator6.IsString)(),
+  (0, import_class_validator6.IsOptional)(),
+  __metadata25("design:type", String)
+], CreateProjectDto.prototype, "description", void 0);
+__decorate34([
+  (0, import_class_validator6.IsOptional)(),
+  (0, import_class_validator6.IsEnum)(ProjectStatus),
+  __metadata25("design:type", typeof (_a22 = typeof ProjectStatus !== "undefined" && ProjectStatus) === "function" ? _a22 : Object)
+], CreateProjectDto.prototype, "status", void 0);
+__decorate34([
+  (0, import_class_validator6.IsOptional)(),
+  (0, import_class_validator6.IsEnum)(ProjectPriority),
+  __metadata25("design:type", typeof (_b12 = typeof ProjectPriority !== "undefined" && ProjectPriority) === "function" ? _b12 : Object)
+], CreateProjectDto.prototype, "priority", void 0);
+__decorate34([
+  (0, import_class_validator6.IsDateString)(),
+  __metadata25("design:type", String)
+], CreateProjectDto.prototype, "startDate", void 0);
+__decorate34([
+  (0, import_class_validator6.IsDateString)(),
+  __metadata25("design:type", String)
+], CreateProjectDto.prototype, "dueDate", void 0);
+__decorate34([
+  (0, import_class_validator6.IsOptional)(),
+  (0, import_class_validator6.IsArray)(),
+  (0, import_class_validator6.IsMongoId)({
+    each: true
+  }),
+  __metadata25("design:type", Array)
+], CreateProjectDto.prototype, "members", void 0);
+
+// src/projects/dto/update-project.dto.ts
+var import_swagger2 = require("@nestjs/swagger");
+var UpdateProjectDto = class extends (0, import_swagger2.PartialType)(CreateProjectDto) {
+};
+
+// src/projects/dto/project-query.dto.ts
+var import_class_validator7 = require("class-validator");
+var import_class_transformer3 = require("class-transformer");
+var __decorate35 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata26 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a23;
+var _b13;
+var ProjectQueryDto = class {
+  page = 1;
+  limit = 10;
+  search;
+  status;
+  priority;
+  sortBy = "createdAt";
+  order = "desc";
+};
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_transformer3.Type)(() => Number),
+  (0, import_class_validator7.IsNumber)(),
+  __metadata26("design:type", Number)
+], ProjectQueryDto.prototype, "page", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_transformer3.Type)(() => Number),
+  (0, import_class_validator7.IsNumber)(),
+  __metadata26("design:type", Number)
+], ProjectQueryDto.prototype, "limit", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_validator7.IsString)(),
+  __metadata26("design:type", String)
+], ProjectQueryDto.prototype, "search", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_validator7.IsEnum)(ProjectStatus),
+  __metadata26("design:type", typeof (_a23 = typeof ProjectStatus !== "undefined" && ProjectStatus) === "function" ? _a23 : Object)
+], ProjectQueryDto.prototype, "status", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_validator7.IsEnum)(ProjectPriority),
+  __metadata26("design:type", typeof (_b13 = typeof ProjectPriority !== "undefined" && ProjectPriority) === "function" ? _b13 : Object)
+], ProjectQueryDto.prototype, "priority", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_validator7.IsString)(),
+  __metadata26("design:type", String)
+], ProjectQueryDto.prototype, "sortBy", void 0);
+__decorate35([
+  (0, import_class_validator7.IsOptional)(),
+  (0, import_class_validator7.IsIn)(["asc", "desc"]),
+  __metadata26("design:type", String)
+], ProjectQueryDto.prototype, "order", void 0);
+
+// src/projects/services/projects.service.ts
 var import_common29 = require("@nestjs/common");
 
-// apps/api/src/projects/mappers/project.mapper.ts
+// src/projects/mappers/project.mapper.ts
 var ProjectMapper = class {
   static toList(project) {
     return {
@@ -3088,23 +3444,19 @@ var ProjectMapper = class {
       completedTasks: project.completedTasks,
       startDate: project.startDate ? new Date(project.startDate).toISOString().split("T")[0] : "",
       dueDate: project.dueDate ? new Date(project.dueDate).toISOString().split("T")[0] : "",
-      members: project.members?.map(
-        (member) => ({
-          id: member._id.toString(),
-          name: `${member.firstName} ${member.lastName}`,
-          avatar: member.avatar ?? "",
-          role: member.designation
-        })
-      ) ?? []
+      members: project.members?.map((member) => ({
+        id: member._id.toString(),
+        name: `${member.firstName} ${member.lastName}`,
+        avatar: member.avatar ?? "",
+        role: member.designation
+      })) ?? []
     };
   }
   static toDetails(project) {
     return this.toList(project);
   }
   static toCollection(projects) {
-    return projects.map(
-      (project) => this.toList(project)
-    );
+    return projects.map((project) => this.toList(project));
   }
   static statistics(stats) {
     return {
@@ -3116,15 +3468,30 @@ var ProjectMapper = class {
   }
 };
 
-// apps/api/src/projects/repositories/projects.repository.ts
+// src/projects/repositories/projects.repository.ts
 var import_common28 = require("@nestjs/common");
 var import_mongoose19 = require("@nestjs/mongoose");
 var import_mongoose20 = require("mongoose");
-var ProjectsRepository = class {
+var __decorate36 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata27 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param16 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a24;
+var ProjectsRepository = class ProjectsRepository2 {
+  projectModel;
   constructor(projectModel) {
     this.projectModel = projectModel;
   }
-  projectModel;
   memberPopulate = {
     path: "members",
     select: "firstName lastName fullName designation avatar email"
@@ -3132,28 +3499,14 @@ var ProjectsRepository = class {
   async create(dto) {
     const created = await this.projectModel.create({
       ...dto,
-      startDate: new Date(
-        dto.startDate
-      ),
-      dueDate: new Date(
-        dto.dueDate
-      )
+      startDate: new Date(dto.startDate),
+      dueDate: new Date(dto.dueDate)
     });
-    const project = await this.projectModel.findById(created._id).populate(
-      this.memberPopulate
-    ).lean();
+    const project = await this.projectModel.findById(created._id).populate(this.memberPopulate).lean();
     return project;
   }
   async findAll(query) {
-    const {
-      page = 1,
-      limit = 10,
-      search,
-      status,
-      priority,
-      sortBy = "createdAt",
-      order = "desc"
-    } = query;
+    const { page = 1, limit = 10, search, status, priority, sortBy = "createdAt", order = "desc" } = query;
     const filter = {};
     if (search) {
       filter.$or = [
@@ -3177,87 +3530,54 @@ var ProjectsRepository = class {
     if (priority) {
       filter.priority = priority;
     }
-    const total = await this.projectModel.countDocuments(
-      filter
-    );
-    const projects = await this.projectModel.find(filter).populate(
-      this.memberPopulate
-    ).sort({
+    const total = await this.projectModel.countDocuments(filter);
+    const projects = await this.projectModel.find(filter).populate(this.memberPopulate).sort({
       [sortBy]: order === "asc" ? 1 : -1
-    }).skip(
-      (page - 1) * limit
-    ).limit(limit).lean();
+    }).skip((page - 1) * limit).limit(limit).lean();
     return {
       items: projects,
       pagination: {
         total,
         page,
         limit,
-        totalPages: Math.ceil(
-          total / limit
-        )
+        totalPages: Math.ceil(total / limit)
       }
     };
   }
   async findById(id) {
-    const project = await this.projectModel.findById(id).populate(
-      this.memberPopulate
-    ).lean();
+    const project = await this.projectModel.findById(id).populate(this.memberPopulate).lean();
     if (!project) {
-      throw new import_common28.NotFoundException(
-        "Project not found."
-      );
+      throw new import_common28.NotFoundException("Project not found.");
     }
     return project;
   }
   async update(id, dto) {
-    const updated = await this.projectModel.findByIdAndUpdate(
-      id,
-      {
-        ...dto,
-        ...dto.startDate && {
-          startDate: new Date(
-            dto.startDate
-          )
-        },
-        ...dto.dueDate && {
-          dueDate: new Date(
-            dto.dueDate
-          )
-        }
+    const updated = await this.projectModel.findByIdAndUpdate(id, {
+      ...dto,
+      ...dto.startDate && {
+        startDate: new Date(dto.startDate)
       },
-      {
-        new: true,
-        runValidators: true
+      ...dto.dueDate && {
+        dueDate: new Date(dto.dueDate)
       }
-    );
+    }, {
+      new: true,
+      runValidators: true
+    });
     if (!updated) {
-      throw new import_common28.NotFoundException(
-        "Project not found."
-      );
+      throw new import_common28.NotFoundException("Project not found.");
     }
-    const project = await this.projectModel.findById(updated._id).populate(
-      this.memberPopulate
-    ).lean();
+    const project = await this.projectModel.findById(updated._id).populate(this.memberPopulate).lean();
     return project;
   }
   async remove(id) {
-    const deleted = await this.projectModel.findByIdAndDelete(
-      id
-    );
+    const deleted = await this.projectModel.findByIdAndDelete(id);
     if (!deleted) {
-      throw new import_common28.NotFoundException(
-        "Project not found."
-      );
+      throw new import_common28.NotFoundException("Project not found.");
     }
   }
   async getStatistics() {
-    const [
-      total,
-      active,
-      completed,
-      planning
-    ] = await Promise.all([
+    const [total, active, completed, planning] = await Promise.all([
       this.projectModel.countDocuments(),
       this.projectModel.countDocuments({
         status: "Active"
@@ -3277,151 +3597,180 @@ var ProjectsRepository = class {
     };
   }
 };
-ProjectsRepository = __decorateClass([
+ProjectsRepository = __decorate36([
   (0, import_common28.Injectable)(),
-  __decorateParam(0, (0, import_mongoose19.InjectModel)(Project.name)),
-  __decorateParam(0, (0, import_common28.Inject)(import_mongoose20.Model))
+  __param16(0, (0, import_mongoose19.InjectModel)(Project.name)),
+  __param16(0, (0, import_common28.Inject)(import_mongoose20.Model)),
+  __metadata27("design:paramtypes", [typeof (_a24 = typeof import_mongoose20.Model !== "undefined" && import_mongoose20.Model) === "function" ? _a24 : Object])
 ], ProjectsRepository);
 
-// apps/api/src/projects/services/projects.service.ts
-var ProjectsService = class {
+// src/projects/services/projects.service.ts
+var __decorate37 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata28 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param17 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a25;
+var ProjectsService = class ProjectsService2 {
+  repository;
   constructor(repository) {
     this.repository = repository;
   }
-  repository;
   async create(dto) {
     const project = await this.repository.create(dto);
-    return ProjectMapper.toDetails(
-      project
-    );
+    return ProjectMapper.toDetails(project);
   }
   async findAll(query) {
-    const result = await this.repository.findAll(
-      query
-    );
+    const result = await this.repository.findAll(query);
     return {
-      items: ProjectMapper.toCollection(
-        result.items
-      ),
+      items: ProjectMapper.toCollection(result.items),
       pagination: result.pagination
     };
   }
   async findById(id) {
-    const project = await this.repository.findById(
-      id
-    );
-    return ProjectMapper.toDetails(
-      project
-    );
+    const project = await this.repository.findById(id);
+    return ProjectMapper.toDetails(project);
   }
   async update(id, dto) {
-    const project = await this.repository.update(
-      id,
-      dto
-    );
-    return ProjectMapper.toDetails(
-      project
-    );
+    const project = await this.repository.update(id, dto);
+    return ProjectMapper.toDetails(project);
   }
   async remove(id) {
-    await this.repository.remove(
-      id
-    );
+    await this.repository.remove(id);
     return {
       message: "Project deleted successfully."
     };
   }
   async getStatistics() {
     const statistics = await this.repository.getStatistics();
-    return ProjectMapper.statistics(
-      statistics
-    );
+    return ProjectMapper.statistics(statistics);
   }
 };
-ProjectsService = __decorateClass([
+ProjectsService = __decorate37([
   (0, import_common29.Injectable)(),
-  __decorateParam(0, (0, import_common29.Inject)(ProjectsRepository))
+  __param17(0, (0, import_common29.Inject)(ProjectsRepository)),
+  __metadata28("design:paramtypes", [typeof (_a25 = typeof ProjectsRepository !== "undefined" && ProjectsRepository) === "function" ? _a25 : Object])
 ], ProjectsService);
 
-// apps/api/src/projects/controllers/projects.controller.ts
-var ProjectsController = class {
+// src/projects/controllers/projects.controller.ts
+var __decorate38 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata29 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param18 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a26;
+var _b14;
+var _c11;
+var _d9;
+var ProjectsController = class ProjectsController2 {
+  projectsService;
   constructor(projectsService) {
     this.projectsService = projectsService;
   }
-  projectsService;
   create(dto) {
     return this.projectsService.create(dto);
   }
   findAll(query) {
-    return this.projectsService.findAll(
-      query
-    );
+    return this.projectsService.findAll(query);
   }
   getStatistics() {
     return this.projectsService.getStatistics();
   }
   findById(id) {
-    return this.projectsService.findById(
-      id
-    );
+    return this.projectsService.findById(id);
   }
   update(id, dto) {
-    return this.projectsService.update(
-      id,
-      dto
-    );
+    return this.projectsService.update(id, dto);
   }
   remove(id) {
-    return this.projectsService.remove(
-      id
-    );
+    return this.projectsService.remove(id);
   }
 };
-__decorateClass([
+__decorate38([
   (0, import_common30.Post)(),
   Roles(...MANAGE_ROLES),
-  __decorateParam(0, (0, import_common30.Body)())
-], ProjectsController.prototype, "create", 1);
-__decorateClass([
+  __param18(0, (0, import_common30.Body)()),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", [typeof (_b14 = typeof CreateProjectDto !== "undefined" && CreateProjectDto) === "function" ? _b14 : Object]),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "create", null);
+__decorate38([
   (0, import_common30.Get)(),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common30.Query)())
-], ProjectsController.prototype, "findAll", 1);
-__decorateClass([
+  __param18(0, (0, import_common30.Query)()),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", [typeof (_c11 = typeof ProjectQueryDto !== "undefined" && ProjectQueryDto) === "function" ? _c11 : Object]),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "findAll", null);
+__decorate38([
   (0, import_common30.Get)("stats"),
-  Roles(...VIEW_ROLES)
-], ProjectsController.prototype, "getStatistics", 1);
-__decorateClass([
+  Roles(...VIEW_ROLES),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", []),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "getStatistics", null);
+__decorate38([
   (0, import_common30.Get)(":id"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common30.Param)("id"))
-], ProjectsController.prototype, "findById", 1);
-__decorateClass([
+  __param18(0, (0, import_common30.Param)("id")),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", [String]),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "findById", null);
+__decorate38([
   (0, import_common30.Patch)(":id"),
   Roles(...MANAGE_ROLES),
-  __decorateParam(0, (0, import_common30.Param)("id")),
-  __decorateParam(1, (0, import_common30.Body)())
-], ProjectsController.prototype, "update", 1);
-__decorateClass([
+  __param18(0, (0, import_common30.Param)("id")),
+  __param18(1, (0, import_common30.Body)()),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", [String, typeof (_d9 = typeof UpdateProjectDto !== "undefined" && UpdateProjectDto) === "function" ? _d9 : Object]),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "update", null);
+__decorate38([
   (0, import_common30.Delete)(":id"),
   Roles(...ADMIN_ONLY),
-  __decorateParam(0, (0, import_common30.Param)("id"))
-], ProjectsController.prototype, "remove", 1);
-ProjectsController = __decorateClass([
-  (0, import_swagger2.ApiTags)("Projects"),
-  (0, import_swagger2.ApiBearerAuth)(),
-  (0, import_common30.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
+  __param18(0, (0, import_common30.Param)("id")),
+  __metadata29("design:type", Function),
+  __metadata29("design:paramtypes", [String]),
+  __metadata29("design:returntype", void 0)
+], ProjectsController.prototype, "remove", null);
+ProjectsController = __decorate38([
+  (0, import_swagger3.ApiTags)("Projects"),
+  (0, import_swagger3.ApiBearerAuth)(),
+  (0, import_common30.UseGuards)(JwtAuthGuard, RolesGuard),
   (0, import_common30.Controller)("projects"),
-  __decorateParam(0, (0, import_common30.Inject)(ProjectsService))
+  __param18(0, (0, import_common30.Inject)(ProjectsService)),
+  __metadata29("design:paramtypes", [typeof (_a26 = typeof ProjectsService !== "undefined" && ProjectsService) === "function" ? _a26 : Object])
 ], ProjectsController);
 
-// apps/api/src/projects/projects.module.ts
-var ProjectsModule = class {
+// src/projects/projects.module.ts
+var __decorate39 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-ProjectsModule = __decorateClass([
+var ProjectsModule = class ProjectsModule2 {
+};
+ProjectsModule = __decorate39([
   (0, import_common31.Module)({
     imports: [
       import_mongoose21.MongooseModule.forFeature([
@@ -3449,31 +3798,44 @@ ProjectsModule = __decorateClass([
   })
 ], ProjectsModule);
 
-// apps/api/src/tasks/tasks.module.ts
+// src/tasks/tasks.module.ts
 var import_common36 = require("@nestjs/common");
 var import_mongoose24 = require("@nestjs/mongoose");
 
-// apps/api/src/tasks/controllers/tasks.controller.ts
+// src/tasks/controllers/tasks.controller.ts
 var import_common34 = require("@nestjs/common");
 
-// apps/api/src/tasks/services/tasks.service.ts
+// src/tasks/services/tasks.service.ts
 var import_common33 = require("@nestjs/common");
 
-// apps/api/src/tasks/repositories/tasks.repository.ts
+// src/tasks/repositories/tasks.repository.ts
 var import_common32 = require("@nestjs/common");
 var import_mongoose22 = require("@nestjs/mongoose");
 var import_mongoose23 = require("mongoose");
-var TaskRepository = class {
+var __decorate40 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata30 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param19 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a27;
+var TaskRepository = class TaskRepository2 {
+  taskModel;
   constructor(taskModel) {
     this.taskModel = taskModel;
   }
-  taskModel;
   async create(dto) {
     return this.taskModel.create({
       ...dto,
-      dueDate: new Date(
-        dto.dueDate
-      )
+      dueDate: new Date(dto.dueDate)
     });
   }
   async findAll(filter = {}) {
@@ -3496,27 +3858,19 @@ var TaskRepository = class {
       select: "firstName lastName fullName avatar designation"
     }).lean();
     if (!task) {
-      throw new import_common32.NotFoundException(
-        "Task not found."
-      );
+      throw new import_common32.NotFoundException("Task not found.");
     }
     return task;
   }
   async update(id, dto) {
-    const task = await this.taskModel.findByIdAndUpdate(
-      id,
-      {
-        ...dto,
-        ...dto.dueDate && {
-          dueDate: new Date(
-            dto.dueDate
-          )
-        }
-      },
-      {
-        new: true
+    const task = await this.taskModel.findByIdAndUpdate(id, {
+      ...dto,
+      ...dto.dueDate && {
+        dueDate: new Date(dto.dueDate)
       }
-    ).populate({
+    }, {
+      new: true
+    }).populate({
       path: "project",
       select: "name"
     }).populate({
@@ -3524,36 +3878,22 @@ var TaskRepository = class {
       select: "firstName lastName fullName avatar designation"
     });
     if (!task) {
-      throw new import_common32.NotFoundException(
-        "Task not found."
-      );
+      throw new import_common32.NotFoundException("Task not found.");
     }
     return task;
   }
   async remove(id) {
-    const task = await this.taskModel.findByIdAndDelete(
-      id
-    );
+    const task = await this.taskModel.findByIdAndDelete(id);
     if (!task) {
-      throw new import_common32.NotFoundException(
-        "Task not found."
-      );
+      throw new import_common32.NotFoundException("Task not found.");
     }
     return task;
   }
   async count(filter = {}) {
-    return this.taskModel.countDocuments(
-      filter
-    );
+    return this.taskModel.countDocuments(filter);
   }
   async getStatistics() {
-    const [
-      total,
-      todo,
-      progress,
-      review,
-      completed
-    ] = await Promise.all([
+    const [total, todo, progress, review, completed] = await Promise.all([
       this.count(),
       this.count({
         status: "Todo"
@@ -3577,22 +3917,36 @@ var TaskRepository = class {
     };
   }
 };
-TaskRepository = __decorateClass([
+TaskRepository = __decorate40([
   (0, import_common32.Injectable)(),
-  __decorateParam(0, (0, import_mongoose22.InjectModel)(Task.name)),
-  __decorateParam(0, (0, import_common32.Inject)(import_mongoose23.Model))
+  __param19(0, (0, import_mongoose22.InjectModel)(Task.name)),
+  __param19(0, (0, import_common32.Inject)(import_mongoose23.Model)),
+  __metadata30("design:paramtypes", [typeof (_a27 = typeof import_mongoose23.Model !== "undefined" && import_mongoose23.Model) === "function" ? _a27 : Object])
 ], TaskRepository);
 
-// apps/api/src/tasks/services/tasks.service.ts
-var TaskService = class {
+// src/tasks/services/tasks.service.ts
+var __decorate41 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata31 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param20 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a28;
+var TaskService = class TaskService2 {
+  tasksRepository;
   constructor(tasksRepository) {
     this.tasksRepository = tasksRepository;
   }
-  tasksRepository;
   async create(dto) {
-    return this.tasksRepository.create(
-      dto
-    );
+    return this.tasksRepository.create(dto);
   }
   async findAll(filter) {
     const query = {};
@@ -3627,32 +3981,21 @@ var TaskService = class {
     return this.tasksRepository.findAll(query);
   }
   async findOne(id) {
-    const task = await this.tasksRepository.findById(
-      id
-    );
+    const task = await this.tasksRepository.findById(id);
     if (!task) {
-      throw new import_common33.NotFoundException(
-        "Task not found."
-      );
+      throw new import_common33.NotFoundException("Task not found.");
     }
     return task;
   }
   async update(id, dto) {
-    const task = await this.tasksRepository.update(
-      id,
-      dto
-    );
+    const task = await this.tasksRepository.update(id, dto);
     if (!task) {
-      throw new import_common33.NotFoundException(
-        "Task not found."
-      );
+      throw new import_common33.NotFoundException("Task not found.");
     }
     return task;
   }
   async remove(id) {
-    await this.tasksRepository.remove(
-      id
-    );
+    await this.tasksRepository.remove(id);
     return {
       message: "Task deleted successfully."
     };
@@ -3661,87 +4004,243 @@ var TaskService = class {
     return this.tasksRepository.getStatistics();
   }
 };
-TaskService = __decorateClass([
+TaskService = __decorate41([
   (0, import_common33.Injectable)(),
-  __decorateParam(0, (0, import_common33.Inject)(TaskRepository))
+  __param20(0, (0, import_common33.Inject)(TaskRepository)),
+  __metadata31("design:paramtypes", [typeof (_a28 = typeof TaskRepository !== "undefined" && TaskRepository) === "function" ? _a28 : Object])
 ], TaskService);
 
-// apps/api/src/tasks/controllers/tasks.controller.ts
-var TaskController = class {
+// src/tasks/dto/create-task.dto.ts
+var import_class_validator8 = require("class-validator");
+var __decorate42 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata32 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a29;
+var _b15;
+var CreateTaskDto = class {
+  title;
+  description;
+  project;
+  assignedTo;
+  status;
+  priority;
+  progress;
+  dueDate;
+};
+__decorate42([
+  (0, import_class_validator8.IsString)(),
+  (0, import_class_validator8.MinLength)(3),
+  __metadata32("design:type", String)
+], CreateTaskDto.prototype, "title", void 0);
+__decorate42([
+  (0, import_class_validator8.IsString)(),
+  (0, import_class_validator8.IsOptional)(),
+  __metadata32("design:type", String)
+], CreateTaskDto.prototype, "description", void 0);
+__decorate42([
+  (0, import_class_validator8.IsMongoId)(),
+  __metadata32("design:type", String)
+], CreateTaskDto.prototype, "project", void 0);
+__decorate42([
+  (0, import_class_validator8.IsMongoId)(),
+  __metadata32("design:type", String)
+], CreateTaskDto.prototype, "assignedTo", void 0);
+__decorate42([
+  (0, import_class_validator8.IsEnum)(TaskStatus),
+  __metadata32("design:type", typeof (_a29 = typeof TaskStatus !== "undefined" && TaskStatus) === "function" ? _a29 : Object)
+], CreateTaskDto.prototype, "status", void 0);
+__decorate42([
+  (0, import_class_validator8.IsEnum)(TaskPriority),
+  __metadata32("design:type", typeof (_b15 = typeof TaskPriority !== "undefined" && TaskPriority) === "function" ? _b15 : Object)
+], CreateTaskDto.prototype, "priority", void 0);
+__decorate42([
+  (0, import_class_validator8.IsNumber)(),
+  (0, import_class_validator8.Min)(0),
+  (0, import_class_validator8.Max)(100),
+  (0, import_class_validator8.IsOptional)(),
+  __metadata32("design:type", Number)
+], CreateTaskDto.prototype, "progress", void 0);
+__decorate42([
+  (0, import_class_validator8.IsDateString)(),
+  __metadata32("design:type", String)
+], CreateTaskDto.prototype, "dueDate", void 0);
+
+// src/tasks/dto/update-task.dto.ts
+var import_mapped_types2 = require("@nestjs/mapped-types");
+var UpdateTaskDto = class extends (0, import_mapped_types2.PartialType)(CreateTaskDto) {
+};
+
+// src/tasks/dto/task-filter.dto.ts
+var import_class_validator9 = require("class-validator");
+var __decorate43 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata33 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a30;
+var _b16;
+var TaskFilterDto = class {
+  search;
+  status;
+  priority;
+  project;
+  employee;
+  page;
+  limit;
+};
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsString)(),
+  __metadata33("design:type", String)
+], TaskFilterDto.prototype, "search", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsEnum)(TaskStatus),
+  __metadata33("design:type", typeof (_a30 = typeof TaskStatus !== "undefined" && TaskStatus) === "function" ? _a30 : Object)
+], TaskFilterDto.prototype, "status", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsEnum)(TaskPriority),
+  __metadata33("design:type", typeof (_b16 = typeof TaskPriority !== "undefined" && TaskPriority) === "function" ? _b16 : Object)
+], TaskFilterDto.prototype, "priority", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsString)(),
+  __metadata33("design:type", String)
+], TaskFilterDto.prototype, "project", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsString)(),
+  __metadata33("design:type", String)
+], TaskFilterDto.prototype, "employee", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsNumberString)(),
+  __metadata33("design:type", String)
+], TaskFilterDto.prototype, "page", void 0);
+__decorate43([
+  (0, import_class_validator9.IsOptional)(),
+  (0, import_class_validator9.IsNumberString)(),
+  __metadata33("design:type", String)
+], TaskFilterDto.prototype, "limit", void 0);
+
+// src/tasks/controllers/tasks.controller.ts
+var __decorate44 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata34 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param21 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a31;
+var _b17;
+var _c12;
+var _d10;
+var TaskController = class TaskController2 {
+  taskService;
   constructor(taskService) {
     this.taskService = taskService;
   }
-  taskService;
   create(dto) {
     return this.taskService.create(dto);
   }
   findAll(filter) {
-    return this.taskService.findAll(
-      filter
-    );
+    return this.taskService.findAll(filter);
   }
   statistics() {
     return this.taskService.statistics();
   }
   findOne(id) {
-    return this.taskService.findOne(
-      id
-    );
+    return this.taskService.findOne(id);
   }
   update(id, dto) {
-    return this.taskService.update(
-      id,
-      dto
-    );
+    return this.taskService.update(id, dto);
   }
   remove(id) {
-    return this.taskService.remove(
-      id
-    );
+    return this.taskService.remove(id);
   }
 };
-__decorateClass([
+__decorate44([
   (0, import_common34.Post)(),
   Roles(...MANAGE_ROLES),
-  __decorateParam(0, (0, import_common34.Body)())
-], TaskController.prototype, "create", 1);
-__decorateClass([
+  __param21(0, (0, import_common34.Body)()),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", [typeof (_b17 = typeof CreateTaskDto !== "undefined" && CreateTaskDto) === "function" ? _b17 : Object]),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "create", null);
+__decorate44([
   (0, import_common34.Get)(),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common34.Query)())
-], TaskController.prototype, "findAll", 1);
-__decorateClass([
+  __param21(0, (0, import_common34.Query)()),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", [typeof (_c12 = typeof TaskFilterDto !== "undefined" && TaskFilterDto) === "function" ? _c12 : Object]),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "findAll", null);
+__decorate44([
   (0, import_common34.Get)("statistics"),
-  Roles(...VIEW_ROLES)
-], TaskController.prototype, "statistics", 1);
-__decorateClass([
+  Roles(...VIEW_ROLES),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", []),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "statistics", null);
+__decorate44([
   (0, import_common34.Get)(":id"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common34.Param)("id"))
-], TaskController.prototype, "findOne", 1);
-__decorateClass([
+  __param21(0, (0, import_common34.Param)("id")),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", [String]),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "findOne", null);
+__decorate44([
   (0, import_common34.Patch)(":id"),
   Roles(...MANAGE_ROLES),
-  __decorateParam(0, (0, import_common34.Param)("id")),
-  __decorateParam(1, (0, import_common34.Body)())
-], TaskController.prototype, "update", 1);
-__decorateClass([
+  __param21(0, (0, import_common34.Param)("id")),
+  __param21(1, (0, import_common34.Body)()),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", [String, typeof (_d10 = typeof UpdateTaskDto !== "undefined" && UpdateTaskDto) === "function" ? _d10 : Object]),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "update", null);
+__decorate44([
   (0, import_common34.Delete)(":id"),
   Roles(...ADMIN_ONLY),
-  __decorateParam(0, (0, import_common34.Param)("id"))
-], TaskController.prototype, "remove", 1);
-TaskController = __decorateClass([
-  (0, import_common34.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
+  __param21(0, (0, import_common34.Param)("id")),
+  __metadata34("design:type", Function),
+  __metadata34("design:paramtypes", [String]),
+  __metadata34("design:returntype", void 0)
+], TaskController.prototype, "remove", null);
+TaskController = __decorate44([
+  (0, import_common34.UseGuards)(JwtAuthGuard, RolesGuard),
   (0, import_common34.Controller)("tasks"),
-  __decorateParam(0, (0, import_common34.Inject)(TaskService))
+  __param21(0, (0, import_common34.Inject)(TaskService)),
+  __metadata34("design:paramtypes", [typeof (_a31 = typeof TaskService !== "undefined" && TaskService) === "function" ? _a31 : Object])
 ], TaskController);
 
-// apps/api/src/tasks/mappers/tasks.mapper.ts
+// src/tasks/mappers/tasks.mapper.ts
 var import_common35 = require("@nestjs/common");
-var TasksMapper = class {
+var __decorate45 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var TasksMapper = class TasksMapper2 {
   toResponse(task) {
     return {
       id: task._id.toString(),
@@ -3761,19 +4260,23 @@ var TasksMapper = class {
     };
   }
   toCollection(tasks) {
-    return tasks.map(
-      (task) => this.toResponse(task)
-    );
+    return tasks.map((task) => this.toResponse(task));
   }
 };
-TasksMapper = __decorateClass([
+TasksMapper = __decorate45([
   (0, import_common35.Injectable)()
 ], TasksMapper);
 
-// apps/api/src/tasks/tasks.module.ts
-var TaskModule = class {
+// src/tasks/tasks.module.ts
+var __decorate46 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-TaskModule = __decorateClass([
+var TaskModule = class TaskModule2 {
+};
+TaskModule = __decorate46([
   (0, import_common36.Module)({
     imports: [
       import_mongoose24.MongooseModule.forFeature([
@@ -3796,45 +4299,59 @@ TaskModule = __decorateClass([
   })
 ], TaskModule);
 
-// apps/api/src/common/middleware/logger.middleware.ts
+// src/common/middleware/logger.middleware.ts
 var import_common37 = require("@nestjs/common");
-var LoggerMiddleware = class {
+var __decorate47 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var LoggerMiddleware = class LoggerMiddleware2 {
   use(req, res, next) {
     const start = Date.now();
-    console.log(
-      `\u27A1\uFE0F ${req.method} ${req.originalUrl}`
-    );
+    console.log(`\u27A1\uFE0F ${req.method} ${req.originalUrl}`);
     res.on("finish", () => {
-      console.log(
-        `\u2705 ${req.method} ${req.originalUrl} ${res.statusCode} (${Date.now() - start}ms)`
-      );
+      console.log(`\u2705 ${req.method} ${req.originalUrl} ${res.statusCode} (${Date.now() - start}ms)`);
     });
     next();
   }
 };
-LoggerMiddleware = __decorateClass([
+LoggerMiddleware = __decorate47([
   (0, import_common37.Injectable)()
 ], LoggerMiddleware);
 
-// apps/api/src/attendance/attendance.module.ts
+// src/attendance/attendance.module.ts
 var import_common42 = require("@nestjs/common");
 var import_mongoose29 = require("@nestjs/mongoose");
 
-// apps/api/src/attendance/schemas/attendance.schema.ts
+// src/attendance/schemas/attendance.schema.ts
 var import_mongoose25 = require("@nestjs/mongoose");
 var import_mongoose26 = require("mongoose");
 
-// apps/api/src/attendance/enums/attendance-status.enum.ts
-var AttendanceStatus = /* @__PURE__ */ ((AttendanceStatus2) => {
+// src/attendance/enums/attendance-status.enum.ts
+var AttendanceStatus;
+(function(AttendanceStatus2) {
   AttendanceStatus2["PRESENT"] = "Present";
   AttendanceStatus2["LATE"] = "Late";
   AttendanceStatus2["ABSENT"] = "Absent";
   AttendanceStatus2["LEAVE"] = "Leave";
-  return AttendanceStatus2;
-})(AttendanceStatus || {});
+})(AttendanceStatus || (AttendanceStatus = {}));
 
-// apps/api/src/attendance/schemas/attendance.schema.ts
-var Attendance = class {
+// src/attendance/schemas/attendance.schema.ts
+var __decorate48 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata35 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a32;
+var _b18;
+var _c13;
+var Attendance = class Attendance2 {
   employee;
   date;
   checkIn;
@@ -3842,99 +4359,103 @@ var Attendance = class {
   workingHours;
   status;
 };
-__decorateClass([
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: import_mongoose26.Types.ObjectId,
     ref: "Employee",
     required: true
-  })
-], Attendance.prototype, "employee", 2);
-__decorateClass([
+  }),
+  __metadata35("design:type", typeof (_a32 = typeof import_mongoose26.Types !== "undefined" && import_mongoose26.Types.ObjectId) === "function" ? _a32 : Object)
+], Attendance.prototype, "employee", void 0);
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: Date,
     required: true
-  })
-], Attendance.prototype, "date", 2);
-__decorateClass([
+  }),
+  __metadata35("design:type", typeof (_b18 = typeof Date !== "undefined" && Date) === "function" ? _b18 : Object)
+], Attendance.prototype, "date", void 0);
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: String
-  })
-], Attendance.prototype, "checkIn", 2);
-__decorateClass([
+  }),
+  __metadata35("design:type", String)
+], Attendance.prototype, "checkIn", void 0);
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: String
-  })
-], Attendance.prototype, "checkOut", 2);
-__decorateClass([
+  }),
+  __metadata35("design:type", String)
+], Attendance.prototype, "checkOut", void 0);
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: Number,
     default: 0
-  })
-], Attendance.prototype, "workingHours", 2);
-__decorateClass([
+  }),
+  __metadata35("design:type", Number)
+], Attendance.prototype, "workingHours", void 0);
+__decorate48([
   (0, import_mongoose25.Prop)({
     type: String,
     enum: AttendanceStatus,
-    default: "Present" /* PRESENT */
-  })
-], Attendance.prototype, "status", 2);
-Attendance = __decorateClass([
+    default: AttendanceStatus.PRESENT
+  }),
+  __metadata35("design:type", typeof (_c13 = typeof AttendanceStatus !== "undefined" && AttendanceStatus) === "function" ? _c13 : Object)
+], Attendance.prototype, "status", void 0);
+Attendance = __decorate48([
   (0, import_mongoose25.Schema)({
     timestamps: true
   })
 ], Attendance);
-var AttendanceSchema = import_mongoose25.SchemaFactory.createForClass(
-  Attendance
-);
+var AttendanceSchema = import_mongoose25.SchemaFactory.createForClass(Attendance);
 
-// apps/api/src/attendance/controllers/attendance.controller.ts
+// src/attendance/controllers/attendance.controller.ts
 var import_common40 = require("@nestjs/common");
 
-// apps/api/src/attendance/services/attendance.service.ts
+// src/attendance/services/attendance.service.ts
 var import_common39 = require("@nestjs/common");
 
-// apps/api/src/attendance/repositories/attendance.repository.ts
+// src/attendance/repositories/attendance.repository.ts
 var import_common38 = require("@nestjs/common");
 var import_mongoose27 = require("@nestjs/mongoose");
 var import_mongoose28 = require("mongoose");
-var AttendanceRepository = class {
+var __decorate49 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata36 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param22 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a33;
+var AttendanceRepository = class AttendanceRepository2 {
+  attendanceModel;
   constructor(attendanceModel) {
     this.attendanceModel = attendanceModel;
   }
-  attendanceModel;
   calculateWorkingHours(checkIn, checkOut) {
     if (!checkIn || !checkOut) {
       return 0;
     }
-    const start = /* @__PURE__ */ new Date(
-      `2026-01-01T${checkIn}`
-    );
-    const end = /* @__PURE__ */ new Date(
-      `2026-01-01T${checkOut}`
-    );
-    return Number(
-      ((end.getTime() - start.getTime()) / 36e5).toFixed(1)
-    );
+    const start = /* @__PURE__ */ new Date(`2026-01-01T${checkIn}`);
+    const end = /* @__PURE__ */ new Date(`2026-01-01T${checkOut}`);
+    return Number(((end.getTime() - start.getTime()) / 36e5).toFixed(1));
   }
   async create(dto) {
-    const attendance = await this.attendanceModel.create(
-      {
-        employee: dto.employee,
-        date: new Date(
-          dto.date
-        ),
-        checkIn: dto.checkIn,
-        checkOut: dto.checkOut,
-        workingHours: this.calculateWorkingHours(
-          dto.checkIn,
-          dto.checkOut
-        ),
-        status: dto.status
-      }
-    );
-    return this.findById(
-      attendance.id
-    );
+    const attendance = await this.attendanceModel.create({
+      employee: dto.employee,
+      date: new Date(dto.date),
+      checkIn: dto.checkIn,
+      checkOut: dto.checkOut,
+      workingHours: this.calculateWorkingHours(dto.checkIn, dto.checkOut),
+      status: dto.status
+    });
+    return this.findById(attendance.id);
   }
   async findAll(filter = {}) {
     return this.attendanceModel.find(filter).populate({
@@ -3950,66 +4471,40 @@ var AttendanceRepository = class {
       select: "firstName lastName fullName avatar department designation"
     }).lean();
     if (!attendance) {
-      throw new import_common38.NotFoundException(
-        "Attendance record not found."
-      );
+      throw new import_common38.NotFoundException("Attendance record not found.");
     }
     return attendance;
   }
   async update(id, dto) {
-    const existing = await this.attendanceModel.findById(
-      id
-    );
+    const existing = await this.attendanceModel.findById(id);
     if (!existing) {
-      throw new import_common38.NotFoundException(
-        "Attendance record not found."
-      );
+      throw new import_common38.NotFoundException("Attendance record not found.");
     }
     const checkIn = dto.checkIn ?? existing.checkIn;
     const checkOut = dto.checkOut ?? existing.checkOut;
-    await this.attendanceModel.findByIdAndUpdate(
-      id,
-      {
-        ...dto,
-        ...dto.date && {
-          date: new Date(
-            dto.date
-          )
-        },
-        workingHours: this.calculateWorkingHours(
-          checkIn,
-          checkOut
-        )
+    await this.attendanceModel.findByIdAndUpdate(id, {
+      ...dto,
+      ...dto.date && {
+        date: new Date(dto.date)
       },
-      {
-        new: true
-      }
-    );
+      workingHours: this.calculateWorkingHours(checkIn, checkOut)
+    }, {
+      new: true
+    });
     return this.findById(id);
   }
   async remove(id) {
-    const attendance = await this.attendanceModel.findByIdAndDelete(
-      id
-    );
+    const attendance = await this.attendanceModel.findByIdAndDelete(id);
     if (!attendance) {
-      throw new import_common38.NotFoundException(
-        "Attendance record not found."
-      );
+      throw new import_common38.NotFoundException("Attendance record not found.");
     }
     return attendance;
   }
   async count(filter = {}) {
-    return this.attendanceModel.countDocuments(
-      filter
-    );
+    return this.attendanceModel.countDocuments(filter);
   }
   async getStatistics() {
-    const [
-      present,
-      late,
-      absent,
-      leave
-    ] = await Promise.all([
+    const [present, late, absent, leave] = await Promise.all([
       this.count({
         status: "Present"
       }),
@@ -4032,24 +4527,36 @@ var AttendanceRepository = class {
     };
   }
 };
-AttendanceRepository = __decorateClass([
+AttendanceRepository = __decorate49([
   (0, import_common38.Injectable)(),
-  __decorateParam(0, (0, import_mongoose27.InjectModel)(
-    Attendance.name
-  )),
-  __decorateParam(0, (0, import_common38.Inject)(import_mongoose28.Model))
+  __param22(0, (0, import_mongoose27.InjectModel)(Attendance.name)),
+  __param22(0, (0, import_common38.Inject)(import_mongoose28.Model)),
+  __metadata36("design:paramtypes", [typeof (_a33 = typeof import_mongoose28.Model !== "undefined" && import_mongoose28.Model) === "function" ? _a33 : Object])
 ], AttendanceRepository);
 
-// apps/api/src/attendance/services/attendance.service.ts
-var AttendanceService = class {
+// src/attendance/services/attendance.service.ts
+var __decorate50 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata37 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param23 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a34;
+var AttendanceService = class AttendanceService2 {
+  attendanceRepository;
   constructor(attendanceRepository) {
     this.attendanceRepository = attendanceRepository;
   }
-  attendanceRepository;
   async create(dto) {
-    return this.attendanceRepository.create(
-      dto
-    );
+    return this.attendanceRepository.create(dto);
   }
   async findAll(filter) {
     const query = {};
@@ -4060,52 +4567,33 @@ var AttendanceService = class {
       query.employee = filter.employee;
     }
     if (filter.date) {
-      query.date = new Date(
-        filter.date
-      );
+      query.date = new Date(filter.date);
     }
-    const records = await this.attendanceRepository.findAll(
-      query
-    );
-    const items = records.filter(
-      (record) => {
-        const fullName = record.employee?.fullName ?? `${record.employee?.firstName ?? ""} ${record.employee?.lastName ?? ""}`.trim();
-        const matchesSearch = !filter.search || fullName.toLowerCase().includes(
-          filter.search.toLowerCase()
-        );
-        const matchesDepartment = !filter.department || record.employee?.department === filter.department;
-        return matchesSearch && matchesDepartment;
-      }
-    );
+    const records = await this.attendanceRepository.findAll(query);
+    const items = records.filter((record) => {
+      const fullName = record.employee?.fullName ?? `${record.employee?.firstName ?? ""} ${record.employee?.lastName ?? ""}`.trim();
+      const matchesSearch = !filter.search || fullName.toLowerCase().includes(filter.search.toLowerCase());
+      const matchesDepartment = !filter.department || record.employee?.department === filter.department;
+      return matchesSearch && matchesDepartment;
+    });
     return items;
   }
   async findOne(id) {
-    const attendance = await this.attendanceRepository.findById(
-      id
-    );
+    const attendance = await this.attendanceRepository.findById(id);
     if (!attendance) {
-      throw new import_common39.NotFoundException(
-        "Attendance record not found."
-      );
+      throw new import_common39.NotFoundException("Attendance record not found.");
     }
     return attendance;
   }
   async update(id, dto) {
-    const attendance = await this.attendanceRepository.update(
-      id,
-      dto
-    );
+    const attendance = await this.attendanceRepository.update(id, dto);
     if (!attendance) {
-      throw new import_common39.NotFoundException(
-        "Attendance record not found."
-      );
+      throw new import_common39.NotFoundException("Attendance record not found.");
     }
     return attendance;
   }
   async remove(id) {
-    await this.attendanceRepository.remove(
-      id
-    );
+    await this.attendanceRepository.remove(id);
     return {
       message: "Attendance deleted successfully."
     };
@@ -4114,80 +4602,217 @@ var AttendanceService = class {
     return this.attendanceRepository.getStatistics();
   }
 };
-AttendanceService = __decorateClass([
+AttendanceService = __decorate50([
   (0, import_common39.Injectable)(),
-  __decorateParam(0, (0, import_common39.Inject)(AttendanceRepository))
+  __param23(0, (0, import_common39.Inject)(AttendanceRepository)),
+  __metadata37("design:paramtypes", [typeof (_a34 = typeof AttendanceRepository !== "undefined" && AttendanceRepository) === "function" ? _a34 : Object])
 ], AttendanceService);
 
-// apps/api/src/attendance/controllers/attendance.controller.ts
-var AttendanceController = class {
+// src/attendance/dto/create-attendance.dto.ts
+var import_class_validator10 = require("class-validator");
+var __decorate51 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata38 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a35;
+var CreateAttendanceDto = class {
+  employee;
+  date;
+  checkIn;
+  checkOut;
+  status;
+};
+__decorate51([
+  (0, import_class_validator10.IsMongoId)(),
+  __metadata38("design:type", String)
+], CreateAttendanceDto.prototype, "employee", void 0);
+__decorate51([
+  (0, import_class_validator10.IsDateString)(),
+  __metadata38("design:type", String)
+], CreateAttendanceDto.prototype, "date", void 0);
+__decorate51([
+  (0, import_class_validator10.IsOptional)(),
+  (0, import_class_validator10.IsString)(),
+  __metadata38("design:type", String)
+], CreateAttendanceDto.prototype, "checkIn", void 0);
+__decorate51([
+  (0, import_class_validator10.IsOptional)(),
+  (0, import_class_validator10.IsString)(),
+  __metadata38("design:type", String)
+], CreateAttendanceDto.prototype, "checkOut", void 0);
+__decorate51([
+  (0, import_class_validator10.IsEnum)(AttendanceStatus),
+  __metadata38("design:type", typeof (_a35 = typeof AttendanceStatus !== "undefined" && AttendanceStatus) === "function" ? _a35 : Object)
+], CreateAttendanceDto.prototype, "status", void 0);
+
+// src/attendance/dto/update-attendance.dto.ts
+var import_mapped_types3 = require("@nestjs/mapped-types");
+var UpdateAttendanceDto = class extends (0, import_mapped_types3.PartialType)(CreateAttendanceDto) {
+};
+
+// src/attendance/dto/attendance-filter.dto.ts
+var import_class_validator11 = require("class-validator");
+var __decorate52 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata39 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a36;
+var AttendanceFilterDto = class {
+  search;
+  department;
+  status;
+  employee;
+  date;
+  page;
+  limit;
+};
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "search", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "department", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsEnum)(AttendanceStatus),
+  __metadata39("design:type", typeof (_a36 = typeof AttendanceStatus !== "undefined" && AttendanceStatus) === "function" ? _a36 : Object)
+], AttendanceFilterDto.prototype, "status", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "employee", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "date", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsNumberString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "page", void 0);
+__decorate52([
+  (0, import_class_validator11.IsOptional)(),
+  (0, import_class_validator11.IsNumberString)(),
+  __metadata39("design:type", String)
+], AttendanceFilterDto.prototype, "limit", void 0);
+
+// src/attendance/controllers/attendance.controller.ts
+var __decorate53 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata40 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param24 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a37;
+var _b19;
+var _c14;
+var _d11;
+var AttendanceController = class AttendanceController2 {
+  attendanceService;
   constructor(attendanceService) {
     this.attendanceService = attendanceService;
   }
-  attendanceService;
   create(dto) {
-    return this.attendanceService.create(
-      dto
-    );
+    return this.attendanceService.create(dto);
   }
   findAll(filter) {
-    return this.attendanceService.findAll(
-      filter
-    );
+    return this.attendanceService.findAll(filter);
   }
   statistics() {
     return this.attendanceService.statistics();
   }
   findOne(id) {
-    return this.attendanceService.findOne(
-      id
-    );
+    return this.attendanceService.findOne(id);
   }
   update(id, dto) {
-    return this.attendanceService.update(
-      id,
-      dto
-    );
+    return this.attendanceService.update(id, dto);
   }
   remove(id) {
-    return this.attendanceService.remove(
-      id
-    );
+    return this.attendanceService.remove(id);
   }
 };
-__decorateClass([
+__decorate53([
   (0, import_common40.Post)(),
-  __decorateParam(0, (0, import_common40.Body)())
-], AttendanceController.prototype, "create", 1);
-__decorateClass([
+  __param24(0, (0, import_common40.Body)()),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", [typeof (_b19 = typeof CreateAttendanceDto !== "undefined" && CreateAttendanceDto) === "function" ? _b19 : Object]),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "create", null);
+__decorate53([
   (0, import_common40.Get)(),
-  __decorateParam(0, (0, import_common40.Query)())
-], AttendanceController.prototype, "findAll", 1);
-__decorateClass([
-  (0, import_common40.Get)("statistics")
-], AttendanceController.prototype, "statistics", 1);
-__decorateClass([
+  __param24(0, (0, import_common40.Query)()),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", [typeof (_c14 = typeof AttendanceFilterDto !== "undefined" && AttendanceFilterDto) === "function" ? _c14 : Object]),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "findAll", null);
+__decorate53([
+  (0, import_common40.Get)("statistics"),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", []),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "statistics", null);
+__decorate53([
   (0, import_common40.Get)(":id"),
-  __decorateParam(0, (0, import_common40.Param)("id"))
-], AttendanceController.prototype, "findOne", 1);
-__decorateClass([
+  __param24(0, (0, import_common40.Param)("id")),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", [String]),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "findOne", null);
+__decorate53([
   (0, import_common40.Patch)(":id"),
-  __decorateParam(0, (0, import_common40.Param)("id")),
-  __decorateParam(1, (0, import_common40.Body)())
-], AttendanceController.prototype, "update", 1);
-__decorateClass([
+  __param24(0, (0, import_common40.Param)("id")),
+  __param24(1, (0, import_common40.Body)()),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", [String, typeof (_d11 = typeof UpdateAttendanceDto !== "undefined" && UpdateAttendanceDto) === "function" ? _d11 : Object]),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "update", null);
+__decorate53([
   (0, import_common40.Delete)(":id"),
-  __decorateParam(0, (0, import_common40.Param)("id"))
-], AttendanceController.prototype, "remove", 1);
-AttendanceController = __decorateClass([
+  __param24(0, (0, import_common40.Param)("id")),
+  __metadata40("design:type", Function),
+  __metadata40("design:paramtypes", [String]),
+  __metadata40("design:returntype", void 0)
+], AttendanceController.prototype, "remove", null);
+AttendanceController = __decorate53([
   (0, import_common40.UseGuards)(JwtAuthGuard),
   (0, import_common40.Controller)("attendance"),
-  __decorateParam(0, (0, import_common40.Inject)(AttendanceService))
+  __param24(0, (0, import_common40.Inject)(AttendanceService)),
+  __metadata40("design:paramtypes", [typeof (_a37 = typeof AttendanceService !== "undefined" && AttendanceService) === "function" ? _a37 : Object])
 ], AttendanceController);
 
-// apps/api/src/attendance/mapper/attendance.mapper.ts
+// src/attendance/mapper/attendance.mapper.ts
 var import_common41 = require("@nestjs/common");
-var AttendanceMapper = class {
+var __decorate54 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var AttendanceMapper = class AttendanceMapper2 {
   toResponse(attendance) {
     return {
       id: attendance._id.toString(),
@@ -4205,19 +4830,23 @@ var AttendanceMapper = class {
     };
   }
   toCollection(attendance) {
-    return attendance.map(
-      (item) => this.toResponse(item)
-    );
+    return attendance.map((item) => this.toResponse(item));
   }
 };
-AttendanceMapper = __decorateClass([
+AttendanceMapper = __decorate54([
   (0, import_common41.Injectable)()
 ], AttendanceMapper);
 
-// apps/api/src/attendance/attendance.module.ts
-var AttendanceModule = class {
+// src/attendance/attendance.module.ts
+var __decorate55 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-AttendanceModule = __decorateClass([
+var AttendanceModule = class AttendanceModule2 {
+};
+AttendanceModule = __decorate55([
   (0, import_common42.Module)({
     imports: [
       import_mongoose29.MongooseModule.forFeature([
@@ -4246,16 +4875,17 @@ AttendanceModule = __decorateClass([
   })
 ], AttendanceModule);
 
-// apps/api/src/calender/calender.module.ts
+// src/calender/calender.module.ts
 var import_common47 = require("@nestjs/common");
 var import_mongoose35 = require("@nestjs/mongoose");
 
-// apps/api/src/calender/schemas/calendar-event.schema.ts
+// src/calender/schemas/calendar-event.schema.ts
 var import_mongoose30 = require("@nestjs/mongoose");
 var import_mongoose31 = require("mongoose");
 
-// apps/api/src/calender/enums/calendar-event-type.enum.ts
-var CalendarEventType = /* @__PURE__ */ ((CalendarEventType2) => {
+// src/calender/enums/calendar-event-type.enum.ts
+var CalendarEventType;
+(function(CalendarEventType2) {
   CalendarEventType2["MEETING"] = "Meeting";
   CalendarEventType2["PROJECT"] = "Project";
   CalendarEventType2["HOLIDAY"] = "Holiday";
@@ -4263,11 +4893,21 @@ var CalendarEventType = /* @__PURE__ */ ((CalendarEventType2) => {
   CalendarEventType2["LEAVE"] = "Leave";
   CalendarEventType2["INTERVIEW"] = "Interview";
   CalendarEventType2["DEADLINE"] = "Deadline";
-  return CalendarEventType2;
-})(CalendarEventType || {});
+})(CalendarEventType || (CalendarEventType = {}));
 
-// apps/api/src/calender/schemas/calendar-event.schema.ts
-var CalendarEvent = class {
+// src/calender/schemas/calendar-event.schema.ts
+var __decorate56 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata41 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a38;
+var _b20;
+var CalendarEvent = class CalendarEvent2 {
   title;
   description;
   type;
@@ -4278,55 +4918,62 @@ var CalendarEvent = class {
   attendees;
   color;
 };
-__decorateClass([
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], CalendarEvent.prototype, "title", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "title", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     trim: true,
     default: ""
-  })
-], CalendarEvent.prototype, "description", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "description", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     required: true,
     enum: CalendarEventType
-  })
-], CalendarEvent.prototype, "type", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", typeof (_a38 = typeof CalendarEventType !== "undefined" && CalendarEventType) === "function" ? _a38 : Object)
+], CalendarEvent.prototype, "type", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: Date,
     required: true
-  })
-], CalendarEvent.prototype, "date", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", typeof (_b20 = typeof Date !== "undefined" && Date) === "function" ? _b20 : Object)
+], CalendarEvent.prototype, "date", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], CalendarEvent.prototype, "startTime", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "startTime", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], CalendarEvent.prototype, "endTime", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "endTime", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     trim: true,
     default: ""
-  })
-], CalendarEvent.prototype, "location", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "location", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: [
       {
@@ -4335,54 +4982,60 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], CalendarEvent.prototype, "attendees", 2);
-__decorateClass([
+  }),
+  __metadata41("design:type", Array)
+], CalendarEvent.prototype, "attendees", void 0);
+__decorate56([
   (0, import_mongoose30.Prop)({
     type: String,
     default: "#06b6d4",
     trim: true
-  })
-], CalendarEvent.prototype, "color", 2);
-CalendarEvent = __decorateClass([
+  }),
+  __metadata41("design:type", String)
+], CalendarEvent.prototype, "color", void 0);
+CalendarEvent = __decorate56([
   (0, import_mongoose30.Schema)({
     timestamps: true
   })
 ], CalendarEvent);
-var CalendarEventSchema = import_mongoose30.SchemaFactory.createForClass(
-  CalendarEvent
-);
+var CalendarEventSchema = import_mongoose30.SchemaFactory.createForClass(CalendarEvent);
 
-// apps/api/src/calender/controller/calendar.controller.ts
+// src/calender/controller/calendar.controller.ts
 var import_common46 = require("@nestjs/common");
 
-// apps/api/src/calender/service/calendar.service.ts
+// src/calender/service/calendar.service.ts
 var import_common45 = require("@nestjs/common");
 var import_mongoose34 = require("mongoose");
 
-// apps/api/src/calender/repository/calendar.repository.ts
+// src/calender/repository/calendar.repository.ts
 var import_common43 = require("@nestjs/common");
 var import_mongoose32 = require("@nestjs/mongoose");
 var import_mongoose33 = require("mongoose");
-var CalendarRepository = class {
+var __decorate57 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata42 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param25 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a39;
+var CalendarRepository = class CalendarRepository2 {
+  calendarModel;
   constructor(calendarModel) {
     this.calendarModel = calendarModel;
   }
-  calendarModel;
   async create(data) {
-    return this.calendarModel.create(
-      data
-    );
+    return this.calendarModel.create(data);
   }
   async findAll(filter) {
-    const {
-      search,
-      type,
-      page = "1",
-      limit = "10",
-      sortBy = "date",
-      order = "asc"
-    } = filter;
+    const { search, type, page = "1", limit = "10", sortBy = "date", order = "asc" } = filter;
     const query = {};
     if (search) {
       query.$or = [
@@ -4411,97 +5064,53 @@ var CalendarRepository = class {
     }
     const currentPage = Number(page);
     const pageSize = Number(limit);
-    const total = await this.calendarModel.countDocuments(
-      query
-    );
-    const items = await this.calendarModel.find(query).populate(
-      "attendees",
-      "firstName lastName email avatar"
-    ).sort({
+    const total = await this.calendarModel.countDocuments(query);
+    const items = await this.calendarModel.find(query).populate("attendees", "firstName lastName email avatar").sort({
       [sortBy]: order === "asc" ? 1 : -1
-    }).skip(
-      (currentPage - 1) * pageSize
-    ).limit(pageSize).lean();
+    }).skip((currentPage - 1) * pageSize).limit(pageSize).lean();
     return {
       items,
       pagination: {
         page: currentPage,
         limit: pageSize,
         total,
-        totalPages: Math.ceil(
-          total / pageSize
-        )
+        totalPages: Math.ceil(total / pageSize)
       }
     };
   }
   async findById(id) {
-    return this.calendarModel.findById(id).populate(
-      "attendees",
-      "firstName lastName email avatar"
-    );
+    return this.calendarModel.findById(id).populate("attendees", "firstName lastName email avatar");
   }
   async update(id, data) {
-    return this.calendarModel.findByIdAndUpdate(
-      id,
-      data,
-      {
-        new: true
-      }
-    ).populate(
-      "attendees",
-      "firstName lastName email avatar"
-    );
+    return this.calendarModel.findByIdAndUpdate(id, data, {
+      new: true
+    }).populate("attendees", "firstName lastName email avatar");
   }
   async remove(id) {
-    return this.calendarModel.findByIdAndDelete(
-      id
-    );
+    return this.calendarModel.findByIdAndDelete(id);
   }
   async statistics() {
     const today = /* @__PURE__ */ new Date();
-    today.setHours(
-      0,
-      0,
-      0,
-      0
-    );
-    const tomorrow = new Date(
-      today
-    );
-    tomorrow.setDate(
-      tomorrow.getDate() + 1
-    );
-    const [
-      total,
-      todayEvents,
-      meetings,
-      birthdays,
-      deadlines
-    ] = await Promise.all([
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const [total, todayEvents, meetings, birthdays, deadlines] = await Promise.all([
       this.calendarModel.countDocuments(),
-      this.calendarModel.countDocuments(
-        {
-          date: {
-            $gte: today,
-            $lt: tomorrow
-          }
+      this.calendarModel.countDocuments({
+        date: {
+          $gte: today,
+          $lt: tomorrow
         }
-      ),
-      this.calendarModel.countDocuments(
-        {
-          type: "Meeting"
-        }
-      ),
-      this.calendarModel.countDocuments(
-        {
-          type: "Birthday"
-        }
-      ),
-      this.calendarModel.countDocuments(
-        {
-          type: "Deadline"
-        }
-      )
+      }),
+      this.calendarModel.countDocuments({
+        type: "Meeting"
+      }),
+      this.calendarModel.countDocuments({
+        type: "Birthday"
+      }),
+      this.calendarModel.countDocuments({
+        type: "Deadline"
+      })
     ]);
     return {
       total,
@@ -4516,26 +5125,28 @@ var CalendarRepository = class {
       date: {
         $gte: /* @__PURE__ */ new Date()
       }
-    }).populate(
-      "attendees",
-      "firstName lastName email avatar"
-    ).sort({
+    }).populate("attendees", "firstName lastName email avatar").sort({
       date: 1,
       startTime: 1
     }).limit(limit).lean();
   }
 };
-CalendarRepository = __decorateClass([
+CalendarRepository = __decorate57([
   (0, import_common43.Injectable)(),
-  __decorateParam(0, (0, import_mongoose32.InjectModel)(
-    CalendarEvent.name
-  )),
-  __decorateParam(0, (0, import_common43.Inject)(import_mongoose33.Model))
+  __param25(0, (0, import_mongoose32.InjectModel)(CalendarEvent.name)),
+  __param25(0, (0, import_common43.Inject)(import_mongoose33.Model)),
+  __metadata42("design:paramtypes", [typeof (_a39 = typeof import_mongoose33.Model !== "undefined" && import_mongoose33.Model) === "function" ? _a39 : Object])
 ], CalendarRepository);
 
-// apps/api/src/calender/mapper/calendar.mapper.ts
+// src/calender/mapper/calendar.mapper.ts
 var import_common44 = require("@nestjs/common");
-var CalendarMapper = class {
+var __decorate58 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var CalendarMapper = class CalendarMapper2 {
   toResponse(event) {
     if (!event) {
       return null;
@@ -4545,34 +5156,24 @@ var CalendarMapper = class {
       title: event.title,
       description: event.description,
       type: event.type,
-      date: this.formatDate(
-        event.date
-      ),
+      date: this.formatDate(event.date),
       startTime: event.startTime,
       endTime: event.endTime,
       location: event.location,
-      attendees: this.mapAttendees(
-        event.attendees
-      ),
+      attendees: this.mapAttendees(event.attendees),
       color: event.color
     };
   }
   toList(events) {
-    return events.map(
-      (event) => this.toResponse(
-        event
-      )
-    );
+    return events.map((event) => this.toResponse(event));
   }
   mapAttendees(attendees = []) {
-    return attendees.map(
-      (employee) => {
-        if (typeof employee === "string") {
-          return employee;
-        }
-        return employee.fullName ?? `${employee.firstName ?? ""} ${employee.lastName ?? ""}`.trim();
+    return attendees.map((employee) => {
+      if (typeof employee === "string") {
+        return employee;
       }
-    );
+      return employee.fullName ?? `${employee.firstName ?? ""} ${employee.lastName ?? ""}`.trim();
+    });
   }
   formatDate(value) {
     if (!value) {
@@ -4581,18 +5182,34 @@ var CalendarMapper = class {
     return new Date(value).toISOString().split("T")[0];
   }
 };
-CalendarMapper = __decorateClass([
+CalendarMapper = __decorate58([
   (0, import_common44.Injectable)()
 ], CalendarMapper);
 
-// apps/api/src/calender/service/calendar.service.ts
-var CalendarService = class {
+// src/calender/service/calendar.service.ts
+var __decorate59 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata43 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param26 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a40;
+var _b21;
+var CalendarService = class CalendarService2 {
+  calendarRepository;
+  calendarMapper;
   constructor(calendarRepository, calendarMapper) {
     this.calendarRepository = calendarRepository;
     this.calendarMapper = calendarMapper;
   }
-  calendarRepository;
-  calendarMapper;
   async create(dto) {
     const event = await this.calendarRepository.create({
       title: dto.title,
@@ -4602,38 +5219,24 @@ var CalendarService = class {
       startTime: dto.startTime,
       endTime: dto.endTime,
       location: dto.location,
-      attendees: dto.attendees?.map(
-        (id) => new import_mongoose34.Types.ObjectId(id)
-      ) ?? [],
+      attendees: dto.attendees?.map((id) => new import_mongoose34.Types.ObjectId(id)) ?? [],
       color: dto.color
     });
-    return this.calendarMapper.toResponse(
-      event
-    );
+    return this.calendarMapper.toResponse(event);
   }
   async findAll(filter) {
-    const result = await this.calendarRepository.findAll(
-      filter
-    );
+    const result = await this.calendarRepository.findAll(filter);
     return {
-      items: this.calendarMapper.toList(
-        result.items
-      ),
+      items: this.calendarMapper.toList(result.items),
       pagination: result.pagination
     };
   }
   async findOne(id) {
-    const event = await this.calendarRepository.findById(
-      id
-    );
+    const event = await this.calendarRepository.findById(id);
     if (!event) {
-      throw new import_common45.NotFoundException(
-        "Calendar event not found."
-      );
+      throw new import_common45.NotFoundException("Calendar event not found.");
     }
-    return this.calendarMapper.toResponse(
-      event
-    );
+    return this.calendarMapper.toResponse(event);
   }
   async update(id, dto) {
     const updateData = {};
@@ -4647,9 +5250,7 @@ var CalendarService = class {
       updateData.type = dto.type;
     }
     if (dto.date !== void 0) {
-      updateData.date = new Date(
-        dto.date
-      );
+      updateData.date = new Date(dto.date);
     }
     if (dto.startTime !== void 0) {
       updateData.startTime = dto.startTime;
@@ -4661,34 +5262,21 @@ var CalendarService = class {
       updateData.location = dto.location;
     }
     if (dto.attendees !== void 0) {
-      updateData.attendees = dto.attendees.map(
-        (id2) => new import_mongoose34.Types.ObjectId(id2)
-      );
+      updateData.attendees = dto.attendees.map((id2) => new import_mongoose34.Types.ObjectId(id2));
     }
     if (dto.color !== void 0) {
       updateData.color = dto.color;
     }
-    const event = await this.calendarRepository.update(
-      id,
-      updateData
-    );
+    const event = await this.calendarRepository.update(id, updateData);
     if (!event) {
-      throw new import_common45.NotFoundException(
-        "Calendar event not found."
-      );
+      throw new import_common45.NotFoundException("Calendar event not found.");
     }
-    return this.calendarMapper.toResponse(
-      event
-    );
+    return this.calendarMapper.toResponse(event);
   }
   async remove(id) {
-    const event = await this.calendarRepository.remove(
-      id
-    );
+    const event = await this.calendarRepository.remove(id);
     if (!event) {
-      throw new import_common45.NotFoundException(
-        "Calendar event not found."
-      );
+      throw new import_common45.NotFoundException("Calendar event not found.");
     }
     return {
       message: "Calendar event deleted successfully."
@@ -4699,32 +5287,169 @@ var CalendarService = class {
   }
   async upcoming() {
     const events = await this.calendarRepository.upcoming();
-    return this.calendarMapper.toList(
-      events
-    );
+    return this.calendarMapper.toList(events);
   }
 };
-CalendarService = __decorateClass([
+CalendarService = __decorate59([
   (0, import_common45.Injectable)(),
-  __decorateParam(0, (0, import_common45.Inject)(CalendarRepository)),
-  __decorateParam(1, (0, import_common45.Inject)(CalendarMapper))
+  __param26(0, (0, import_common45.Inject)(CalendarRepository)),
+  __param26(1, (0, import_common45.Inject)(CalendarMapper)),
+  __metadata43("design:paramtypes", [typeof (_a40 = typeof CalendarRepository !== "undefined" && CalendarRepository) === "function" ? _a40 : Object, typeof (_b21 = typeof CalendarMapper !== "undefined" && CalendarMapper) === "function" ? _b21 : Object])
 ], CalendarService);
 
-// apps/api/src/calender/controller/calendar.controller.ts
-var CalendarController = class {
+// src/calender/dto/create-calendar-event.dto.ts
+var import_class_validator12 = require("class-validator");
+var __decorate60 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata44 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a41;
+var CreateCalendarEventDto = class {
+  title;
+  description;
+  type;
+  date;
+  startTime;
+  endTime;
+  location;
+  attendees;
+  color;
+};
+__decorate60([
+  (0, import_class_validator12.IsString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "title", void 0);
+__decorate60([
+  (0, import_class_validator12.IsOptional)(),
+  (0, import_class_validator12.IsString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "description", void 0);
+__decorate60([
+  (0, import_class_validator12.IsEnum)(CalendarEventType),
+  __metadata44("design:type", typeof (_a41 = typeof CalendarEventType !== "undefined" && CalendarEventType) === "function" ? _a41 : Object)
+], CreateCalendarEventDto.prototype, "type", void 0);
+__decorate60([
+  (0, import_class_validator12.IsDateString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "date", void 0);
+__decorate60([
+  (0, import_class_validator12.IsString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "startTime", void 0);
+__decorate60([
+  (0, import_class_validator12.IsString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "endTime", void 0);
+__decorate60([
+  (0, import_class_validator12.IsOptional)(),
+  (0, import_class_validator12.IsString)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "location", void 0);
+__decorate60([
+  (0, import_class_validator12.IsOptional)(),
+  (0, import_class_validator12.IsArray)(),
+  (0, import_class_validator12.ArrayUnique)(),
+  (0, import_class_validator12.IsMongoId)({
+    each: true
+  }),
+  __metadata44("design:type", Array)
+], CreateCalendarEventDto.prototype, "attendees", void 0);
+__decorate60([
+  (0, import_class_validator12.IsOptional)(),
+  (0, import_class_validator12.IsHexColor)(),
+  __metadata44("design:type", String)
+], CreateCalendarEventDto.prototype, "color", void 0);
+
+// src/calender/dto/update-calendar-event.dto.ts
+var import_mapped_types4 = require("@nestjs/mapped-types");
+var UpdateCalendarEventDto = class extends (0, import_mapped_types4.PartialType)(CreateCalendarEventDto) {
+};
+
+// src/calender/dto/calendar-filter.dto.ts
+var import_class_validator13 = require("class-validator");
+var __decorate61 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata45 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a42;
+var CalendarFilterDto = class {
+  search;
+  type;
+  page;
+  limit;
+  sortBy;
+  order;
+};
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsString)(),
+  __metadata45("design:type", String)
+], CalendarFilterDto.prototype, "search", void 0);
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsEnum)(CalendarEventType),
+  __metadata45("design:type", typeof (_a42 = typeof CalendarEventType !== "undefined" && CalendarEventType) === "function" ? _a42 : Object)
+], CalendarFilterDto.prototype, "type", void 0);
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsNumberString)(),
+  __metadata45("design:type", String)
+], CalendarFilterDto.prototype, "page", void 0);
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsNumberString)(),
+  __metadata45("design:type", String)
+], CalendarFilterDto.prototype, "limit", void 0);
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsString)(),
+  __metadata45("design:type", String)
+], CalendarFilterDto.prototype, "sortBy", void 0);
+__decorate61([
+  (0, import_class_validator13.IsOptional)(),
+  (0, import_class_validator13.IsString)(),
+  __metadata45("design:type", String)
+], CalendarFilterDto.prototype, "order", void 0);
+
+// src/calender/controller/calendar.controller.ts
+var __decorate62 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata46 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param27 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a43;
+var _b22;
+var _c15;
+var _d12;
+var CalendarController = class CalendarController2 {
+  calendarService;
   constructor(calendarService) {
     this.calendarService = calendarService;
   }
-  calendarService;
   create(dto) {
-    return this.calendarService.create(
-      dto
-    );
+    return this.calendarService.create(dto);
   }
   findAll(filter) {
-    return this.calendarService.findAll(
-      filter
-    );
+    return this.calendarService.findAll(filter);
   }
   statistics() {
     return this.calendarService.statistics();
@@ -4733,59 +5458,80 @@ var CalendarController = class {
     return this.calendarService.upcoming();
   }
   findOne(id) {
-    return this.calendarService.findOne(
-      id
-    );
+    return this.calendarService.findOne(id);
   }
   update(id, dto) {
-    return this.calendarService.update(
-      id,
-      dto
-    );
+    return this.calendarService.update(id, dto);
   }
   remove(id) {
-    return this.calendarService.remove(
-      id
-    );
+    return this.calendarService.remove(id);
   }
 };
-__decorateClass([
+__decorate62([
   (0, import_common46.Post)(),
-  __decorateParam(0, (0, import_common46.Body)())
-], CalendarController.prototype, "create", 1);
-__decorateClass([
+  __param27(0, (0, import_common46.Body)()),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", [typeof (_b22 = typeof CreateCalendarEventDto !== "undefined" && CreateCalendarEventDto) === "function" ? _b22 : Object]),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "create", null);
+__decorate62([
   (0, import_common46.Get)(),
-  __decorateParam(0, (0, import_common46.Query)())
-], CalendarController.prototype, "findAll", 1);
-__decorateClass([
-  (0, import_common46.Get)("statistics")
-], CalendarController.prototype, "statistics", 1);
-__decorateClass([
-  (0, import_common46.Get)("upcoming")
-], CalendarController.prototype, "upcoming", 1);
-__decorateClass([
+  __param27(0, (0, import_common46.Query)()),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", [typeof (_c15 = typeof CalendarFilterDto !== "undefined" && CalendarFilterDto) === "function" ? _c15 : Object]),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "findAll", null);
+__decorate62([
+  (0, import_common46.Get)("statistics"),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", []),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "statistics", null);
+__decorate62([
+  (0, import_common46.Get)("upcoming"),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", []),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "upcoming", null);
+__decorate62([
   (0, import_common46.Get)(":id"),
-  __decorateParam(0, (0, import_common46.Param)("id"))
-], CalendarController.prototype, "findOne", 1);
-__decorateClass([
+  __param27(0, (0, import_common46.Param)("id")),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", [String]),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "findOne", null);
+__decorate62([
   (0, import_common46.Patch)(":id"),
-  __decorateParam(0, (0, import_common46.Param)("id")),
-  __decorateParam(1, (0, import_common46.Body)())
-], CalendarController.prototype, "update", 1);
-__decorateClass([
+  __param27(0, (0, import_common46.Param)("id")),
+  __param27(1, (0, import_common46.Body)()),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", [String, typeof (_d12 = typeof UpdateCalendarEventDto !== "undefined" && UpdateCalendarEventDto) === "function" ? _d12 : Object]),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "update", null);
+__decorate62([
   (0, import_common46.Delete)(":id"),
-  __decorateParam(0, (0, import_common46.Param)("id"))
-], CalendarController.prototype, "remove", 1);
-CalendarController = __decorateClass([
+  __param27(0, (0, import_common46.Param)("id")),
+  __metadata46("design:type", Function),
+  __metadata46("design:paramtypes", [String]),
+  __metadata46("design:returntype", void 0)
+], CalendarController.prototype, "remove", null);
+CalendarController = __decorate62([
   (0, import_common46.UseGuards)(JwtAuthGuard),
   (0, import_common46.Controller)("calendar"),
-  __decorateParam(0, (0, import_common46.Inject)(CalendarService))
+  __param27(0, (0, import_common46.Inject)(CalendarService)),
+  __metadata46("design:paramtypes", [typeof (_a43 = typeof CalendarService !== "undefined" && CalendarService) === "function" ? _a43 : Object])
 ], CalendarController);
 
-// apps/api/src/calender/calender.module.ts
-var CalendarModule = class {
+// src/calender/calender.module.ts
+var __decorate63 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-CalendarModule = __decorateClass([
+var CalendarModule = class CalendarModule2 {
+};
+CalendarModule = __decorate63([
   (0, import_common47.Module)({
     imports: [
       import_mongoose35.MongooseModule.forFeature([
@@ -4810,37 +5556,48 @@ CalendarModule = __decorateClass([
   })
 ], CalendarModule);
 
-// apps/api/src/chat/chat.module.ts
+// src/chat/chat.module.ts
 var import_common53 = require("@nestjs/common");
 var import_mongoose44 = require("@nestjs/mongoose");
 var import_platform_express3 = require("@nestjs/platform-express");
 
-// apps/api/src/chat/controller/chat.controller.ts
+// src/chat/controller/chat.controller.ts
 var import_common52 = require("@nestjs/common");
 var import_platform_express2 = require("@nestjs/platform-express");
-var import_swagger3 = require("@nestjs/swagger");
+var import_swagger4 = require("@nestjs/swagger");
 
-// apps/api/src/chat/service/chat.service.ts
+// src/chat/service/chat.service.ts
 var import_common51 = require("@nestjs/common");
 
-// apps/api/src/chat/repository/chat.repository.ts
+// src/chat/repository/chat.repository.ts
 var import_common48 = require("@nestjs/common");
 var import_mongoose40 = require("@nestjs/mongoose");
 var import_mongoose41 = require("mongoose");
 
-// apps/api/src/chat/schema/conversation.schema.ts
+// src/chat/schema/conversation.schema.ts
 var import_mongoose36 = require("@nestjs/mongoose");
 var import_mongoose37 = require("mongoose");
 
-// apps/api/src/chat/enums/conversation-type.enum.ts
-var ConversationType = /* @__PURE__ */ ((ConversationType2) => {
+// src/chat/enums/conversation-type.enum.ts
+var ConversationType;
+(function(ConversationType2) {
   ConversationType2["DIRECT"] = "DIRECT";
   ConversationType2["GROUP"] = "GROUP";
-  return ConversationType2;
-})(ConversationType || {});
+})(ConversationType || (ConversationType = {}));
 
-// apps/api/src/chat/schema/conversation.schema.ts
-var Conversation = class {
+// src/chat/schema/conversation.schema.ts
+var __decorate64 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata47 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a44;
+var _b23;
+var Conversation = class Conversation2 {
   participants;
   type;
   lastMessage;
@@ -4848,7 +5605,7 @@ var Conversation = class {
   createdAt;
   updatedAt;
 };
-__decorateClass([
+__decorate64([
   (0, import_mongoose36.Prop)({
     type: [
       {
@@ -4861,37 +5618,39 @@ __decorateClass([
       validator: (participants) => participants.length >= 2,
       message: "Conversation must contain at least two participants."
     }
-  })
-], Conversation.prototype, "participants", 2);
-__decorateClass([
+  }),
+  __metadata47("design:type", Array)
+], Conversation.prototype, "participants", void 0);
+__decorate64([
   (0, import_mongoose36.Prop)({
     type: String,
     enum: ConversationType,
-    default: "DIRECT" /* DIRECT */
-  })
-], Conversation.prototype, "type", 2);
-__decorateClass([
+    default: ConversationType.DIRECT
+  }),
+  __metadata47("design:type", typeof (_a44 = typeof ConversationType !== "undefined" && ConversationType) === "function" ? _a44 : Object)
+], Conversation.prototype, "type", void 0);
+__decorate64([
   (0, import_mongoose36.Prop)({
     type: String,
     trim: true,
     default: ""
-  })
-], Conversation.prototype, "lastMessage", 2);
-__decorateClass([
+  }),
+  __metadata47("design:type", String)
+], Conversation.prototype, "lastMessage", void 0);
+__decorate64([
   (0, import_mongoose36.Prop)({
     type: Date,
     default: null
-  })
-], Conversation.prototype, "lastMessageAt", 2);
-Conversation = __decorateClass([
+  }),
+  __metadata47("design:type", typeof (_b23 = typeof Date !== "undefined" && Date) === "function" ? _b23 : Object)
+], Conversation.prototype, "lastMessageAt", void 0);
+Conversation = __decorate64([
   (0, import_mongoose36.Schema)({
     timestamps: true,
     versionKey: false
   })
 ], Conversation);
-var ConversationSchema = import_mongoose36.SchemaFactory.createForClass(
-  Conversation
-);
+var ConversationSchema = import_mongoose36.SchemaFactory.createForClass(Conversation);
 ConversationSchema.index({
   participants: 1
 });
@@ -4903,12 +5662,13 @@ ConversationSchema.index({
   type: 1
 });
 
-// apps/api/src/chat/schema/message.schema.ts
+// src/chat/schema/message.schema.ts
 var import_mongoose38 = require("@nestjs/mongoose");
 var import_mongoose39 = require("mongoose");
 
-// apps/api/src/chat/enums/message-status.enum.ts
-var MessageType = /* @__PURE__ */ ((MessageType2) => {
+// src/chat/enums/message-status.enum.ts
+var MessageType;
+(function(MessageType2) {
   MessageType2["TEXT"] = "TEXT";
   MessageType2["IMAGE"] = "IMAGE";
   MessageType2["FILE"] = "FILE";
@@ -4916,17 +5676,33 @@ var MessageType = /* @__PURE__ */ ((MessageType2) => {
   MessageType2["AUDIO_CALL"] = "AUDIO_CALL";
   MessageType2["VIDEO_CALL"] = "VIDEO_CALL";
   MessageType2["SYSTEM"] = "SYSTEM";
-  return MessageType2;
-})(MessageType || {});
-var CallLogStatus = /* @__PURE__ */ ((CallLogStatus2) => {
+})(MessageType || (MessageType = {}));
+var CallLogStatus;
+(function(CallLogStatus2) {
   CallLogStatus2["COMPLETED"] = "COMPLETED";
   CallLogStatus2["MISSED"] = "MISSED";
   CallLogStatus2["DECLINED"] = "DECLINED";
-  return CallLogStatus2;
-})(CallLogStatus || {});
+})(CallLogStatus || (CallLogStatus = {}));
 
-// apps/api/src/chat/schema/message.schema.ts
-var Message = class {
+// src/chat/schema/message.schema.ts
+var __decorate65 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata48 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a45;
+var _b24;
+var _c16;
+var _d13;
+var _e6;
+var _f3;
+var _g2;
+var _h2;
+var Message = class Message2 {
   conversation;
   sender;
   type;
@@ -4948,102 +5724,116 @@ var Message = class {
   createdAt;
   updatedAt;
 };
-__decorateClass([
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: import_mongoose39.Types.ObjectId,
     ref: Conversation.name,
     required: true,
     index: true
-  })
-], Message.prototype, "conversation", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_a45 = typeof import_mongoose39.Types !== "undefined" && import_mongoose39.Types.ObjectId) === "function" ? _a45 : Object)
+], Message.prototype, "conversation", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: import_mongoose39.Types.ObjectId,
     ref: Employee.name,
     required: true,
     index: true
-  })
-], Message.prototype, "sender", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_b24 = typeof import_mongoose39.Types !== "undefined" && import_mongoose39.Types.ObjectId) === "function" ? _b24 : Object)
+], Message.prototype, "sender", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: String,
     enum: MessageType,
-    default: "TEXT" /* TEXT */,
+    default: MessageType.TEXT,
     required: true
-  })
-], Message.prototype, "type", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_c16 = typeof MessageType !== "undefined" && MessageType) === "function" ? _c16 : Object)
+], Message.prototype, "type", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: String,
     trim: true,
     maxlength: 5e3,
     default: ""
-  })
-], Message.prototype, "content", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", String)
+], Message.prototype, "content", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: String,
     trim: true,
     default: ""
-  })
-], Message.prototype, "attachment", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", String)
+], Message.prototype, "attachment", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: String,
     trim: true,
     default: ""
-  })
-], Message.prototype, "fileName", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", String)
+], Message.prototype, "fileName", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Number,
     default: 0
-  })
-], Message.prototype, "fileSize", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Number)
+], Message.prototype, "fileSize", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: import_mongoose39.Types.ObjectId,
     ref: Message.name,
     default: null
-  })
-], Message.prototype, "replyTo", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_d13 = typeof import_mongoose39.Types !== "undefined" && import_mongoose39.Types.ObjectId) === "function" ? _d13 : Object)
+], Message.prototype, "replyTo", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Boolean,
     default: false
-  })
-], Message.prototype, "edited", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Boolean)
+], Message.prototype, "edited", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Date,
     default: null
-  })
-], Message.prototype, "editedAt", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_e6 = typeof Date !== "undefined" && Date) === "function" ? _e6 : Object)
+], Message.prototype, "editedAt", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Boolean,
     default: false
-  })
-], Message.prototype, "deleted", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Boolean)
+], Message.prototype, "deleted", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Date,
     default: null
-  })
-], Message.prototype, "deletedAt", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_f3 = typeof Date !== "undefined" && Date) === "function" ? _f3 : Object)
+], Message.prototype, "deletedAt", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Boolean,
     default: false
-  })
-], Message.prototype, "read", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Boolean)
+], Message.prototype, "read", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Date,
     default: null
-  })
-], Message.prototype, "readAt", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_g2 = typeof Date !== "undefined" && Date) === "function" ? _g2 : Object)
+], Message.prototype, "readAt", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: [
       {
@@ -5052,9 +5842,10 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], Message.prototype, "seenBy", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Array)
+], Message.prototype, "seenBy", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: [
       {
@@ -5068,22 +5859,25 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], Message.prototype, "reactions", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", Array)
+], Message.prototype, "reactions", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: String,
     enum: CallLogStatus,
     default: null
-  })
-], Message.prototype, "callStatus", 2);
-__decorateClass([
+  }),
+  __metadata48("design:type", typeof (_h2 = typeof CallLogStatus !== "undefined" && CallLogStatus) === "function" ? _h2 : Object)
+], Message.prototype, "callStatus", void 0);
+__decorate65([
   (0, import_mongoose38.Prop)({
     type: Number,
     default: 0
-  })
-], Message.prototype, "callDuration", 2);
-Message = __decorateClass([
+  }),
+  __metadata48("design:type", Number)
+], Message.prototype, "callDuration", void 0);
+Message = __decorate65([
   (0, import_mongoose38.Schema)({
     timestamps: true,
     versionKey: false
@@ -5108,22 +5902,33 @@ MessageSchema.index({
   read: 1
 });
 
-// apps/api/src/chat/repository/chat.repository.ts
-var ChatRepository = class {
+// src/chat/repository/chat.repository.ts
+var __decorate66 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata49 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param28 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a46;
+var _b25;
+var ChatRepository = class ChatRepository2 {
+  conversationModel;
+  messageModel;
   constructor(conversationModel, messageModel) {
     this.conversationModel = conversationModel;
     this.messageModel = messageModel;
   }
-  conversationModel;
-  messageModel;
-  // =====================================================
-  // Conversation
-  // =====================================================
   async createConversation(participants) {
     return this.conversationModel.create({
-      participants: participants.map(
-        (id) => new import_mongoose41.Types.ObjectId(id)
-      )
+      participants: participants.map((id) => new import_mongoose41.Types.ObjectId(id))
     });
   }
   async findConversationById(id) {
@@ -5169,10 +5974,7 @@ var ChatRepository = class {
         }
       ];
     }
-    const [
-      items,
-      total
-    ] = await Promise.all([
+    const [items, total] = await Promise.all([
       this.conversationModel.find(query).populate({
         path: "participants",
         populate: {
@@ -5183,9 +5985,7 @@ var ChatRepository = class {
         lastMessageAt: -1,
         updatedAt: -1
       }).skip(skip).limit(limit),
-      this.conversationModel.countDocuments(
-        query
-      )
+      this.conversationModel.countDocuments(query)
     ]);
     return {
       items,
@@ -5198,24 +5998,15 @@ var ChatRepository = class {
     };
   }
   async updateConversationLastMessage(conversationId, content) {
-    return this.conversationModel.findByIdAndUpdate(
-      conversationId,
-      {
-        lastMessage: content,
-        lastMessageAt: /* @__PURE__ */ new Date()
-      },
-      {
-        new: true
-      }
-    );
+    return this.conversationModel.findByIdAndUpdate(conversationId, {
+      lastMessage: content,
+      lastMessageAt: /* @__PURE__ */ new Date()
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Messages
-  // =====================================================
   async createMessage(data) {
-    return this.messageModel.create(
-      data
-    );
+    return this.messageModel.create(data);
   }
   async findMessages(conversationId, filter) {
     console.log("========== FIND MESSAGES ==========");
@@ -5224,9 +6015,7 @@ var ChatRepository = class {
     const limit = filter.limit ?? 50;
     const skip = (page - 1) * limit;
     const query = {
-      conversation: new import_mongoose41.Types.ObjectId(
-        conversationId
-      )
+      conversation: new import_mongoose41.Types.ObjectId(conversationId)
     };
     console.log("Mongo Query:", query);
     const items = await this.messageModel.find(query).populate({
@@ -5250,9 +6039,7 @@ var ChatRepository = class {
     }).skip(skip).limit(limit);
     console.log("Found Messages:", items.length);
     console.log(items);
-    const total = await this.messageModel.countDocuments(
-      query
-    );
+    const total = await this.messageModel.countDocuments(query);
     return {
       items,
       pagination: {
@@ -5283,17 +6070,13 @@ var ChatRepository = class {
     }).populate("replyTo");
   }
   async updateMessage(id, content) {
-    return this.messageModel.findByIdAndUpdate(
-      id,
-      {
-        content,
-        edited: true,
-        editedAt: /* @__PURE__ */ new Date()
-      },
-      {
-        new: true
-      }
-    ).populate({
+    return this.messageModel.findByIdAndUpdate(id, {
+      content,
+      edited: true,
+      editedAt: /* @__PURE__ */ new Date()
+    }, {
+      new: true
+    }).populate({
       path: "sender",
       select: [
         "firstName",
@@ -5312,17 +6095,13 @@ var ChatRepository = class {
     }).populate("replyTo");
   }
   async deleteMessage(id) {
-    return this.messageModel.findByIdAndUpdate(
-      id,
-      {
-        deleted: true,
-        deletedAt: /* @__PURE__ */ new Date(),
-        content: "This message was deleted."
-      },
-      {
-        new: true
-      }
-    ).populate({
+    return this.messageModel.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedAt: /* @__PURE__ */ new Date(),
+      content: "This message was deleted."
+    }, {
+      new: true
+    }).populate({
       path: "sender",
       select: [
         "firstName",
@@ -5341,56 +6120,47 @@ var ChatRepository = class {
     }).populate("replyTo");
   }
   async markConversationAsRead(conversationId, employeeId) {
-    return this.messageModel.updateMany(
-      {
-        conversation: new import_mongoose41.Types.ObjectId(
-          conversationId
-        ),
-        sender: {
-          $ne: new import_mongoose41.Types.ObjectId(
-            employeeId
-          )
-        },
-        read: false
+    return this.messageModel.updateMany({
+      conversation: new import_mongoose41.Types.ObjectId(conversationId),
+      sender: {
+        $ne: new import_mongoose41.Types.ObjectId(employeeId)
       },
-      {
-        read: true,
-        readAt: /* @__PURE__ */ new Date()
-      }
-    );
+      read: false
+    }, {
+      read: true,
+      readAt: /* @__PURE__ */ new Date()
+    });
   }
   async getUnreadCount(employeeId) {
-    return this.messageModel.countDocuments(
-      {
-        sender: {
-          $ne: new import_mongoose41.Types.ObjectId(
-            employeeId
-          )
-        },
-        read: false
-      }
-    );
+    return this.messageModel.countDocuments({
+      sender: {
+        $ne: new import_mongoose41.Types.ObjectId(employeeId)
+      },
+      read: false
+    });
   }
 };
-ChatRepository = __decorateClass([
+ChatRepository = __decorate66([
   (0, import_common48.Injectable)(),
-  __decorateParam(0, (0, import_mongoose40.InjectModel)(Conversation.name)),
-  __decorateParam(0, (0, import_common48.Inject)(import_mongoose41.Model)),
-  __decorateParam(1, (0, import_mongoose40.InjectModel)(Message.name)),
-  __decorateParam(1, (0, import_common48.Inject)(import_mongoose41.Model))
+  __param28(0, (0, import_mongoose40.InjectModel)(Conversation.name)),
+  __param28(0, (0, import_common48.Inject)(import_mongoose41.Model)),
+  __param28(1, (0, import_mongoose40.InjectModel)(Message.name)),
+  __param28(1, (0, import_common48.Inject)(import_mongoose41.Model)),
+  __metadata49("design:paramtypes", [typeof (_a46 = typeof import_mongoose41.Model !== "undefined" && import_mongoose41.Model) === "function" ? _a46 : Object, typeof (_b25 = typeof import_mongoose41.Model !== "undefined" && import_mongoose41.Model) === "function" ? _b25 : Object])
 ], ChatRepository);
 
-// apps/api/src/chat/mapper/chat.mapper.ts
+// src/chat/mapper/chat.mapper.ts
 var import_common49 = require("@nestjs/common");
-var ChatMapper = class {
-  // =====================================================
-  // Conversation
-  // =====================================================
+var __decorate67 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var ChatMapper = class ChatMapper2 {
   toConversation(conversation, currentEmployeeId) {
     const participants = conversation.participants;
-    const otherParticipant = participants.find(
-      (employee) => employee._id.toString() !== currentEmployeeId
-    );
+    const otherParticipant = participants.find((employee) => employee._id.toString() !== currentEmployeeId);
     return {
       id: conversation._id.toString(),
       participant: {
@@ -5415,18 +6185,10 @@ var ChatMapper = class {
   }
   toConversationList(response, currentEmployeeId) {
     return {
-      items: response.items.map(
-        (conversation) => this.toConversation(
-          conversation,
-          currentEmployeeId
-        )
-      ),
+      items: response.items.map((conversation) => this.toConversation(conversation, currentEmployeeId)),
       pagination: response.pagination
     };
   }
-  // =====================================================
-  // Message
-  // =====================================================
   toMessage(message, currentEmployeeId) {
     const sender = message.sender;
     return {
@@ -5445,10 +6207,6 @@ var ChatMapper = class {
       attachment: message.attachment,
       fileName: message.fileName,
       fileSize: message.fileSize,
-      /**
-       * Call log fields — only meaningful when type is
-       * AUDIO_CALL or VIDEO_CALL.
-       */
       callStatus: message.callStatus ?? void 0,
       callDuration: message.callDuration ?? 0,
       edited: message.edited,
@@ -5465,463 +6223,236 @@ var ChatMapper = class {
   }
   toMessageList(response, currentEmployeeId) {
     return {
-      items: response.items.map(
-        (message) => this.toMessage(
-          message,
-          currentEmployeeId
-        )
-      ),
+      items: response.items.map((message) => this.toMessage(message, currentEmployeeId)),
       pagination: response.pagination
     };
   }
 };
-ChatMapper = __decorateClass([
+ChatMapper = __decorate67([
   (0, import_common49.Injectable)()
 ], ChatMapper);
 
-// apps/api/src/chat/gateway/chat.gateway.ts
+// src/chat/gateway/chat.gateway.ts
 var import_websockets = require("@nestjs/websockets");
+var import_socket = require("socket.io");
 var import_mongoose42 = require("mongoose");
 var import_common50 = require("@nestjs/common");
-var ChatGateway = class {
+var __decorate68 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata50 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param29 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a47;
+var _b26;
+var _c17;
+var _d14;
+var _e7;
+var _f4;
+var _g3;
+var _h3;
+var _j;
+var ChatGateway = class ChatGateway2 {
+  repository;
+  mapper;
   constructor(repository, mapper) {
     this.repository = repository;
     this.mapper = mapper;
   }
-  repository;
-  mapper;
   server;
-  /**
-   * Employee presence
-   *
-   * employeeId
-   *      |
-   *      |-- socketId
-   *      |-- socketId
-   *
-   * Supports:
-   *
-   * - multiple browser tabs
-   * - multiple devices
-   * - reconnects
-   */
   users = /* @__PURE__ */ new Map();
-  /**
-   * Active calls
-   *
-   * conversationId
-   *          |
-   *          Call session
-   */
   activeCalls = /* @__PURE__ */ new Map();
-  /**
-   * How long an outgoing call is allowed to ring before it is
-   * automatically resolved as a missed call.
-   */
   RING_TIMEOUT_MS = 45e3;
-  // =====================================================
-  // Connection
-  // =====================================================
   handleConnection(client) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F50C} SOCKET CONNECTED"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket ID:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "--------------------------------"
-    );
-    console.log(
-      "Handshake Query:"
-    );
-    console.log(
-      client.handshake.query
-    );
-    console.log(
-      "--------------------------------"
-    );
-    console.log(
-      "Handshake Auth:"
-    );
-    console.log(
-      client.handshake.auth
-    );
-    console.log(
-      "--------------------------------"
-    );
-    console.log(
-      "Client Rooms:"
-    );
-    console.log(
-      [
-        ...client.rooms
-      ]
-    );
-    console.log(
-      "--------------------------------"
-    );
-    console.log(
-      "Connected Clients:"
-    );
-    console.log(
-      this.server.engine.clientsCount
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("======================================================");
+    console.log("\u{1F50C} SOCKET CONNECTED");
+    console.log("======================================================");
+    console.log("Socket ID:");
+    console.log(client.id);
+    console.log("--------------------------------");
+    console.log("Handshake Query:");
+    console.log(client.handshake.query);
+    console.log("--------------------------------");
+    console.log("Handshake Auth:");
+    console.log(client.handshake.auth);
+    console.log("--------------------------------");
+    console.log("Client Rooms:");
+    console.log([
+      ...client.rooms
+    ]);
+    console.log("--------------------------------");
+    console.log("Connected Clients:");
+    console.log(this.server.engine.clientsCount);
+    console.log("======================================================");
     console.log("\n");
   }
   handleDisconnect(client) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F50C} SOCKET DISCONNECTED"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket ID:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "--------------------------------"
-    );
+    console.log("======================================================");
+    console.log("\u{1F50C} SOCKET DISCONNECTED");
+    console.log("======================================================");
+    console.log("Socket ID:");
+    console.log(client.id);
+    console.log("--------------------------------");
     let disconnectedEmployee = null;
-    console.log(
-      "Users BEFORE cleanup"
-    );
-    console.table(
-      [
-        ...this.users.entries()
-      ].map(
-        ([
-          employeeId,
-          sockets
-        ]) => ({
-          employeeId,
-          sockets: [
-            ...sockets
-          ]
-        })
-      )
-    );
-    for (const [
+    console.log("Users BEFORE cleanup");
+    console.table([
+      ...this.users.entries()
+    ].map(([employeeId, sockets]) => ({
       employeeId,
-      socketIds
-    ] of this.users) {
-      if (socketIds.has(
-        client.id
-      )) {
+      sockets: [
+        ...sockets
+      ]
+    })));
+    for (const [employeeId, socketIds] of this.users) {
+      if (socketIds.has(client.id)) {
         disconnectedEmployee = employeeId;
-        socketIds.delete(
-          client.id
-        );
-        console.log(
-          "Removed socket:"
-        );
-        console.log(
-          client.id
-        );
-        console.log(
-          "Employee:"
-        );
-        console.log(
-          employeeId
-        );
+        socketIds.delete(client.id);
+        console.log("Removed socket:");
+        console.log(client.id);
+        console.log("Employee:");
+        console.log(employeeId);
         if (socketIds.size === 0) {
-          this.users.delete(
-            employeeId
-          );
-          this.emitUserOffline(
-            employeeId
-          );
+          this.users.delete(employeeId);
+          this.emitUserOffline(employeeId);
         }
         break;
       }
     }
-    console.log(
-      "--------------------------------"
-    );
-    console.log(
-      "Users AFTER cleanup"
-    );
-    console.table(
-      [
-        ...this.users.entries()
-      ].map(
-        ([
-          employeeId,
-          sockets
-        ]) => ({
-          employeeId,
-          sockets: [
-            ...sockets
-          ]
-        })
-      )
-    );
+    console.log("--------------------------------");
+    console.log("Users AFTER cleanup");
+    console.table([
+      ...this.users.entries()
+    ].map(([employeeId, sockets]) => ({
+      employeeId,
+      sockets: [
+        ...sockets
+      ]
+    })));
     if (disconnectedEmployee) {
-      console.log(
-        "Checking Active Calls"
-      );
-      for (const [
-        conversationId,
-        call
-      ] of this.activeCalls) {
+      console.log("Checking Active Calls");
+      for (const [conversationId, call] of this.activeCalls) {
         if (call.callerId === disconnectedEmployee || call.receiverId === disconnectedEmployee) {
-          console.log(
-            "Ending call:"
-          );
-          console.log(
-            conversationId
-          );
+          console.log("Ending call:");
+          console.log(conversationId);
           if (call.ringTimeout) {
-            clearTimeout(
-              call.ringTimeout
-            );
+            clearTimeout(call.ringTimeout);
           }
-          this.server.to(
-            call.callerId
-          ).emit(
-            "call:ended",
-            {
-              conversationId
-            }
-          );
-          this.server.to(
-            call.receiverId
-          ).emit(
-            "call:ended",
-            {
-              conversationId
-            }
-          );
-          this.activeCalls.delete(
+          this.server.to(call.callerId).emit("call:ended", {
             conversationId
-          );
-          const outcome = call.status === "accepted" ? "COMPLETED" /* COMPLETED */ : "MISSED" /* MISSED */;
-          void this.logCallOutcome(
-            call,
-            outcome
-          );
+          });
+          this.server.to(call.receiverId).emit("call:ended", {
+            conversationId
+          });
+          this.activeCalls.delete(conversationId);
+          const outcome = call.status === "accepted" ? CallLogStatus.COMPLETED : CallLogStatus.MISSED;
+          void this.logCallOutcome(call, outcome);
         }
       }
     }
-    console.log(
-      "Remaining Users:"
-    );
-    console.log(
-      [
-        ...this.users.keys()
-      ]
-    );
-    console.log(
-      "Active Calls:"
-    );
-    console.table(
-      [
-        ...this.activeCalls.entries()
-      ]
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("Remaining Users:");
+    console.log([
+      ...this.users.keys()
+    ]);
+    console.log("Active Calls:");
+    console.table([
+      ...this.activeCalls.entries()
+    ]);
+    console.log("======================================================");
     console.log("\n");
   }
   emitUserOffline(employeeId) {
-    console.log(
-      "\u{1F534} USER OFFLINE:",
+    console.log("\u{1F534} USER OFFLINE:", employeeId);
+    this.server.emit("user:offline", {
       employeeId
-    );
-    this.server.emit(
-      "user:offline",
-      {
-        employeeId
-      }
-    );
+    });
   }
   join(client, employeeId) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F464} USER JOIN"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Employee:"
-    );
-    console.log(
-      employeeId
-    );
-    console.log(
-      "Users BEFORE"
-    );
-    console.table(
-      [
-        ...this.users.entries()
-      ].map(
-        ([
-          id,
-          sockets2
-        ]) => ({
-          employeeId: id,
-          sockets: [
-            ...sockets2
-          ]
-        })
-      )
-    );
-    if (!this.users.has(
-      employeeId
-    )) {
-      this.users.set(
-        employeeId,
-        /* @__PURE__ */ new Set()
-      );
-    }
-    const sockets = this.users.get(
-      employeeId
-    );
-    const wasOffline = sockets.size === 0;
-    sockets.add(
-      client.id
-    );
-    client.join(
-      employeeId
-    );
-    console.log(
-      "Users AFTER"
-    );
-    console.table(
-      [
-        ...this.users.entries()
-      ].map(
-        ([
-          id,
-          sockets2
-        ]) => ({
-          employeeId: id,
-          sockets: [
-            ...sockets2
-          ]
-        })
-      )
-    );
-    console.log(
-      "Client Rooms:"
-    );
-    console.log(
-      [
-        ...client.rooms
+    console.log("======================================================");
+    console.log("\u{1F464} USER JOIN");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Employee:");
+    console.log(employeeId);
+    console.log("Users BEFORE");
+    console.table([
+      ...this.users.entries()
+    ].map(([id, sockets2]) => ({
+      employeeId: id,
+      sockets: [
+        ...sockets2
       ]
-    );
-    if (wasOffline) {
-      this.emitUserOnline(
-        employeeId
-      );
+    })));
+    if (!this.users.has(employeeId)) {
+      this.users.set(employeeId, /* @__PURE__ */ new Set());
     }
-    console.log(
-      "======================================================"
-    );
+    const sockets = this.users.get(employeeId);
+    const wasOffline = sockets.size === 0;
+    sockets.add(client.id);
+    client.join(employeeId);
+    console.log("Users AFTER");
+    console.table([
+      ...this.users.entries()
+    ].map(([id, sockets2]) => ({
+      employeeId: id,
+      sockets: [
+        ...sockets2
+      ]
+    })));
+    console.log("Client Rooms:");
+    console.log([
+      ...client.rooms
+    ]);
+    if (wasOffline) {
+      this.emitUserOnline(employeeId);
+    }
+    console.log("======================================================");
     console.log("\n");
     return {
       success: true
     };
   }
   emitUserOnline(employeeId) {
-    console.log(
-      "\u{1F7E2} USER ONLINE:",
+    console.log("\u{1F7E2} USER ONLINE:", employeeId);
+    this.server.emit("user:online", {
       employeeId
-    );
-    this.server.emit(
-      "user:online",
-      {
-        employeeId
-      }
-    );
+    });
   }
   joinConversation(client, conversationId) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F4AC} CONVERSATION JOIN"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      conversationId
-    );
-    console.log(
-      "Rooms BEFORE"
-    );
-    console.log(
-      [
-        ...client.rooms
-      ]
-    );
-    client.join(
-      conversationId
-    );
-    console.log(
-      "Rooms AFTER"
-    );
-    console.log(
-      [
-        ...client.rooms
-      ]
-    );
-    const room = this.server.sockets.adapter.rooms.get(
-      conversationId
-    );
-    console.log(
-      "Participants:"
-    );
-    console.log(
-      room ? [
-        ...room
-      ] : []
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("======================================================");
+    console.log("\u{1F4AC} CONVERSATION JOIN");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Conversation:");
+    console.log(conversationId);
+    console.log("Rooms BEFORE");
+    console.log([
+      ...client.rooms
+    ]);
+    client.join(conversationId);
+    console.log("Rooms AFTER");
+    console.log([
+      ...client.rooms
+    ]);
+    const room = this.server.sockets.adapter.rooms.get(conversationId);
+    console.log("Participants:");
+    console.log(room ? [
+      ...room
+    ] : []);
+    console.log("======================================================");
     console.log("\n");
     return {
       success: true
@@ -5929,60 +6460,28 @@ var ChatGateway = class {
   }
   leaveConversation(client, conversationId) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F6AA} CONVERSATION LEAVE"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      conversationId
-    );
-    console.log(
-      "Rooms BEFORE"
-    );
-    console.log(
-      [
-        ...client.rooms
-      ]
-    );
-    client.leave(
-      conversationId
-    );
-    console.log(
-      "Rooms AFTER"
-    );
-    console.log(
-      [
-        ...client.rooms
-      ]
-    );
-    const room = this.server.sockets.adapter.rooms.get(
-      conversationId
-    );
-    console.log(
-      "Remaining Participants:"
-    );
-    console.log(
-      room ? [
-        ...room
-      ] : []
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("======================================================");
+    console.log("\u{1F6AA} CONVERSATION LEAVE");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Conversation:");
+    console.log(conversationId);
+    console.log("Rooms BEFORE");
+    console.log([
+      ...client.rooms
+    ]);
+    client.leave(conversationId);
+    console.log("Rooms AFTER");
+    console.log([
+      ...client.rooms
+    ]);
+    const room = this.server.sockets.adapter.rooms.get(conversationId);
+    console.log("Remaining Participants:");
+    console.log(room ? [
+      ...room
+    ] : []);
+    console.log("======================================================");
     console.log("\n");
     return {
       success: true
@@ -5990,45 +6489,19 @@ var ChatGateway = class {
   }
   startCall(payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F4DE} CALL START"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    console.log(
-      "Caller:"
-    );
-    console.log(
-      payload.callerId
-    );
-    console.log(
-      "Receiver:"
-    );
-    console.log(
-      payload.receiverId
-    );
-    console.log(
-      "Type:"
-    );
-    console.log(
-      payload.type
-    );
-    if (this.activeCalls.has(
-      payload.conversationId
-    )) {
-      console.log(
-        "Call already exists."
-      );
+    console.log("======================================================");
+    console.log("\u{1F4DE} CALL START");
+    console.log("======================================================");
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    console.log("Caller:");
+    console.log(payload.callerId);
+    console.log("Receiver:");
+    console.log(payload.receiverId);
+    console.log("Type:");
+    console.log(payload.type);
+    if (this.activeCalls.has(payload.conversationId)) {
+      console.log("Call already exists.");
       return;
     }
     const call = {
@@ -6036,657 +6509,362 @@ var ChatGateway = class {
       status: "ringing",
       startedAt: /* @__PURE__ */ new Date()
     };
-    call.ringTimeout = setTimeout(
-      () => {
-        this.handleMissedCall(
-          payload.conversationId
-        );
-      },
-      this.RING_TIMEOUT_MS
-    );
-    this.activeCalls.set(
-      payload.conversationId,
-      call
-    );
-    console.log(
-      "Active Calls:"
-    );
-    console.table(
-      [
-        ...this.activeCalls.entries()
-      ]
-    );
-    this.server.to(
-      payload.receiverId
-    ).emit(
-      "call:incoming",
-      payload
-    );
-    console.log(
-      "Incoming call emitted."
-    );
-    console.log(
-      "======================================================"
-    );
+    call.ringTimeout = setTimeout(() => {
+      this.handleMissedCall(payload.conversationId);
+    }, this.RING_TIMEOUT_MS);
+    this.activeCalls.set(payload.conversationId, call);
+    console.log("Active Calls:");
+    console.table([
+      ...this.activeCalls.entries()
+    ]);
+    this.server.to(payload.receiverId).emit("call:incoming", payload);
+    console.log("Incoming call emitted.");
+    console.log("======================================================");
     console.log("\n");
   }
   acceptCall(payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u2705 CALL ACCEPT"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    const call = this.activeCalls.get(
-      payload.conversationId
-    );
+    console.log("======================================================");
+    console.log("\u2705 CALL ACCEPT");
+    console.log("======================================================");
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    const call = this.activeCalls.get(payload.conversationId);
     if (!call) {
-      console.log(
-        "No active call found."
-      );
+      console.log("No active call found.");
       return;
     }
     if (call.ringTimeout) {
-      clearTimeout(
-        call.ringTimeout
-      );
+      clearTimeout(call.ringTimeout);
       call.ringTimeout = void 0;
     }
     call.status = "accepted";
     call.acceptedAt = /* @__PURE__ */ new Date();
-    this.activeCalls.set(
-      payload.conversationId,
-      call
-    );
-    console.log(
-      "Active Calls:"
-    );
-    console.table(
-      [
-        ...this.activeCalls.entries()
-      ]
-    );
-    this.server.to(
-      payload.callerId
-    ).emit(
-      "call:accepted",
-      payload
-    );
-    this.server.to(
-      payload.receiverId
-    ).emit(
-      "call:accepted",
-      payload
-    );
-    console.log(
-      "Call accepted event emitted."
-    );
-    console.log(
-      "======================================================"
-    );
+    this.activeCalls.set(payload.conversationId, call);
+    console.log("Active Calls:");
+    console.table([
+      ...this.activeCalls.entries()
+    ]);
+    this.server.to(payload.callerId).emit("call:accepted", payload);
+    this.server.to(payload.receiverId).emit("call:accepted", payload);
+    console.log("Call accepted event emitted.");
+    console.log("======================================================");
     console.log("\n");
   }
   rejectCall(payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u274C CALL REJECT"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    const call = this.activeCalls.get(
-      payload.conversationId
-    );
+    console.log("======================================================");
+    console.log("\u274C CALL REJECT");
+    console.log("======================================================");
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    const call = this.activeCalls.get(payload.conversationId);
     if (!call) {
-      console.log(
-        "No active call found."
-      );
+      console.log("No active call found.");
       return;
     }
     if (call.ringTimeout) {
-      clearTimeout(
-        call.ringTimeout
-      );
+      clearTimeout(call.ringTimeout);
     }
-    this.activeCalls.delete(
-      payload.conversationId
-    );
-    console.log(
-      "Active Calls:"
-    );
-    console.table(
-      [
-        ...this.activeCalls.entries()
-      ]
-    );
-    this.server.to(
-      payload.callerId
-    ).emit(
-      "call:rejected",
-      payload
-    );
-    this.server.to(
-      payload.receiverId
-    ).emit(
-      "call:rejected",
-      payload
-    );
-    console.log(
-      "Call rejected event emitted."
-    );
-    void this.logCallOutcome(
-      call,
-      "DECLINED" /* DECLINED */
-    );
-    console.log(
-      "======================================================"
-    );
+    this.activeCalls.delete(payload.conversationId);
+    console.log("Active Calls:");
+    console.table([
+      ...this.activeCalls.entries()
+    ]);
+    this.server.to(payload.callerId).emit("call:rejected", payload);
+    this.server.to(payload.receiverId).emit("call:rejected", payload);
+    console.log("Call rejected event emitted.");
+    void this.logCallOutcome(call, CallLogStatus.DECLINED);
+    console.log("======================================================");
     console.log("\n");
   }
   endCall(payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F4F4} CALL END"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    const call = this.activeCalls.get(
-      payload.conversationId
-    );
+    console.log("======================================================");
+    console.log("\u{1F4F4} CALL END");
+    console.log("======================================================");
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    const call = this.activeCalls.get(payload.conversationId);
     if (!call) {
-      console.log(
-        "No active call found."
-      );
+      console.log("No active call found.");
       return;
     }
     if (call.ringTimeout) {
-      clearTimeout(
-        call.ringTimeout
-      );
+      clearTimeout(call.ringTimeout);
     }
-    this.activeCalls.delete(
-      payload.conversationId
-    );
-    console.log(
-      "Active Calls:"
-    );
-    console.table(
-      [
-        ...this.activeCalls.entries()
-      ]
-    );
-    this.server.to(
-      payload.callerId
-    ).emit(
-      "call:ended",
-      payload
-    );
-    this.server.to(
-      payload.receiverId
-    ).emit(
-      "call:ended",
-      payload
-    );
-    console.log(
-      "Call ended event emitted."
-    );
-    const outcome = call.status === "accepted" ? "COMPLETED" /* COMPLETED */ : "MISSED" /* MISSED */;
-    void this.logCallOutcome(
-      call,
-      outcome
-    );
-    console.log(
-      "======================================================"
-    );
+    this.activeCalls.delete(payload.conversationId);
+    console.log("Active Calls:");
+    console.table([
+      ...this.activeCalls.entries()
+    ]);
+    this.server.to(payload.callerId).emit("call:ended", payload);
+    this.server.to(payload.receiverId).emit("call:ended", payload);
+    console.log("Call ended event emitted.");
+    const outcome = call.status === "accepted" ? CallLogStatus.COMPLETED : CallLogStatus.MISSED;
+    void this.logCallOutcome(call, outcome);
+    console.log("======================================================");
     console.log("\n");
   }
   offer(client, payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F4E1} WEBRTC OFFER"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    console.log(
-      "Sender:"
-    );
-    console.log(
-      payload.senderId
-    );
-    console.log(
-      "Receiver:"
-    );
-    console.log(
-      payload.receiverId
-    );
-    console.log(
-      "Signal:"
-    );
-    console.dir(
-      payload.offer,
-      {
-        depth: null
-      }
-    );
-    const receiverSockets = this.users.get(
-      payload.receiverId
-    );
+    console.log("======================================================");
+    console.log("\u{1F4E1} WEBRTC OFFER");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    console.log("Sender:");
+    console.log(payload.senderId);
+    console.log("Receiver:");
+    console.log(payload.receiverId);
+    console.log("Signal:");
+    console.dir(payload.offer, {
+      depth: null
+    });
+    const receiverSockets = this.users.get(payload.receiverId);
     if (!receiverSockets || receiverSockets.size === 0) {
-      console.log(
-        "Receiver is offline."
-      );
+      console.log("Receiver is offline.");
       return;
     }
     for (const socketId of receiverSockets) {
-      this.server.to(
-        socketId
-      ).emit(
-        "webrtc:offer",
-        payload
-      );
+      this.server.to(socketId).emit("webrtc:offer", payload);
     }
-    console.log(
-      "Offer delivered."
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("Offer delivered.");
+    console.log("======================================================");
     console.log("\n");
   }
   answer(client, payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F4E1} WEBRTC ANSWER"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    console.log(
-      "Sender:"
-    );
-    console.log(
-      payload.senderId
-    );
-    console.log(
-      "Receiver:"
-    );
-    console.log(
-      payload.receiverId
-    );
-    console.log(
-      "Signal:"
-    );
-    console.dir(
-      payload.offer,
-      {
-        depth: null
-      }
-    );
-    const receiverSockets = this.users.get(
-      payload.receiverId
-    );
+    console.log("======================================================");
+    console.log("\u{1F4E1} WEBRTC ANSWER");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    console.log("Sender:");
+    console.log(payload.senderId);
+    console.log("Receiver:");
+    console.log(payload.receiverId);
+    console.log("Signal:");
+    console.dir(payload.offer, {
+      depth: null
+    });
+    const receiverSockets = this.users.get(payload.receiverId);
     if (!receiverSockets || receiverSockets.size === 0) {
-      console.log(
-        "Receiver is offline."
-      );
+      console.log("Receiver is offline.");
       return;
     }
     for (const socketId of receiverSockets) {
-      this.server.to(
-        socketId
-      ).emit(
-        "webrtc:answer",
-        payload
-      );
+      this.server.to(socketId).emit("webrtc:answer", payload);
     }
-    console.log(
-      "Answer delivered."
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("Answer delivered.");
+    console.log("======================================================");
     console.log("\n");
   }
   candidate(client, payload) {
     console.log("\n");
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "\u{1F9CA} WEBRTC ICE CANDIDATE"
-    );
-    console.log(
-      "======================================================"
-    );
-    console.log(
-      "Socket:"
-    );
-    console.log(
-      client.id
-    );
-    console.log(
-      "Conversation:"
-    );
-    console.log(
-      payload.conversationId
-    );
-    console.log(
-      "Sender:"
-    );
-    console.log(
-      payload.senderId
-    );
-    console.log(
-      "Receiver:"
-    );
-    console.log(
-      payload.receiverId
-    );
-    console.log(
-      "Candidate:"
-    );
-    console.dir(
-      payload.candidate,
-      {
-        depth: null
-      }
-    );
-    const receiverSockets = this.users.get(
-      payload.receiverId
-    );
+    console.log("======================================================");
+    console.log("\u{1F9CA} WEBRTC ICE CANDIDATE");
+    console.log("======================================================");
+    console.log("Socket:");
+    console.log(client.id);
+    console.log("Conversation:");
+    console.log(payload.conversationId);
+    console.log("Sender:");
+    console.log(payload.senderId);
+    console.log("Receiver:");
+    console.log(payload.receiverId);
+    console.log("Candidate:");
+    console.dir(payload.candidate, {
+      depth: null
+    });
+    const receiverSockets = this.users.get(payload.receiverId);
     if (!receiverSockets || receiverSockets.size === 0) {
-      console.log(
-        "Receiver is offline."
-      );
+      console.log("Receiver is offline.");
       return;
     }
     for (const socketId of receiverSockets) {
-      this.server.to(
-        socketId
-      ).emit(
-        "webrtc:candidate",
-        payload
-      );
+      this.server.to(socketId).emit("webrtc:candidate", payload);
     }
-    console.log(
-      "ICE candidate delivered."
-    );
-    console.log(
-      "======================================================"
-    );
+    console.log("ICE candidate delivered.");
+    console.log("======================================================");
     console.log("\n");
   }
-  // =====================================================
-  // Call Logging
-  // =====================================================
-  /**
-   * Persists a call as a message in the conversation once its
-   * outcome is known (completed, missed, or declined), and
-   * broadcasts it live via emitMessage so both participants'
-   * chat threads update immediately.
-   */
   async logCallOutcome(call, callStatus) {
     try {
-      const duration = callStatus === "COMPLETED" /* COMPLETED */ && call.acceptedAt ? Math.max(
-        0,
-        Math.round(
-          (Date.now() - call.acceptedAt.getTime()) / 1e3
-        )
-      ) : 0;
-      const type = call.type === "video" ? "VIDEO_CALL" /* VIDEO_CALL */ : "AUDIO_CALL" /* AUDIO_CALL */;
+      const duration = callStatus === CallLogStatus.COMPLETED && call.acceptedAt ? Math.max(0, Math.round((Date.now() - call.acceptedAt.getTime()) / 1e3)) : 0;
+      const type = call.type === "video" ? MessageType.VIDEO_CALL : MessageType.AUDIO_CALL;
       const created = await this.repository.createMessage({
-        conversation: new import_mongoose42.Types.ObjectId(
-          call.conversationId
-        ),
-        sender: new import_mongoose42.Types.ObjectId(
-          call.callerId
-        ),
+        conversation: new import_mongoose42.Types.ObjectId(call.conversationId),
+        sender: new import_mongoose42.Types.ObjectId(call.callerId),
         type,
         content: "",
         callStatus,
         callDuration: duration
       });
-      const populated = await this.repository.findMessageById(
-        created.id
-      );
+      const populated = await this.repository.findMessageById(created.id);
       if (!populated) {
-        console.log(
-          "Call message not found after creation."
-        );
+        console.log("Call message not found after creation.");
         return;
       }
-      const lastMessage = callStatus === "MISSED" /* MISSED */ ? call.type === "video" ? "\u{1F3A5} Missed video call" : "\u{1F4DE} Missed audio call" : callStatus === "DECLINED" /* DECLINED */ ? "\u{1F4DE} Call declined" : call.type === "video" ? "\u{1F3A5} Video call" : "\u{1F4DE} Audio call";
-      await this.repository.updateConversationLastMessage(
-        call.conversationId,
-        lastMessage
-      );
-      const response = this.mapper.toMessage(
-        populated,
-        call.callerId
-      );
-      this.emitMessage(
-        call.conversationId,
-        response
-      );
-      console.log(
-        "\u{1F4DD} Call logged:",
-        callStatus,
-        "duration:",
-        duration
-      );
+      const lastMessage = callStatus === CallLogStatus.MISSED ? call.type === "video" ? "\u{1F3A5} Missed video call" : "\u{1F4DE} Missed audio call" : callStatus === CallLogStatus.DECLINED ? "\u{1F4DE} Call declined" : call.type === "video" ? "\u{1F3A5} Video call" : "\u{1F4DE} Audio call";
+      await this.repository.updateConversationLastMessage(call.conversationId, lastMessage);
+      const response = this.mapper.toMessage(populated, call.callerId);
+      this.emitMessage(call.conversationId, response);
+      console.log("\u{1F4DD} Call logged:", callStatus, "duration:", duration);
     } catch (error) {
-      console.error(
-        "Failed to log call message:",
-        error
-      );
+      console.error("Failed to log call message:", error);
     }
   }
-  /**
-   * Auto-resolves a call as MISSED if it is still ringing
-   * after RING_TIMEOUT_MS with no accept/reject.
-   */
   handleMissedCall(conversationId) {
-    const call = this.activeCalls.get(
-      conversationId
-    );
+    const call = this.activeCalls.get(conversationId);
     if (!call || call.status !== "ringing") {
       return;
     }
-    console.log(
-      "\u23F0 Call timed out (missed):",
+    console.log("\u23F0 Call timed out (missed):", conversationId);
+    this.activeCalls.delete(conversationId);
+    this.server.to(call.callerId).emit("call:ended", {
       conversationId
-    );
-    this.activeCalls.delete(
+    });
+    this.server.to(call.receiverId).emit("call:ended", {
       conversationId
-    );
-    this.server.to(
-      call.callerId
-    ).emit(
-      "call:ended",
-      {
-        conversationId
-      }
-    );
-    this.server.to(
-      call.receiverId
-    ).emit(
-      "call:ended",
-      {
-        conversationId
-      }
-    );
-    void this.logCallOutcome(
-      call,
-      "MISSED" /* MISSED */
-    );
+    });
+    void this.logCallOutcome(call, CallLogStatus.MISSED);
   }
   emitMessage(conversationId, message) {
-    this.server.to(conversationId).emit(
-      "message:new",
-      message
-    );
+    this.server.to(conversationId).emit("message:new", message);
   }
   emitUpdatedMessage(conversationId, message) {
-    this.server.to(conversationId).emit(
-      "message:updated",
-      message
-    );
+    this.server.to(conversationId).emit("message:updated", message);
   }
   emitDeletedMessage(conversationId, payload) {
-    this.server.to(conversationId).emit(
-      "message:deleted",
-      payload
-    );
+    this.server.to(conversationId).emit("message:deleted", payload);
   }
   emitConversationRead(conversationId, payload) {
-    this.server.to(conversationId).emit(
-      "conversation:read",
-      payload
-    );
+    this.server.to(conversationId).emit("conversation:read", payload);
   }
 };
-__decorateClass([
-  (0, import_websockets.WebSocketServer)()
-], ChatGateway.prototype, "server", 2);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "user:join"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "join", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "conversation:join"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "joinConversation", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "conversation:leave"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "leaveConversation", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "call:start"
-  ),
-  __decorateParam(0, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "startCall", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "call:accept"
-  ),
-  __decorateParam(0, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "acceptCall", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "call:reject"
-  ),
-  __decorateParam(0, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "rejectCall", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "call:end"
-  ),
-  __decorateParam(0, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "endCall", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "webrtc:offer"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "offer", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "webrtc:answer"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "answer", 1);
-__decorateClass([
-  (0, import_websockets.SubscribeMessage)(
-    "webrtc:candidate"
-  ),
-  __decorateParam(0, (0, import_websockets.ConnectedSocket)()),
-  __decorateParam(1, (0, import_websockets.MessageBody)())
-], ChatGateway.prototype, "candidate", 1);
-ChatGateway = __decorateClass([
+__decorate68([
+  (0, import_websockets.WebSocketServer)(),
+  __metadata50("design:type", typeof (_c17 = typeof import_socket.Server !== "undefined" && import_socket.Server) === "function" ? _c17 : Object)
+], ChatGateway.prototype, "server", void 0);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("user:join"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_d14 = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _d14 : Object, String]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "join", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("conversation:join"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_e7 = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _e7 : Object, String]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "joinConversation", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("conversation:leave"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_f4 = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _f4 : Object, String]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "leaveConversation", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("call:start"),
+  __param29(0, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "startCall", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("call:accept"),
+  __param29(0, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "acceptCall", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("call:reject"),
+  __param29(0, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "rejectCall", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("call:end"),
+  __param29(0, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "endCall", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("webrtc:offer"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_g3 = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _g3 : Object, Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "offer", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("webrtc:answer"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_h3 = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _h3 : Object, Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "answer", null);
+__decorate68([
+  (0, import_websockets.SubscribeMessage)("webrtc:candidate"),
+  __param29(0, (0, import_websockets.ConnectedSocket)()),
+  __param29(1, (0, import_websockets.MessageBody)()),
+  __metadata50("design:type", Function),
+  __metadata50("design:paramtypes", [typeof (_j = typeof import_socket.Socket !== "undefined" && import_socket.Socket) === "function" ? _j : Object, Object]),
+  __metadata50("design:returntype", void 0)
+], ChatGateway.prototype, "candidate", null);
+ChatGateway = __decorate68([
   (0, import_websockets.WebSocketGateway)({
     cors: {
       origin: "*"
     }
   }),
-  __decorateParam(0, (0, import_common50.Inject)(ChatRepository)),
-  __decorateParam(1, (0, import_common50.Inject)(ChatMapper))
+  __param29(0, (0, import_common50.Inject)(ChatRepository)),
+  __param29(1, (0, import_common50.Inject)(ChatMapper)),
+  __metadata50("design:paramtypes", [typeof (_a47 = typeof ChatRepository !== "undefined" && ChatRepository) === "function" ? _a47 : Object, typeof (_b26 = typeof ChatMapper !== "undefined" && ChatMapper) === "function" ? _b26 : Object])
 ], ChatGateway);
 
-// apps/api/src/chat/service/chat.service.ts
+// src/chat/service/chat.service.ts
 var import_mongoose43 = require("mongoose");
-var ChatService = class {
+var __decorate69 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata51 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param30 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a48;
+var _b27;
+var _c18;
+var _d15;
+var _e8;
+var ChatService = class ChatService2 {
+  repository;
+  employeesRepository;
+  mapper;
+  gateway;
+  cloudinary;
   constructor(repository, employeesRepository, mapper, gateway, cloudinary2) {
     this.repository = repository;
     this.employeesRepository = employeesRepository;
@@ -6694,109 +6872,56 @@ var ChatService = class {
     this.gateway = gateway;
     this.cloudinary = cloudinary2;
   }
-  repository;
-  employeesRepository;
-  mapper;
-  gateway;
-  cloudinary;
-  // =====================================================
-  // Conversations
-  // =====================================================
   async conversations(userId, filter) {
     const employeeId = await this.getEmployeeId(userId);
-    const result = await this.repository.findUserConversations(
-      employeeId,
-      filter
-    );
-    return this.mapper.toConversationList(
-      result,
-      employeeId
-    );
+    const result = await this.repository.findUserConversations(employeeId, filter);
+    return this.mapper.toConversationList(result, employeeId);
   }
   async createConversation(userId, dto) {
     const employeeId = await this.getEmployeeId(userId);
     if (employeeId === dto.participantId) {
-      throw new import_common51.ForbiddenException(
-        "You cannot create a conversation with yourself."
-      );
+      throw new import_common51.ForbiddenException("You cannot create a conversation with yourself.");
     }
-    const participant = await this.employeesRepository.findById(
-      dto.participantId
-    );
+    const participant = await this.employeesRepository.findById(dto.participantId);
     if (!participant) {
-      throw new import_common51.NotFoundException(
-        "Employee not found."
-      );
+      throw new import_common51.NotFoundException("Employee not found.");
     }
-    let conversation = await this.repository.findConversationBetweenUsers(
-      employeeId,
-      dto.participantId
-    );
+    let conversation = await this.repository.findConversationBetweenUsers(employeeId, dto.participantId);
     if (!conversation) {
       const created = await this.repository.createConversation([
         employeeId,
         dto.participantId
       ]);
-      conversation = await this.repository.findConversationById(
-        created.id
-      );
+      conversation = await this.repository.findConversationById(created.id);
     }
-    return this.mapper.toConversation(
-      conversation,
-      employeeId
-    );
+    return this.mapper.toConversation(conversation, employeeId);
   }
-  // =====================================================
-  // Messages
-  // =====================================================
   async messages(userId, conversationId, filter) {
     console.log("conversationId from controller:");
     console.log(conversationId);
     const employeeId = await this.getEmployeeId(userId);
-    const conversation = await this.repository.findConversationById(
-      conversationId
-    );
+    const conversation = await this.repository.findConversationById(conversationId);
     if (!conversation) {
-      throw new import_common51.NotFoundException(
-        "Conversation not found."
-      );
+      throw new import_common51.NotFoundException("Conversation not found.");
     }
     const participants = conversation.participants;
-    const isParticipant = participants.some(
-      (participant) => participant._id.toString() === employeeId
-    );
+    const isParticipant = participants.some((participant) => participant._id.toString() === employeeId);
     if (!isParticipant) {
-      throw new import_common51.ForbiddenException(
-        "You are not a participant of this conversation."
-      );
+      throw new import_common51.ForbiddenException("You are not a participant of this conversation.");
     }
-    const result = await this.repository.findMessages(
-      conversationId,
-      filter
-    );
-    return this.mapper.toMessageList(
-      result,
-      employeeId
-    );
+    const result = await this.repository.findMessages(conversationId, filter);
+    return this.mapper.toMessageList(result, employeeId);
   }
   async sendMessage(userId, dto) {
     const employeeId = await this.getEmployeeId(userId);
-    const conversation = await this.repository.findConversationById(
-      dto.conversationId
-    );
+    const conversation = await this.repository.findConversationById(dto.conversationId);
     if (!conversation) {
-      throw new import_common51.NotFoundException(
-        "Conversation not found."
-      );
+      throw new import_common51.NotFoundException("Conversation not found.");
     }
     const participants = conversation.participants;
-    const isParticipant = participants.some(
-      (participant) => participant._id.toString() === employeeId
-    );
+    const isParticipant = participants.some((participant) => participant._id.toString() === employeeId);
     if (!isParticipant) {
-      throw new import_common51.ForbiddenException(
-        "You are not a participant of this conversation."
-      );
+      throw new import_common51.ForbiddenException("You are not a participant of this conversation.");
     }
     console.log("======================");
     console.log("DTO RECEIVED");
@@ -6807,185 +6932,107 @@ var ChatService = class {
     console.log("======================");
     console.log("SAVED MESSAGE");
     const message = await this.repository.createMessage({
-      conversation: new import_mongoose43.Types.ObjectId(
-        dto.conversationId
-      ),
-      sender: new import_mongoose43.Types.ObjectId(
-        employeeId
-      ),
+      conversation: new import_mongoose43.Types.ObjectId(dto.conversationId),
+      sender: new import_mongoose43.Types.ObjectId(employeeId),
       type: dto.type,
       content: dto.content ?? "",
       attachment: dto.attachment ?? "",
       fileName: dto.fileName ?? "",
       fileSize: dto.fileSize ?? 0,
-      replyTo: dto.replyTo ? new import_mongoose43.Types.ObjectId(
-        dto.replyTo
-      ) : void 0
+      replyTo: dto.replyTo ? new import_mongoose43.Types.ObjectId(dto.replyTo) : void 0
     });
     let lastMessage = dto.content;
     switch (dto.type) {
-      case "IMAGE" /* IMAGE */:
+      case MessageType.IMAGE:
         lastMessage = dto.content?.trim() ? `\u{1F4F7} ${dto.content}` : "\u{1F4F7} Photo";
         break;
-      case "FILE" /* FILE */:
+      case MessageType.FILE:
         lastMessage = dto.fileName ? `\u{1F4C4} ${dto.fileName}` : "\u{1F4C4} File";
         break;
-      case "VOICE" /* VOICE */:
+      case MessageType.VOICE:
         lastMessage = "\u{1F3A4} Voice message";
         break;
-      case "TEXT" /* TEXT */:
+      case MessageType.TEXT:
       default:
         lastMessage = dto.content;
         break;
     }
-    await this.repository.updateConversationLastMessage(
-      dto.conversationId,
-      lastMessage
-    );
-    const populated = await this.repository.findMessageById(
-      message.id
-    );
+    await this.repository.updateConversationLastMessage(dto.conversationId, lastMessage);
+    const populated = await this.repository.findMessageById(message.id);
     if (!populated) {
-      throw new import_common51.NotFoundException(
-        "Message not found after creation."
-      );
+      throw new import_common51.NotFoundException("Message not found after creation.");
     }
-    const response = this.mapper.toMessage(
-      populated,
-      employeeId
-    );
-    this.gateway.emitMessage(
-      dto.conversationId,
-      response
-    );
+    const response = this.mapper.toMessage(populated, employeeId);
+    this.gateway.emitMessage(dto.conversationId, response);
     return response;
   }
   async updateMessage(userId, messageId, dto) {
     const employeeId = await this.getEmployeeId(userId);
-    const message = await this.repository.findMessageById(
-      messageId
-    );
+    const message = await this.repository.findMessageById(messageId);
     if (!message) {
-      throw new import_common51.NotFoundException(
-        "Message not found."
-      );
+      throw new import_common51.NotFoundException("Message not found.");
     }
     const sender = message.sender;
     if (sender._id.toString() !== employeeId) {
-      throw new import_common51.ForbiddenException(
-        "You can edit only your own messages."
-      );
+      throw new import_common51.ForbiddenException("You can edit only your own messages.");
     }
-    const updated = await this.repository.updateMessage(
-      messageId,
-      dto.content
-    );
+    const updated = await this.repository.updateMessage(messageId, dto.content);
     if (!updated) {
-      throw new import_common51.NotFoundException(
-        "Unable to update message."
-      );
+      throw new import_common51.NotFoundException("Unable to update message.");
     }
-    const response = this.mapper.toMessage(
-      updated,
-      employeeId
-    );
-    this.gateway.emitUpdatedMessage(
-      response.conversation,
-      response
-    );
+    const response = this.mapper.toMessage(updated, employeeId);
+    this.gateway.emitUpdatedMessage(response.conversation, response);
     return response;
   }
   async deleteMessage(userId, messageId) {
     const employeeId = await this.getEmployeeId(userId);
-    const message = await this.repository.findMessageById(
-      messageId
-    );
+    const message = await this.repository.findMessageById(messageId);
     if (!message) {
-      throw new import_common51.NotFoundException(
-        "Message not found."
-      );
+      throw new import_common51.NotFoundException("Message not found.");
     }
     const sender = message.sender;
     if (sender._id.toString() !== employeeId) {
-      throw new import_common51.ForbiddenException(
-        "You can delete only your own messages."
-      );
+      throw new import_common51.ForbiddenException("You can delete only your own messages.");
     }
-    const deleted = await this.repository.deleteMessage(
-      messageId
-    );
+    const deleted = await this.repository.deleteMessage(messageId);
     if (!deleted) {
-      throw new import_common51.NotFoundException(
-        "Unable to delete message."
-      );
+      throw new import_common51.NotFoundException("Unable to delete message.");
     }
-    const response = this.mapper.toMessage(
-      deleted,
-      employeeId
-    );
-    this.gateway.emitDeletedMessage(
-      response.conversation,
-      response.id
-    );
+    const response = this.mapper.toMessage(deleted, employeeId);
+    this.gateway.emitDeletedMessage(response.conversation, response.id);
     return response;
   }
   async markAsRead(conversationId, userId) {
     const employeeId = await this.getEmployeeId(userId);
-    const conversation = await this.repository.findConversationById(
-      conversationId
-    );
+    const conversation = await this.repository.findConversationById(conversationId);
     if (!conversation) {
-      throw new import_common51.NotFoundException(
-        "Conversation not found."
-      );
+      throw new import_common51.NotFoundException("Conversation not found.");
     }
     const participants = conversation.participants;
-    const isParticipant = participants.some(
-      (participant) => participant._id.toString() === employeeId
-    );
+    const isParticipant = participants.some((participant) => participant._id.toString() === employeeId);
     if (!isParticipant) {
-      throw new import_common51.ForbiddenException(
-        "You are not a participant of this conversation."
-      );
+      throw new import_common51.ForbiddenException("You are not a participant of this conversation.");
     }
-    await this.repository.markConversationAsRead(
-      conversationId,
-      employeeId
-    );
-    this.gateway.emitConversationRead(
-      conversationId,
-      employeeId
-    );
+    await this.repository.markConversationAsRead(conversationId, employeeId);
+    this.gateway.emitConversationRead(conversationId, employeeId);
     return {
       success: true
     };
   }
   async unreadCount(userId) {
     const employeeId = await this.getEmployeeId(userId);
-    const unread = await this.repository.getUnreadCount(
-      employeeId
-    );
+    const unread = await this.repository.getUnreadCount(employeeId);
     return {
       unread
     };
   }
-  // =====================================================
-  // Upload
-  // =====================================================
   async uploadFile(file) {
     if (!file) {
-      throw new import_common51.NotFoundException(
-        "No file uploaded."
-      );
+      throw new import_common51.NotFoundException("No file uploaded.");
     }
-    const result = await this.cloudinary.uploadFile(
-      file,
-      "company-management/chat"
-    );
+    const result = await this.cloudinary.uploadFile(file, "company-management/chat");
     console.log(result);
-    const isImage = file.mimetype.startsWith(
-      "image/"
-    );
+    const isImage = file.mimetype.startsWith("image/");
     return {
       url: result.secure_url,
       publicId: result.public_id,
@@ -6995,54 +7042,168 @@ var ChatService = class {
       type: isImage ? "IMAGE" : "FILE"
     };
   }
-  // =====================================================
-  // Helpers
-  // =====================================================
   async getEmployeeId(userId) {
-    const employee = await this.employeesRepository.findByUserId(
-      userId
-    );
+    const employee = await this.employeesRepository.findByUserId(userId);
     if (!employee) {
-      throw new import_common51.NotFoundException(
-        "Employee profile not found."
-      );
+      throw new import_common51.NotFoundException("Employee profile not found.");
     }
     return employee._id.toString();
   }
 };
-ChatService = __decorateClass([
+ChatService = __decorate69([
   (0, import_common51.Injectable)(),
-  __decorateParam(0, (0, import_common51.Inject)(ChatRepository)),
-  __decorateParam(1, (0, import_common51.Inject)(EmployeesRepository)),
-  __decorateParam(2, (0, import_common51.Inject)(ChatMapper)),
-  __decorateParam(3, (0, import_common51.Inject)(ChatGateway)),
-  __decorateParam(4, (0, import_common51.Inject)(CloudinaryService))
+  __param30(0, (0, import_common51.Inject)(ChatRepository)),
+  __param30(1, (0, import_common51.Inject)(EmployeesRepository)),
+  __param30(2, (0, import_common51.Inject)(ChatMapper)),
+  __param30(3, (0, import_common51.Inject)(ChatGateway)),
+  __param30(4, (0, import_common51.Inject)(CloudinaryService)),
+  __metadata51("design:paramtypes", [typeof (_a48 = typeof ChatRepository !== "undefined" && ChatRepository) === "function" ? _a48 : Object, typeof (_b27 = typeof EmployeesRepository !== "undefined" && EmployeesRepository) === "function" ? _b27 : Object, typeof (_c18 = typeof ChatMapper !== "undefined" && ChatMapper) === "function" ? _c18 : Object, typeof (_d15 = typeof ChatGateway !== "undefined" && ChatGateway) === "function" ? _d15 : Object, typeof (_e8 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _e8 : Object])
 ], ChatService);
 
-// apps/api/src/chat/controller/chat.controller.ts
-var ChatController = class {
+// src/chat/dto/conversation-filter.dto.ts
+var import_class_transformer4 = require("class-transformer");
+var import_class_validator14 = require("class-validator");
+var __decorate70 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata52 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ConversationFilterDto = class {
+  search;
+  page = 1;
+  limit = 20;
+};
+__decorate70([
+  (0, import_class_validator14.IsOptional)(),
+  (0, import_class_validator14.IsString)(),
+  __metadata52("design:type", String)
+], ConversationFilterDto.prototype, "search", void 0);
+__decorate70([
+  (0, import_class_validator14.IsOptional)(),
+  (0, import_class_transformer4.Type)(() => Number),
+  (0, import_class_validator14.IsInt)(),
+  (0, import_class_validator14.Min)(1),
+  __metadata52("design:type", Object)
+], ConversationFilterDto.prototype, "page", void 0);
+__decorate70([
+  (0, import_class_validator14.IsOptional)(),
+  (0, import_class_transformer4.Type)(() => Number),
+  (0, import_class_validator14.IsInt)(),
+  (0, import_class_validator14.Min)(1),
+  (0, import_class_validator14.Max)(100),
+  __metadata52("design:type", Object)
+], ConversationFilterDto.prototype, "limit", void 0);
+
+// src/chat/dto/message-filter.dto.ts
+var import_class_transformer5 = require("class-transformer");
+var import_class_validator15 = require("class-validator");
+var __decorate71 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata53 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var MessageFilterDto = class {
+  page = 1;
+  limit = 50;
+};
+__decorate71([
+  (0, import_class_validator15.IsOptional)(),
+  (0, import_class_transformer5.Type)(() => Number),
+  (0, import_class_validator15.IsInt)(),
+  (0, import_class_validator15.Min)(1),
+  __metadata53("design:type", Object)
+], MessageFilterDto.prototype, "page", void 0);
+__decorate71([
+  (0, import_class_validator15.IsOptional)(),
+  (0, import_class_transformer5.Type)(() => Number),
+  (0, import_class_validator15.IsInt)(),
+  (0, import_class_validator15.Min)(1),
+  (0, import_class_validator15.Max)(100),
+  __metadata53("design:type", Object)
+], MessageFilterDto.prototype, "limit", void 0);
+
+// src/chat/dto/create-conversation.dto.ts
+var import_class_validator16 = require("class-validator");
+var __decorate72 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata54 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateConversationDto = class {
+  participantId;
+};
+__decorate72([
+  (0, import_class_validator16.IsMongoId)(),
+  __metadata54("design:type", String)
+], CreateConversationDto.prototype, "participantId", void 0);
+
+// src/chat/dto/update-message.dto.ts
+var import_class_validator17 = require("class-validator");
+var __decorate73 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata55 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var UpdateMessageDto = class {
+  content;
+};
+__decorate73([
+  (0, import_class_validator17.IsString)(),
+  (0, import_class_validator17.MaxLength)(5e3),
+  __metadata55("design:type", String)
+], UpdateMessageDto.prototype, "content", void 0);
+
+// src/chat/controller/chat.controller.ts
+var __decorate74 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata56 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param31 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a49;
+var _b28;
+var _c19;
+var _d16;
+var _e9;
+var _f5;
+var _g4;
+var ChatController = class ChatController2 {
+  service;
   constructor(service) {
     this.service = service;
   }
-  service;
   conversations(req, filter) {
-    return this.service.conversations(
-      req.user.sub,
-      filter
-    );
+    return this.service.conversations(req.user.sub, filter);
   }
   createConversation(req, dto) {
-    return this.service.createConversation(
-      req.user.sub,
-      dto
-    );
+    return this.service.createConversation(req.user.sub, dto);
   }
   messages(req, conversationId, filter) {
-    return this.service.messages(
-      req.user.sub,
-      conversationId,
-      filter
-    );
+    return this.service.messages(req.user.sub, conversationId, filter);
   }
   async sendMessage(req, body) {
     console.log("============== SEND MESSAGE ==============");
@@ -7054,115 +7215,125 @@ var ChatController = class {
     console.log("fileName:", body.fileName);
     console.log("fileSize:", body.fileSize);
     console.log("==========================================");
-    return this.service.sendMessage(
-      req.user.sub,
-      body
-    );
+    return this.service.sendMessage(req.user.sub, body);
   }
   updateMessage(req, id, dto) {
-    return this.service.updateMessage(
-      req.user.sub,
-      id,
-      dto
-    );
+    return this.service.updateMessage(req.user.sub, id, dto);
   }
   deleteMessage(req, id) {
-    return this.service.deleteMessage(
-      req.user.sub,
-      id
-    );
+    return this.service.deleteMessage(req.user.sub, id);
   }
   upload(file) {
-    return this.service.uploadFile(
-      file
-    );
+    return this.service.uploadFile(file);
   }
   markAsRead(req, id) {
-    return this.service.markAsRead(
-      id,
-      req.user.sub
-    );
+    return this.service.markAsRead(id, req.user.sub);
   }
   unreadCount(req) {
-    return this.service.unreadCount(
-      req.user.sub
-    );
+    return this.service.unreadCount(req.user.sub);
   }
 };
-__decorateClass([
+__decorate74([
   (0, import_common52.Get)("conversations"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Query)())
-], ChatController.prototype, "conversations", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Query)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, typeof (_b28 = typeof ConversationFilterDto !== "undefined" && ConversationFilterDto) === "function" ? _b28 : Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "conversations", null);
+__decorate74([
   (0, import_common52.Post)("conversations"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Body)())
-], ChatController.prototype, "createConversation", 1);
-__decorateClass([
-  (0, import_common52.Get)(
-    "conversations/:conversationId/messages"
-  ),
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Body)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, typeof (_c19 = typeof CreateConversationDto !== "undefined" && CreateConversationDto) === "function" ? _c19 : Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "createConversation", null);
+__decorate74([
+  (0, import_common52.Get)("conversations/:conversationId/messages"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Param)("conversationId")),
-  __decorateParam(2, (0, import_common52.Query)())
-], ChatController.prototype, "messages", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Param)("conversationId")),
+  __param31(2, (0, import_common52.Query)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, String, typeof (_d16 = typeof MessageFilterDto !== "undefined" && MessageFilterDto) === "function" ? _d16 : Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "messages", null);
+__decorate74([
   (0, import_common52.Post)("messages"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Body)())
-], ChatController.prototype, "sendMessage", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Body)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, Object]),
+  __metadata56("design:returntype", Promise)
+], ChatController.prototype, "sendMessage", null);
+__decorate74([
   (0, import_common52.Patch)("messages/:id"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Param)("id")),
-  __decorateParam(2, (0, import_common52.Body)())
-], ChatController.prototype, "updateMessage", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Param)("id")),
+  __param31(2, (0, import_common52.Body)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, String, typeof (_e9 = typeof UpdateMessageDto !== "undefined" && UpdateMessageDto) === "function" ? _e9 : Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "updateMessage", null);
+__decorate74([
   (0, import_common52.Delete)("messages/:id"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Param)("id"))
-], ChatController.prototype, "deleteMessage", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Param)("id")),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, String]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "deleteMessage", null);
+__decorate74([
   (0, import_common52.Post)("upload"),
   Roles(...VIEW_ROLES),
-  (0, import_common52.UseInterceptors)(
-    (0, import_platform_express2.FileInterceptor)("file")
-  ),
-  __decorateParam(0, (0, import_common52.UploadedFile)())
-], ChatController.prototype, "upload", 1);
-__decorateClass([
+  (0, import_common52.UseInterceptors)((0, import_platform_express2.FileInterceptor)("file")),
+  __param31(0, (0, import_common52.UploadedFile)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [typeof (_g4 = typeof Express !== "undefined" && (_f5 = Express.Multer) !== void 0 && _f5.File) === "function" ? _g4 : Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "upload", null);
+__decorate74([
   (0, import_common52.Patch)("conversations/:id/read"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)()),
-  __decorateParam(1, (0, import_common52.Param)("id"))
-], ChatController.prototype, "markAsRead", 1);
-__decorateClass([
+  __param31(0, (0, import_common52.Req)()),
+  __param31(1, (0, import_common52.Param)("id")),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object, String]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "markAsRead", null);
+__decorate74([
   (0, import_common52.Get)("unread-count"),
   Roles(...VIEW_ROLES),
-  __decorateParam(0, (0, import_common52.Req)())
-], ChatController.prototype, "unreadCount", 1);
-ChatController = __decorateClass([
-  (0, import_swagger3.ApiTags)("Chat"),
-  (0, import_swagger3.ApiBearerAuth)(),
-  (0, import_common52.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
+  __param31(0, (0, import_common52.Req)()),
+  __metadata56("design:type", Function),
+  __metadata56("design:paramtypes", [Object]),
+  __metadata56("design:returntype", void 0)
+], ChatController.prototype, "unreadCount", null);
+ChatController = __decorate74([
+  (0, import_swagger4.ApiTags)("Chat"),
+  (0, import_swagger4.ApiBearerAuth)(),
+  (0, import_common52.UseGuards)(JwtAuthGuard, RolesGuard),
   (0, import_common52.Controller)("chat"),
-  __decorateParam(0, (0, import_common52.Inject)(ChatService))
+  __param31(0, (0, import_common52.Inject)(ChatService)),
+  __metadata56("design:paramtypes", [typeof (_a49 = typeof ChatService !== "undefined" && ChatService) === "function" ? _a49 : Object])
 ], ChatController);
 
-// apps/api/src/chat/chat.module.ts
-var ChatModule = class {
+// src/chat/chat.module.ts
+var __decorate75 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-ChatModule = __decorateClass([
+var ChatModule = class ChatModule2 {
+};
+ChatModule = __decorate75([
   (0, import_common53.Module)({
     imports: [
       EmployeesModule,
@@ -7170,7 +7341,6 @@ ChatModule = __decorateClass([
       import_platform_express3.MulterModule.register({
         limits: {
           fileSize: 25 * 1024 * 1024
-          // 25 MB
         }
       }),
       import_mongoose44.MongooseModule.forFeature([
@@ -7201,29 +7371,30 @@ ChatModule = __decorateClass([
   })
 ], ChatModule);
 
-// apps/api/src/files/files.module.ts
+// src/files/files.module.ts
 var import_common58 = require("@nestjs/common");
 var import_mongoose50 = require("@nestjs/mongoose");
 
-// apps/api/src/files/controllers/files.controller.ts
+// src/files/controllers/files.controller.ts
 var import_common57 = require("@nestjs/common");
 var import_platform_express4 = require("@nestjs/platform-express");
 
-// apps/api/src/files/services/files.service.ts
+// src/files/services/files.service.ts
 var import_common56 = require("@nestjs/common");
 var import_mongoose49 = require("mongoose");
 
-// apps/api/src/files/repository/files.repository.ts
+// src/files/repository/files.repository.ts
 var import_common54 = require("@nestjs/common");
 var import_mongoose47 = require("@nestjs/mongoose");
 var import_mongoose48 = require("mongoose");
 
-// apps/api/src/files/schemas/file.schema.ts
+// src/files/schemas/file.schema.ts
 var import_mongoose45 = require("@nestjs/mongoose");
 var import_mongoose46 = require("mongoose");
 
-// apps/api/src/files/enums/file-type.enum.ts
-var FileType = /* @__PURE__ */ ((FileType2) => {
+// src/files/enums/file-type.enum.ts
+var FileType;
+(function(FileType2) {
   FileType2["FOLDER"] = "folder";
   FileType2["IMAGE"] = "image";
   FileType2["DOCUMENT"] = "document";
@@ -7232,11 +7403,23 @@ var FileType = /* @__PURE__ */ ((FileType2) => {
   FileType2["VIDEO"] = "video";
   FileType2["ARCHIVE"] = "archive";
   FileType2["OTHER"] = "other";
-  return FileType2;
-})(FileType || {});
+})(FileType || (FileType = {}));
 
-// apps/api/src/files/schemas/file.schema.ts
-var File = class {
+// src/files/schemas/file.schema.ts
+var __decorate76 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata57 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a50;
+var _c20;
+var _d17;
+var _e10;
+var File = class File2 {
   name;
   originalName;
   extension;
@@ -7252,81 +7435,85 @@ var File = class {
   isDeleted;
   createdBy;
   updatedBy;
-  /**
-   * @Schema({ timestamps: true }) adds these to the document at
-   * runtime, but TypeScript only knows about class fields that are
-   * actually declared — without this, files.mapper.ts can't read
-   * file.createdAt / file.updatedAt.
-   */
   createdAt;
   updatedAt;
 };
-__decorateClass([
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     required: true,
     trim: true
-  })
-], File.prototype, "name", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "name", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     default: ""
-  })
-], File.prototype, "originalName", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "originalName", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     default: ""
-  })
-], File.prototype, "extension", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "extension", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     required: true,
     enum: FileType,
-    default: "other" /* OTHER */
-  })
-], File.prototype, "type", 2);
-__decorateClass([
+    default: FileType.OTHER
+  }),
+  __metadata57("design:type", typeof (_a50 = typeof FileType !== "undefined" && FileType) === "function" ? _a50 : Object)
+], File.prototype, "type", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     default: ""
-  })
-], File.prototype, "mimeType", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "mimeType", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: Number,
     default: 0
-  })
-], File.prototype, "size", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", Number)
+], File.prototype, "size", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     default: ""
-  })
-], File.prototype, "url", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "url", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: String,
     default: ""
-  })
-], File.prototype, "thumbnail", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", String)
+], File.prototype, "thumbnail", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: import_mongoose46.Types.ObjectId,
     ref: File.name,
     default: null
-  })
-], File.prototype, "parentFolder", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", Object)
+], File.prototype, "parentFolder", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: import_mongoose46.Types.ObjectId,
     ref: Employee.name,
     required: true
-  })
-], File.prototype, "owner", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", typeof (_c20 = typeof import_mongoose46.Types !== "undefined" && import_mongoose46.Types.ObjectId) === "function" ? _c20 : Object)
+], File.prototype, "owner", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: [
       {
@@ -7335,9 +7522,10 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], File.prototype, "sharedWith", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", Array)
+], File.prototype, "sharedWith", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: [
       {
@@ -7346,29 +7534,33 @@ __decorateClass([
       }
     ],
     default: []
-  })
-], File.prototype, "favoriteBy", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", Array)
+], File.prototype, "favoriteBy", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: Boolean,
     default: false
-  })
-], File.prototype, "isDeleted", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", Boolean)
+], File.prototype, "isDeleted", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: import_mongoose46.Types.ObjectId,
     ref: Employee.name,
     required: true
-  })
-], File.prototype, "createdBy", 2);
-__decorateClass([
+  }),
+  __metadata57("design:type", typeof (_d17 = typeof import_mongoose46.Types !== "undefined" && import_mongoose46.Types.ObjectId) === "function" ? _d17 : Object)
+], File.prototype, "createdBy", void 0);
+__decorate76([
   (0, import_mongoose45.Prop)({
     type: import_mongoose46.Types.ObjectId,
     ref: Employee.name,
     required: true
-  })
-], File.prototype, "updatedBy", 2);
-File = __decorateClass([
+  }),
+  __metadata57("design:type", typeof (_e10 = typeof import_mongoose46.Types !== "undefined" && import_mongoose46.Types.ObjectId) === "function" ? _e10 : Object)
+], File.prototype, "updatedBy", void 0);
+File = __decorate76([
   (0, import_mongoose45.Schema)({
     timestamps: true
   })
@@ -7393,39 +7585,33 @@ FileSchema.index({
   name: "text"
 });
 
-// apps/api/src/files/repository/files.repository.ts
-var FilesRepository = class {
+// src/files/repository/files.repository.ts
+var __decorate77 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata58 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param32 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a51;
+var FilesRepository = class FilesRepository2 {
+  fileModel;
   constructor(fileModel) {
     this.fileModel = fileModel;
   }
-  fileModel;
-  // =====================================================
-  // Create
-  // =====================================================
   create(data) {
-    return this.fileModel.create(
-      data
-    );
+    return this.fileModel.create(data);
   }
-  // =====================================================
-  // Find By Id
-  // =====================================================
   findById(id) {
-    return this.fileModel.findById(id).populate(
-      "owner"
-    ).populate(
-      "sharedWith"
-    ).populate(
-      "createdBy"
-    ).populate(
-      "updatedBy"
-    ).populate(
-      "parentFolder"
-    );
+    return this.fileModel.findById(id).populate("owner").populate("sharedWith").populate("createdBy").populate("updatedBy").populate("parentFolder");
   }
-  // =====================================================
-  // Find Folder
-  // =====================================================
   findFolder(id) {
     return this.fileModel.findOne({
       _id: id,
@@ -7433,24 +7619,12 @@ var FilesRepository = class {
       isDeleted: false
     });
   }
-  // =====================================================
-  // List Files
-  //
-  // Everyone sees the full list (every employee's files,
-  // including admin-uploaded ones) — access to individual
-  // files (url/thumbnail, and every write action) is
-  // enforced separately in the mapper/service, not here.
-  // `employeeId` is only needed for the "favorite" filter,
-  // which is inherently per-viewer.
-  // =====================================================
   async findAll(employeeId, query) {
     const filter = {
       isDeleted: false
     };
     if (query.parentFolder) {
-      filter.parentFolder = new import_mongoose48.Types.ObjectId(
-        query.parentFolder
-      );
+      filter.parentFolder = new import_mongoose48.Types.ObjectId(query.parentFolder);
     }
     if (query.type) {
       filter.type = query.type;
@@ -7463,26 +7637,14 @@ var FilesRepository = class {
     if (query.favorite === "true") {
       filter.favoriteBy = {
         $in: [
-          new import_mongoose48.Types.ObjectId(
-            employeeId
-          )
+          new import_mongoose48.Types.ObjectId(employeeId)
         ]
       };
     }
-    const total = await this.fileModel.countDocuments(
-      filter
-    );
-    const items = await this.fileModel.find(filter).populate(
-      "owner"
-    ).populate(
-      "parentFolder"
-    ).sort({
+    const total = await this.fileModel.countDocuments(filter);
+    const items = await this.fileModel.find(filter).populate("owner").populate("parentFolder").sort({
       updatedAt: -1
-    }).skip(
-      (query.page - 1) * query.limit
-    ).limit(
-      query.limit
-    );
+    }).skip((query.page - 1) * query.limit).limit(query.limit);
     return {
       items,
       total,
@@ -7490,119 +7652,56 @@ var FilesRepository = class {
       limit: query.limit
     };
   }
-  // =====================================================
-  // Rename
-  // =====================================================
   rename(id, name, updatedBy) {
-    return this.fileModel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        updatedBy: new import_mongoose48.Types.ObjectId(
-          updatedBy
-        )
-      },
-      {
-        new: true
-      }
-    );
+    return this.fileModel.findByIdAndUpdate(id, {
+      name,
+      updatedBy: new import_mongoose48.Types.ObjectId(updatedBy)
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Move
-  // =====================================================
   move(id, parentFolder, updatedBy) {
-    return this.fileModel.findByIdAndUpdate(
-      id,
-      {
-        parentFolder: parentFolder ? new import_mongoose48.Types.ObjectId(
-          parentFolder
-        ) : null,
-        updatedBy: new import_mongoose48.Types.ObjectId(
-          updatedBy
-        )
-      },
-      {
-        new: true
-      }
-    );
+    return this.fileModel.findByIdAndUpdate(id, {
+      parentFolder: parentFolder ? new import_mongoose48.Types.ObjectId(parentFolder) : null,
+      updatedBy: new import_mongoose48.Types.ObjectId(updatedBy)
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Share
-  // =====================================================
   share(id, employeeIds, updatedBy) {
-    return this.fileModel.findByIdAndUpdate(
-      id,
-      {
-        sharedWith: employeeIds.map(
-          (id2) => new import_mongoose48.Types.ObjectId(
-            id2
-          )
-        ),
-        updatedBy: new import_mongoose48.Types.ObjectId(
-          updatedBy
-        )
-      },
-      {
-        new: true
-      }
-    );
+    return this.fileModel.findByIdAndUpdate(id, {
+      sharedWith: employeeIds.map((id2) => new import_mongoose48.Types.ObjectId(id2)),
+      updatedBy: new import_mongoose48.Types.ObjectId(updatedBy)
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Favorite
-  // =====================================================
   async addFavorite(fileId, employeeId) {
-    return this.fileModel.findByIdAndUpdate(
-      fileId,
-      {
-        $addToSet: {
-          favoriteBy: new import_mongoose48.Types.ObjectId(
-            employeeId
-          )
-        }
-      },
-      {
-        new: true
+    return this.fileModel.findByIdAndUpdate(fileId, {
+      $addToSet: {
+        favoriteBy: new import_mongoose48.Types.ObjectId(employeeId)
       }
-    );
+    }, {
+      new: true
+    });
   }
   async removeFavorite(fileId, employeeId) {
-    return this.fileModel.findByIdAndUpdate(
-      fileId,
-      {
-        $pull: {
-          favoriteBy: new import_mongoose48.Types.ObjectId(
-            employeeId
-          )
-        }
-      },
-      {
-        new: true
+    return this.fileModel.findByIdAndUpdate(fileId, {
+      $pull: {
+        favoriteBy: new import_mongoose48.Types.ObjectId(employeeId)
       }
-    );
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Soft Delete
-  // =====================================================
   delete(id, updatedBy) {
-    return this.fileModel.findByIdAndUpdate(
-      id,
-      {
-        isDeleted: true,
-        updatedBy: new import_mongoose48.Types.ObjectId(
-          updatedBy
-        )
-      },
-      {
-        new: true
-      }
-    );
+    return this.fileModel.findByIdAndUpdate(id, {
+      isDeleted: true,
+      updatedBy: new import_mongoose48.Types.ObjectId(updatedBy)
+    }, {
+      new: true
+    });
   }
-  // =====================================================
-  // Storage
-  //
-  // Global total across every file — matches the list now
-  // being global too, rather than split by role.
-  // =====================================================
   async storageUsed() {
     const result = await this.fileModel.aggregate([
       {
@@ -7625,46 +7724,42 @@ var FilesRepository = class {
     return result[0]?.total ?? 0;
   }
 };
-FilesRepository = __decorateClass([
+FilesRepository = __decorate77([
   (0, import_common54.Injectable)(),
-  __decorateParam(0, (0, import_mongoose47.InjectModel)(File.name)),
-  __decorateParam(0, (0, import_common54.Inject)(import_mongoose48.Model))
+  __param32(0, (0, import_mongoose47.InjectModel)(File.name)),
+  __param32(0, (0, import_common54.Inject)(import_mongoose48.Model)),
+  __metadata58("design:paramtypes", [typeof (_a51 = typeof import_mongoose48.Model !== "undefined" && import_mongoose48.Model) === "function" ? _a51 : Object])
 ], FilesRepository);
 
-// apps/api/src/files/mapper/files.mapper.ts
+// src/files/mapper/files.mapper.ts
 var import_common55 = require("@nestjs/common");
-var FilesMapper = class {
-  // =====================================================
-  // Single File
-  // =====================================================
+var __decorate78 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var FilesMapper = class FilesMapper2 {
   toFile(file, employeeId, canManage) {
     const owner = file.owner;
     const ownerId = owner?._id?.toString() ?? owner?.toString();
     const isOwner = ownerId === employeeId;
-    const isSharedWithMe = file.sharedWith.some(
-      (entry) => {
-        const id = entry?._id?.toString() ?? entry?.toString();
-        return id === employeeId;
-      }
-    );
+    const isSharedWithMe = file.sharedWith.some((entry) => {
+      const id = entry?._id?.toString() ?? entry?.toString();
+      return id === employeeId;
+    });
     const canAccess = canManage || isOwner || isSharedWithMe;
     return {
       id: file.id,
       name: file.name,
       type: file.type,
-      size: this.formatSize(
-        file.size
-      ),
+      size: this.formatSize(file.size),
       uploadedBy: owner?.fullName ?? "",
-      uploadedAt: this.formatDate(
-        file.createdAt
-      ),
-      favorite: file.favoriteBy.some(
-        (id) => {
-          const favId = id?._id?.toString() ?? id?.toString();
-          return favId === employeeId;
-        }
-      ),
+      uploadedAt: this.formatDate(file.createdAt),
+      favorite: file.favoriteBy.some((id) => {
+        const favId = id?._id?.toString() ?? id?.toString();
+        return favId === employeeId;
+      }),
       shared: file.sharedWith.length > 0,
       url: canAccess ? file.url : "",
       thumbnail: canAccess ? file.thumbnail : "",
@@ -7679,31 +7774,17 @@ var FilesMapper = class {
       updatedAt: file.updatedAt
     };
   }
-  // =====================================================
-  // List
-  // =====================================================
   toFileList(result, employeeId, canManage) {
     return {
-      items: result.items.map(
-        (file) => this.toFile(
-          file,
-          employeeId,
-          canManage
-        )
-      ),
+      items: result.items.map((file) => this.toFile(file, employeeId, canManage)),
       pagination: {
         total: result.total,
         page: result.page,
         limit: result.limit,
-        totalPages: Math.ceil(
-          result.total / result.limit
-        )
+        totalPages: Math.ceil(result.total / result.limit)
       }
     };
   }
-  // =====================================================
-  // Helpers
-  // =====================================================
   formatSize(bytes) {
     if (!bytes) {
       return "0 Bytes";
@@ -7721,105 +7802,83 @@ var FilesMapper = class {
       size /= 1024;
       index++;
     }
-    return `${size.toFixed(
-      size < 10 ? 1 : 0
-    )} ${units[index]}`;
+    return `${size.toFixed(size < 10 ? 1 : 0)} ${units[index]}`;
   }
   formatDate(date) {
     const now = /* @__PURE__ */ new Date();
     const diff = now.getTime() - date.getTime();
-    const minutes = Math.floor(
-      diff / 6e4
-    );
+    const minutes = Math.floor(diff / 6e4);
     if (minutes < 1) {
       return "Just now";
     }
     if (minutes < 60) {
       return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     }
-    const hours = Math.floor(
-      minutes / 60
-    );
+    const hours = Math.floor(minutes / 60);
     if (hours < 24) {
       return `${hours} hour${hours > 1 ? "s" : ""} ago`;
     }
-    const days = Math.floor(
-      hours / 24
-    );
+    const days = Math.floor(hours / 24);
     if (days === 1) {
       return "Yesterday";
     }
     if (days < 7) {
       return `${days} days ago`;
     }
-    return date.toLocaleDateString(
-      "en-US",
-      {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-      }
-    );
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
   }
 };
-FilesMapper = __decorateClass([
+FilesMapper = __decorate78([
   (0, import_common55.Injectable)()
 ], FilesMapper);
 
-// apps/api/src/files/services/files.service.ts
-var FilesService = class {
+// src/files/services/files.service.ts
+var __decorate79 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata59 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param33 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a52;
+var _b29;
+var _c21;
+var _d18;
+var FilesService = class FilesService2 {
+  repository;
+  employeesRepository;
+  mapper;
+  cloudinary;
   constructor(repository, employeesRepository, mapper, cloudinary2) {
     this.repository = repository;
     this.employeesRepository = employeesRepository;
     this.mapper = mapper;
     this.cloudinary = cloudinary2;
   }
-  repository;
-  employeesRepository;
-  mapper;
-  cloudinary;
-  // =====================================================
-  // List Files
-  // =====================================================
   async files(userId, query) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const canManage = this.canManage(
-      this.getRole(
-        employee
-      )
-    );
-    const result = await this.repository.findAll(
-      employee._id.toString(),
-      query
-    );
-    return this.mapper.toFileList(
-      result,
-      employee._id.toString(),
-      canManage
-    );
+    const employee = await this.getEmployee(userId);
+    const canManage = this.canManage(this.getRole(employee));
+    const result = await this.repository.findAll(employee._id.toString(), query);
+    return this.mapper.toFileList(result, employee._id.toString(), canManage);
   }
-  // =====================================================
-  // Create Folder — admin/HR only
-  // =====================================================
   async createFolder(userId, dto) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    this.ensureCanManage(
-      this.getRole(
-        employee
-      )
-    );
+    const employee = await this.getEmployee(userId);
+    this.ensureCanManage(this.getRole(employee));
     if (dto.parentFolder) {
-      const folder2 = await this.repository.findFolder(
-        dto.parentFolder
-      );
+      const folder2 = await this.repository.findFolder(dto.parentFolder);
       if (!folder2) {
-        throw new import_common56.NotFoundException(
-          "Parent folder not found."
-        );
+        throw new import_common56.NotFoundException("Parent folder not found.");
       }
     }
     const created = await this.repository.create({
@@ -7830,59 +7889,30 @@ var FilesService = class {
       url: "",
       thumbnail: "",
       size: 0,
-      type: "folder" /* FOLDER */,
-      owner: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      createdBy: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      updatedBy: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      parentFolder: dto.parentFolder ? new import_mongoose49.Types.ObjectId(
-        dto.parentFolder
-      ) : void 0,
+      type: FileType.FOLDER,
+      owner: new import_mongoose49.Types.ObjectId(employee._id),
+      createdBy: new import_mongoose49.Types.ObjectId(employee._id),
+      updatedBy: new import_mongoose49.Types.ObjectId(employee._id),
+      parentFolder: dto.parentFolder ? new import_mongoose49.Types.ObjectId(dto.parentFolder) : void 0,
       sharedWith: [],
       favoriteBy: [],
       isDeleted: false
     });
-    const folder = await this.repository.findById(
-      created.id
-    );
-    return this.mapper.toFile(
-      folder,
-      employee._id.toString(),
-      true
-    );
+    const folder = await this.repository.findById(created.id);
+    return this.mapper.toFile(folder, employee._id.toString(), true);
   }
-  // =====================================================
-  // Upload File — any employee can upload; they own what
-  // they upload.
-  // =====================================================
   async upload(userId, file, dto) {
-    const employee = await this.getEmployee(
-      userId
-    );
+    const employee = await this.getEmployee(userId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "No file uploaded."
-      );
+      throw new import_common56.NotFoundException("No file uploaded.");
     }
     if (dto.parentFolder) {
-      const folder = await this.repository.findFolder(
-        dto.parentFolder
-      );
+      const folder = await this.repository.findFolder(dto.parentFolder);
       if (!folder) {
-        throw new import_common56.NotFoundException(
-          "Parent folder not found."
-        );
+        throw new import_common56.NotFoundException("Parent folder not found.");
       }
     }
-    const upload = await this.cloudinary.uploadFile(
-      file,
-      "company-management/files"
-    );
+    const upload = await this.cloudinary.uploadFile(file, "company-management/files");
     const created = await this.repository.create({
       name: dto.name,
       originalName: file.originalname,
@@ -7890,279 +7920,104 @@ var FilesService = class {
       mimeType: file.mimetype,
       size: file.size,
       url: upload.secure_url,
-      thumbnail: file.mimetype.startsWith(
-        "image/"
-      ) ? upload.secure_url : "",
+      thumbnail: file.mimetype.startsWith("image/") ? upload.secure_url : "",
       type: dto.type,
-      owner: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      createdBy: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      updatedBy: new import_mongoose49.Types.ObjectId(
-        employee._id
-      ),
-      parentFolder: dto.parentFolder ? new import_mongoose49.Types.ObjectId(
-        dto.parentFolder
-      ) : void 0,
+      owner: new import_mongoose49.Types.ObjectId(employee._id),
+      createdBy: new import_mongoose49.Types.ObjectId(employee._id),
+      updatedBy: new import_mongoose49.Types.ObjectId(employee._id),
+      parentFolder: dto.parentFolder ? new import_mongoose49.Types.ObjectId(dto.parentFolder) : void 0,
       sharedWith: [],
       favoriteBy: [],
       isDeleted: false
     });
-    const uploaded = await this.repository.findById(
-      created.id
-    );
-    return this.mapper.toFile(
-      uploaded,
-      employee._id.toString(),
-      this.canManage(
-        this.getRole(
-          employee
-        )
-      )
-    );
+    const uploaded = await this.repository.findById(created.id);
+    return this.mapper.toFile(uploaded, employee._id.toString(), this.canManage(this.getRole(employee)));
   }
-  // =====================================================
-  // Rename — owner or admin/HR
-  // =====================================================
   async rename(userId, fileId, name) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    this.ensureCanModify(
-      file,
-      employee
-    );
-    const updated = await this.repository.rename(
-      fileId,
-      name,
-      employee._id.toString()
-    );
+    this.ensureCanModify(file, employee);
+    const updated = await this.repository.rename(fileId, name, employee._id.toString());
     if (!updated) {
-      throw new import_common56.NotFoundException(
-        "Unable to rename file."
-      );
+      throw new import_common56.NotFoundException("Unable to rename file.");
     }
-    return this.mapper.toFile(
-      updated,
-      employee._id.toString(),
-      this.canManage(
-        this.getRole(
-          employee
-        )
-      )
-    );
+    return this.mapper.toFile(updated, employee._id.toString(), this.canManage(this.getRole(employee)));
   }
-  // =====================================================
-  // Move — owner or admin/HR
-  // =====================================================
   async move(userId, fileId, parentFolder) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    this.ensureCanModify(
-      file,
-      employee
-    );
+    this.ensureCanModify(file, employee);
     if (parentFolder) {
-      const folder = await this.repository.findFolder(
-        parentFolder
-      );
+      const folder = await this.repository.findFolder(parentFolder);
       if (!folder) {
-        throw new import_common56.NotFoundException(
-          "Destination folder not found."
-        );
+        throw new import_common56.NotFoundException("Destination folder not found.");
       }
     }
-    const moved = await this.repository.move(
-      fileId,
-      parentFolder,
-      employee._id.toString()
-    );
+    const moved = await this.repository.move(fileId, parentFolder, employee._id.toString());
     if (!moved) {
-      throw new import_common56.NotFoundException(
-        "Unable to move file."
-      );
+      throw new import_common56.NotFoundException("Unable to move file.");
     }
-    return this.mapper.toFile(
-      moved,
-      employee._id.toString(),
-      this.canManage(
-        this.getRole(
-          employee
-        )
-      )
-    );
+    return this.mapper.toFile(moved, employee._id.toString(), this.canManage(this.getRole(employee)));
   }
-  // =====================================================
-  // Share — owner or admin/HR
-  // =====================================================
   async share(userId, fileId, employeeIds) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    this.ensureCanModify(
-      file,
-      employee
-    );
-    const shared = await this.repository.share(
-      fileId,
-      employeeIds,
-      employee._id.toString()
-    );
+    this.ensureCanModify(file, employee);
+    const shared = await this.repository.share(fileId, employeeIds, employee._id.toString());
     if (!shared) {
-      throw new import_common56.NotFoundException(
-        "Unable to share file."
-      );
+      throw new import_common56.NotFoundException("Unable to share file.");
     }
-    return this.mapper.toFile(
-      shared,
-      employee._id.toString(),
-      this.canManage(
-        this.getRole(
-          employee
-        )
-      )
-    );
+    return this.mapper.toFile(shared, employee._id.toString(), this.canManage(this.getRole(employee)));
   }
-  // =====================================================
-  // Favorite — owner, shared-with, or admin/HR
-  // =====================================================
   async toggleFavorite(userId, fileId) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    const canManage = this.canManage(
-      this.getRole(
-        employee
-      )
-    );
-    const canAccess = canManage || this.toIdString(
-      file.owner
-    ) === employee._id.toString() || file.sharedWith.some(
-      (entry) => this.toIdString(
-        entry
-      ) === employee._id.toString()
-    );
+    const canManage = this.canManage(this.getRole(employee));
+    const canAccess = canManage || this.toIdString(file.owner) === employee._id.toString() || file.sharedWith.some((entry) => this.toIdString(entry) === employee._id.toString());
     if (!canAccess) {
-      throw new import_common56.ForbiddenException(
-        "You don't have permission to access this file."
-      );
+      throw new import_common56.ForbiddenException("You don't have permission to access this file.");
     }
-    const alreadyFavorite = file.favoriteBy.some(
-      (id) => this.toIdString(
-        id
-      ) === employee._id.toString()
-    );
-    const updated = alreadyFavorite ? await this.repository.removeFavorite(
-      fileId,
-      employee._id.toString()
-    ) : await this.repository.addFavorite(
-      fileId,
-      employee._id.toString()
-    );
+    const alreadyFavorite = file.favoriteBy.some((id) => this.toIdString(id) === employee._id.toString());
+    const updated = alreadyFavorite ? await this.repository.removeFavorite(fileId, employee._id.toString()) : await this.repository.addFavorite(fileId, employee._id.toString());
     if (!updated) {
-      throw new import_common56.NotFoundException(
-        "Unable to update favorite status."
-      );
+      throw new import_common56.NotFoundException("Unable to update favorite status.");
     }
-    return this.mapper.toFile(
-      updated,
-      employee._id.toString(),
-      canManage
-    );
+    return this.mapper.toFile(updated, employee._id.toString(), canManage);
   }
-  // =====================================================
-  // Delete — owner or admin/HR
-  // =====================================================
   async delete(userId, fileId) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    this.ensureCanModify(
-      file,
-      employee
-    );
-    await this.repository.delete(
-      fileId,
-      employee._id.toString()
-    );
+    this.ensureCanModify(file, employee);
+    await this.repository.delete(fileId, employee._id.toString());
     return {
       success: true
     };
   }
-  // =====================================================
-  // Download — owner, shared-with, or admin/HR
-  // =====================================================
   async download(userId, fileId) {
-    const employee = await this.getEmployee(
-      userId
-    );
-    const file = await this.repository.findById(
-      fileId
-    );
+    const employee = await this.getEmployee(userId);
+    const file = await this.repository.findById(fileId);
     if (!file) {
-      throw new import_common56.NotFoundException(
-        "File not found."
-      );
+      throw new import_common56.NotFoundException("File not found.");
     }
-    const canManage = this.canManage(
-      this.getRole(
-        employee
-      )
-    );
-    const canAccess = canManage || this.toIdString(
-      file.owner
-    ) === employee._id.toString() || file.sharedWith.some(
-      (entry) => this.toIdString(
-        entry
-      ) === employee._id.toString()
-    );
+    const canManage = this.canManage(this.getRole(employee));
+    const canAccess = canManage || this.toIdString(file.owner) === employee._id.toString() || file.sharedWith.some((entry) => this.toIdString(entry) === employee._id.toString());
     if (!canAccess) {
-      throw new import_common56.ForbiddenException(
-        "You don't have permission to access this file."
-      );
+      throw new import_common56.ForbiddenException("You don't have permission to access this file.");
     }
     return {
       url: file.url,
@@ -8170,85 +8025,40 @@ var FilesService = class {
       mimeType: file.mimeType
     };
   }
-  // =====================================================
-  // Storage Statistics — global across all files, same
-  // for everyone.
-  // =====================================================
   async storage(userId) {
-    await this.getEmployee(
-      userId
-    );
+    await this.getEmployee(userId);
     const used = await this.repository.storageUsed();
     return {
       used,
       limit: 100 * 1024 * 1024 * 1024
     };
   }
-  // =====================================================
-  // Helpers
-  // =====================================================
   async getEmployee(userId) {
-    const employee = await this.employeesRepository.findByUserId(
-      userId
-    );
+    const employee = await this.employeesRepository.findByUserId(userId);
     if (!employee) {
-      throw new import_common56.NotFoundException(
-        "Employee profile not found."
-      );
+      throw new import_common56.NotFoundException("Employee profile not found.");
     }
     return employee;
   }
-  /**
-   * Employee.user is declared as `Types.ObjectId` in the shared
-   * employee.schema.ts, but EmployeesRepository.findByUserId()
-   * populates it with a select that includes `role`. This cast is
-   * scoped to the Files module only.
-   */
   getRole(employee) {
     const user = employee.user;
     return user?.role;
   }
   canManage(role) {
-    return role === "ADMIN" /* ADMIN */ || role === "HR" /* HR */;
+    return role === Role.ADMIN || role === Role.HR;
   }
   ensureCanManage(role) {
-    if (!this.canManage(
-      role
-    )) {
-      throw new import_common56.ForbiddenException(
-        "You don't have permission to perform this action."
-      );
+    if (!this.canManage(role)) {
+      throw new import_common56.ForbiddenException("You don't have permission to perform this action.");
     }
   }
-  /**
-   * Rename/move/share/delete: allowed for the file's owner, or
-   * admin/HR on any file. Uses toIdString() because `file.owner`
-   * may be a populated Employee document (from
-   * FilesRepository.findById()'s .populate("owner")), not a raw
-   * ObjectId — comparing a populated document with
-   * `.toString() === someIdString` silently never matches.
-   */
   ensureCanModify(file, employee) {
-    const role = this.getRole(
-      employee
-    );
-    const isOwner = this.toIdString(
-      file.owner
-    ) === employee._id.toString();
-    if (!this.canManage(
-      role
-    ) && !isOwner) {
-      throw new import_common56.ForbiddenException(
-        "You can only modify files you uploaded."
-      );
+    const role = this.getRole(employee);
+    const isOwner = this.toIdString(file.owner) === employee._id.toString();
+    if (!this.canManage(role) && !isOwner) {
+      throw new import_common56.ForbiddenException("You can only modify files you uploaded.");
     }
   }
-  /**
-   * Safely extracts an id string whether the value is a raw
-   * ObjectId, a populated document (has ._id), or already a
-   * string. Populated Mongoose documents do NOT stringify to
-   * their id via .toString() — this normalizes both cases.
-   */
   toIdString(value) {
     if (!value) {
       return "";
@@ -8259,150 +8069,352 @@ var FilesService = class {
     return value.toString();
   }
 };
-FilesService = __decorateClass([
+FilesService = __decorate79([
   (0, import_common56.Injectable)(),
-  __decorateParam(0, (0, import_common56.Inject)(FilesRepository)),
-  __decorateParam(1, (0, import_common56.Inject)(EmployeesRepository)),
-  __decorateParam(2, (0, import_common56.Inject)(FilesMapper)),
-  __decorateParam(3, (0, import_common56.Inject)(CloudinaryService))
+  __param33(0, (0, import_common56.Inject)(FilesRepository)),
+  __param33(1, (0, import_common56.Inject)(EmployeesRepository)),
+  __param33(2, (0, import_common56.Inject)(FilesMapper)),
+  __param33(3, (0, import_common56.Inject)(CloudinaryService)),
+  __metadata59("design:paramtypes", [typeof (_a52 = typeof FilesRepository !== "undefined" && FilesRepository) === "function" ? _a52 : Object, typeof (_b29 = typeof EmployeesRepository !== "undefined" && EmployeesRepository) === "function" ? _b29 : Object, typeof (_c21 = typeof FilesMapper !== "undefined" && FilesMapper) === "function" ? _c21 : Object, typeof (_d18 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _d18 : Object])
 ], FilesService);
 
-// apps/api/src/files/controllers/files.controller.ts
-var FilesController = class {
+// src/files/dto/file-query.dto.ts
+var import_class_validator18 = require("class-validator");
+var import_class_transformer6 = require("class-transformer");
+var import_class_validator19 = require("class-validator");
+var __decorate80 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata60 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a53;
+var FileQueryDto = class {
+  page = 1;
+  limit = 20;
+  search;
+  type;
+  parentFolder;
+  favorite;
+};
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  (0, import_class_transformer6.Type)(() => Number),
+  (0, import_class_validator19.IsInt)(),
+  (0, import_class_validator19.Min)(1),
+  __metadata60("design:type", Object)
+], FileQueryDto.prototype, "page", void 0);
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  (0, import_class_transformer6.Type)(() => Number),
+  (0, import_class_validator19.IsInt)(),
+  (0, import_class_validator19.Min)(1),
+  __metadata60("design:type", Object)
+], FileQueryDto.prototype, "limit", void 0);
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  (0, import_class_validator18.IsString)(),
+  __metadata60("design:type", String)
+], FileQueryDto.prototype, "search", void 0);
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  (0, import_class_validator18.IsEnum)(FileType),
+  __metadata60("design:type", typeof (_a53 = typeof FileType !== "undefined" && FileType) === "function" ? _a53 : Object)
+], FileQueryDto.prototype, "type", void 0);
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  (0, import_class_validator18.IsString)(),
+  __metadata60("design:type", String)
+], FileQueryDto.prototype, "parentFolder", void 0);
+__decorate80([
+  (0, import_class_validator18.IsOptional)(),
+  __metadata60("design:type", String)
+], FileQueryDto.prototype, "favorite", void 0);
+
+// src/files/dto/create-folder.dto.ts
+var import_class_validator20 = require("class-validator");
+var __decorate81 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata61 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateFolderDto = class {
+  name;
+  parentFolder;
+};
+__decorate81([
+  (0, import_class_validator20.IsString)(),
+  (0, import_class_validator20.Length)(1, 120),
+  __metadata61("design:type", String)
+], CreateFolderDto.prototype, "name", void 0);
+__decorate81([
+  (0, import_class_validator20.IsOptional)(),
+  (0, import_class_validator20.IsMongoId)(),
+  __metadata61("design:type", String)
+], CreateFolderDto.prototype, "parentFolder", void 0);
+
+// src/files/dto/upload-file.dto.ts
+var import_class_validator21 = require("class-validator");
+var __decorate82 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata62 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a54;
+var UploadFileDto = class {
+  name;
+  type;
+  parentFolder;
+};
+__decorate82([
+  (0, import_class_validator21.IsString)(),
+  __metadata62("design:type", String)
+], UploadFileDto.prototype, "name", void 0);
+__decorate82([
+  (0, import_class_validator21.IsEnum)(FileType),
+  __metadata62("design:type", typeof (_a54 = typeof FileType !== "undefined" && FileType) === "function" ? _a54 : Object)
+], UploadFileDto.prototype, "type", void 0);
+__decorate82([
+  (0, import_class_validator21.IsOptional)(),
+  (0, import_class_validator21.IsMongoId)(),
+  __metadata62("design:type", String)
+], UploadFileDto.prototype, "parentFolder", void 0);
+
+// src/files/dto/rename-file.dto.ts
+var import_class_validator22 = require("class-validator");
+var __decorate83 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata63 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var RenameFileDto = class {
+  name;
+};
+__decorate83([
+  (0, import_class_validator22.IsString)(),
+  (0, import_class_validator22.Length)(1, 120),
+  __metadata63("design:type", String)
+], RenameFileDto.prototype, "name", void 0);
+
+// src/files/dto/move-file.dto.ts
+var import_class_validator23 = require("class-validator");
+var __decorate84 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata64 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var MoveFileDto = class {
+  parentFolder;
+};
+__decorate84([
+  (0, import_class_validator23.IsOptional)(),
+  (0, import_class_validator23.IsMongoId)(),
+  __metadata64("design:type", String)
+], MoveFileDto.prototype, "parentFolder", void 0);
+
+// src/files/dto/share-file.dto.ts
+var import_class_validator24 = require("class-validator");
+var __decorate85 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata65 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ShareFileDto = class {
+  employeeIds;
+};
+__decorate85([
+  (0, import_class_validator24.IsArray)(),
+  (0, import_class_validator24.ArrayNotEmpty)(),
+  (0, import_class_validator24.IsMongoId)({
+    each: true
+  }),
+  __metadata65("design:type", Array)
+], ShareFileDto.prototype, "employeeIds", void 0);
+
+// src/files/controllers/files.controller.ts
+var __decorate86 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata66 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param34 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a55;
+var _b30;
+var _c22;
+var _d19;
+var _e11;
+var _f6;
+var _g5;
+var _h4;
+var _j2;
+var FilesController = class FilesController2 {
+  filesService;
   constructor(filesService) {
     this.filesService = filesService;
   }
-  filesService;
   files(req, query) {
-    return this.filesService.files(
-      req.user.sub,
-      query
-    );
+    return this.filesService.files(req.user.sub, query);
   }
   storage(req) {
-    return this.filesService.storage(
-      req.user.sub
-    );
+    return this.filesService.storage(req.user.sub);
   }
   download(req, id) {
-    return this.filesService.download(
-      req.user.sub,
-      id
-    );
+    return this.filesService.download(req.user.sub, id);
   }
   createFolder(req, dto) {
-    return this.filesService.createFolder(
-      req.user.sub,
-      dto
-    );
+    return this.filesService.createFolder(req.user.sub, dto);
   }
   upload(req, file, dto) {
-    return this.filesService.upload(
-      req.user.sub,
-      file,
-      dto
-    );
+    return this.filesService.upload(req.user.sub, file, dto);
   }
   rename(req, id, dto) {
-    return this.filesService.rename(
-      req.user.sub,
-      id,
-      dto.name
-    );
+    return this.filesService.rename(req.user.sub, id, dto.name);
   }
   move(req, id, dto) {
-    return this.filesService.move(
-      req.user.sub,
-      id,
-      dto.parentFolder ?? null
-    );
+    return this.filesService.move(req.user.sub, id, dto.parentFolder ?? null);
   }
   share(req, id, dto) {
-    return this.filesService.share(
-      req.user.sub,
-      id,
-      dto.employeeIds
-    );
+    return this.filesService.share(req.user.sub, id, dto.employeeIds);
   }
   favorite(req, id) {
-    return this.filesService.toggleFavorite(
-      req.user.sub,
-      id
-    );
+    return this.filesService.toggleFavorite(req.user.sub, id);
   }
   delete(req, id) {
-    return this.filesService.delete(
-      req.user.sub,
-      id
-    );
+    return this.filesService.delete(req.user.sub, id);
   }
 };
-__decorateClass([
+__decorate86([
   (0, import_common57.Get)(),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Query)())
-], FilesController.prototype, "files", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Query)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, typeof (_b30 = typeof FileQueryDto !== "undefined" && FileQueryDto) === "function" ? _b30 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "files", null);
+__decorate86([
   (0, import_common57.Get)("storage"),
-  __decorateParam(0, (0, import_common57.Req)())
-], FilesController.prototype, "storage", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "storage", null);
+__decorate86([
   (0, import_common57.Get)(":id/download"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id"))
-], FilesController.prototype, "download", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "download", null);
+__decorate86([
   (0, import_common57.Post)("folders"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Body)())
-], FilesController.prototype, "createFolder", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Body)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, typeof (_c22 = typeof CreateFolderDto !== "undefined" && CreateFolderDto) === "function" ? _c22 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "createFolder", null);
+__decorate86([
   (0, import_common57.Post)("upload"),
-  (0, import_common57.UseInterceptors)(
-    (0, import_platform_express4.FileInterceptor)("file")
-  ),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.UploadedFile)()),
-  __decorateParam(2, (0, import_common57.Body)())
-], FilesController.prototype, "upload", 1);
-__decorateClass([
+  (0, import_common57.UseInterceptors)((0, import_platform_express4.FileInterceptor)("file")),
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.UploadedFile)()),
+  __param34(2, (0, import_common57.Body)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, typeof (_e11 = typeof Express !== "undefined" && (_d19 = Express.Multer) !== void 0 && _d19.File) === "function" ? _e11 : Object, typeof (_f6 = typeof UploadFileDto !== "undefined" && UploadFileDto) === "function" ? _f6 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "upload", null);
+__decorate86([
   (0, import_common57.Patch)(":id/rename"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id")),
-  __decorateParam(2, (0, import_common57.Body)())
-], FilesController.prototype, "rename", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __param34(2, (0, import_common57.Body)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String, typeof (_g5 = typeof RenameFileDto !== "undefined" && RenameFileDto) === "function" ? _g5 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "rename", null);
+__decorate86([
   (0, import_common57.Patch)(":id/move"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id")),
-  __decorateParam(2, (0, import_common57.Body)())
-], FilesController.prototype, "move", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __param34(2, (0, import_common57.Body)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String, typeof (_h4 = typeof MoveFileDto !== "undefined" && MoveFileDto) === "function" ? _h4 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "move", null);
+__decorate86([
   (0, import_common57.Patch)(":id/share"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id")),
-  __decorateParam(2, (0, import_common57.Body)())
-], FilesController.prototype, "share", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __param34(2, (0, import_common57.Body)()),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String, typeof (_j2 = typeof ShareFileDto !== "undefined" && ShareFileDto) === "function" ? _j2 : Object]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "share", null);
+__decorate86([
   (0, import_common57.Patch)(":id/favorite"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id"))
-], FilesController.prototype, "favorite", 1);
-__decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "favorite", null);
+__decorate86([
   (0, import_common57.Delete)(":id"),
-  __decorateParam(0, (0, import_common57.Req)()),
-  __decorateParam(1, (0, import_common57.Param)("id"))
-], FilesController.prototype, "delete", 1);
-FilesController = __decorateClass([
+  __param34(0, (0, import_common57.Req)()),
+  __param34(1, (0, import_common57.Param)("id")),
+  __metadata66("design:type", Function),
+  __metadata66("design:paramtypes", [Object, String]),
+  __metadata66("design:returntype", void 0)
+], FilesController.prototype, "delete", null);
+FilesController = __decorate86([
   (0, import_common57.Controller)("files"),
   (0, import_common57.UseGuards)(JwtAuthGuard),
-  __decorateParam(0, (0, import_common57.Inject)(FilesService))
+  __param34(0, (0, import_common57.Inject)(FilesService)),
+  __metadata66("design:paramtypes", [typeof (_a55 = typeof FilesService !== "undefined" && FilesService) === "function" ? _a55 : Object])
 ], FilesController);
 
-// apps/api/src/files/files.module.ts
-var FilesModule = class {
+// src/files/files.module.ts
+var __decorate87 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-FilesModule = __decorateClass([
+var FilesModule = class FilesModule2 {
+};
+FilesModule = __decorate87([
   (0, import_common58.Module)({
     imports: [
       import_mongoose50.MongooseModule.forFeature([
@@ -8430,45 +8442,52 @@ FilesModule = __decorateClass([
   })
 ], FilesModule);
 
-// apps/api/src/reports/reports.module.ts
+// src/reports/reports.module.ts
 var import_common64 = require("@nestjs/common");
 var import_mongoose53 = require("@nestjs/mongoose");
 
-// apps/api/src/reports/controllers/reports.controller.ts
+// src/reports/controllers/reports.controller.ts
 var import_common63 = require("@nestjs/common");
+var import_express = __toESM(require("express"));
 
-// apps/api/src/reports/services/reports.service.ts
+// src/reports/services/reports.service.ts
 var import_common60 = require("@nestjs/common");
 
-// apps/api/src/reports/repositories/reports.repository.ts
+// src/reports/repositories/reports.repository.ts
 var import_common59 = require("@nestjs/common");
 var import_mongoose51 = require("@nestjs/mongoose");
 var import_mongoose52 = require("mongoose");
-var ReportsRepository = class {
+var __decorate88 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata67 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param35 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a56;
+var _b31;
+var _c23;
+var _d20;
+var ReportsRepository = class ReportsRepository2 {
+  employeeModel;
+  projectModel;
+  taskModel;
+  attendanceModel;
   constructor(employeeModel, projectModel, taskModel, attendanceModel) {
     this.employeeModel = employeeModel;
     this.projectModel = projectModel;
     this.taskModel = taskModel;
     this.attendanceModel = attendanceModel;
   }
-  employeeModel;
-  projectModel;
-  taskModel;
-  attendanceModel;
-  // ---------------------------------------------------------
-  // MAIN REPORT
-  // ---------------------------------------------------------
   async getReports() {
-    const [
-      statistics,
-      payroll,
-      attendance,
-      performance,
-      departments,
-      projects,
-      taskStatistics,
-      monthlyEmployees
-    ] = await Promise.all([
+    const [statistics, payroll, attendance, performance, departments, projects, taskStatistics, monthlyEmployees] = await Promise.all([
       this.getStatistics(),
       this.getPayroll(),
       this.getAttendance(),
@@ -8497,17 +8516,8 @@ var ReportsRepository = class {
       insights
     };
   }
-  // ---------------------------------------------------------
-  // STATISTICS
-  // ---------------------------------------------------------
   async getStatistics() {
-    const [
-      employees,
-      projects,
-      activeProjects,
-      completedProjects,
-      payrollResult
-    ] = await Promise.all([
+    const [employees, projects, activeProjects, completedProjects, payrollResult] = await Promise.all([
       this.employeeModel.countDocuments(),
       this.projectModel.countDocuments(),
       this.projectModel.countDocuments({
@@ -8543,22 +8553,12 @@ var ReportsRepository = class {
       projects,
       activeProjects,
       completedProjects,
-      monthlyPayroll: Math.round(
-        payrollData.totalSalary ?? 0
-      ),
-      averageSalary: Math.round(
-        payrollData.averageSalary ?? 0
-      )
+      monthlyPayroll: Math.round(payrollData.totalSalary ?? 0),
+      averageSalary: Math.round(payrollData.averageSalary ?? 0)
     };
   }
-  // ---------------------------------------------------------
-  // PAYROLL
-  // ---------------------------------------------------------
   async getPayroll() {
-    const [
-      overall,
-      byDepartment
-    ] = await Promise.all([
+    const [overall, byDepartment] = await Promise.all([
       this.employeeModel.aggregate([
         {
           $group: {
@@ -8610,23 +8610,13 @@ var ReportsRepository = class {
       averageSalary: 0
     };
     return {
-      totalMonthly: Math.round(
-        data.totalMonthly ?? 0
-      ),
-      averageSalary: Math.round(
-        data.averageSalary ?? 0
-      ),
+      totalMonthly: Math.round(data.totalMonthly ?? 0),
+      averageSalary: Math.round(data.averageSalary ?? 0),
       byDepartment
     };
   }
-  // ---------------------------------------------------------
-  // ATTENDANCE
-  // ---------------------------------------------------------
   async getAttendance() {
-    const [
-      overallResult,
-      byDepartment
-    ] = await Promise.all([
+    const [overallResult, byDepartment] = await Promise.all([
       this.attendanceModel.aggregate([
         {
           $group: {
@@ -8735,28 +8725,17 @@ var ReportsRepository = class {
     };
     const overall = data.totalRecords > 0 ? data.presentRecords / data.totalRecords * 100 : 0;
     return {
-      overall: Math.round(
-        overall * 10
-      ) / 10,
+      overall: Math.round(overall * 10) / 10,
       employees: await this.employeeModel.countDocuments(),
-      byDepartment: byDepartment.map(
-        (item) => ({
-          department: item.department,
-          attendance: Math.round(
-            item.attendance * 10
-          ) / 10,
-          employees: item.employees
-        })
-      )
+      byDepartment: byDepartment.map((item) => ({
+        department: item.department,
+        attendance: Math.round(item.attendance * 10) / 10,
+        employees: item.employees
+      }))
     };
   }
-  // ---------------------------------------------------------
-  // PERFORMANCE
-  // ---------------------------------------------------------
   async getPerformance() {
-    const employees = await this.employeeModel.find().select(
-      "_id firstName lastName fullName designation department"
-    ).lean();
+    const employees = await this.employeeModel.find().select("_id firstName lastName fullName designation department").lean();
     const taskScores = await this.taskModel.aggregate([
       {
         $project: {
@@ -8821,44 +8800,28 @@ var ReportsRepository = class {
       if (!item._id) {
         continue;
       }
-      scoreMap.set(
-        item._id.toString(),
-        {
-          averageScore: item.averageScore ?? 0,
-          totalTasks: item.totalTasks ?? 0,
-          completedTasks: item.completedTasks ?? 0
-        }
-      );
+      scoreMap.set(item._id.toString(), {
+        averageScore: item.averageScore ?? 0,
+        totalTasks: item.totalTasks ?? 0,
+        completedTasks: item.completedTasks ?? 0
+      });
     }
     return employees.map((employee) => {
-      const stats = scoreMap.get(
-        employee._id.toString()
-      );
+      const stats = scoreMap.get(employee._id.toString());
       const score = stats?.averageScore ?? 0;
       return {
         id: employee._id.toString(),
         employee: employee.fullName ?? `${employee.firstName} ${employee.lastName}`,
         role: employee.designation,
         department: employee.department,
-        score: Math.round(
-          score * 10
-        ) / 10,
+        score: Math.round(score * 10) / 10,
         totalTasks: stats?.totalTasks ?? 0,
         completedTasks: stats?.completedTasks ?? 0
       };
-    }).sort(
-      (a, b) => b.score - a.score
-    );
+    }).sort((a, b) => b.score - a.score);
   }
-  // ---------------------------------------------------------
-  // DEPARTMENTS
-  // ---------------------------------------------------------
   async getDepartments() {
-    const [
-      employeeData,
-      attendanceData,
-      performanceData
-    ] = await Promise.all([
+    const [employeeData, attendanceData, performanceData] = await Promise.all([
       this.employeeModel.aggregate([
         {
           $group: {
@@ -8914,85 +8877,49 @@ var ReportsRepository = class {
     const attendanceMap = /* @__PURE__ */ new Map();
     for (const item of attendanceData) {
       const percentage = item.total > 0 ? item.present / item.total * 100 : 0;
-      attendanceMap.set(
-        item._id,
-        Math.round(
-          percentage * 10
-        ) / 10
-      );
+      attendanceMap.set(item._id, Math.round(percentage * 10) / 10);
     }
     const performanceMap = /* @__PURE__ */ new Map();
     for (const item of performanceData) {
-      const current = performanceMap.get(
-        item.department
-      ) ?? {
+      const current = performanceMap.get(item.department) ?? {
         total: 0,
         count: 0
       };
       current.total += item.score;
       current.count += 1;
-      performanceMap.set(
-        item.department,
-        current
-      );
+      performanceMap.set(item.department, current);
     }
-    return employeeData.map(
-      (department) => {
-        const performance = performanceMap.get(
-          department._id
-        );
-        return {
-          name: department._id,
-          employees: department.employees,
-          payroll: Math.round(
-            department.payroll ?? 0
-          ),
-          averagePerformance: performance && performance.count > 0 ? Math.round(
-            performance.total / performance.count * 10
-          ) / 10 : 0,
-          averageAttendance: attendanceMap.get(
-            department._id
-          ) ?? 0
-        };
-      }
-    );
+    return employeeData.map((department) => {
+      const performance = performanceMap.get(department._id);
+      return {
+        name: department._id,
+        employees: department.employees,
+        payroll: Math.round(department.payroll ?? 0),
+        averagePerformance: performance && performance.count > 0 ? Math.round(performance.total / performance.count * 10) / 10 : 0,
+        averageAttendance: attendanceMap.get(department._id) ?? 0
+      };
+    });
   }
-  // ---------------------------------------------------------
-  // PROJECTS
-  // ---------------------------------------------------------
   async getProjects() {
     const projects = await this.projectModel.find().sort({
       createdAt: -1
     }).lean();
-    return projects.map(
-      (project) => {
-        const progress = project.status === "Completed" ? 100 : Math.max(
-          0,
-          Math.min(
-            100,
-            project.progress ?? 0
-          )
-        );
-        return {
-          id: project._id.toString(),
-          name: project.name,
-          status: project.status,
-          priority: project.priority,
-          progress,
-          totalTasks: project.totalTasks ?? 0,
-          completedTasks: project.completedTasks ?? 0,
-          startDate: project.startDate,
-          dueDate: project.dueDate,
-          members: Array.isArray(
-            project.members
-          ) ? project.members.length : 0
-        };
-      }
-    );
+    return projects.map((project) => {
+      const progress = project.status === "Completed" ? 100 : Math.max(0, Math.min(100, project.progress ?? 0));
+      return {
+        id: project._id.toString(),
+        name: project.name,
+        status: project.status,
+        priority: project.priority,
+        progress,
+        totalTasks: project.totalTasks ?? 0,
+        completedTasks: project.completedTasks ?? 0,
+        startDate: project.startDate,
+        dueDate: project.dueDate,
+        members: Array.isArray(project.members) ? project.members.length : 0
+      };
+    });
   }
-  // ---------------------------------------------------------
-  // TASK STATISTICS
-  // ---------------------------------------------------------
   async getTaskStatistics() {
     const result = await this.taskModel.aggregate([
       {
@@ -9022,30 +8949,18 @@ var ReportsRepository = class {
       totalTasks: 0,
       completedTasks: 0
     };
-    const remainingTasks = Math.max(
-      0,
-      data.totalTasks - data.completedTasks
-    );
+    const remainingTasks = Math.max(0, data.totalTasks - data.completedTasks);
     const completionRate = data.totalTasks > 0 ? data.completedTasks / data.totalTasks * 100 : 0;
     return {
       totalTasks: data.totalTasks,
       completedTasks: data.completedTasks,
       remainingTasks,
-      completionRate: Math.round(
-        completionRate * 10
-      ) / 10
+      completionRate: Math.round(completionRate * 10) / 10
     };
   }
-  // ---------------------------------------------------------
-  // MONTHLY EMPLOYEES
-  // ---------------------------------------------------------
   async getMonthlyEmployees() {
     const now = /* @__PURE__ */ new Date();
-    const start = new Date(
-      now.getFullYear(),
-      now.getMonth() - 11,
-      1
-    );
+    const start = new Date(now.getFullYear(), now.getMonth() - 11, 1);
     const result = await this.employeeModel.aggregate([
       {
         $match: {
@@ -9086,16 +9001,10 @@ var ReportsRepository = class {
     ];
     const output = [];
     for (let i = 11; i >= 0; i--) {
-      const date = new Date(
-        now.getFullYear(),
-        now.getMonth() - i,
-        1
-      );
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
-      const found = result.find(
-        (item) => item._id.year === year && item._id.month === month
-      );
+      const found = result.find((item) => item._id.year === year && item._id.month === month);
       output.push({
         month: months[month - 1],
         year,
@@ -9104,9 +9013,6 @@ var ReportsRepository = class {
     }
     return output;
   }
-  // ---------------------------------------------------------
-  // INSIGHTS
-  // ---------------------------------------------------------
   generateInsights(data) {
     const insights = [];
     const topPerformer = data.performance?.[0];
@@ -9146,42 +9052,74 @@ var ReportsRepository = class {
     return insights;
   }
 };
-ReportsRepository = __decorateClass([
+ReportsRepository = __decorate88([
   (0, import_common59.Injectable)(),
-  __decorateParam(0, (0, import_mongoose51.InjectModel)(Employee.name)),
-  __decorateParam(0, (0, import_common59.Inject)(import_mongoose52.Model)),
-  __decorateParam(1, (0, import_mongoose51.InjectModel)(Project.name)),
-  __decorateParam(1, (0, import_common59.Inject)(import_mongoose52.Model)),
-  __decorateParam(2, (0, import_mongoose51.InjectModel)(Task.name)),
-  __decorateParam(2, (0, import_common59.Inject)(import_mongoose52.Model)),
-  __decorateParam(3, (0, import_mongoose51.InjectModel)(Attendance.name)),
-  __decorateParam(3, (0, import_common59.Inject)(import_mongoose52.Model))
+  __param35(0, (0, import_mongoose51.InjectModel)(Employee.name)),
+  __param35(0, (0, import_common59.Inject)(import_mongoose52.Model)),
+  __param35(1, (0, import_mongoose51.InjectModel)(Project.name)),
+  __param35(1, (0, import_common59.Inject)(import_mongoose52.Model)),
+  __param35(2, (0, import_mongoose51.InjectModel)(Task.name)),
+  __param35(2, (0, import_common59.Inject)(import_mongoose52.Model)),
+  __param35(3, (0, import_mongoose51.InjectModel)(Attendance.name)),
+  __param35(3, (0, import_common59.Inject)(import_mongoose52.Model)),
+  __metadata67("design:paramtypes", [typeof (_a56 = typeof import_mongoose52.Model !== "undefined" && import_mongoose52.Model) === "function" ? _a56 : Object, typeof (_b31 = typeof import_mongoose52.Model !== "undefined" && import_mongoose52.Model) === "function" ? _b31 : Object, typeof (_c23 = typeof import_mongoose52.Model !== "undefined" && import_mongoose52.Model) === "function" ? _c23 : Object, typeof (_d20 = typeof import_mongoose52.Model !== "undefined" && import_mongoose52.Model) === "function" ? _d20 : Object])
 ], ReportsRepository);
 
-// apps/api/src/reports/services/reports.service.ts
-var ReportsService = class {
+// src/reports/services/reports.service.ts
+var __decorate89 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata68 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param36 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a57;
+var ReportsService = class ReportsService2 {
+  reportsRepository;
   constructor(reportsRepository) {
     this.reportsRepository = reportsRepository;
   }
-  reportsRepository;
   async getReports() {
     return this.reportsRepository.getReports();
   }
 };
-ReportsService = __decorateClass([
+ReportsService = __decorate89([
   (0, import_common60.Injectable)(),
-  __decorateParam(0, (0, import_common60.Inject)(ReportsRepository))
+  __param36(0, (0, import_common60.Inject)(ReportsRepository)),
+  __metadata68("design:paramtypes", [typeof (_a57 = typeof ReportsRepository !== "undefined" && ReportsRepository) === "function" ? _a57 : Object])
 ], ReportsService);
 
-// apps/api/src/reports/services/reports-export.service.ts
+// src/reports/services/reports-export.service.ts
 var import_common61 = require("@nestjs/common");
 var import_exceljs = __toESM(require("exceljs"));
 var import_pdfkit = __toESM(require("pdfkit"));
-var ReportsExportService = class {
+var __decorate90 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata69 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param37 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a58;
+var ReportsExportService = class ReportsExportService2 {
+  reportsRepository;
   constructor(reportsRepository) {
     this.reportsRepository = reportsRepository;
   }
-  reportsRepository;
   async csv() {
     const report = await this.reportsRepository.getReports();
     const rows = [
@@ -9230,25 +9168,13 @@ var ReportsExportService = class {
         report.taskStatistics.completionRate
       ]
     ];
-    const csv = rows.map(
-      (row) => row.map(
-        (value) => `"${String(value).replace(
-          /"/g,
-          '""'
-        )}"`
-      ).join(",")
-    ).join("\n");
-    return Buffer.from(
-      csv,
-      "utf-8"
-    );
+    const csv = rows.map((row) => row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(",")).join("\n");
+    return Buffer.from(csv, "utf-8");
   }
   async excel() {
     const report = await this.reportsRepository.getReports();
     const workbook = new import_exceljs.default.Workbook();
-    const summary = workbook.addWorksheet(
-      "Summary"
-    );
+    const summary = workbook.addWorksheet("Summary");
     summary.columns = [
       {
         header: "Metric",
@@ -9299,9 +9225,7 @@ var ReportsExportService = class {
         value: report.taskStatistics.completionRate
       }
     ]);
-    const employees = workbook.addWorksheet(
-      "Performance"
-    );
+    const employees = workbook.addWorksheet("Performance");
     employees.columns = [
       {
         header: "Employee",
@@ -9324,12 +9248,8 @@ var ReportsExportService = class {
         width: 20
       }
     ];
-    employees.addRows(
-      report.performance
-    );
-    const projects = workbook.addWorksheet(
-      "Projects"
-    );
+    employees.addRows(report.performance);
+    const projects = workbook.addWorksheet("Projects");
     projects.columns = [
       {
         header: "Project",
@@ -9362,12 +9282,8 @@ var ReportsExportService = class {
         width: 20
       }
     ];
-    projects.addRows(
-      report.projects
-    );
-    const payroll = workbook.addWorksheet(
-      "Payroll"
-    );
+    projects.addRows(report.projects);
+    const payroll = workbook.addWorksheet("Payroll");
     payroll.columns = [
       {
         header: "Department",
@@ -9385,142 +9301,112 @@ var ReportsExportService = class {
         width: 20
       }
     ];
-    payroll.addRows(
-      report.payroll.byDepartment
-    );
-    return Buffer.from(
-      await workbook.xlsx.writeBuffer()
-    );
+    payroll.addRows(report.payroll.byDepartment);
+    return Buffer.from(await workbook.xlsx.writeBuffer());
   }
   async pdf() {
     const report = await this.reportsRepository.getReports();
-    return new Promise(
-      (resolve) => {
-        const document = new import_pdfkit.default({
-          margin: 40
-        });
-        const chunks = [];
-        document.on(
-          "data",
-          (chunk) => chunks.push(chunk)
-        );
-        document.on(
-          "end",
-          () => resolve(
-            Buffer.concat(
-              chunks
-            )
-          )
-        );
-        document.fontSize(24).text(
-          "Reports & Analytics"
-        );
-        document.moveDown();
-        document.fontSize(14).text(
-          `Employees: ${report.statistics.employees}`
-        );
-        document.text(
-          `Projects: ${report.statistics.projects}`
-        );
-        document.text(
-          `Active Projects: ${report.statistics.activeProjects}`
-        );
-        document.text(
-          `Completed Projects: ${report.statistics.completedProjects}`
-        );
-        document.text(
-          `Monthly Payroll: $${report.statistics.monthlyPayroll.toLocaleString()}`
-        );
-        document.text(
-          `Average Salary: $${report.statistics.averageSalary.toLocaleString()}`
-        );
-        document.moveDown();
-        document.fontSize(18).text(
-          "Task Statistics"
-        );
-        document.fontSize(14).text(
-          `Total Tasks: ${report.taskStatistics.totalTasks}`
-        );
-        document.text(
-          `Completed Tasks: ${report.taskStatistics.completedTasks}`
-        );
-        document.text(
-          `Remaining Tasks: ${report.taskStatistics.remainingTasks}`
-        );
-        document.text(
-          `Completion Rate: ${Math.round(report.taskStatistics.completionRate)}%`
-        );
-        document.moveDown();
-        document.fontSize(18).text(
-          "Projects"
-        );
-        document.moveDown(0.5);
-        for (const project of report.projects) {
-          document.fontSize(11).text(
-            `${project.name} \u2014 ${project.status} \u2014 ${project.progress}% \u2014 ${project.completedTasks}/${project.totalTasks} tasks`
-          );
-        }
-        document.moveDown();
-        document.fontSize(18).text(
-          "Employee Performance"
-        );
-        document.moveDown(0.5);
-        for (const employee of report.performance) {
-          document.fontSize(11).text(
-            `${employee.employee} \u2014 ${employee.department} \u2014 ${employee.score}%`
-          );
-        }
-        document.end();
+    return new Promise((resolve) => {
+      const document = new import_pdfkit.default({
+        margin: 40
+      });
+      const chunks = [];
+      document.on("data", (chunk) => chunks.push(chunk));
+      document.on("end", () => resolve(Buffer.concat(chunks)));
+      document.fontSize(24).text("Reports & Analytics");
+      document.moveDown();
+      document.fontSize(14).text(`Employees: ${report.statistics.employees}`);
+      document.text(`Projects: ${report.statistics.projects}`);
+      document.text(`Active Projects: ${report.statistics.activeProjects}`);
+      document.text(`Completed Projects: ${report.statistics.completedProjects}`);
+      document.text(`Monthly Payroll: $${report.statistics.monthlyPayroll.toLocaleString()}`);
+      document.text(`Average Salary: $${report.statistics.averageSalary.toLocaleString()}`);
+      document.moveDown();
+      document.fontSize(18).text("Task Statistics");
+      document.fontSize(14).text(`Total Tasks: ${report.taskStatistics.totalTasks}`);
+      document.text(`Completed Tasks: ${report.taskStatistics.completedTasks}`);
+      document.text(`Remaining Tasks: ${report.taskStatistics.remainingTasks}`);
+      document.text(`Completion Rate: ${Math.round(report.taskStatistics.completionRate)}%`);
+      document.moveDown();
+      document.fontSize(18).text("Projects");
+      document.moveDown(0.5);
+      for (const project of report.projects) {
+        document.fontSize(11).text(`${project.name} \u2014 ${project.status} \u2014 ${project.progress}% \u2014 ${project.completedTasks}/${project.totalTasks} tasks`);
       }
-    );
+      document.moveDown();
+      document.fontSize(18).text("Employee Performance");
+      document.moveDown(0.5);
+      for (const employee of report.performance) {
+        document.fontSize(11).text(`${employee.employee} \u2014 ${employee.department} \u2014 ${employee.score}%`);
+      }
+      document.end();
+    });
   }
 };
-ReportsExportService = __decorateClass([
+ReportsExportService = __decorate90([
   (0, import_common61.Injectable)(),
-  __decorateParam(0, (0, import_common61.Inject)(ReportsRepository))
+  __param37(0, (0, import_common61.Inject)(ReportsRepository)),
+  __metadata69("design:paramtypes", [typeof (_a58 = typeof ReportsRepository !== "undefined" && ReportsRepository) === "function" ? _a58 : Object])
 ], ReportsExportService);
 
-// apps/api/src/reports/guards/reports-access.guard.ts
+// src/reports/guards/reports-access.guard.ts
 var import_common62 = require("@nestjs/common");
 var import_passport4 = require("@nestjs/passport");
-var ReportsAccessGuard = class extends (0, import_passport4.AuthGuard)("jwt") {
+var __decorate91 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var ReportsAccessGuard = class ReportsAccessGuard2 extends (0, import_passport4.AuthGuard)("jwt") {
   async canActivate(context) {
-    const authenticated = await super.canActivate(
-      context
-    );
+    const authenticated = await super.canActivate(context);
     if (!authenticated) {
       throw new import_common62.UnauthorizedException();
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-    const role = String(
-      user?.role ?? user?.roles?.[0] ?? ""
-    ).trim().toUpperCase();
+    const role = String(user?.role ?? user?.roles?.[0] ?? "").trim().toUpperCase();
     const allowed = [
       "ADMIN",
       "HR",
       "HUMAN_RESOURCES"
     ].includes(role);
     if (!allowed) {
-      throw new import_common62.ForbiddenException(
-        "Only Admin or HR can access reports."
-      );
+      throw new import_common62.ForbiddenException("Only Admin or HR can access reports.");
     }
     return true;
   }
 };
-ReportsAccessGuard = __decorateClass([
+ReportsAccessGuard = __decorate91([
   (0, import_common62.Injectable)()
 ], ReportsAccessGuard);
 
-// apps/api/src/reports/controllers/reports.controller.ts
-var ReportsController = class {
+// src/reports/controllers/reports.controller.ts
+var __decorate92 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata70 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param38 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a59;
+var _b32;
+var _c24;
+var ReportsController = class ReportsController2 {
+  reportsService;
+  reportsExportService;
   constructor(reportsService, reportsExportService) {
     this.reportsService = reportsService;
     this.reportsExportService = reportsExportService;
   }
-  reportsService;
-  reportsExportService;
   async getReports() {
     return this.reportsService.getReports();
   }
@@ -9528,74 +9414,59 @@ var ReportsController = class {
     const normalized = format.toLowerCase();
     if (normalized === "csv") {
       const buffer = await this.reportsExportService.csv();
-      response.setHeader(
-        "Content-Type",
-        "text/csv"
-      );
-      response.setHeader(
-        "Content-Disposition",
-        'attachment; filename="reports.csv"'
-      );
-      return response.send(
-        buffer
-      );
+      response.setHeader("Content-Type", "text/csv");
+      response.setHeader("Content-Disposition", 'attachment; filename="reports.csv"');
+      return response.send(buffer);
     }
     if (normalized === "excel") {
       const buffer = await this.reportsExportService.excel();
-      response.setHeader(
-        "Content-Type",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      );
-      response.setHeader(
-        "Content-Disposition",
-        'attachment; filename="reports.xlsx"'
-      );
-      return response.send(
-        buffer
-      );
+      response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+      response.setHeader("Content-Disposition", 'attachment; filename="reports.xlsx"');
+      return response.send(buffer);
     }
     if (normalized === "pdf") {
       const buffer = await this.reportsExportService.pdf();
-      response.setHeader(
-        "Content-Type",
-        "application/pdf"
-      );
-      response.setHeader(
-        "Content-Disposition",
-        'attachment; filename="reports.pdf"'
-      );
-      return response.send(
-        buffer
-      );
+      response.setHeader("Content-Type", "application/pdf");
+      response.setHeader("Content-Disposition", 'attachment; filename="reports.pdf"');
+      return response.send(buffer);
     }
-    return response.status(
-      400
-    ).json({
+    return response.status(400).json({
       message: "Unsupported export format."
     });
   }
 };
-__decorateClass([
-  (0, import_common63.Get)()
-], ReportsController.prototype, "getReports", 1);
-__decorateClass([
+__decorate92([
+  (0, import_common63.Get)(),
+  __metadata70("design:type", Function),
+  __metadata70("design:paramtypes", []),
+  __metadata70("design:returntype", Promise)
+], ReportsController.prototype, "getReports", null);
+__decorate92([
   (0, import_common63.Get)("export/:format"),
-  __decorateParam(0, (0, import_common63.Param)("format")),
-  __decorateParam(1, (0, import_common63.Res)())
-], ReportsController.prototype, "exportReport", 1);
-ReportsController = __decorateClass([
+  __param38(0, (0, import_common63.Param)("format")),
+  __param38(1, (0, import_common63.Res)()),
+  __metadata70("design:type", Function),
+  __metadata70("design:paramtypes", [String, typeof (_c24 = typeof import_express.default !== "undefined" && import_express.default.Response) === "function" ? _c24 : Object]),
+  __metadata70("design:returntype", Promise)
+], ReportsController.prototype, "exportReport", null);
+ReportsController = __decorate92([
   (0, import_common63.Controller)("reports"),
-  (0, import_common63.UseGuards)(
-    ReportsAccessGuard
-  ),
-  __decorateParam(0, (0, import_common63.Inject)(ReportsService)),
-  __decorateParam(1, (0, import_common63.Inject)(ReportsExportService))
+  (0, import_common63.UseGuards)(ReportsAccessGuard),
+  __param38(0, (0, import_common63.Inject)(ReportsService)),
+  __param38(1, (0, import_common63.Inject)(ReportsExportService)),
+  __metadata70("design:paramtypes", [typeof (_a59 = typeof ReportsService !== "undefined" && ReportsService) === "function" ? _a59 : Object, typeof (_b32 = typeof ReportsExportService !== "undefined" && ReportsExportService) === "function" ? _b32 : Object])
 ], ReportsController);
 
-// apps/api/src/reports/reports.module.ts
-var ReportsModule = class {
+// src/reports/reports.module.ts
+var __decorate93 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-ReportsModule = __decorateClass([
+var ReportsModule = class ReportsModule2 {
+};
+ReportsModule = __decorate93([
   (0, import_common64.Module)({
     imports: [
       import_mongoose53.MongooseModule.forFeature([
@@ -9629,48 +9500,72 @@ ReportsModule = __decorateClass([
   })
 ], ReportsModule);
 
-// apps/api/src/portfolio/portfolio.module.ts
+// src/portfolio/portfolio.module.ts
 var import_common68 = require("@nestjs/common");
 var import_mongoose57 = require("@nestjs/mongoose");
 
-// apps/api/src/portfolio/controllers/portfolio.controller.ts
+// src/portfolio/controllers/portfolio.controller.ts
 var import_common67 = require("@nestjs/common");
 var import_platform_express5 = require("@nestjs/platform-express");
 
-// apps/api/src/portfolio/services/portfolio.service.ts
+// src/portfolio/services/portfolio.service.ts
 var import_common66 = require("@nestjs/common");
 
-// apps/api/src/portfolio/repositories/portfolio.repository.ts
+// src/portfolio/repositories/portfolio.repository.ts
 var import_common65 = require("@nestjs/common");
 var import_mongoose55 = require("@nestjs/mongoose");
 var import_mongoose56 = require("mongoose");
 
-// apps/api/src/portfolio/schemas/portfolio.schema.ts
+// src/portfolio/schemas/portfolio.schema.ts
 var import_mongoose54 = require("@nestjs/mongoose");
-var PortfolioContent = class {
+var __decorate94 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata71 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a60;
+var PortfolioContent = class PortfolioContent2 {
   content;
 };
-__decorateClass([
+__decorate94([
   (0, import_mongoose54.Prop)({
     type: Object,
     required: true
-  })
-], PortfolioContent.prototype, "content", 2);
-PortfolioContent = __decorateClass([
+  }),
+  __metadata71("design:type", typeof (_a60 = typeof Record !== "undefined" && Record) === "function" ? _a60 : Object)
+], PortfolioContent.prototype, "content", void 0);
+PortfolioContent = __decorate94([
   (0, import_mongoose54.Schema)({
     timestamps: true
   })
 ], PortfolioContent);
-var PortfolioContentSchema = import_mongoose54.SchemaFactory.createForClass(
-  PortfolioContent
-);
+var PortfolioContentSchema = import_mongoose54.SchemaFactory.createForClass(PortfolioContent);
 
-// apps/api/src/portfolio/repositories/portfolio.repository.ts
-var PortfolioRepository = class {
+// src/portfolio/repositories/portfolio.repository.ts
+var __decorate95 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata72 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param39 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a61;
+var PortfolioRepository = class PortfolioRepository2 {
+  portfolioModel;
   constructor(portfolioModel) {
     this.portfolioModel = portfolioModel;
   }
-  portfolioModel;
   async get() {
     return this.portfolioModel.findOne().lean();
   }
@@ -9680,33 +9575,40 @@ var PortfolioRepository = class {
     });
   }
   async update(content) {
-    return this.portfolioModel.findOneAndUpdate(
-      {},
-      {
-        content
-      },
-      {
-        new: true,
-        upsert: true
-      }
-    ).lean();
+    return this.portfolioModel.findOneAndUpdate({}, {
+      content
+    }, {
+      new: true,
+      upsert: true
+    }).lean();
   }
-  // portfolio.repository.ts
   async updateSection(key, data) {
-    return this.portfolioModel.findOneAndUpdate(
-      {},
-      { $set: { [`content.${key}`]: data } },
-      { new: true, upsert: true }
-    ).lean();
+    return this.portfolioModel.findOneAndUpdate({}, { $set: { [`content.${key}`]: data } }, { new: true, upsert: true }).lean();
   }
 };
-PortfolioRepository = __decorateClass([
+PortfolioRepository = __decorate95([
   (0, import_common65.Injectable)(),
-  __decorateParam(0, (0, import_mongoose55.InjectModel)(PortfolioContent.name)),
-  __decorateParam(0, (0, import_common65.Inject)(import_mongoose56.Model))
+  __param39(0, (0, import_mongoose55.InjectModel)(PortfolioContent.name)),
+  __param39(0, (0, import_common65.Inject)(import_mongoose56.Model)),
+  __metadata72("design:paramtypes", [typeof (_a61 = typeof import_mongoose56.Model !== "undefined" && import_mongoose56.Model) === "function" ? _a61 : Object])
 ], PortfolioRepository);
 
-// apps/api/src/portfolio/services/portfolio.service.ts
+// src/portfolio/services/portfolio.service.ts
+var __decorate96 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata73 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param40 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a62;
 var DEFAULT_PORTFOLIO_CONTENT = {
   heroContent: {
     badge: "",
@@ -9737,11 +9639,11 @@ var DEFAULT_PORTFOLIO_CONTENT = {
   achievements: [],
   clientReviews: []
 };
-var PortfolioService = class {
+var PortfolioService = class PortfolioService2 {
+  portfolioRepository;
   constructor(portfolioRepository) {
     this.portfolioRepository = portfolioRepository;
   }
-  portfolioRepository;
   async getPortfolio() {
     const portfolio = await this.portfolioRepository.get();
     return {
@@ -9750,53 +9652,63 @@ var PortfolioService = class {
     };
   }
   async updatePortfolio(content) {
-    const portfolio = await this.portfolioRepository.update(
-      content
-    );
+    const portfolio = await this.portfolioRepository.update(content);
     return {
       success: true,
       message: "Portfolio updated successfully.",
       data: portfolio?.content
     };
   }
-  // portfolio.service.ts
   async updateSection(key, data) {
     const portfolio = await this.portfolioRepository.updateSection(key, data);
     return { success: true, message: `${key} updated successfully.`, data: portfolio?.content };
   }
 };
-PortfolioService = __decorateClass([
+PortfolioService = __decorate96([
   (0, import_common66.Injectable)(),
-  __decorateParam(0, (0, import_common66.Inject)(PortfolioRepository))
+  __param40(0, (0, import_common66.Inject)(PortfolioRepository)),
+  __metadata73("design:paramtypes", [typeof (_a62 = typeof PortfolioRepository !== "undefined" && PortfolioRepository) === "function" ? _a62 : Object])
 ], PortfolioService);
 
-// apps/api/src/portfolio/controllers/portfolio.controller.ts
-var PortfolioController = class {
+// src/portfolio/controllers/portfolio.controller.ts
+var __decorate97 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata74 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param41 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a63;
+var _b33;
+var _c25;
+var _d21;
+var _e12;
+var _f7;
+var PortfolioController = class PortfolioController2 {
+  portfolioService;
+  cloudinary;
   constructor(portfolioService, cloudinary2) {
     this.portfolioService = portfolioService;
     this.cloudinary = cloudinary2;
   }
-  portfolioService;
-  cloudinary;
   getPortfolio() {
     return this.portfolioService.getPortfolio();
   }
   updatePortfolio(body) {
-    return this.portfolioService.updatePortfolio(
-      body
-    );
+    return this.portfolioService.updatePortfolio(body);
   }
   updateSection(body, key) {
-    return this.portfolioService.updateSection(
-      key,
-      body
-    );
+    return this.portfolioService.updateSection(key, body);
   }
   async uploadImage(file) {
-    const upload = await this.cloudinary.uploadFile(
-      file,
-      "company-management/portfolio/images"
-    );
+    const upload = await this.cloudinary.uploadFile(file, "company-management/portfolio/images");
     return {
       success: true,
       data: {
@@ -9805,50 +9717,58 @@ var PortfolioController = class {
     };
   }
 };
-__decorateClass([
-  (0, import_common67.Get)()
-], PortfolioController.prototype, "getPortfolio", 1);
-__decorateClass([
-  (0, import_common67.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+__decorate97([
+  (0, import_common67.Get)(),
+  __metadata74("design:type", Function),
+  __metadata74("design:paramtypes", []),
+  __metadata74("design:returntype", void 0)
+], PortfolioController.prototype, "getPortfolio", null);
+__decorate97([
+  (0, import_common67.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common67.Put)(),
-  __decorateParam(0, (0, import_common67.Body)())
-], PortfolioController.prototype, "updatePortfolio", 1);
-__decorateClass([
-  (0, import_common67.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+  __param41(0, (0, import_common67.Body)()),
+  __metadata74("design:type", Function),
+  __metadata74("design:paramtypes", [typeof (_c25 = typeof Record !== "undefined" && Record) === "function" ? _c25 : Object]),
+  __metadata74("design:returntype", void 0)
+], PortfolioController.prototype, "updatePortfolio", null);
+__decorate97([
+  (0, import_common67.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common67.Put)(":key"),
-  __decorateParam(0, (0, import_common67.Body)()),
-  __decorateParam(1, (0, import_common67.Param)("key"))
-], PortfolioController.prototype, "updateSection", 1);
-__decorateClass([
-  (0, import_common67.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+  __param41(0, (0, import_common67.Body)()),
+  __param41(1, (0, import_common67.Param)("key")),
+  __metadata74("design:type", Function),
+  __metadata74("design:paramtypes", [typeof (_d21 = typeof Record !== "undefined" && Record) === "function" ? _d21 : Object, String]),
+  __metadata74("design:returntype", void 0)
+], PortfolioController.prototype, "updateSection", null);
+__decorate97([
+  (0, import_common67.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common67.Post)("upload-image"),
-  (0, import_common67.UseInterceptors)(
-    (0, import_platform_express5.FileInterceptor)("file")
-  ),
-  __decorateParam(0, (0, import_common67.UploadedFile)())
-], PortfolioController.prototype, "uploadImage", 1);
-PortfolioController = __decorateClass([
+  (0, import_common67.UseInterceptors)((0, import_platform_express5.FileInterceptor)("file")),
+  __param41(0, (0, import_common67.UploadedFile)()),
+  __metadata74("design:type", Function),
+  __metadata74("design:paramtypes", [typeof (_f7 = typeof Express !== "undefined" && (_e12 = Express.Multer) !== void 0 && _e12.File) === "function" ? _f7 : Object]),
+  __metadata74("design:returntype", Promise)
+], PortfolioController.prototype, "uploadImage", null);
+PortfolioController = __decorate97([
   (0, import_common67.Controller)("portfolio"),
-  __decorateParam(0, (0, import_common67.Inject)(PortfolioService)),
-  __decorateParam(1, (0, import_common67.Inject)(CloudinaryService))
+  __param41(0, (0, import_common67.Inject)(PortfolioService)),
+  __param41(1, (0, import_common67.Inject)(CloudinaryService)),
+  __metadata74("design:paramtypes", [typeof (_a63 = typeof PortfolioService !== "undefined" && PortfolioService) === "function" ? _a63 : Object, typeof (_b33 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _b33 : Object])
 ], PortfolioController);
 
-// apps/api/src/portfolio/portfolio.module.ts
-var PortfolioModule = class {
+// src/portfolio/portfolio.module.ts
+var __decorate98 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-PortfolioModule = __decorateClass([
+var PortfolioModule = class PortfolioModule2 {
+};
+PortfolioModule = __decorate98([
   (0, import_common68.Module)({
     imports: [
       import_mongoose57.MongooseModule.forFeature([
@@ -9872,96 +9792,128 @@ PortfolioModule = __decorateClass([
   })
 ], PortfolioModule);
 
-// apps/api/src/settings/settings.module.ts
+// src/settings/settings.module.ts
 var import_common72 = require("@nestjs/common");
 var import_mongoose61 = require("@nestjs/mongoose");
 
-// apps/api/src/settings/controllers/settings.controller.ts
+// src/settings/controllers/settings.controller.ts
 var import_common71 = require("@nestjs/common");
 
-// apps/api/src/settings/services/settings.service.ts
+// src/settings/services/settings.service.ts
 var import_common70 = require("@nestjs/common");
 
-// apps/api/src/settings/repositories/settings.repository.ts
+// src/settings/repositories/settings.repository.ts
 var import_common69 = require("@nestjs/common");
 var import_mongoose59 = require("@nestjs/mongoose");
 var import_mongoose60 = require("mongoose");
 
-// apps/api/src/settings/schemas/user-settings.schema.ts
+// src/settings/schemas/user-settings.schema.ts
 var import_mongoose58 = require("@nestjs/mongoose");
-var UserSettingsDoc = class {
+var __decorate99 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata75 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a64;
+var UserSettingsDoc = class UserSettingsDoc2 {
   userId;
   content;
 };
-__decorateClass([
+__decorate99([
   (0, import_mongoose58.Prop)({
     type: String,
     required: true,
     unique: true,
     index: true
-  })
-], UserSettingsDoc.prototype, "userId", 2);
-__decorateClass([
+  }),
+  __metadata75("design:type", String)
+], UserSettingsDoc.prototype, "userId", void 0);
+__decorate99([
   (0, import_mongoose58.Prop)({
     type: Object,
     required: true
-  })
-], UserSettingsDoc.prototype, "content", 2);
-UserSettingsDoc = __decorateClass([
+  }),
+  __metadata75("design:type", typeof (_a64 = typeof Record !== "undefined" && Record) === "function" ? _a64 : Object)
+], UserSettingsDoc.prototype, "content", void 0);
+UserSettingsDoc = __decorate99([
   (0, import_mongoose58.Schema)({
     timestamps: true
   })
 ], UserSettingsDoc);
-var UserSettingsSchema = import_mongoose58.SchemaFactory.createForClass(
-  UserSettingsDoc
-);
+var UserSettingsSchema = import_mongoose58.SchemaFactory.createForClass(UserSettingsDoc);
 
-// apps/api/src/settings/repositories/settings.repository.ts
-var SettingsRepository = class {
+// src/settings/repositories/settings.repository.ts
+var __decorate100 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata76 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param42 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a65;
+var SettingsRepository = class SettingsRepository2 {
+  settingsModel;
   constructor(settingsModel) {
     this.settingsModel = settingsModel;
   }
-  settingsModel;
   async getByUserId(userId) {
     return this.settingsModel.findOne({ userId }).lean();
   }
   async upsert(userId, content) {
-    return this.settingsModel.findOneAndUpdate(
-      { userId },
-      { userId, content },
-      {
-        new: true,
-        upsert: true
-      }
-    ).lean();
+    return this.settingsModel.findOneAndUpdate({ userId }, { userId, content }, {
+      new: true,
+      upsert: true
+    }).lean();
   }
 };
-SettingsRepository = __decorateClass([
+SettingsRepository = __decorate100([
   (0, import_common69.Injectable)(),
-  __decorateParam(0, (0, import_mongoose59.InjectModel)(UserSettingsDoc.name)),
-  __decorateParam(0, (0, import_common69.Inject)(import_mongoose60.Model))
+  __param42(0, (0, import_mongoose59.InjectModel)(UserSettingsDoc.name)),
+  __param42(0, (0, import_common69.Inject)(import_mongoose60.Model)),
+  __metadata76("design:paramtypes", [typeof (_a65 = typeof import_mongoose60.Model !== "undefined" && import_mongoose60.Model) === "function" ? _a65 : Object])
 ], SettingsRepository);
 
-// apps/api/src/settings/services/settings.service.ts
-var SettingsService = class {
+// src/settings/services/settings.service.ts
+var __decorate101 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata77 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param43 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a66;
+var SettingsService = class SettingsService2 {
+  settingsRepository;
   constructor(settingsRepository) {
     this.settingsRepository = settingsRepository;
   }
-  settingsRepository;
   async getSettings(userId) {
-    const settings = await this.settingsRepository.getByUserId(
-      userId
-    );
+    const settings = await this.settingsRepository.getByUserId(userId);
     return {
       success: true,
       data: settings?.content ?? null
     };
   }
   async updateSettings(userId, content) {
-    const settings = await this.settingsRepository.upsert(
-      userId,
-      content
-    );
+    const settings = await this.settingsRepository.upsert(userId, content);
     return {
       success: true,
       message: "Settings updated successfully.",
@@ -9969,64 +9921,85 @@ var SettingsService = class {
     };
   }
 };
-SettingsService = __decorateClass([
+SettingsService = __decorate101([
   (0, import_common70.Injectable)(),
-  __decorateParam(0, (0, import_common70.Inject)(SettingsRepository))
+  __param43(0, (0, import_common70.Inject)(SettingsRepository)),
+  __metadata77("design:paramtypes", [typeof (_a66 = typeof SettingsRepository !== "undefined" && SettingsRepository) === "function" ? _a66 : Object])
 ], SettingsService);
 
-// apps/api/src/settings/controllers/settings.controller.ts
+// src/settings/controllers/settings.controller.ts
+var __decorate102 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata78 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param44 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a67;
+var _b34;
 var ADMIN_ONLY_FIELDS = [
   "company",
   "website",
   "address"
 ];
-var SettingsController = class {
+var SettingsController = class SettingsController2 {
+  settingsService;
   constructor(settingsService) {
     this.settingsService = settingsService;
   }
-  settingsService;
   getSettings(req) {
-    return this.settingsService.getSettings(
-      req.user.sub
-    );
+    return this.settingsService.getSettings(req.user.sub);
   }
   updateSettings(req, body) {
-    const isAdmin = req.user.role === "ADMIN" /* ADMIN */;
+    const isAdmin = req.user.role === Role.ADMIN;
     if (!isAdmin) {
-      const attemptedAdminField = ADMIN_ONLY_FIELDS.find(
-        (field) => field in body
-      );
+      const attemptedAdminField = ADMIN_ONLY_FIELDS.find((field) => field in body);
       if (attemptedAdminField) {
-        throw new import_common71.ForbiddenException(
-          "Only an admin can update company settings."
-        );
+        throw new import_common71.ForbiddenException("Only an admin can update company settings.");
       }
     }
-    return this.settingsService.updateSettings(
-      req.user.sub,
-      body
-    );
+    return this.settingsService.updateSettings(req.user.sub, body);
   }
 };
-__decorateClass([
+__decorate102([
   (0, import_common71.Get)(),
-  __decorateParam(0, (0, import_common71.Req)())
-], SettingsController.prototype, "getSettings", 1);
-__decorateClass([
+  __param44(0, (0, import_common71.Req)()),
+  __metadata78("design:type", Function),
+  __metadata78("design:paramtypes", [Object]),
+  __metadata78("design:returntype", void 0)
+], SettingsController.prototype, "getSettings", null);
+__decorate102([
   (0, import_common71.Put)(),
-  __decorateParam(0, (0, import_common71.Req)()),
-  __decorateParam(1, (0, import_common71.Body)())
-], SettingsController.prototype, "updateSettings", 1);
-SettingsController = __decorateClass([
+  __param44(0, (0, import_common71.Req)()),
+  __param44(1, (0, import_common71.Body)()),
+  __metadata78("design:type", Function),
+  __metadata78("design:paramtypes", [Object, typeof (_b34 = typeof Record !== "undefined" && Record) === "function" ? _b34 : Object]),
+  __metadata78("design:returntype", void 0)
+], SettingsController.prototype, "updateSettings", null);
+SettingsController = __decorate102([
   (0, import_common71.UseGuards)(JwtAuthGuard),
   (0, import_common71.Controller)("settings"),
-  __decorateParam(0, (0, import_common71.Inject)(SettingsService))
+  __param44(0, (0, import_common71.Inject)(SettingsService)),
+  __metadata78("design:paramtypes", [typeof (_a67 = typeof SettingsService !== "undefined" && SettingsService) === "function" ? _a67 : Object])
 ], SettingsController);
 
-// apps/api/src/settings/settings.module.ts
-var SettingsModule = class {
+// src/settings/settings.module.ts
+var __decorate103 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-SettingsModule = __decorateClass([
+var SettingsModule = class SettingsModule2 {
+};
+SettingsModule = __decorate103([
   (0, import_common72.Module)({
     imports: [
       import_mongoose61.MongooseModule.forFeature([
@@ -10049,50 +10022,62 @@ SettingsModule = __decorateClass([
   })
 ], SettingsModule);
 
-// apps/api/src/notifications/notifications.module.ts
+// src/notifications/notifications.module.ts
 var import_common76 = require("@nestjs/common");
 var import_mongoose65 = require("@nestjs/mongoose");
 
-// apps/api/src/notifications/controllers/notifications.controller.ts
+// src/notifications/controllers/notifications.controller.ts
 var import_common75 = require("@nestjs/common");
 
-// apps/api/src/notifications/services/notifications.service.ts
+// src/notifications/services/notifications.service.ts
 var import_common74 = require("@nestjs/common");
 
-// apps/api/src/notifications/repositories/notifications.repository.ts
+// src/notifications/repositories/notifications.repository.ts
 var import_common73 = require("@nestjs/common");
 var import_mongoose63 = require("@nestjs/mongoose");
 var import_mongoose64 = require("mongoose");
 
-// apps/api/src/notifications/schemas/notification.schema.ts
+// src/notifications/schemas/notification.schema.ts
 var import_mongoose62 = require("@nestjs/mongoose");
-var NotificationDoc = class {
+var __decorate104 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata79 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var NotificationDoc = class NotificationDoc2 {
   userId;
   title;
   description;
   type;
   read;
 };
-__decorateClass([
+__decorate104([
   (0, import_mongoose62.Prop)({
     type: String,
     required: true,
     index: true
-  })
-], NotificationDoc.prototype, "userId", 2);
-__decorateClass([
+  }),
+  __metadata79("design:type", String)
+], NotificationDoc.prototype, "userId", void 0);
+__decorate104([
   (0, import_mongoose62.Prop)({
     type: String,
     required: true
-  })
-], NotificationDoc.prototype, "title", 2);
-__decorateClass([
+  }),
+  __metadata79("design:type", String)
+], NotificationDoc.prototype, "title", void 0);
+__decorate104([
   (0, import_mongoose62.Prop)({
     type: String,
     required: true
-  })
-], NotificationDoc.prototype, "description", 2);
-__decorateClass([
+  }),
+  __metadata79("design:type", String)
+], NotificationDoc.prototype, "description", void 0);
+__decorate104([
   (0, import_mongoose62.Prop)({
     type: String,
     required: true,
@@ -10104,29 +10089,44 @@ __decorateClass([
       "calendar",
       "system"
     ]
-  })
-], NotificationDoc.prototype, "type", 2);
-__decorateClass([
+  }),
+  __metadata79("design:type", String)
+], NotificationDoc.prototype, "type", void 0);
+__decorate104([
   (0, import_mongoose62.Prop)({
     type: Boolean,
     default: false
-  })
-], NotificationDoc.prototype, "read", 2);
-NotificationDoc = __decorateClass([
+  }),
+  __metadata79("design:type", Boolean)
+], NotificationDoc.prototype, "read", void 0);
+NotificationDoc = __decorate104([
   (0, import_mongoose62.Schema)({
     timestamps: true
   })
 ], NotificationDoc);
-var NotificationSchema = import_mongoose62.SchemaFactory.createForClass(
-  NotificationDoc
-);
+var NotificationSchema = import_mongoose62.SchemaFactory.createForClass(NotificationDoc);
 
-// apps/api/src/notifications/repositories/notifications.repository.ts
-var NotificationsRepository = class {
+// src/notifications/repositories/notifications.repository.ts
+var __decorate105 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata80 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param45 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a68;
+var NotificationsRepository = class NotificationsRepository2 {
+  notificationModel;
   constructor(notificationModel) {
     this.notificationModel = notificationModel;
   }
-  notificationModel;
   async findByUser(userId) {
     return this.notificationModel.find({ userId }).sort({ createdAt: -1 }).lean();
   }
@@ -10134,17 +10134,10 @@ var NotificationsRepository = class {
     return this.notificationModel.create(data);
   }
   async markAsRead(id, userId) {
-    return this.notificationModel.findOneAndUpdate(
-      { _id: id, userId },
-      { read: true },
-      { new: true }
-    ).lean();
+    return this.notificationModel.findOneAndUpdate({ _id: id, userId }, { read: true }, { new: true }).lean();
   }
   async markAllAsRead(userId) {
-    return this.notificationModel.updateMany(
-      { userId, read: false },
-      { read: true }
-    );
+    return this.notificationModel.updateMany({ userId, read: false }, { read: true });
   }
   async clearAll(userId) {
     return this.notificationModel.deleteMany({
@@ -10152,31 +10145,41 @@ var NotificationsRepository = class {
     });
   }
 };
-NotificationsRepository = __decorateClass([
+NotificationsRepository = __decorate105([
   (0, import_common73.Injectable)(),
-  __decorateParam(0, (0, import_mongoose63.InjectModel)(NotificationDoc.name)),
-  __decorateParam(0, (0, import_common73.Inject)(import_mongoose64.Model))
+  __param45(0, (0, import_mongoose63.InjectModel)(NotificationDoc.name)),
+  __param45(0, (0, import_common73.Inject)(import_mongoose64.Model)),
+  __metadata80("design:paramtypes", [typeof (_a68 = typeof import_mongoose64.Model !== "undefined" && import_mongoose64.Model) === "function" ? _a68 : Object])
 ], NotificationsRepository);
 
-// apps/api/src/notifications/services/notifications.service.ts
-var NotificationsService = class {
+// src/notifications/services/notifications.service.ts
+var __decorate106 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata81 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param46 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a69;
+var NotificationsService = class NotificationsService2 {
+  notificationsRepository;
   constructor(notificationsRepository) {
     this.notificationsRepository = notificationsRepository;
   }
-  notificationsRepository;
   async getMyNotifications(userId) {
-    const notifications = await this.notificationsRepository.findByUser(
-      userId
-    );
+    const notifications = await this.notificationsRepository.findByUser(userId);
     return {
       success: true,
       data: notifications
     };
   }
-  // Other modules (employees, projects, attendance, calendar)
-  // can call this later to create real notifications when
-  // something relevant happens. Not wired to any trigger yet —
-  // that's a separate task per module.
   async create(userId, title, description, type) {
     return this.notificationsRepository.create({
       userId,
@@ -10186,94 +10189,113 @@ var NotificationsService = class {
     });
   }
   async markAsRead(id, userId) {
-    const updated = await this.notificationsRepository.markAsRead(
-      id,
-      userId
-    );
+    const updated = await this.notificationsRepository.markAsRead(id, userId);
     return {
       success: true,
       data: updated
     };
   }
   async markAllAsRead(userId) {
-    await this.notificationsRepository.markAllAsRead(
-      userId
-    );
+    await this.notificationsRepository.markAllAsRead(userId);
     return {
       success: true,
       message: "All notifications marked as read."
     };
   }
   async clearAll(userId) {
-    await this.notificationsRepository.clearAll(
-      userId
-    );
+    await this.notificationsRepository.clearAll(userId);
     return {
       success: true,
       message: "All notifications cleared."
     };
   }
 };
-NotificationsService = __decorateClass([
+NotificationsService = __decorate106([
   (0, import_common74.Injectable)(),
-  __decorateParam(0, (0, import_common74.Inject)(NotificationsRepository))
+  __param46(0, (0, import_common74.Inject)(NotificationsRepository)),
+  __metadata81("design:paramtypes", [typeof (_a69 = typeof NotificationsRepository !== "undefined" && NotificationsRepository) === "function" ? _a69 : Object])
 ], NotificationsService);
 
-// apps/api/src/notifications/controllers/notifications.controller.ts
-var NotificationsController = class {
+// src/notifications/controllers/notifications.controller.ts
+var __decorate107 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata82 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param47 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a70;
+var NotificationsController = class NotificationsController2 {
+  notificationsService;
   constructor(notificationsService) {
     this.notificationsService = notificationsService;
   }
-  notificationsService;
   getMine(req) {
-    return this.notificationsService.getMyNotifications(
-      req.user.sub
-    );
+    return this.notificationsService.getMyNotifications(req.user.sub);
   }
   markAsRead(id, req) {
-    return this.notificationsService.markAsRead(
-      id,
-      req.user.sub
-    );
+    return this.notificationsService.markAsRead(id, req.user.sub);
   }
   markAllAsRead(req) {
-    return this.notificationsService.markAllAsRead(
-      req.user.sub
-    );
+    return this.notificationsService.markAllAsRead(req.user.sub);
   }
   clearAll(req) {
-    return this.notificationsService.clearAll(
-      req.user.sub
-    );
+    return this.notificationsService.clearAll(req.user.sub);
   }
 };
-__decorateClass([
+__decorate107([
   (0, import_common75.Get)(),
-  __decorateParam(0, (0, import_common75.Req)())
-], NotificationsController.prototype, "getMine", 1);
-__decorateClass([
+  __param47(0, (0, import_common75.Req)()),
+  __metadata82("design:type", Function),
+  __metadata82("design:paramtypes", [Object]),
+  __metadata82("design:returntype", void 0)
+], NotificationsController.prototype, "getMine", null);
+__decorate107([
   (0, import_common75.Patch)(":id/read"),
-  __decorateParam(0, (0, import_common75.Param)("id")),
-  __decorateParam(1, (0, import_common75.Req)())
-], NotificationsController.prototype, "markAsRead", 1);
-__decorateClass([
+  __param47(0, (0, import_common75.Param)("id")),
+  __param47(1, (0, import_common75.Req)()),
+  __metadata82("design:type", Function),
+  __metadata82("design:paramtypes", [String, Object]),
+  __metadata82("design:returntype", void 0)
+], NotificationsController.prototype, "markAsRead", null);
+__decorate107([
   (0, import_common75.Patch)("read-all"),
-  __decorateParam(0, (0, import_common75.Req)())
-], NotificationsController.prototype, "markAllAsRead", 1);
-__decorateClass([
+  __param47(0, (0, import_common75.Req)()),
+  __metadata82("design:type", Function),
+  __metadata82("design:paramtypes", [Object]),
+  __metadata82("design:returntype", void 0)
+], NotificationsController.prototype, "markAllAsRead", null);
+__decorate107([
   (0, import_common75.Delete)(),
-  __decorateParam(0, (0, import_common75.Req)())
-], NotificationsController.prototype, "clearAll", 1);
-NotificationsController = __decorateClass([
+  __param47(0, (0, import_common75.Req)()),
+  __metadata82("design:type", Function),
+  __metadata82("design:paramtypes", [Object]),
+  __metadata82("design:returntype", void 0)
+], NotificationsController.prototype, "clearAll", null);
+NotificationsController = __decorate107([
   (0, import_common75.UseGuards)(JwtAuthGuard),
   (0, import_common75.Controller)("notifications"),
-  __decorateParam(0, (0, import_common75.Inject)(NotificationsService))
+  __param47(0, (0, import_common75.Inject)(NotificationsService)),
+  __metadata82("design:paramtypes", [typeof (_a70 = typeof NotificationsService !== "undefined" && NotificationsService) === "function" ? _a70 : Object])
 ], NotificationsController);
 
-// apps/api/src/notifications/notifications.module.ts
-var NotificationsModule = class {
+// src/notifications/notifications.module.ts
+var __decorate108 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-NotificationsModule = __decorateClass([
+var NotificationsModule = class NotificationsModule2 {
+};
+NotificationsModule = __decorate108([
   (0, import_common76.Module)({
     imports: [
       import_mongoose65.MongooseModule.forFeature([
@@ -10296,77 +10318,110 @@ NotificationsModule = __decorateClass([
   })
 ], NotificationsModule);
 
-// apps/api/src/updates/updates.module.ts
+// src/updates/updates.module.ts
 var import_common80 = require("@nestjs/common");
 var import_mongoose69 = require("@nestjs/mongoose");
 
-// apps/api/src/updates/controllers/updates.controller.ts
+// src/updates/controllers/updates.controller.ts
 var import_common79 = require("@nestjs/common");
 var import_platform_express6 = require("@nestjs/platform-express");
 
-// apps/api/src/updates/services/updates.service.ts
+// src/updates/services/updates.service.ts
 var import_common78 = require("@nestjs/common");
 
-// apps/api/src/updates/repositories/updates.repository.ts
+// src/updates/repositories/updates.repository.ts
 var import_common77 = require("@nestjs/common");
 var import_mongoose67 = require("@nestjs/mongoose");
 var import_mongoose68 = require("mongoose");
 
-// apps/api/src/updates/schemas/updates-content.schema.ts
+// src/updates/schemas/updates-content.schema.ts
 var import_mongoose66 = require("@nestjs/mongoose");
-var UpdatesContent = class {
+var __decorate109 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata83 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a71;
+var UpdatesContent = class UpdatesContent2 {
   content;
 };
-__decorateClass([
+__decorate109([
   (0, import_mongoose66.Prop)({
     type: Object,
     required: true
-  })
-], UpdatesContent.prototype, "content", 2);
-UpdatesContent = __decorateClass([
+  }),
+  __metadata83("design:type", typeof (_a71 = typeof Record !== "undefined" && Record) === "function" ? _a71 : Object)
+], UpdatesContent.prototype, "content", void 0);
+UpdatesContent = __decorate109([
   (0, import_mongoose66.Schema)({
     timestamps: true
   })
 ], UpdatesContent);
-var UpdatesContentSchema = import_mongoose66.SchemaFactory.createForClass(
-  UpdatesContent
-);
+var UpdatesContentSchema = import_mongoose66.SchemaFactory.createForClass(UpdatesContent);
 
-// apps/api/src/updates/repositories/updates.repository.ts
-var UpdatesRepository = class {
+// src/updates/repositories/updates.repository.ts
+var __decorate110 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata84 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param48 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a72;
+var UpdatesRepository = class UpdatesRepository2 {
+  updatesModel;
   constructor(updatesModel) {
     this.updatesModel = updatesModel;
   }
-  updatesModel;
   async get() {
     return this.updatesModel.findOne().lean();
   }
-  // Merge-safe: only touches the one key given, leaves the rest
-  // of the content document untouched — this is what prevents
-  // saving the CEO message from wiping galleries, or vice versa.
   async updateSection(key, value) {
-    return this.updatesModel.findOneAndUpdate(
-      {},
-      { $set: { [`content.${key}`]: value } },
-      {
-        new: true,
-        upsert: true
-      }
-    ).lean();
+    return this.updatesModel.findOneAndUpdate({}, { $set: { [`content.${key}`]: value } }, {
+      new: true,
+      upsert: true
+    }).lean();
   }
 };
-UpdatesRepository = __decorateClass([
+UpdatesRepository = __decorate110([
   (0, import_common77.Injectable)(),
-  __decorateParam(0, (0, import_mongoose67.InjectModel)(UpdatesContent.name)),
-  __decorateParam(0, (0, import_common77.Inject)(import_mongoose68.Model))
+  __param48(0, (0, import_mongoose67.InjectModel)(UpdatesContent.name)),
+  __param48(0, (0, import_common77.Inject)(import_mongoose68.Model)),
+  __metadata84("design:paramtypes", [typeof (_a72 = typeof import_mongoose68.Model !== "undefined" && import_mongoose68.Model) === "function" ? _a72 : Object])
 ], UpdatesRepository);
 
-// apps/api/src/updates/services/updates.service.ts
-var UpdatesService = class {
+// src/updates/services/updates.service.ts
+var __decorate111 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata85 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param49 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a73;
+var UpdatesService = class UpdatesService2 {
+  updatesRepository;
   constructor(updatesRepository) {
     this.updatesRepository = updatesRepository;
   }
-  updatesRepository;
   async getUpdates() {
     const updates = await this.updatesRepository.get();
     return {
@@ -10378,10 +10433,7 @@ var UpdatesService = class {
     };
   }
   async updateCeoMessage(ceoMessage) {
-    const updates = await this.updatesRepository.updateSection(
-      "ceoMessage",
-      ceoMessage
-    );
+    const updates = await this.updatesRepository.updateSection("ceoMessage", ceoMessage);
     return {
       success: true,
       message: "Message saved successfully.",
@@ -10389,10 +10441,7 @@ var UpdatesService = class {
     };
   }
   async updateGalleries(galleries) {
-    const updates = await this.updatesRepository.updateSection(
-      "galleries",
-      galleries
-    );
+    const updates = await this.updatesRepository.updateSection("galleries", galleries);
     return {
       success: true,
       message: "Galleries saved successfully.",
@@ -10400,37 +10449,52 @@ var UpdatesService = class {
     };
   }
 };
-UpdatesService = __decorateClass([
+UpdatesService = __decorate111([
   (0, import_common78.Injectable)(),
-  __decorateParam(0, (0, import_common78.Inject)(UpdatesRepository))
+  __param49(0, (0, import_common78.Inject)(UpdatesRepository)),
+  __metadata85("design:paramtypes", [typeof (_a73 = typeof UpdatesRepository !== "undefined" && UpdatesRepository) === "function" ? _a73 : Object])
 ], UpdatesService);
 
-// apps/api/src/updates/controllers/updates.controller.ts
-var UpdatesController = class {
+// src/updates/controllers/updates.controller.ts
+var __decorate112 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata86 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param50 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a74;
+var _b35;
+var _c26;
+var _d22;
+var _e13;
+var _f8;
+var _g6;
+var UpdatesController = class UpdatesController2 {
+  updatesService;
+  cloudinary;
   constructor(updatesService, cloudinary2) {
     this.updatesService = updatesService;
     this.cloudinary = cloudinary2;
   }
-  updatesService;
-  cloudinary;
   getUpdates() {
     return this.updatesService.getUpdates();
   }
   updateCeoMessage(body) {
-    return this.updatesService.updateCeoMessage(
-      body
-    );
+    return this.updatesService.updateCeoMessage(body);
   }
   updateGalleries(body) {
-    return this.updatesService.updateGalleries(
-      body.galleries
-    );
+    return this.updatesService.updateGalleries(body.galleries);
   }
   async uploadVideo(file) {
-    const upload = await this.cloudinary.uploadFile(
-      file,
-      "company-management/updates/videos"
-    );
+    const upload = await this.cloudinary.uploadFile(file, "company-management/updates/videos");
     return {
       success: true,
       data: {
@@ -10439,10 +10503,7 @@ var UpdatesController = class {
     };
   }
   async uploadImage(file) {
-    const upload = await this.cloudinary.uploadFile(
-      file,
-      "company-management/updates/gallery"
-    );
+    const upload = await this.cloudinary.uploadFile(file, "company-management/updates/gallery");
     return {
       success: true,
       data: {
@@ -10451,61 +10512,67 @@ var UpdatesController = class {
     };
   }
 };
-__decorateClass([
-  (0, import_common79.Get)()
-], UpdatesController.prototype, "getUpdates", 1);
-__decorateClass([
-  (0, import_common79.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+__decorate112([
+  (0, import_common79.Get)(),
+  __metadata86("design:type", Function),
+  __metadata86("design:paramtypes", []),
+  __metadata86("design:returntype", void 0)
+], UpdatesController.prototype, "getUpdates", null);
+__decorate112([
+  (0, import_common79.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common79.Put)("ceo-message"),
-  __decorateParam(0, (0, import_common79.Body)())
-], UpdatesController.prototype, "updateCeoMessage", 1);
-__decorateClass([
-  (0, import_common79.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+  __param50(0, (0, import_common79.Body)()),
+  __metadata86("design:type", Function),
+  __metadata86("design:paramtypes", [typeof (_c26 = typeof Record !== "undefined" && Record) === "function" ? _c26 : Object]),
+  __metadata86("design:returntype", void 0)
+], UpdatesController.prototype, "updateCeoMessage", null);
+__decorate112([
+  (0, import_common79.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common79.Put)("galleries"),
-  __decorateParam(0, (0, import_common79.Body)())
-], UpdatesController.prototype, "updateGalleries", 1);
-__decorateClass([
-  (0, import_common79.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+  __param50(0, (0, import_common79.Body)()),
+  __metadata86("design:type", Function),
+  __metadata86("design:paramtypes", [Object]),
+  __metadata86("design:returntype", void 0)
+], UpdatesController.prototype, "updateGalleries", null);
+__decorate112([
+  (0, import_common79.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common79.Post)("upload-video"),
-  (0, import_common79.UseInterceptors)(
-    (0, import_platform_express6.FileInterceptor)("file")
-  ),
-  __decorateParam(0, (0, import_common79.UploadedFile)())
-], UpdatesController.prototype, "uploadVideo", 1);
-__decorateClass([
-  (0, import_common79.UseGuards)(
-    JwtAuthGuard,
-    RolesGuard
-  ),
-  Roles("ADMIN" /* ADMIN */),
+  (0, import_common79.UseInterceptors)((0, import_platform_express6.FileInterceptor)("file")),
+  __param50(0, (0, import_common79.UploadedFile)()),
+  __metadata86("design:type", Function),
+  __metadata86("design:paramtypes", [typeof (_e13 = typeof Express !== "undefined" && (_d22 = Express.Multer) !== void 0 && _d22.File) === "function" ? _e13 : Object]),
+  __metadata86("design:returntype", Promise)
+], UpdatesController.prototype, "uploadVideo", null);
+__decorate112([
+  (0, import_common79.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
   (0, import_common79.Post)("upload-image"),
-  (0, import_common79.UseInterceptors)(
-    (0, import_platform_express6.FileInterceptor)("file")
-  ),
-  __decorateParam(0, (0, import_common79.UploadedFile)())
-], UpdatesController.prototype, "uploadImage", 1);
-UpdatesController = __decorateClass([
+  (0, import_common79.UseInterceptors)((0, import_platform_express6.FileInterceptor)("file")),
+  __param50(0, (0, import_common79.UploadedFile)()),
+  __metadata86("design:type", Function),
+  __metadata86("design:paramtypes", [typeof (_g6 = typeof Express !== "undefined" && (_f8 = Express.Multer) !== void 0 && _f8.File) === "function" ? _g6 : Object]),
+  __metadata86("design:returntype", Promise)
+], UpdatesController.prototype, "uploadImage", null);
+UpdatesController = __decorate112([
   (0, import_common79.Controller)("updates"),
-  __decorateParam(0, (0, import_common79.Inject)(UpdatesService)),
-  __decorateParam(1, (0, import_common79.Inject)(CloudinaryService))
+  __param50(0, (0, import_common79.Inject)(UpdatesService)),
+  __param50(1, (0, import_common79.Inject)(CloudinaryService)),
+  __metadata86("design:paramtypes", [typeof (_a74 = typeof UpdatesService !== "undefined" && UpdatesService) === "function" ? _a74 : Object, typeof (_b35 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _b35 : Object])
 ], UpdatesController);
 
-// apps/api/src/updates/updates.module.ts
-var UpdatesModule = class {
+// src/updates/updates.module.ts
+var __decorate113 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-UpdatesModule = __decorateClass([
+var UpdatesModule = class UpdatesModule2 {
+};
+UpdatesModule = __decorate113([
   (0, import_common80.Module)({
     imports: [
       import_mongoose69.MongooseModule.forFeature([
@@ -10529,69 +10596,107 @@ UpdatesModule = __decorateClass([
   })
 ], UpdatesModule);
 
-// apps/api/src/footer/footer.module.ts
+// src/footer/footer.module.ts
 var import_common84 = require("@nestjs/common");
 var import_mongoose73 = require("@nestjs/mongoose");
 
-// apps/api/src/footer/controllers/footer.controller.ts
+// src/footer/controllers/footer.controller.ts
 var import_common83 = require("@nestjs/common");
 
-// apps/api/src/footer/services/footer.service.ts
+// src/footer/services/footer.service.ts
 var import_common82 = require("@nestjs/common");
 
-// apps/api/src/footer/repositories/footer.repository.ts
+// src/footer/repositories/footer.repository.ts
 var import_common81 = require("@nestjs/common");
 var import_mongoose71 = require("@nestjs/mongoose");
 var import_mongoose72 = require("mongoose");
 
-// apps/api/src/footer/schemas/footer-content.schema.ts
+// src/footer/schemas/footer-content.schema.ts
 var import_mongoose70 = require("@nestjs/mongoose");
-var FooterContentDoc = class {
+var __decorate114 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata87 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a75;
+var FooterContentDoc = class FooterContentDoc2 {
   content;
 };
-__decorateClass([
-  (0, import_mongoose70.Prop)({ type: Object, required: true })
-], FooterContentDoc.prototype, "content", 2);
-FooterContentDoc = __decorateClass([
+__decorate114([
+  (0, import_mongoose70.Prop)({ type: Object, required: true }),
+  __metadata87("design:type", typeof (_a75 = typeof Record !== "undefined" && Record) === "function" ? _a75 : Object)
+], FooterContentDoc.prototype, "content", void 0);
+FooterContentDoc = __decorate114([
   (0, import_mongoose70.Schema)({ timestamps: true })
 ], FooterContentDoc);
 var FooterContentSchema = import_mongoose70.SchemaFactory.createForClass(FooterContentDoc);
 
-// apps/api/src/footer/repositories/footer.repository.ts
-var FooterRepository = class {
+// src/footer/repositories/footer.repository.ts
+var __decorate115 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata88 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param51 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a76;
+var FooterRepository = class FooterRepository2 {
+  footerModel;
   constructor(footerModel) {
     this.footerModel = footerModel;
   }
-  footerModel;
   async get() {
     return this.footerModel.findOne().lean();
   }
   async replace(content) {
-    return this.footerModel.findOneAndUpdate(
-      {},
-      { $set: { content } },
-      { new: true, upsert: true }
-    ).lean();
+    return this.footerModel.findOneAndUpdate({}, { $set: { content } }, { new: true, upsert: true }).lean();
   }
 };
-FooterRepository = __decorateClass([
+FooterRepository = __decorate115([
   (0, import_common81.Injectable)(),
-  __decorateParam(0, (0, import_mongoose71.InjectModel)(FooterContentDoc.name)),
-  __decorateParam(0, (0, import_common81.Inject)(import_mongoose72.Model))
+  __param51(0, (0, import_mongoose71.InjectModel)(FooterContentDoc.name)),
+  __param51(0, (0, import_common81.Inject)(import_mongoose72.Model)),
+  __metadata88("design:paramtypes", [typeof (_a76 = typeof import_mongoose72.Model !== "undefined" && import_mongoose72.Model) === "function" ? _a76 : Object])
 ], FooterRepository);
 
-// apps/api/src/footer/services/footer.service.ts
+// src/footer/services/footer.service.ts
+var __decorate116 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata89 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param52 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a77;
 var DEFAULT_CONTENT = {
   description: "Building scalable web, mobile, AI and cloud solutions for startups, businesses and enterprises.",
   copyrightText: "AI Company Management Platform. All rights reserved.",
   socialLinks: [],
   sections: { company: [], services: [], legal: [] }
 };
-var FooterService = class {
+var FooterService = class FooterService2 {
+  footerRepository;
   constructor(footerRepository) {
     this.footerRepository = footerRepository;
   }
-  footerRepository;
   async getFooter() {
     const doc = await this.footerRepository.get();
     return { success: true, data: doc?.content ?? DEFAULT_CONTENT };
@@ -10605,17 +10710,34 @@ var FooterService = class {
     };
   }
 };
-FooterService = __decorateClass([
+FooterService = __decorate116([
   (0, import_common82.Injectable)(),
-  __decorateParam(0, (0, import_common82.Inject)(FooterRepository))
+  __param52(0, (0, import_common82.Inject)(FooterRepository)),
+  __metadata89("design:paramtypes", [typeof (_a77 = typeof FooterRepository !== "undefined" && FooterRepository) === "function" ? _a77 : Object])
 ], FooterService);
 
-// apps/api/src/footer/controllers/footer.controller.ts
-var FooterController = class {
+// src/footer/controllers/footer.controller.ts
+var __decorate117 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata90 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param53 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a78;
+var _b36;
+var FooterController = class FooterController2 {
+  footerService;
   constructor(footerService) {
     this.footerService = footerService;
   }
-  footerService;
   getFooter() {
     return this.footerService.getFooter();
   }
@@ -10623,24 +10745,37 @@ var FooterController = class {
     return this.footerService.saveFooter(body);
   }
 };
-__decorateClass([
-  (0, import_common83.Get)()
-], FooterController.prototype, "getFooter", 1);
-__decorateClass([
+__decorate117([
+  (0, import_common83.Get)(),
+  __metadata90("design:type", Function),
+  __metadata90("design:paramtypes", []),
+  __metadata90("design:returntype", void 0)
+], FooterController.prototype, "getFooter", null);
+__decorate117([
   (0, import_common83.UseGuards)(JwtAuthGuard, RolesGuard),
-  Roles("ADMIN" /* ADMIN */),
+  Roles(Role.ADMIN),
   (0, import_common83.Put)(),
-  __decorateParam(0, (0, import_common83.Body)())
-], FooterController.prototype, "saveFooter", 1);
-FooterController = __decorateClass([
+  __param53(0, (0, import_common83.Body)()),
+  __metadata90("design:type", Function),
+  __metadata90("design:paramtypes", [typeof (_b36 = typeof Record !== "undefined" && Record) === "function" ? _b36 : Object]),
+  __metadata90("design:returntype", void 0)
+], FooterController.prototype, "saveFooter", null);
+FooterController = __decorate117([
   (0, import_common83.Controller)("footer"),
-  __decorateParam(0, (0, import_common83.Inject)(FooterService))
+  __param53(0, (0, import_common83.Inject)(FooterService)),
+  __metadata90("design:paramtypes", [typeof (_a78 = typeof FooterService !== "undefined" && FooterService) === "function" ? _a78 : Object])
 ], FooterController);
 
-// apps/api/src/footer/footer.module.ts
-var FooterModule = class {
+// src/footer/footer.module.ts
+var __decorate118 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-FooterModule = __decorateClass([
+var FooterModule = class FooterModule2 {
+};
+FooterModule = __decorate118([
   (0, import_common84.Module)({
     imports: [
       import_mongoose73.MongooseModule.forFeature([
@@ -10653,27 +10788,37 @@ FooterModule = __decorateClass([
   })
 ], FooterModule);
 
-// apps/api/src/newsletter/newsletter.module.ts
+// src/newsletter/newsletter.module.ts
 var import_common88 = require("@nestjs/common");
-var import_mongoose76 = require("@nestjs/mongoose");
+var import_mongoose77 = require("@nestjs/mongoose");
 
-// apps/api/src/newsletter/newsletter.controller.ts
+// src/newsletter/newsletter.controller.ts
 var import_common87 = require("@nestjs/common");
 
-// apps/api/src/newsletter/newsletter.service.ts
+// src/newsletter/newsletter.service.ts
 var import_common86 = require("@nestjs/common");
 
-// apps/api/src/newsletter/repositories/newsletter.repository.ts
+// src/newsletter/repositories/newsletter.repository.ts
 var import_common85 = require("@nestjs/common");
 var import_mongoose75 = require("@nestjs/mongoose");
+var import_mongoose76 = require("mongoose");
 
-// apps/api/src/newsletter/schemas/newsletter-subscriber.schema.ts
+// src/newsletter/schemas/newsletter-subscriber.schema.ts
 var import_mongoose74 = require("@nestjs/mongoose");
-var NewsletterSubscriberDoc = class {
+var __decorate119 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata91 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var NewsletterSubscriberDoc = class NewsletterSubscriberDoc2 {
   email;
   active;
 };
-__decorateClass([
+__decorate119([
   (0, import_mongoose74.Prop)({
     type: String,
     required: true,
@@ -10681,30 +10826,45 @@ __decorateClass([
     lowercase: true,
     trim: true,
     index: true
-  })
-], NewsletterSubscriberDoc.prototype, "email", 2);
-__decorateClass([
+  }),
+  __metadata91("design:type", String)
+], NewsletterSubscriberDoc.prototype, "email", void 0);
+__decorate119([
   (0, import_mongoose74.Prop)({
     type: Boolean,
     default: true
-  })
-], NewsletterSubscriberDoc.prototype, "active", 2);
-NewsletterSubscriberDoc = __decorateClass([
+  }),
+  __metadata91("design:type", Boolean)
+], NewsletterSubscriberDoc.prototype, "active", void 0);
+NewsletterSubscriberDoc = __decorate119([
   (0, import_mongoose74.Schema)({
     timestamps: true,
     collection: "newsletter_subscribers"
   })
 ], NewsletterSubscriberDoc);
-var NewsletterSubscriberSchema = import_mongoose74.SchemaFactory.createForClass(
-  NewsletterSubscriberDoc
-);
+var NewsletterSubscriberSchema = import_mongoose74.SchemaFactory.createForClass(NewsletterSubscriberDoc);
 
-// apps/api/src/newsletter/repositories/newsletter.repository.ts
-var NewsletterRepository = class {
+// src/newsletter/repositories/newsletter.repository.ts
+var __decorate120 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata92 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param54 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a79;
+var NewsletterRepository = class NewsletterRepository2 {
+  model;
   constructor(model) {
     this.model = model;
   }
-  model;
   findByEmail(email) {
     return this.model.findOne({ email: email.toLowerCase().trim() }).exec();
   }
@@ -10715,13 +10875,30 @@ var NewsletterRepository = class {
     });
   }
 };
-NewsletterRepository = __decorateClass([
+NewsletterRepository = __decorate120([
   (0, import_common85.Injectable)(),
-  __decorateParam(0, (0, import_mongoose75.InjectModel)(NewsletterSubscriberDoc.name))
+  __param54(0, (0, import_mongoose75.InjectModel)(NewsletterSubscriberDoc.name)),
+  __metadata92("design:paramtypes", [typeof (_a79 = typeof import_mongoose76.Model !== "undefined" && import_mongoose76.Model) === "function" ? _a79 : Object])
 ], NewsletterRepository);
 
-// apps/api/src/newsletter/newsletter.service.ts
-var NewsletterService = class {
+// src/newsletter/newsletter.service.ts
+var __decorate121 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata93 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param55 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a80;
+var _b37;
+var NewsletterService = class NewsletterService2 {
   mailService;
   newsletterRepository;
   constructor(mailService, newsletterRepository) {
@@ -10730,9 +10907,7 @@ var NewsletterService = class {
   }
   async subscribe(email) {
     const normalized = email.toLowerCase().trim();
-    const existing = await this.newsletterRepository.findByEmail(
-      normalized
-    );
+    const existing = await this.newsletterRepository.findByEmail(normalized);
     if (existing) {
       return {
         success: true,
@@ -10740,18 +10915,11 @@ var NewsletterService = class {
         alreadySubscribed: true
       };
     }
-    await this.newsletterRepository.create(
-      normalized
-    );
+    await this.newsletterRepository.create(normalized);
     try {
-      await this.mailService.sendNewsletterSubscriptionNotification(
-        normalized
-      );
+      await this.mailService.sendNewsletterSubscriptionNotification(normalized);
     } catch (error) {
-      console.error(
-        "[NEWSLETTER] Notification email failed (subscriber saved):",
-        error?.message ?? error
-      );
+      console.error("[NEWSLETTER] Notification email failed (subscriber saved):", error?.message ?? error);
     }
     return {
       success: true,
@@ -10760,45 +10928,87 @@ var NewsletterService = class {
     };
   }
 };
-NewsletterService = __decorateClass([
+NewsletterService = __decorate121([
   (0, import_common86.Injectable)(),
-  __decorateParam(0, (0, import_common86.Inject)(MailService)),
-  __decorateParam(1, (0, import_common86.Inject)(NewsletterRepository))
+  __param55(0, (0, import_common86.Inject)(MailService)),
+  __param55(1, (0, import_common86.Inject)(NewsletterRepository)),
+  __metadata93("design:paramtypes", [typeof (_a80 = typeof MailService !== "undefined" && MailService) === "function" ? _a80 : Object, typeof (_b37 = typeof NewsletterRepository !== "undefined" && NewsletterRepository) === "function" ? _b37 : Object])
 ], NewsletterService);
 
-// apps/api/src/newsletter/newsletter.controller.ts
-var NewsletterController = class {
+// src/newsletter/dto/subscribe-newsletter.dto.ts
+var import_class_validator25 = require("class-validator");
+var __decorate122 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata94 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var SubscribeNewsletterDto = class {
+  email;
+};
+__decorate122([
+  (0, import_class_validator25.IsEmail)({}, { message: "Please enter a valid email address." }),
+  (0, import_class_validator25.IsNotEmpty)(),
+  __metadata94("design:type", String)
+], SubscribeNewsletterDto.prototype, "email", void 0);
+
+// src/newsletter/newsletter.controller.ts
+var __decorate123 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata95 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param56 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a81;
+var _b38;
+var NewsletterController = class NewsletterController2 {
   service;
   constructor(service) {
     this.service = service;
   }
   subscribe(dto) {
-    console.log(
-      "[NEWSLETTER DEBUG v3] this.service is:",
-      this.service,
-      "| typeof:",
-      typeof this.service
-    );
+    console.log("[NEWSLETTER DEBUG v3] this.service is:", this.service, "| typeof:", typeof this.service);
     return this.service.subscribe(dto.email);
   }
 };
-__decorateClass([
+__decorate123([
   (0, import_common87.Post)("subscribe"),
-  __decorateParam(0, (0, import_common87.Body)())
-], NewsletterController.prototype, "subscribe", 1);
-NewsletterController = __decorateClass([
+  __param56(0, (0, import_common87.Body)()),
+  __metadata95("design:type", Function),
+  __metadata95("design:paramtypes", [typeof (_b38 = typeof SubscribeNewsletterDto !== "undefined" && SubscribeNewsletterDto) === "function" ? _b38 : Object]),
+  __metadata95("design:returntype", void 0)
+], NewsletterController.prototype, "subscribe", null);
+NewsletterController = __decorate123([
   (0, import_common87.Controller)("newsletter"),
-  __decorateParam(0, (0, import_common87.Inject)(NewsletterService))
+  __param56(0, (0, import_common87.Inject)(NewsletterService)),
+  __metadata95("design:paramtypes", [typeof (_a81 = typeof NewsletterService !== "undefined" && NewsletterService) === "function" ? _a81 : Object])
 ], NewsletterController);
 
-// apps/api/src/newsletter/newsletter.module.ts
-var NewsletterModule = class {
+// src/newsletter/newsletter.module.ts
+var __decorate124 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-NewsletterModule = __decorateClass([
+var NewsletterModule = class NewsletterModule2 {
+};
+NewsletterModule = __decorate124([
   (0, import_common88.Module)({
     imports: [
       MailModule,
-      import_mongoose76.MongooseModule.forFeature([
+      import_mongoose77.MongooseModule.forFeature([
         {
           name: NewsletterSubscriberDoc.name,
           schema: NewsletterSubscriberSchema
@@ -10813,16 +11023,31 @@ NewsletterModule = __decorateClass([
   })
 ], NewsletterModule);
 
-// apps/api/src/calcom/calcom.module.ts
+// src/calcom/calcom.module.ts
 var import_common91 = require("@nestjs/common");
 
-// apps/api/src/calcom/calcom.controller.ts
+// src/calcom/calcom.controller.ts
 var import_common90 = require("@nestjs/common");
 
-// apps/api/src/calcom/calcom.service.ts
+// src/calcom/calcom.service.ts
 var import_common89 = require("@nestjs/common");
 var import_config8 = require("@nestjs/config");
-var CalcomService = class {
+var __decorate125 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata96 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param57 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a82;
+var CalcomService = class CalcomService2 {
   apiBase = "https://api.cal.com/v2";
   config;
   constructor(config) {
@@ -10850,23 +11075,15 @@ var CalcomService = class {
     url.searchParams.set("start", start);
     url.searchParams.set("end", end);
     url.searchParams.set("timeZone", timeZone);
-    const json = await this.calFetch(
-      url.toString(),
-      { method: "GET" },
-      "2024-09-04"
-    );
+    const json = await this.calFetch(url.toString(), { method: "GET" }, "2024-09-04");
     if (json.status !== "success") {
-      throw new import_common89.BadRequestException(
-        json.error?.message || "Unable to load available slots from Cal.com"
-      );
+      throw new import_common89.BadRequestException(json.error?.message || "Unable to load available slots from Cal.com");
     }
     const days = json.data ?? {};
-    const slots = Object.entries(days).flatMap(
-      ([date, items]) => (items ?? []).map((item) => ({
-        date,
-        start: item.start
-      }))
-    );
+    const slots = Object.entries(days).flatMap(([date, items]) => (items ?? []).map((item) => ({
+      date,
+      start: item.start
+    })));
     return {
       timeZone,
       username,
@@ -10896,18 +11113,12 @@ var CalcomService = class {
         notes: dto.notes.trim()
       };
     }
-    const json = await this.calFetch(
-      `${this.apiBase}/bookings`,
-      {
-        method: "POST",
-        body: JSON.stringify(body)
-      },
-      "2024-08-13"
-    );
+    const json = await this.calFetch(`${this.apiBase}/bookings`, {
+      method: "POST",
+      body: JSON.stringify(body)
+    }, "2024-08-13");
     if (json.status !== "success") {
-      throw new import_common89.BadRequestException(
-        json.error?.message || "Cal.com could not create the booking. Please try another time."
-      );
+      throw new import_common89.BadRequestException(json.error?.message || "Cal.com could not create the booking. Please try another time.");
     }
     return {
       success: true,
@@ -10932,7 +11143,8 @@ var CalcomService = class {
   }
   parseLink() {
     let raw = (this.config.get("CALCOM_LINK") || "").trim().replace(/^@/, "");
-    if (!raw) return null;
+    if (!raw)
+      return null;
     try {
       if (/^https?:\/\//i.test(raw)) {
         raw = new URL(raw).pathname.replace(/^\/+|\/+$/g, "");
@@ -10940,7 +11152,8 @@ var CalcomService = class {
     } catch {
     }
     const parts = raw.replace(/\/embed$/i, "").replace(/^\/+|\/+$/g, "").toLowerCase().split("/").filter(Boolean);
-    if (parts.length < 2) return null;
+    if (parts.length < 2)
+      return null;
     return {
       username: parts[0],
       eventSlug: parts[1]
@@ -10948,12 +11161,9 @@ var CalcomService = class {
   }
   assertConfigured() {
     if (!this.isConfigured()) {
-      throw new import_common89.ServiceUnavailableException(
-        "Cal.com is not configured. Set CALCOM_LINK=username/event-slug in the API env."
-      );
+      throw new import_common89.ServiceUnavailableException("Cal.com is not configured. Set CALCOM_LINK=username/event-slug in the API env.");
     }
   }
-  /** Ensure start is UTC ISO without timezone offset suffix issues. */
   toUtcIso(start) {
     const date = new Date(start);
     if (Number.isNaN(date.getTime())) {
@@ -10982,23 +11192,15 @@ var CalcomService = class {
       });
     } catch (error) {
       console.error("[CALCOM] Network error:", error);
-      throw new import_common89.ServiceUnavailableException(
-        "Unable to reach Cal.com. Please try again shortly."
-      );
+      throw new import_common89.ServiceUnavailableException("Unable to reach Cal.com. Please try again shortly.");
     }
     const text = await response.text();
     let json;
     try {
       json = text ? JSON.parse(text) : {};
     } catch {
-      console.error(
-        "[CALCOM] Non-JSON response",
-        response.status,
-        text.slice(0, 300)
-      );
-      throw new import_common89.ServiceUnavailableException(
-        "Unexpected response from Cal.com"
-      );
+      console.error("[CALCOM] Non-JSON response", response.status, text.slice(0, 300));
+      throw new import_common89.ServiceUnavailableException("Unexpected response from Cal.com");
     }
     if (!response.ok) {
       const message = json?.error?.message || json?.message || `Cal.com request failed (${response.status})`;
@@ -11008,17 +11210,111 @@ var CalcomService = class {
     return json;
   }
 };
-CalcomService = __decorateClass([
+CalcomService = __decorate125([
   (0, import_common89.Injectable)(),
-  __decorateParam(0, (0, import_common89.Inject)(import_config8.ConfigService))
+  __param57(0, (0, import_common89.Inject)(import_config8.ConfigService)),
+  __metadata96("design:paramtypes", [typeof (_a82 = typeof import_config8.ConfigService !== "undefined" && import_config8.ConfigService) === "function" ? _a82 : Object])
 ], CalcomService);
 
-// apps/api/src/calcom/calcom.controller.ts
-var CalcomController = class {
+// src/calcom/dto/create-cal-booking.dto.ts
+var import_class_validator26 = require("class-validator");
+var __decorate126 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata97 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateCalBookingDto = class {
+  start;
+  name;
+  email;
+  timeZone;
+  notes;
+};
+__decorate126([
+  (0, import_class_validator26.IsString)(),
+  (0, import_class_validator26.IsNotEmpty)(),
+  __metadata97("design:type", String)
+], CreateCalBookingDto.prototype, "start", void 0);
+__decorate126([
+  (0, import_class_validator26.IsString)(),
+  (0, import_class_validator26.IsNotEmpty)(),
+  __metadata97("design:type", String)
+], CreateCalBookingDto.prototype, "name", void 0);
+__decorate126([
+  (0, import_class_validator26.IsEmail)(),
+  (0, import_class_validator26.IsNotEmpty)(),
+  __metadata97("design:type", String)
+], CreateCalBookingDto.prototype, "email", void 0);
+__decorate126([
+  (0, import_class_validator26.IsString)(),
+  (0, import_class_validator26.IsOptional)(),
+  __metadata97("design:type", String)
+], CreateCalBookingDto.prototype, "timeZone", void 0);
+__decorate126([
+  (0, import_class_validator26.IsString)(),
+  (0, import_class_validator26.IsOptional)(),
+  __metadata97("design:type", String)
+], CreateCalBookingDto.prototype, "notes", void 0);
+
+// src/calcom/dto/get-cal-slots.dto.ts
+var import_class_validator27 = require("class-validator");
+var __decorate127 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata98 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var GetCalSlotsDto = class {
+  start;
+  end;
+};
+__decorate127([
+  (0, import_class_validator27.IsString)(),
+  (0, import_class_validator27.IsNotEmpty)(),
+  (0, import_class_validator27.Matches)(/^\d{4}-\d{2}-\d{2}/, {
+    message: "start must be a date (YYYY-MM-DD) or ISO datetime"
+  }),
+  __metadata98("design:type", String)
+], GetCalSlotsDto.prototype, "start", void 0);
+__decorate127([
+  (0, import_class_validator27.IsString)(),
+  (0, import_class_validator27.IsNotEmpty)(),
+  (0, import_class_validator27.Matches)(/^\d{4}-\d{2}-\d{2}/, {
+    message: "end must be a date (YYYY-MM-DD) or ISO datetime"
+  }),
+  __metadata98("design:type", String)
+], GetCalSlotsDto.prototype, "end", void 0);
+
+// src/calcom/calcom.controller.ts
+var __decorate128 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata99 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param58 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a83;
+var _b39;
+var _c27;
+var CalcomController = class CalcomController2 {
+  calcomService;
   constructor(calcomService) {
     this.calcomService = calcomService;
   }
-  calcomService;
   getConfig() {
     return this.calcomService.getPublicConfig();
   }
@@ -11029,26 +11325,42 @@ var CalcomController = class {
     return this.calcomService.createBooking(dto);
   }
 };
-__decorateClass([
-  (0, import_common90.Get)("config")
-], CalcomController.prototype, "getConfig", 1);
-__decorateClass([
+__decorate128([
+  (0, import_common90.Get)("config"),
+  __metadata99("design:type", Function),
+  __metadata99("design:paramtypes", []),
+  __metadata99("design:returntype", void 0)
+], CalcomController.prototype, "getConfig", null);
+__decorate128([
   (0, import_common90.Get)("slots"),
-  __decorateParam(0, (0, import_common90.Query)())
-], CalcomController.prototype, "getSlots", 1);
-__decorateClass([
+  __param58(0, (0, import_common90.Query)()),
+  __metadata99("design:type", Function),
+  __metadata99("design:paramtypes", [typeof (_b39 = typeof GetCalSlotsDto !== "undefined" && GetCalSlotsDto) === "function" ? _b39 : Object]),
+  __metadata99("design:returntype", void 0)
+], CalcomController.prototype, "getSlots", null);
+__decorate128([
   (0, import_common90.Post)("bookings"),
-  __decorateParam(0, (0, import_common90.Body)())
-], CalcomController.prototype, "createBooking", 1);
-CalcomController = __decorateClass([
+  __param58(0, (0, import_common90.Body)()),
+  __metadata99("design:type", Function),
+  __metadata99("design:paramtypes", [typeof (_c27 = typeof CreateCalBookingDto !== "undefined" && CreateCalBookingDto) === "function" ? _c27 : Object]),
+  __metadata99("design:returntype", void 0)
+], CalcomController.prototype, "createBooking", null);
+CalcomController = __decorate128([
   (0, import_common90.Controller)("calcom"),
-  __decorateParam(0, (0, import_common90.Inject)(CalcomService))
+  __param58(0, (0, import_common90.Inject)(CalcomService)),
+  __metadata99("design:paramtypes", [typeof (_a83 = typeof CalcomService !== "undefined" && CalcomService) === "function" ? _a83 : Object])
 ], CalcomController);
 
-// apps/api/src/calcom/calcom.module.ts
-var CalcomModule = class {
+// src/calcom/calcom.module.ts
+var __decorate129 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-CalcomModule = __decorateClass([
+var CalcomModule = class CalcomModule2 {
+};
+CalcomModule = __decorate129([
   (0, import_common91.Module)({
     controllers: [CalcomController],
     providers: [CalcomService],
@@ -11056,741 +11368,2133 @@ CalcomModule = __decorateClass([
   })
 ], CalcomModule);
 
-// apps/api/src/tutorial/tutorial.module.ts
-var import_common95 = require("@nestjs/common");
-var import_mongoose82 = require("@nestjs/mongoose");
+// src/tutorial/tutorial.module.ts
+var import_common107 = require("@nestjs/common");
+var import_mongoose105 = require("@nestjs/mongoose");
 
-// apps/api/src/tutorial/controllers/tutorial.controller.ts
-var import_common94 = require("@nestjs/common");
+// src/tutorial/schemas/course.schema.ts
+var import_mongoose78 = require("@nestjs/mongoose");
+var import_mongoose79 = require("mongoose");
+var __decorate130 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata100 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a84;
+var CourseVideo = class CourseVideo2 {
+  _id;
+  title;
+  description;
+  videoUrl;
+  durationMinutes;
+  coinCost;
+  order;
+};
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, required: true, trim: true }),
+  __metadata100("design:type", String)
+], CourseVideo.prototype, "title", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, default: "", trim: true }),
+  __metadata100("design:type", String)
+], CourseVideo.prototype, "description", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, required: true }),
+  __metadata100("design:type", String)
+], CourseVideo.prototype, "videoUrl", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: Number, required: true, default: 0 }),
+  __metadata100("design:type", Number)
+], CourseVideo.prototype, "durationMinutes", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: Number, required: true, default: 0, min: 0 }),
+  __metadata100("design:type", Number)
+], CourseVideo.prototype, "coinCost", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: Number, required: true, default: 0 }),
+  __metadata100("design:type", Number)
+], CourseVideo.prototype, "order", void 0);
+CourseVideo = __decorate130([
+  (0, import_mongoose78.Schema)({ _id: true, timestamps: false })
+], CourseVideo);
+var CourseVideoSchema = import_mongoose78.SchemaFactory.createForClass(CourseVideo);
+var Course = class Course2 {
+  title;
+  description;
+  thumbnailUrl;
+  priceLabel;
+  coinsIncluded;
+  videos;
+  isPublished;
+  createdBy;
+};
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, required: true, trim: true }),
+  __metadata100("design:type", String)
+], Course.prototype, "title", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, default: "", trim: true }),
+  __metadata100("design:type", String)
+], Course.prototype, "description", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, default: "" }),
+  __metadata100("design:type", String)
+], Course.prototype, "thumbnailUrl", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: String, default: "" }),
+  __metadata100("design:type", String)
+], Course.prototype, "priceLabel", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: Number, default: 0, min: 0 }),
+  __metadata100("design:type", Number)
+], Course.prototype, "coinsIncluded", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: [CourseVideoSchema], default: [] }),
+  __metadata100("design:type", Array)
+], Course.prototype, "videos", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: Boolean, default: false }),
+  __metadata100("design:type", Boolean)
+], Course.prototype, "isPublished", void 0);
+__decorate130([
+  (0, import_mongoose78.Prop)({ type: import_mongoose79.Types.ObjectId, ref: "User" }),
+  __metadata100("design:type", typeof (_a84 = typeof import_mongoose79.Types !== "undefined" && import_mongoose79.Types.ObjectId) === "function" ? _a84 : Object)
+], Course.prototype, "createdBy", void 0);
+Course = __decorate130([
+  (0, import_mongoose78.Schema)({ timestamps: true })
+], Course);
+var CourseSchema = import_mongoose78.SchemaFactory.createForClass(Course);
 
-// apps/api/src/tutorial/services/tutorial.service.ts
-var import_common93 = require("@nestjs/common");
-var import_config9 = require("@nestjs/config");
-
-// apps/api/src/tutorial/repositories/tutorial.repository.ts
-var import_common92 = require("@nestjs/common");
+// src/tutorial/schemas/enrollment.schema.ts
 var import_mongoose80 = require("@nestjs/mongoose");
 var import_mongoose81 = require("mongoose");
 
-// apps/api/src/tutorial/schemas/tutorial-course.schema.ts
-var import_mongoose77 = require("@nestjs/mongoose");
-var TutorialLecture = class {
-  title;
-  duration;
-  coinCost;
-  videoUrl;
-  isUnlocked;
-  watched;
-};
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: String, required: true })
-], TutorialLecture.prototype, "title", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Number, required: true })
-], TutorialLecture.prototype, "duration", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Number, default: 0 })
-], TutorialLecture.prototype, "coinCost", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: String, default: "" })
-], TutorialLecture.prototype, "videoUrl", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Boolean, default: false })
-], TutorialLecture.prototype, "isUnlocked", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Boolean, default: false })
-], TutorialLecture.prototype, "watched", 2);
-TutorialLecture = __decorateClass([
-  (0, import_mongoose77.Schema)({ timestamps: true })
-], TutorialLecture);
-var TutorialCourse = class {
-  title;
-  description;
-  price;
-  rewardCoins;
-  lectures;
-};
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: String, required: true, trim: true })
-], TutorialCourse.prototype, "title", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: String, required: true, trim: true })
-], TutorialCourse.prototype, "description", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Number, required: true, default: 0 })
-], TutorialCourse.prototype, "price", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: Number, default: 0 })
-], TutorialCourse.prototype, "rewardCoins", 2);
-__decorateClass([
-  (0, import_mongoose77.Prop)({ type: [TutorialLecture], default: [] })
-], TutorialCourse.prototype, "lectures", 2);
-TutorialCourse = __decorateClass([
-  (0, import_mongoose77.Schema)({ timestamps: true })
-], TutorialCourse);
-var TutorialLectureSchema = import_mongoose77.SchemaFactory.createForClass(TutorialLecture);
-var TutorialCourseSchema = import_mongoose77.SchemaFactory.createForClass(TutorialCourse);
+// src/tutorial/enums/enrollment-status.enum.ts
+var EnrollmentStatus;
+(function(EnrollmentStatus2) {
+  EnrollmentStatus2["PENDING"] = "PENDING";
+  EnrollmentStatus2["ACTIVE"] = "ACTIVE";
+  EnrollmentStatus2["REJECTED"] = "REJECTED";
+})(EnrollmentStatus || (EnrollmentStatus = {}));
 
-// apps/api/src/tutorial/schemas/tutorial-payment-request.schema.ts
-var import_mongoose78 = require("@nestjs/mongoose");
-var TutorialPaymentRequest = class {
-  userId;
-  courseId;
+// src/tutorial/schemas/enrollment.schema.ts
+var __decorate131 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata101 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a85;
+var _b40;
+var _c28;
+var Enrollment = class Enrollment2 {
+  user;
+  course;
+  status;
+  approvedAt;
+};
+__decorate131([
+  (0, import_mongoose80.Prop)({ type: import_mongoose81.Types.ObjectId, ref: "User", required: true }),
+  __metadata101("design:type", typeof (_a85 = typeof import_mongoose81.Types !== "undefined" && import_mongoose81.Types.ObjectId) === "function" ? _a85 : Object)
+], Enrollment.prototype, "user", void 0);
+__decorate131([
+  (0, import_mongoose80.Prop)({ type: import_mongoose81.Types.ObjectId, ref: "Course", required: true }),
+  __metadata101("design:type", typeof (_b40 = typeof import_mongoose81.Types !== "undefined" && import_mongoose81.Types.ObjectId) === "function" ? _b40 : Object)
+], Enrollment.prototype, "course", void 0);
+__decorate131([
+  (0, import_mongoose80.Prop)({
+    type: String,
+    enum: EnrollmentStatus,
+    default: EnrollmentStatus.PENDING
+  }),
+  __metadata101("design:type", typeof (_c28 = typeof EnrollmentStatus !== "undefined" && EnrollmentStatus) === "function" ? _c28 : Object)
+], Enrollment.prototype, "status", void 0);
+__decorate131([
+  (0, import_mongoose80.Prop)({ type: Date, default: null }),
+  __metadata101("design:type", Object)
+], Enrollment.prototype, "approvedAt", void 0);
+Enrollment = __decorate131([
+  (0, import_mongoose80.Schema)({ timestamps: true })
+], Enrollment);
+var EnrollmentSchema = import_mongoose80.SchemaFactory.createForClass(Enrollment);
+EnrollmentSchema.index({ user: 1, course: 1 }, { unique: true });
+
+// src/tutorial/schemas/wallet.schema.ts
+var import_mongoose82 = require("@nestjs/mongoose");
+var import_mongoose83 = require("mongoose");
+var __decorate132 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata102 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a86;
+var Wallet = class Wallet2 {
+  user;
+  balance;
+};
+__decorate132([
+  (0, import_mongoose82.Prop)({
+    type: import_mongoose83.Types.ObjectId,
+    ref: "User",
+    required: true,
+    unique: true
+  }),
+  __metadata102("design:type", typeof (_a86 = typeof import_mongoose83.Types !== "undefined" && import_mongoose83.Types.ObjectId) === "function" ? _a86 : Object)
+], Wallet.prototype, "user", void 0);
+__decorate132([
+  (0, import_mongoose82.Prop)({ type: Number, required: true, default: 0, min: 0 }),
+  __metadata102("design:type", Number)
+], Wallet.prototype, "balance", void 0);
+Wallet = __decorate132([
+  (0, import_mongoose82.Schema)({ timestamps: true })
+], Wallet);
+var WalletSchema = import_mongoose82.SchemaFactory.createForClass(Wallet);
+
+// src/tutorial/schemas/coin-transaction.schema.ts
+var import_mongoose84 = require("@nestjs/mongoose");
+var import_mongoose85 = require("mongoose");
+var __decorate133 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata103 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a87;
+var _b41;
+var CoinTransactionType;
+(function(CoinTransactionType2) {
+  CoinTransactionType2["CREDIT"] = "CREDIT";
+  CoinTransactionType2["DEBIT"] = "DEBIT";
+})(CoinTransactionType || (CoinTransactionType = {}));
+var CoinTransaction = class CoinTransaction2 {
+  user;
+  type;
   amount;
-  paymentMethod;
-  screenshotUrl;
+  reason;
+  meta;
+};
+__decorate133([
+  (0, import_mongoose84.Prop)({ type: import_mongoose85.Types.ObjectId, ref: "User", required: true }),
+  __metadata103("design:type", typeof (_a87 = typeof import_mongoose85.Types !== "undefined" && import_mongoose85.Types.ObjectId) === "function" ? _a87 : Object)
+], CoinTransaction.prototype, "user", void 0);
+__decorate133([
+  (0, import_mongoose84.Prop)({
+    type: String,
+    enum: CoinTransactionType,
+    required: true
+  }),
+  __metadata103("design:type", String)
+], CoinTransaction.prototype, "type", void 0);
+__decorate133([
+  (0, import_mongoose84.Prop)({ type: Number, required: true, min: 1 }),
+  __metadata103("design:type", Number)
+], CoinTransaction.prototype, "amount", void 0);
+__decorate133([
+  (0, import_mongoose84.Prop)({ type: String, default: "" }),
+  __metadata103("design:type", String)
+], CoinTransaction.prototype, "reason", void 0);
+__decorate133([
+  (0, import_mongoose84.Prop)({ type: Object, default: {} }),
+  __metadata103("design:type", typeof (_b41 = typeof Record !== "undefined" && Record) === "function" ? _b41 : Object)
+], CoinTransaction.prototype, "meta", void 0);
+CoinTransaction = __decorate133([
+  (0, import_mongoose84.Schema)({ timestamps: true })
+], CoinTransaction);
+var CoinTransactionSchema = import_mongoose84.SchemaFactory.createForClass(CoinTransaction);
+
+// src/tutorial/schemas/payment-request.schema.ts
+var import_mongoose86 = require("@nestjs/mongoose");
+var import_mongoose87 = require("mongoose");
+
+// src/tutorial/enums/payment-request.enum.ts
+var PaymentRequestStatus;
+(function(PaymentRequestStatus2) {
+  PaymentRequestStatus2["PENDING"] = "PENDING";
+  PaymentRequestStatus2["APPROVED"] = "APPROVED";
+  PaymentRequestStatus2["REJECTED"] = "REJECTED";
+})(PaymentRequestStatus || (PaymentRequestStatus = {}));
+var PaymentRequestType;
+(function(PaymentRequestType2) {
+  PaymentRequestType2["ENROLLMENT"] = "ENROLLMENT";
+  PaymentRequestType2["TOPUP"] = "TOPUP";
+})(PaymentRequestType || (PaymentRequestType = {}));
+
+// src/tutorial/schemas/payment-request.schema.ts
+var __decorate134 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata104 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a88;
+var _b42;
+var _d23;
+var PaymentRequest = class PaymentRequest2 {
+  user;
+  type;
+  course;
+  coinsRequested;
+  coinsGranted;
+  note;
+  proofUrl;
+  proofPublicId;
   status;
-  rejectionReason;
   reviewedBy;
+  reviewedAt;
+  reviewNote;
+  rejectionReason;
 };
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, required: true })
-], TutorialPaymentRequest.prototype, "userId", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, required: true })
-], TutorialPaymentRequest.prototype, "courseId", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: Number, required: true })
-], TutorialPaymentRequest.prototype, "amount", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, required: true })
-], TutorialPaymentRequest.prototype, "paymentMethod", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, default: "" })
-], TutorialPaymentRequest.prototype, "screenshotUrl", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, default: "pending" })
-], TutorialPaymentRequest.prototype, "status", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, default: "" })
-], TutorialPaymentRequest.prototype, "rejectionReason", 2);
-__decorateClass([
-  (0, import_mongoose78.Prop)({ type: String, default: "" })
-], TutorialPaymentRequest.prototype, "reviewedBy", 2);
-TutorialPaymentRequest = __decorateClass([
-  (0, import_mongoose78.Schema)({ timestamps: true })
-], TutorialPaymentRequest);
-var TutorialPaymentRequestSchema = import_mongoose78.SchemaFactory.createForClass(TutorialPaymentRequest);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: import_mongoose87.Types.ObjectId, ref: "User", required: true }),
+  __metadata104("design:type", typeof (_a88 = typeof import_mongoose87.Types !== "undefined" && import_mongoose87.Types.ObjectId) === "function" ? _a88 : Object)
+], PaymentRequest.prototype, "user", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({
+    type: String,
+    enum: PaymentRequestType,
+    required: true
+  }),
+  __metadata104("design:type", typeof (_b42 = typeof PaymentRequestType !== "undefined" && PaymentRequestType) === "function" ? _b42 : Object)
+], PaymentRequest.prototype, "type", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: import_mongoose87.Types.ObjectId, ref: "Course", default: null }),
+  __metadata104("design:type", Object)
+], PaymentRequest.prototype, "course", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: Number, default: null }),
+  __metadata104("design:type", Object)
+], PaymentRequest.prototype, "coinsRequested", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: Number, default: null }),
+  __metadata104("design:type", Object)
+], PaymentRequest.prototype, "coinsGranted", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: String, default: "" }),
+  __metadata104("design:type", String)
+], PaymentRequest.prototype, "note", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: String, required: true }),
+  __metadata104("design:type", String)
+], PaymentRequest.prototype, "proofUrl", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: String, default: "" }),
+  __metadata104("design:type", String)
+], PaymentRequest.prototype, "proofPublicId", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({
+    type: String,
+    enum: PaymentRequestStatus,
+    default: PaymentRequestStatus.PENDING
+  }),
+  __metadata104("design:type", typeof (_d23 = typeof PaymentRequestStatus !== "undefined" && PaymentRequestStatus) === "function" ? _d23 : Object)
+], PaymentRequest.prototype, "status", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: import_mongoose87.Types.ObjectId, ref: "User", default: null }),
+  __metadata104("design:type", Object)
+], PaymentRequest.prototype, "reviewedBy", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: Date, default: null }),
+  __metadata104("design:type", Object)
+], PaymentRequest.prototype, "reviewedAt", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: String, default: "" }),
+  __metadata104("design:type", String)
+], PaymentRequest.prototype, "reviewNote", void 0);
+__decorate134([
+  (0, import_mongoose86.Prop)({ type: String, default: "" }),
+  __metadata104("design:type", String)
+], PaymentRequest.prototype, "rejectionReason", void 0);
+PaymentRequest = __decorate134([
+  (0, import_mongoose86.Schema)({ timestamps: true })
+], PaymentRequest);
+var PaymentRequestSchema = import_mongoose86.SchemaFactory.createForClass(PaymentRequest);
+PaymentRequestSchema.index({ status: 1, type: 1, createdAt: -1 });
+PaymentRequestSchema.index({ user: 1, createdAt: -1 });
 
-// apps/api/src/tutorial/schemas/tutorial-user.schema.ts
-var import_mongoose79 = require("@nestjs/mongoose");
-var TutorialUser = class {
-  fullName;
-  email;
-  phone;
-  city;
-  status;
-  hasAccess;
-  isPaymentVerified;
-  coins;
-  enrollments;
-  paymentHistory;
+// src/tutorial/schemas/video-access.schema.ts
+var import_mongoose88 = require("@nestjs/mongoose");
+var import_mongoose89 = require("mongoose");
+var __decorate135 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: String, required: true, trim: true })
-], TutorialUser.prototype, "fullName", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: String, required: true, unique: true, lowercase: true, trim: true })
-], TutorialUser.prototype, "email", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: String, default: "" })
-], TutorialUser.prototype, "phone", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: String, default: "" })
-], TutorialUser.prototype, "city", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: String, default: "pending" })
-], TutorialUser.prototype, "status", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: Boolean, default: false })
-], TutorialUser.prototype, "hasAccess", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: Boolean, default: false })
-], TutorialUser.prototype, "isPaymentVerified", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: Number, default: 0 })
-], TutorialUser.prototype, "coins", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: [{ courseId: String, enrolledAt: Date, isActive: Boolean }], default: [] })
-], TutorialUser.prototype, "enrollments", 2);
-__decorateClass([
-  (0, import_mongoose79.Prop)({ type: [{ paymentId: String, createdAt: Date }], default: [] })
-], TutorialUser.prototype, "paymentHistory", 2);
-TutorialUser = __decorateClass([
-  (0, import_mongoose79.Schema)({ timestamps: true })
-], TutorialUser);
-var TutorialUserSchema = import_mongoose79.SchemaFactory.createForClass(TutorialUser);
+var __metadata105 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a89;
+var _b43;
+var VideoAccess = class VideoAccess2 {
+  user;
+  course;
+  videoId;
+  coinsSpent;
+};
+__decorate135([
+  (0, import_mongoose88.Prop)({ type: import_mongoose89.Types.ObjectId, ref: "User", required: true }),
+  __metadata105("design:type", typeof (_a89 = typeof import_mongoose89.Types !== "undefined" && import_mongoose89.Types.ObjectId) === "function" ? _a89 : Object)
+], VideoAccess.prototype, "user", void 0);
+__decorate135([
+  (0, import_mongoose88.Prop)({ type: import_mongoose89.Types.ObjectId, ref: "Course", required: true }),
+  __metadata105("design:type", typeof (_b43 = typeof import_mongoose89.Types !== "undefined" && import_mongoose89.Types.ObjectId) === "function" ? _b43 : Object)
+], VideoAccess.prototype, "course", void 0);
+__decorate135([
+  (0, import_mongoose88.Prop)({ type: String, required: true }),
+  __metadata105("design:type", String)
+], VideoAccess.prototype, "videoId", void 0);
+__decorate135([
+  (0, import_mongoose88.Prop)({ type: Number, required: true, default: 0 }),
+  __metadata105("design:type", Number)
+], VideoAccess.prototype, "coinsSpent", void 0);
+VideoAccess = __decorate135([
+  (0, import_mongoose88.Schema)({ timestamps: true })
+], VideoAccess);
+var VideoAccessSchema = import_mongoose88.SchemaFactory.createForClass(VideoAccess);
+VideoAccessSchema.index({ user: 1, videoId: 1 }, { unique: true });
 
-// apps/api/src/tutorial/repositories/tutorial.repository.ts
-var TutorialRepository = class {
-  constructor(tutorialUserModel, tutorialCourseModel, tutorialPaymentModel) {
-    this.tutorialUserModel = tutorialUserModel;
-    this.tutorialCourseModel = tutorialCourseModel;
-    this.tutorialPaymentModel = tutorialPaymentModel;
+// src/tutorial/schemas/payment-settings.schema.ts
+var import_mongoose90 = require("@nestjs/mongoose");
+var __decorate136 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata106 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var PaymentSettings = class PaymentSettings2 {
+  qrCodeUrl;
+  accountTitle;
+  accountNumber;
+  bankName;
+  instructions;
+};
+__decorate136([
+  (0, import_mongoose90.Prop)({ type: String, default: "" }),
+  __metadata106("design:type", String)
+], PaymentSettings.prototype, "qrCodeUrl", void 0);
+__decorate136([
+  (0, import_mongoose90.Prop)({ type: String, default: "" }),
+  __metadata106("design:type", String)
+], PaymentSettings.prototype, "accountTitle", void 0);
+__decorate136([
+  (0, import_mongoose90.Prop)({ type: String, default: "" }),
+  __metadata106("design:type", String)
+], PaymentSettings.prototype, "accountNumber", void 0);
+__decorate136([
+  (0, import_mongoose90.Prop)({ type: String, default: "" }),
+  __metadata106("design:type", String)
+], PaymentSettings.prototype, "bankName", void 0);
+__decorate136([
+  (0, import_mongoose90.Prop)({ type: String, default: "" }),
+  __metadata106("design:type", String)
+], PaymentSettings.prototype, "instructions", void 0);
+PaymentSettings = __decorate136([
+  (0, import_mongoose90.Schema)({ timestamps: true })
+], PaymentSettings);
+var PaymentSettingsSchema = import_mongoose90.SchemaFactory.createForClass(PaymentSettings);
+
+// src/tutorial/repositories/courses.repository.ts
+var import_common92 = require("@nestjs/common");
+var import_mongoose91 = require("@nestjs/mongoose");
+var import_mongoose92 = require("mongoose");
+var __decorate137 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata107 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param59 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a90;
+var CoursesRepository = class CoursesRepository2 {
+  courseModel;
+  constructor(courseModel) {
+    this.courseModel = courseModel;
   }
-  tutorialUserModel;
-  tutorialCourseModel;
-  tutorialPaymentModel;
-  async createUser(data) {
-    return this.tutorialUserModel.create({
-      ...data,
-      coins: 0,
-      status: "pending",
-      hasAccess: false,
-      isPaymentVerified: false,
-      enrollments: [],
-      paymentHistory: []
-    });
+  async create(data) {
+    return this.courseModel.create(data);
   }
-  async findOrCreateUser(data) {
-    const existing = await this.findUserByEmail(String(data.email).toLowerCase());
-    if (existing) return existing;
-    return this.createUser(data);
+  async findAll() {
+    return this.courseModel.find().sort({ createdAt: -1 }).exec();
   }
-  async findUserByEmail(email) {
-    return this.tutorialUserModel.findOne({ email }).exec();
+  async findPublished() {
+    return this.courseModel.find({ isPublished: true }).sort({ createdAt: -1 }).exec();
   }
-  async findUserById(id) {
-    return this.tutorialUserModel.findById(id).exec();
+  async findById(id) {
+    if (!import_mongoose92.Types.ObjectId.isValid(id))
+      return null;
+    return this.courseModel.findById(id).exec();
   }
-  async listUsers() {
-    return this.tutorialUserModel.find().sort({ createdAt: -1 }).lean().exec();
+  async update(id, data) {
+    return this.courseModel.findByIdAndUpdate(id, data, { new: true }).exec();
   }
-  async updateUser(id, data) {
-    return this.tutorialUserModel.findByIdAndUpdate(id, data, { new: true }).exec();
+  async remove(id) {
+    return this.courseModel.findByIdAndDelete(id).exec();
   }
-  async addEnrollment(userId, courseId) {
-    return this.tutorialUserModel.findByIdAndUpdate(
-      userId,
-      {
-        $addToSet: {
-          enrollments: {
-            courseId,
-            enrolledAt: /* @__PURE__ */ new Date(),
-            isActive: true
-          }
-        }
-      },
-      { new: true }
-    ).exec();
+  async addVideo(id, video) {
+    return this.courseModel.findByIdAndUpdate(id, { $push: { videos: video } }, { new: true }).exec();
   }
-  async ensureCourseSeed() {
-    const count = await this.tutorialCourseModel.countDocuments();
-    if (count > 0) {
-      return this.tutorialCourseModel.find().exec();
-    }
-    const seedCourses = [
-      {
-        title: "HTML & CSS Fundamentals",
-        description: "Build strong frontend foundations and learn page structure, styling, and responsive layouts.",
-        price: 2500,
-        rewardCoins: 40,
-        lectures: [
-          {
-            _id: new import_mongoose81.Types.ObjectId(),
-            title: "Intro to HTML",
-            duration: 12,
-            coinCost: 10,
-            videoUrl: "https://example.com/video/html-intro.mp4",
-            isUnlocked: true,
-            watched: false
-          },
-          {
-            _id: new import_mongoose81.Types.ObjectId(),
-            title: "CSS Layouts",
-            duration: 15,
-            coinCost: 12,
-            videoUrl: "https://example.com/video/css-layouts.mp4",
-            isUnlocked: false,
-            watched: false
-          }
-        ]
-      },
-      {
-        title: "JavaScript Essentials",
-        description: "Understand variables, functions, loops, events, and web interactions.",
-        price: 4200,
-        rewardCoins: 60,
-        lectures: [
-          {
-            _id: new import_mongoose81.Types.ObjectId(),
-            title: "Variables & Functions",
-            duration: 18,
-            coinCost: 12,
-            videoUrl: "https://example.com/video/js-functions.mp4",
-            isUnlocked: true,
-            watched: false
-          },
-          {
-            _id: new import_mongoose81.Types.ObjectId(),
-            title: "DOM Events",
-            duration: 20,
-            coinCost: 15,
-            videoUrl: "https://example.com/video/js-events.mp4",
-            isUnlocked: false,
-            watched: false
-          }
-        ]
+  async updateVideo(id, videoId, data) {
+    const set = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== void 0) {
+        set[`videos.$.${key}`] = value;
       }
-    ];
-    return this.tutorialCourseModel.insertMany(seedCourses);
+    }
+    return this.courseModel.findOneAndUpdate({ _id: id, "videos._id": videoId }, { $set: set }, { new: true }).exec();
   }
-  async findCourses() {
-    return this.tutorialCourseModel.find().exec();
-  }
-  async findCourseById(id) {
-    return this.tutorialCourseModel.findById(id).exec();
-  }
-  async createPaymentRequest(data) {
-    return this.tutorialPaymentModel.create(data);
-  }
-  async findPaymentById(id) {
-    return this.tutorialPaymentModel.findById(id).exec();
-  }
-  async listPayments(userId) {
-    const query = userId ? { userId } : {};
-    return this.tutorialPaymentModel.find(query).sort({ createdAt: -1 }).lean().exec();
-  }
-  async updatePaymentRequest(id, data) {
-    return this.tutorialPaymentModel.findByIdAndUpdate(id, data, { new: true }).exec();
-  }
-  async addPaymentHistory(userId, paymentId) {
-    return this.tutorialUserModel.findByIdAndUpdate(
-      userId,
-      {
-        $push: {
-          paymentHistory: {
-            paymentId,
-            createdAt: /* @__PURE__ */ new Date()
-          }
-        }
-      },
-      { new: true }
-    ).exec();
-  }
-  async setLectureUnlock(courseId, lectureId, unlocked) {
-    return this.tutorialCourseModel.findOneAndUpdate(
-      { _id: courseId, "lectures._id": lectureId },
-      {
-        $set: {
-          "lectures.$.isUnlocked": unlocked
-        }
-      },
-      { new: true }
-    ).exec();
-  }
-  async markLectureWatched(courseId, lectureId) {
-    return this.tutorialCourseModel.findOneAndUpdate(
-      { _id: courseId, "lectures._id": lectureId },
-      {
-        $set: {
-          "lectures.$.watched": true
-        }
-      },
-      { new: true }
-    ).exec();
+  async removeVideo(id, videoId) {
+    return this.courseModel.findByIdAndUpdate(id, { $pull: { videos: { _id: videoId } } }, { new: true }).exec();
   }
 };
-TutorialRepository = __decorateClass([
+CoursesRepository = __decorate137([
   (0, import_common92.Injectable)(),
-  __decorateParam(0, (0, import_mongoose80.InjectModel)(TutorialUser.name)),
-  __decorateParam(0, (0, import_common92.Inject)(import_mongoose81.Model)),
-  __decorateParam(1, (0, import_mongoose80.InjectModel)(TutorialCourse.name)),
-  __decorateParam(1, (0, import_common92.Inject)(import_mongoose81.Model)),
-  __decorateParam(2, (0, import_mongoose80.InjectModel)(TutorialPaymentRequest.name)),
-  __decorateParam(2, (0, import_common92.Inject)(import_mongoose81.Model))
-], TutorialRepository);
+  __param59(0, (0, import_mongoose91.InjectModel)(Course.name)),
+  __metadata107("design:paramtypes", [typeof (_a90 = typeof import_mongoose92.Model !== "undefined" && import_mongoose92.Model) === "function" ? _a90 : Object])
+], CoursesRepository);
 
-// apps/api/src/tutorial/services/tutorial.service.ts
-var TutorialService = class {
-  constructor(tutorialRepository, mailService, configService) {
-    this.tutorialRepository = tutorialRepository;
-    this.mailService = mailService;
-    this.configService = configService;
+// src/tutorial/repositories/enrollments.repository.ts
+var import_common93 = require("@nestjs/common");
+var import_mongoose93 = require("@nestjs/mongoose");
+var import_mongoose94 = require("mongoose");
+var __decorate138 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata108 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param60 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a91;
+var EnrollmentsRepository = class EnrollmentsRepository2 {
+  enrollmentModel;
+  constructor(enrollmentModel) {
+    this.enrollmentModel = enrollmentModel;
   }
-  tutorialRepository;
-  mailService;
-  configService;
-  async getOrCreateAuthUser(authUser) {
-    const fullName = [authUser.firstName, authUser.lastName].filter(Boolean).join(" ") || authUser.email;
-    const user = await this.tutorialRepository.findOrCreateUser({
-      email: authUser.email,
-      fullName,
-      status: "pending",
-      hasAccess: false,
-      isPaymentVerified: false,
-      coins: 0
-    });
-    return { success: true, data: user };
+  async findOne(userId, courseId) {
+    return this.enrollmentModel.findOne({ user: userId, course: courseId }).exec();
   }
-  async createTutorialUser(data) {
-    const normalizedEmail = data.email.trim().toLowerCase();
-    const existing = await this.tutorialRepository.findUserByEmail(normalizedEmail);
-    if (existing) {
-      throw new import_common93.BadRequestException("This email is already registered.");
-    }
-    const user = await this.tutorialRepository.createUser({
-      fullName: data.fullName.trim(),
-      email: normalizedEmail,
-      phone: data.phone ?? "",
-      city: data.city ?? "",
-      status: "pending",
-      hasAccess: false,
-      isPaymentVerified: false,
-      coins: 0
-    });
+  async upsertPending(userId, courseId) {
+    return this.enrollmentModel.findOneAndUpdate({ user: userId, course: courseId }, {
+      $setOnInsert: {
+        user: userId,
+        course: courseId,
+        status: EnrollmentStatus.PENDING
+      }
+    }, { upsert: true, new: true }).exec();
+  }
+  async setStatus(userId, courseId, status) {
+    const approvedAt = status === EnrollmentStatus.ACTIVE ? /* @__PURE__ */ new Date() : null;
+    return this.enrollmentModel.findOneAndUpdate({ user: userId, course: courseId }, { $set: { status, approvedAt } }, { new: true, upsert: true }).exec();
+  }
+  async findActiveForUser(userId) {
+    return this.enrollmentModel.find({ user: userId, status: EnrollmentStatus.ACTIVE }).populate("course").sort({ approvedAt: -1 }).exec();
+  }
+};
+EnrollmentsRepository = __decorate138([
+  (0, import_common93.Injectable)(),
+  __param60(0, (0, import_mongoose93.InjectModel)(Enrollment.name)),
+  __metadata108("design:paramtypes", [typeof (_a91 = typeof import_mongoose94.Model !== "undefined" && import_mongoose94.Model) === "function" ? _a91 : Object])
+], EnrollmentsRepository);
+
+// src/tutorial/repositories/wallets.repository.ts
+var import_common94 = require("@nestjs/common");
+var import_mongoose95 = require("@nestjs/mongoose");
+var import_mongoose96 = require("mongoose");
+var __decorate139 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata109 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param61 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a92;
+var WalletsRepository = class WalletsRepository2 {
+  walletModel;
+  constructor(walletModel) {
+    this.walletModel = walletModel;
+  }
+  async findOrCreate(userId) {
+    return this.walletModel.findOneAndUpdate({ user: userId }, { $setOnInsert: { user: userId, balance: 0 } }, { upsert: true, new: true }).exec();
+  }
+  async incrementBalance(userId, delta) {
+    return this.walletModel.findOneAndUpdate({ user: userId }, { $inc: { balance: delta } }, { upsert: true, new: true }).exec();
+  }
+  async debitIfSufficient(userId, amount) {
+    return this.walletModel.findOneAndUpdate({ user: userId, balance: { $gte: amount } }, { $inc: { balance: -amount } }, { new: true }).exec();
+  }
+};
+WalletsRepository = __decorate139([
+  (0, import_common94.Injectable)(),
+  __param61(0, (0, import_mongoose95.InjectModel)(Wallet.name)),
+  __metadata109("design:paramtypes", [typeof (_a92 = typeof import_mongoose96.Model !== "undefined" && import_mongoose96.Model) === "function" ? _a92 : Object])
+], WalletsRepository);
+
+// src/tutorial/repositories/coin-transactions.repository.ts
+var import_common95 = require("@nestjs/common");
+var import_mongoose97 = require("@nestjs/mongoose");
+var import_mongoose98 = require("mongoose");
+var __decorate140 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata110 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param62 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a93;
+var CoinTransactionsRepository = class CoinTransactionsRepository2 {
+  coinTransactionModel;
+  constructor(coinTransactionModel) {
+    this.coinTransactionModel = coinTransactionModel;
+  }
+  async create(data) {
+    return this.coinTransactionModel.create(data);
+  }
+  async findForUser(userId, limit = 50) {
+    return this.coinTransactionModel.find({ user: userId }).sort({ createdAt: -1 }).limit(limit).exec();
+  }
+};
+CoinTransactionsRepository = __decorate140([
+  (0, import_common95.Injectable)(),
+  __param62(0, (0, import_mongoose97.InjectModel)(CoinTransaction.name)),
+  __metadata110("design:paramtypes", [typeof (_a93 = typeof import_mongoose98.Model !== "undefined" && import_mongoose98.Model) === "function" ? _a93 : Object])
+], CoinTransactionsRepository);
+
+// src/tutorial/repositories/payment-requests.repository.ts
+var import_common96 = require("@nestjs/common");
+var import_mongoose99 = require("@nestjs/mongoose");
+var import_mongoose100 = require("mongoose");
+var __decorate141 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata111 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param63 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a94;
+var PaymentRequestsRepository = class PaymentRequestsRepository2 {
+  paymentRequestModel;
+  constructor(paymentRequestModel) {
+    this.paymentRequestModel = paymentRequestModel;
+  }
+  async create(data) {
+    return this.paymentRequestModel.create(data);
+  }
+  async findById(id) {
+    if (!import_mongoose100.Types.ObjectId.isValid(id))
+      return null;
+    return this.paymentRequestModel.findById(id).exec();
+  }
+  async findPendingForUserAndCourse(userId, courseId) {
+    return this.paymentRequestModel.findOne({
+      user: userId,
+      course: courseId,
+      type: PaymentRequestType.ENROLLMENT,
+      status: PaymentRequestStatus.PENDING
+    }).exec();
+  }
+  async findAllForUser(userId) {
+    return this.paymentRequestModel.find({ user: userId }).populate("course").sort({ createdAt: -1 }).exec();
+  }
+  async findForAdmin(filter) {
+    const query = {};
+    if (filter.status)
+      query.status = filter.status;
+    if (filter.type)
+      query.type = filter.type;
+    return this.paymentRequestModel.find(query).populate("user", "firstName lastName email").populate("course", "title thumbnailUrl coinsIncluded").sort({ createdAt: -1 }).exec();
+  }
+};
+PaymentRequestsRepository = __decorate141([
+  (0, import_common96.Injectable)(),
+  __param63(0, (0, import_mongoose99.InjectModel)(PaymentRequest.name)),
+  __metadata111("design:paramtypes", [typeof (_a94 = typeof import_mongoose100.Model !== "undefined" && import_mongoose100.Model) === "function" ? _a94 : Object])
+], PaymentRequestsRepository);
+
+// src/tutorial/repositories/video-access.repository.ts
+var import_common97 = require("@nestjs/common");
+var import_mongoose101 = require("@nestjs/mongoose");
+var import_mongoose102 = require("mongoose");
+var __decorate142 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata112 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param64 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a95;
+var VideoAccessRepository = class VideoAccessRepository2 {
+  videoAccessModel;
+  constructor(videoAccessModel) {
+    this.videoAccessModel = videoAccessModel;
+  }
+  async findOne(userId, videoId) {
+    return this.videoAccessModel.findOne({ user: userId, videoId }).exec();
+  }
+  async findAllForUserAndCourse(userId, courseId) {
+    return this.videoAccessModel.find({ user: userId, course: courseId }).exec();
+  }
+  async create(data) {
+    return this.videoAccessModel.create(data);
+  }
+};
+VideoAccessRepository = __decorate142([
+  (0, import_common97.Injectable)(),
+  __param64(0, (0, import_mongoose101.InjectModel)(VideoAccess.name)),
+  __metadata112("design:paramtypes", [typeof (_a95 = typeof import_mongoose102.Model !== "undefined" && import_mongoose102.Model) === "function" ? _a95 : Object])
+], VideoAccessRepository);
+
+// src/tutorial/repositories/payment-settings.repository.ts
+var import_common98 = require("@nestjs/common");
+var import_mongoose103 = require("@nestjs/mongoose");
+var import_mongoose104 = require("mongoose");
+var __decorate143 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata113 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param65 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a96;
+var PaymentSettingsRepository = class PaymentSettingsRepository2 {
+  paymentSettingsModel;
+  constructor(paymentSettingsModel) {
+    this.paymentSettingsModel = paymentSettingsModel;
+  }
+  async getOrCreate() {
+    return this.paymentSettingsModel.findOneAndUpdate({}, { $setOnInsert: {} }, { upsert: true, new: true }).exec();
+  }
+  async update(data) {
+    return this.paymentSettingsModel.findOneAndUpdate({}, { $set: data }, { upsert: true, new: true }).exec();
+  }
+};
+PaymentSettingsRepository = __decorate143([
+  (0, import_common98.Injectable)(),
+  __param65(0, (0, import_mongoose103.InjectModel)(PaymentSettings.name)),
+  __metadata113("design:paramtypes", [typeof (_a96 = typeof import_mongoose104.Model !== "undefined" && import_mongoose104.Model) === "function" ? _a96 : Object])
+], PaymentSettingsRepository);
+
+// src/tutorial/services/courses.service.ts
+var import_common99 = require("@nestjs/common");
+var __decorate144 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata114 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a97;
+var CoursesService = class CoursesService2 {
+  coursesRepository;
+  constructor(coursesRepository) {
+    this.coursesRepository = coursesRepository;
+  }
+  async listPublished() {
+    const courses = await this.coursesRepository.findPublished();
     return {
       success: true,
-      data: user
+      data: courses.map((course) => this.toPublicSummary(course))
     };
   }
-  async listCourses() {
-    const courses = await this.tutorialRepository.ensureCourseSeed();
+  async getPublishedOrThrow(id) {
+    const course = await this.coursesRepository.findById(id);
+    if (!course || !course.isPublished) {
+      throw new import_common99.NotFoundException("Course not found.");
+    }
+    return course;
+  }
+  async getByIdOrThrow(id) {
+    const course = await this.coursesRepository.findById(id);
+    if (!course) {
+      throw new import_common99.NotFoundException("Course not found.");
+    }
+    return course;
+  }
+  findVideoOrThrow(course, videoId) {
+    const video = course.videos.find((item) => String(item._id) === String(videoId));
+    if (!video) {
+      throw new import_common99.NotFoundException("Lecture not found.");
+    }
+    return video;
+  }
+  async listAllForAdmin() {
+    const courses = await this.coursesRepository.findAll();
     return {
       success: true,
       data: courses
     };
   }
-  async getTutorialProfile(userId) {
-    const user = await this.tutorialRepository.findUserById(userId);
-    if (!user) {
-      throw new import_common93.NotFoundException("Tutorial user not found.");
-    }
+  async create(dto, adminId) {
+    const course = await this.coursesRepository.create({
+      ...dto,
+      videos: [],
+      createdBy: adminId
+    });
     return {
       success: true,
-      data: user
+      message: "Course created.",
+      data: course
     };
   }
-  async enrollCourse(userId, courseId) {
-    const user = await this.tutorialRepository.findUserById(userId);
-    if (!user) {
-      throw new import_common93.NotFoundException("User not found.");
-    }
-    const course = await this.tutorialRepository.findCourseById(courseId);
+  async update(id, dto) {
+    const course = await this.coursesRepository.update(id, dto);
     if (!course) {
-      throw new import_common93.NotFoundException("Course not found.");
+      throw new import_common99.NotFoundException("Course not found.");
     }
-    const alreadyEnrolled = (user.enrollments ?? []).some(
-      (entry) => String(entry.courseId) === String(courseId)
-    );
-    if (alreadyEnrolled) {
-      return {
-        success: false,
-        message: "User is already enrolled in this course."
-      };
-    }
-    const updatedUser = await this.tutorialRepository.addEnrollment(userId, courseId);
     return {
       success: true,
-      message: "Enrollment created successfully.",
+      message: "Course updated.",
+      data: course
+    };
+  }
+  async remove(id) {
+    const course = await this.coursesRepository.remove(id);
+    if (!course) {
+      throw new import_common99.NotFoundException("Course not found.");
+    }
+    return {
+      success: true,
+      message: "Course deleted."
+    };
+  }
+  async addVideo(id, dto) {
+    const existing = await this.getByIdOrThrow(id);
+    const order = dto.order ?? existing.videos.reduce((max, video) => Math.max(max, video.order), 0) + 1;
+    const course = await this.coursesRepository.addVideo(id, {
+      ...dto,
+      order
+    });
+    if (!course) {
+      throw new import_common99.NotFoundException("Course not found.");
+    }
+    return {
+      success: true,
+      message: "Lecture added.",
+      data: course
+    };
+  }
+  async updateVideo(id, videoId, dto) {
+    const course = await this.coursesRepository.updateVideo(id, videoId, dto);
+    if (!course) {
+      throw new import_common99.NotFoundException("Course or lecture not found.");
+    }
+    return {
+      success: true,
+      message: "Lecture updated.",
+      data: course
+    };
+  }
+  async removeVideo(id, videoId) {
+    const course = await this.coursesRepository.removeVideo(id, videoId);
+    if (!course) {
+      throw new import_common99.NotFoundException("Course not found.");
+    }
+    return {
+      success: true,
+      message: "Lecture removed.",
+      data: course
+    };
+  }
+  toPublicSummary(course) {
+    return {
+      id: String(course._id),
+      title: course.title,
+      description: course.description,
+      thumbnailUrl: course.thumbnailUrl,
+      priceLabel: course.priceLabel,
+      coinsIncluded: course.coinsIncluded,
+      videosCount: course.videos.length,
+      freePreviewCount: course.videos.filter((video) => video.coinCost === 0).length
+    };
+  }
+};
+CoursesService = __decorate144([
+  (0, import_common99.Injectable)(),
+  __metadata114("design:paramtypes", [typeof (_a97 = typeof CoursesRepository !== "undefined" && CoursesRepository) === "function" ? _a97 : Object])
+], CoursesService);
+
+// src/tutorial/services/wallet.service.ts
+var import_common100 = require("@nestjs/common");
+var __decorate145 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata115 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a98;
+var _b44;
+var WalletService = class WalletService2 {
+  walletsRepository;
+  coinTransactionsRepository;
+  constructor(walletsRepository, coinTransactionsRepository) {
+    this.walletsRepository = walletsRepository;
+    this.coinTransactionsRepository = coinTransactionsRepository;
+  }
+  async getWallet(userId) {
+    const wallet = await this.walletsRepository.findOrCreate(userId);
+    const transactions = await this.coinTransactionsRepository.findForUser(userId);
+    return {
+      success: true,
       data: {
-        user: updatedUser,
-        course
+        balance: wallet.balance,
+        transactions
       }
     };
   }
-  async submitPayment(userId, dto) {
-    const user = await this.tutorialRepository.findUserById(userId);
-    if (!user) {
-      throw new import_common93.NotFoundException("User not found.");
-    }
-    const course = await this.tutorialRepository.findCourseById(dto.courseId);
-    if (!course) {
-      throw new import_common93.NotFoundException("Course not found.");
-    }
-    const paymentRequest = await this.tutorialRepository.createPaymentRequest({
-      userId,
-      courseId: dto.courseId,
-      amount: dto.amount,
-      paymentMethod: dto.paymentMethod,
-      screenshotUrl: dto.screenshotUrl ?? "",
-      status: "pending",
-      rejectionReason: "",
-      reviewedBy: ""
+  async credit(userId, amount, reason, meta = {}) {
+    if (amount <= 0)
+      return;
+    await this.walletsRepository.incrementBalance(userId, amount);
+    await this.coinTransactionsRepository.create({
+      user: userId,
+      type: CoinTransactionType.CREDIT,
+      amount,
+      reason,
+      meta
     });
-    await this.tutorialRepository.addPaymentHistory(userId, String(paymentRequest._id));
-    await this.tutorialRepository.addEnrollment(userId, dto.courseId);
-    const notifyTo = this.configService.get("NEWSLETTER_NOTIFY_EMAIL") || this.configService.get("MAIL_USER");
-    if (notifyTo) {
-      try {
-        await this.mailService.send({
-          to: notifyTo,
-          subject: "New tutorial enrollment payment requires review",
-          template: "tutorial-payment-submitted",
-          context: {
-            studentName: user.fullName,
-            studentEmail: user.email,
-            courseName: course.title,
-            amount: dto.amount,
-            paymentMethod: dto.paymentMethod,
-            screenshotUrl: dto.screenshotUrl ?? ""
-          }
-        });
-      } catch (error) {
-        console.error("[TUTORIAL] Admin notification email failed:", error);
+  }
+  async debit(userId, amount, reason, meta = {}) {
+    if (amount <= 0)
+      return;
+    const wallet = await this.walletsRepository.debitIfSufficient(userId, amount);
+    if (!wallet) {
+      throw new import_common100.BadRequestException("Not enough coins. Top up your wallet to continue.");
+    }
+    await this.coinTransactionsRepository.create({
+      user: userId,
+      type: CoinTransactionType.DEBIT,
+      amount,
+      reason,
+      meta
+    });
+  }
+};
+WalletService = __decorate145([
+  (0, import_common100.Injectable)(),
+  __metadata115("design:paramtypes", [typeof (_a98 = typeof WalletsRepository !== "undefined" && WalletsRepository) === "function" ? _a98 : Object, typeof (_b44 = typeof CoinTransactionsRepository !== "undefined" && CoinTransactionsRepository) === "function" ? _b44 : Object])
+], WalletService);
+
+// src/tutorial/services/tutorials-auth.service.ts
+var import_common101 = require("@nestjs/common");
+var bcrypt3 = __toESM(require("bcrypt"));
+
+// src/tutorial/utils/generate-password.ts
+var import_crypto2 = require("crypto");
+var CHARSET = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+function generateTemporaryPassword(length = 10) {
+  const bytes = (0, import_crypto2.randomBytes)(length);
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += CHARSET[bytes[i] % CHARSET.length];
+  }
+  return `${password}9Aa`;
+}
+
+// src/tutorial/services/tutorials-auth.service.ts
+var __decorate146 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata116 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a99;
+var _b45;
+var TutorialsAuthService = class TutorialsAuthService2 {
+  usersService;
+  mailService;
+  constructor(usersService, mailService) {
+    this.usersService = usersService;
+    this.mailService = mailService;
+  }
+  async register(dto) {
+    const exists = await this.usersService.existsByEmail(dto.email);
+    if (exists) {
+      throw new import_common101.BadRequestException("An account with this email already exists.");
+    }
+    const temporaryPassword = generateTemporaryPassword();
+    const hashedPassword = await bcrypt3.hash(temporaryPassword, 10);
+    const user = await this.usersService.createUser({
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+      email: dto.email,
+      phone: dto.phone ?? "",
+      password: hashedPassword,
+      role: Role.STUDENT,
+      isVerified: false,
+      mustChangePassword: true
+    });
+    try {
+      await this.mailService.sendWelcomeEmail(user, temporaryPassword);
+    } catch {
+    }
+    return {
+      success: true,
+      message: "Registration submitted. Check your email for your login password \u2014 you'll be asked to set a new one on first login.",
+      data: {
+        email: user.email
       }
-    }
-    return {
-      success: true,
-      message: "Payment request submitted successfully. Admin review is pending.",
-      data: paymentRequest
     };
   }
-  async listPayments(userId) {
-    const payments = await this.tutorialRepository.listPayments(userId);
+};
+TutorialsAuthService = __decorate146([
+  (0, import_common101.Injectable)(),
+  __metadata116("design:paramtypes", [typeof (_a99 = typeof UsersService !== "undefined" && UsersService) === "function" ? _a99 : Object, typeof (_b45 = typeof MailService !== "undefined" && MailService) === "function" ? _b45 : Object])
+], TutorialsAuthService);
+
+// src/tutorial/services/enrollment.service.ts
+var import_common102 = require("@nestjs/common");
+var __decorate147 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata117 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a100;
+var _b46;
+var _c29;
+var _d24;
+var _e14;
+var _f9;
+var PROOF_FOLDER = "company-management/tutorials/payment-proofs";
+var EnrollmentService = class EnrollmentService2 {
+  coursesService;
+  walletService;
+  enrollmentsRepository;
+  paymentRequestsRepository;
+  videoAccessRepository;
+  cloudinary;
+  constructor(coursesService, walletService, enrollmentsRepository, paymentRequestsRepository, videoAccessRepository, cloudinary2) {
+    this.coursesService = coursesService;
+    this.walletService = walletService;
+    this.enrollmentsRepository = enrollmentsRepository;
+    this.paymentRequestsRepository = paymentRequestsRepository;
+    this.videoAccessRepository = videoAccessRepository;
+    this.cloudinary = cloudinary2;
+  }
+  async courseDetail(userId, courseId) {
+    const course = await this.coursesService.getPublishedOrThrow(courseId);
+    const enrollment = await this.enrollmentsRepository.findOne(userId, courseId);
+    const isActive = enrollment?.status === EnrollmentStatus.ACTIVE;
+    let unlockedVideoIds = /* @__PURE__ */ new Set();
+    if (isActive) {
+      const access = await this.videoAccessRepository.findAllForUserAndCourse(userId, courseId);
+      unlockedVideoIds = new Set(access.map((a) => a.videoId));
+    }
+    const videos = [...course.videos].sort((a, b) => a.order - b.order).map((video) => {
+      const unlocked = isActive && (video.coinCost === 0 || unlockedVideoIds.has(String(video._id)));
+      return {
+        id: String(video._id),
+        title: video.title,
+        durationMinutes: video.durationMinutes,
+        coinCost: video.coinCost,
+        order: video.order,
+        description: isActive ? video.description : void 0,
+        videoUrl: unlocked ? video.videoUrl : null,
+        unlocked: isActive ? unlocked : false
+      };
+    });
     return {
-      success: true,
-      data: payments
+      id: String(course._id),
+      title: course.title,
+      description: course.description,
+      thumbnailUrl: course.thumbnailUrl,
+      priceLabel: course.priceLabel,
+      coinsIncluded: course.coinsIncluded,
+      enrollmentStatus: enrollment?.status ?? "NONE",
+      videos
     };
   }
-  async getAdminOverview() {
-    const [users, courses, payments] = await Promise.all([
-      this.tutorialRepository.listUsers(),
-      this.tutorialRepository.ensureCourseSeed(),
-      this.tutorialRepository.listPayments()
-    ]);
+  async requestEnrollment(userId, courseId, file, note) {
+    if (!file) {
+      throw new import_common102.BadRequestException("Please attach your payment proof (screenshot or PDF).");
+    }
+    const course = await this.coursesService.getPublishedOrThrow(courseId);
+    const existingEnrollment = await this.enrollmentsRepository.findOne(userId, courseId);
+    if (existingEnrollment?.status === EnrollmentStatus.ACTIVE) {
+      throw new import_common102.BadRequestException("You already have access to this course.");
+    }
+    const pendingRequest = await this.paymentRequestsRepository.findPendingForUserAndCourse(userId, courseId);
+    if (pendingRequest) {
+      throw new import_common102.BadRequestException("You already have a pending enrollment request for this course.");
+    }
+    const upload = await this.cloudinary.uploadFile(file, PROOF_FOLDER);
+    const request = await this.paymentRequestsRepository.create({
+      user: userId,
+      type: PaymentRequestType.ENROLLMENT,
+      course: course._id,
+      note: note ?? "",
+      proofUrl: upload.secure_url,
+      proofPublicId: upload.public_id,
+      status: PaymentRequestStatus.PENDING
+    });
+    await this.enrollmentsRepository.upsertPending(userId, courseId);
     return {
       success: true,
-      data: { users, courses, payments }
+      message: "Enrollment request submitted. You'll get access once an admin approves your payment proof.",
+      data: request
     };
   }
-  async reviewPayment(id, dto) {
-    const payment = await this.tutorialRepository.findPaymentById(id);
-    if (!payment) {
-      throw new import_common93.NotFoundException("Payment request not found.");
+  async requestTopup(userId, coinsRequested, file, note) {
+    if (!file) {
+      throw new import_common102.BadRequestException("Please attach your payment proof (screenshot or PDF).");
     }
-    const user = await this.tutorialRepository.findUserById(String(payment.userId));
-    if (!user) {
-      throw new import_common93.NotFoundException("User not found for payment review.");
-    }
-    const course = await this.tutorialRepository.findCourseById(String(payment.courseId));
-    if (!course) {
-      throw new import_common93.NotFoundException("Course not found for payment review.");
-    }
-    if (dto.status === "approved") {
-      await this.tutorialRepository.updateUser(String(user._id), {
-        status: "approved",
-        hasAccess: true,
-        isPaymentVerified: true,
-        coins: Number(user.coins ?? 0) + Number(course.rewardCoins ?? 0)
-      });
-    } else if (dto.status === "rejected") {
-      await this.tutorialRepository.updateUser(String(user._id), {
-        status: "rejected",
-        hasAccess: false,
-        isPaymentVerified: false
-      });
-    }
-    const updatedPayment = await this.tutorialRepository.updatePaymentRequest(id, {
-      status: dto.status,
-      rejectionReason: dto.rejectionReason ?? "",
-      reviewedBy: dto.reviewedBy ?? "admin"
+    const upload = await this.cloudinary.uploadFile(file, PROOF_FOLDER);
+    const request = await this.paymentRequestsRepository.create({
+      user: userId,
+      type: PaymentRequestType.TOPUP,
+      coinsRequested,
+      note: note ?? "",
+      proofUrl: upload.secure_url,
+      proofPublicId: upload.public_id,
+      status: PaymentRequestStatus.PENDING
     });
     return {
       success: true,
-      data: updatedPayment
+      message: "Top-up request submitted. Coins will appear in your wallet once an admin approves your payment proof.",
+      data: request
     };
   }
-  async watchLecture(userId, courseId, lectureId) {
-    const user = await this.tutorialRepository.findUserById(userId);
-    if (!user) {
-      throw new import_common93.NotFoundException("User not found.");
+  async myEnrollments(userId) {
+    return this.paymentRequestsRepository.findAllForUser(userId);
+  }
+  async myCourses(userId) {
+    const enrollments = await this.enrollmentsRepository.findActiveForUser(userId);
+    return enrollments.map((e) => ({
+      enrollmentId: String(e._id),
+      approvedAt: e.approvedAt,
+      course: {
+        id: String(e.course._id),
+        title: e.course.title,
+        thumbnailUrl: e.course.thumbnailUrl,
+        videosCount: e.course.videos?.length ?? 0
+      }
+    }));
+  }
+  async watchVideo(userId, courseId, videoId) {
+    const enrollment = await this.enrollmentsRepository.findOne(userId, courseId);
+    if (enrollment?.status !== EnrollmentStatus.ACTIVE) {
+      throw new import_common102.ForbiddenException("Enroll in this course and get approved to watch its lectures.");
     }
-    if (user.status !== "approved" || !user.hasAccess) {
-      throw new import_common93.UnauthorizedException("User access is not approved yet.");
-    }
-    const course = await this.tutorialRepository.findCourseById(courseId);
-    if (!course) {
-      throw new import_common93.NotFoundException("Course not found.");
-    }
-    const lecture = (course.lectures ?? []).find(
-      (item) => String(item._id) === String(lectureId)
-    );
-    if (!lecture) {
-      throw new import_common93.NotFoundException("Lecture not found.");
-    }
-    if (lecture.watched) {
+    const course = await this.coursesService.getByIdOrThrow(courseId);
+    const video = await this.coursesService.findVideoOrThrow(course, videoId);
+    if (video.coinCost === 0) {
       return {
         success: true,
-        message: "Lecture already watched.",
-        data: lecture
+        data: { videoUrl: video.videoUrl, unlocked: true }
       };
     }
-    const requiredCoins = Number(lecture.coinCost ?? 0);
-    const currentCoins = Number(user.coins ?? 0);
-    if (currentCoins < requiredCoins) {
-      throw new import_common93.BadRequestException(
-        `You need ${requiredCoins} coins to unlock this lecture.`
-      );
+    const existingAccess = await this.videoAccessRepository.findOne(userId, videoId);
+    if (existingAccess) {
+      return {
+        success: true,
+        data: { videoUrl: video.videoUrl, unlocked: true }
+      };
     }
-    const updatedUser = await this.tutorialRepository.updateUser(userId, {
-      coins: currentCoins - requiredCoins
+    if (!course.isPublished) {
+      throw new import_common102.NotFoundException("Course not found.");
+    }
+    await this.walletService.debit(userId, video.coinCost, `Unlocked lecture: ${video.title}`, { course: courseId, videoId });
+    await this.videoAccessRepository.create({
+      user: userId,
+      course: courseId,
+      videoId,
+      coinsSpent: video.coinCost
     });
-    await this.tutorialRepository.markLectureWatched(courseId, lectureId);
     return {
       success: true,
-      message: "Lecture completed and coins deducted successfully.",
-      data: {
-        user: updatedUser,
-        lecture: {
-          ...lecture,
-          watched: true
-        }
-      }
+      data: { videoUrl: video.videoUrl, unlocked: true }
     };
   }
 };
-TutorialService = __decorateClass([
-  (0, import_common93.Injectable)(),
-  __decorateParam(0, (0, import_common93.Inject)(TutorialRepository)),
-  __decorateParam(1, (0, import_common93.Inject)(MailService)),
-  __decorateParam(2, (0, import_common93.Inject)(import_config9.ConfigService))
-], TutorialService);
+EnrollmentService = __decorate147([
+  (0, import_common102.Injectable)(),
+  __metadata117("design:paramtypes", [typeof (_a100 = typeof CoursesService !== "undefined" && CoursesService) === "function" ? _a100 : Object, typeof (_b46 = typeof WalletService !== "undefined" && WalletService) === "function" ? _b46 : Object, typeof (_c29 = typeof EnrollmentsRepository !== "undefined" && EnrollmentsRepository) === "function" ? _c29 : Object, typeof (_d24 = typeof PaymentRequestsRepository !== "undefined" && PaymentRequestsRepository) === "function" ? _d24 : Object, typeof (_e14 = typeof VideoAccessRepository !== "undefined" && VideoAccessRepository) === "function" ? _e14 : Object, typeof (_f9 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _f9 : Object])
+], EnrollmentService);
 
-// apps/api/src/tutorial/controllers/tutorial.controller.ts
-var TutorialController = class {
-  constructor(tutorialService) {
-    this.tutorialService = tutorialService;
+// src/tutorial/services/admin-review.service.ts
+var import_common103 = require("@nestjs/common");
+var __decorate148 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata118 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a101;
+var _b47;
+var _c30;
+var _d25;
+var AdminReviewService = class AdminReviewService2 {
+  paymentRequestsRepository;
+  enrollmentsRepository;
+  coursesRepository;
+  walletService;
+  constructor(paymentRequestsRepository, enrollmentsRepository, coursesRepository, walletService) {
+    this.paymentRequestsRepository = paymentRequestsRepository;
+    this.enrollmentsRepository = enrollmentsRepository;
+    this.coursesRepository = coursesRepository;
+    this.walletService = walletService;
   }
-  tutorialService;
-  register(dto) {
-    return this.tutorialService.createTutorialUser(dto);
+  async list(status, type) {
+    return this.paymentRequestsRepository.findForAdmin({
+      status,
+      type
+    });
   }
-  getCourses() {
-    return this.tutorialService.listCourses();
-  }
-  getProfile(req) {
-    const userId = req?.user?.id ?? req?.query?.userId;
-    if (!userId) {
-      return {
-        success: false,
-        message: "User id is required."
-      };
+  async approve(requestId, adminId, dto) {
+    const request = await this.paymentRequestsRepository.findById(requestId);
+    if (!request) {
+      throw new import_common103.NotFoundException("Request not found.");
     }
-    return this.tutorialService.getTutorialProfile(userId);
+    if (request.status !== PaymentRequestStatus.PENDING) {
+      throw new import_common103.BadRequestException("This request has already been reviewed.");
+    }
+    const userId = String(request.user);
+    if (request.type === PaymentRequestType.ENROLLMENT) {
+      const courseId = String(request.course);
+      const course = await this.coursesRepository.findById(courseId);
+      if (!course) {
+        throw new import_common103.NotFoundException("The course for this request no longer exists.");
+      }
+      await this.enrollmentsRepository.setStatus(userId, courseId, EnrollmentStatus.ACTIVE);
+      if (course.coinsIncluded > 0) {
+        await this.walletService.credit(userId, course.coinsIncluded, `Enrollment bonus \u2014 ${course.title}`, { course: courseId, paymentRequest: requestId });
+      }
+      request.coinsGranted = course.coinsIncluded;
+    } else {
+      const coinsGranted = dto.coinsGranted ?? request.coinsRequested ?? 0;
+      await this.walletService.credit(userId, coinsGranted, "Wallet top-up approved", { paymentRequest: requestId });
+      request.coinsGranted = coinsGranted;
+    }
+    request.status = PaymentRequestStatus.APPROVED;
+    request.reviewedBy = adminId;
+    request.reviewedAt = /* @__PURE__ */ new Date();
+    request.reviewNote = dto.note ?? "";
+    await request.save();
+    return {
+      success: true,
+      message: "Request approved.",
+      data: request
+    };
   }
-  getMyProfile(req) {
-    return this.tutorialService.getOrCreateAuthUser(req.user);
-  }
-  enroll(dto) {
-    return this.tutorialService.enrollCourse(
-      dto.userId,
-      dto.courseId
-    );
-  }
-  submitPayment(dto) {
-    return this.tutorialService.submitPayment(
-      dto.userId,
-      dto
-    );
-  }
-  getPayments(userId) {
-    return this.tutorialService.listPayments(userId);
-  }
-  getAdminOverview() {
-    return this.tutorialService.getAdminOverview();
-  }
-  reviewPayment(id, dto) {
-    return this.tutorialService.reviewPayment(
-      id,
-      dto
-    );
-  }
-  watchLecture(dto) {
-    return this.tutorialService.watchLecture(
-      dto.userId,
-      dto.courseId,
-      dto.lectureId
-    );
+  async reject(requestId, adminId, dto) {
+    const request = await this.paymentRequestsRepository.findById(requestId);
+    if (!request) {
+      throw new import_common103.NotFoundException("Request not found.");
+    }
+    if (request.status !== PaymentRequestStatus.PENDING) {
+      throw new import_common103.BadRequestException("This request has already been reviewed.");
+    }
+    if (request.type === PaymentRequestType.ENROLLMENT) {
+      await this.enrollmentsRepository.setStatus(String(request.user), String(request.course), EnrollmentStatus.REJECTED);
+    }
+    request.status = PaymentRequestStatus.REJECTED;
+    request.reviewedBy = adminId;
+    request.reviewedAt = /* @__PURE__ */ new Date();
+    request.rejectionReason = dto.reason;
+    await request.save();
+    return {
+      success: true,
+      message: "Request rejected.",
+      data: request
+    };
   }
 };
-__decorateClass([
-  (0, import_common94.Post)("register"),
-  __decorateParam(0, (0, import_common94.Body)())
-], TutorialController.prototype, "register", 1);
-__decorateClass([
-  (0, import_common94.Get)("courses")
-], TutorialController.prototype, "getCourses", 1);
-__decorateClass([
-  (0, import_common94.Get)("profile"),
-  __decorateParam(0, (0, import_common94.Req)())
-], TutorialController.prototype, "getProfile", 1);
-__decorateClass([
-  (0, import_common94.Get)("me"),
-  (0, import_common94.UseGuards)(JwtAuthGuard),
-  __decorateParam(0, (0, import_common94.Req)())
-], TutorialController.prototype, "getMyProfile", 1);
-__decorateClass([
-  (0, import_common94.Post)("enroll"),
-  __decorateParam(0, (0, import_common94.Body)())
-], TutorialController.prototype, "enroll", 1);
-__decorateClass([
-  (0, import_common94.Post)("payment/submit"),
-  __decorateParam(0, (0, import_common94.Body)())
-], TutorialController.prototype, "submitPayment", 1);
-__decorateClass([
-  (0, import_common94.Get)("payments"),
-  __decorateParam(0, (0, import_common94.Query)("userId"))
-], TutorialController.prototype, "getPayments", 1);
-__decorateClass([
-  (0, import_common94.Get)("admin-overview"),
-  (0, import_common94.UseGuards)(JwtAuthGuard, RolesGuard),
-  Roles("ADMIN" /* ADMIN */)
-], TutorialController.prototype, "getAdminOverview", 1);
-__decorateClass([
-  (0, import_common94.Post)("payments/:id/review"),
-  (0, import_common94.UseGuards)(JwtAuthGuard, RolesGuard),
-  Roles("ADMIN" /* ADMIN */),
-  __decorateParam(0, (0, import_common94.Param)("id")),
-  __decorateParam(1, (0, import_common94.Body)())
-], TutorialController.prototype, "reviewPayment", 1);
-__decorateClass([
-  (0, import_common94.Post)("lecture/watch"),
-  __decorateParam(0, (0, import_common94.Body)())
-], TutorialController.prototype, "watchLecture", 1);
-TutorialController = __decorateClass([
-  (0, import_common94.Controller)("tutorial"),
-  __decorateParam(0, (0, import_common94.Inject)(TutorialService))
-], TutorialController);
+AdminReviewService = __decorate148([
+  (0, import_common103.Injectable)(),
+  __metadata118("design:paramtypes", [typeof (_a101 = typeof PaymentRequestsRepository !== "undefined" && PaymentRequestsRepository) === "function" ? _a101 : Object, typeof (_b47 = typeof EnrollmentsRepository !== "undefined" && EnrollmentsRepository) === "function" ? _b47 : Object, typeof (_c30 = typeof CoursesRepository !== "undefined" && CoursesRepository) === "function" ? _c30 : Object, typeof (_d25 = typeof WalletService !== "undefined" && WalletService) === "function" ? _d25 : Object])
+], AdminReviewService);
 
-// apps/api/src/tutorial/tutorial.module.ts
-var TutorialModule = class {
+// src/tutorial/services/payment-settings.service.ts
+var import_common104 = require("@nestjs/common");
+var __decorate149 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-TutorialModule = __decorateClass([
-  (0, import_common95.Module)({
+var __metadata119 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a102;
+var PaymentSettingsService = class PaymentSettingsService2 {
+  paymentSettingsRepository;
+  constructor(paymentSettingsRepository) {
+    this.paymentSettingsRepository = paymentSettingsRepository;
+  }
+  async get() {
+    const settings = await this.paymentSettingsRepository.getOrCreate();
+    return {
+      success: true,
+      data: settings
+    };
+  }
+  async update(data) {
+    const settings = await this.paymentSettingsRepository.update(data);
+    return {
+      success: true,
+      message: "Payment settings updated.",
+      data: settings
+    };
+  }
+};
+PaymentSettingsService = __decorate149([
+  (0, import_common104.Injectable)(),
+  __metadata119("design:paramtypes", [typeof (_a102 = typeof PaymentSettingsRepository !== "undefined" && PaymentSettingsRepository) === "function" ? _a102 : Object])
+], PaymentSettingsService);
+
+// src/tutorial/controllers/tutorials.controller.ts
+var import_common105 = require("@nestjs/common");
+var import_platform_express7 = require("@nestjs/platform-express");
+
+// src/tutorial/dto/tutorial-register.dto.ts
+var import_class_validator28 = require("class-validator");
+var __decorate150 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata120 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var TutorialRegisterDto = class {
+  firstName;
+  lastName;
+  email;
+  phone;
+};
+__decorate150([
+  (0, import_class_validator28.IsString)(),
+  (0, import_class_validator28.MinLength)(2),
+  __metadata120("design:type", String)
+], TutorialRegisterDto.prototype, "firstName", void 0);
+__decorate150([
+  (0, import_class_validator28.IsString)(),
+  (0, import_class_validator28.MinLength)(2),
+  __metadata120("design:type", String)
+], TutorialRegisterDto.prototype, "lastName", void 0);
+__decorate150([
+  (0, import_class_validator28.IsEmail)(),
+  __metadata120("design:type", String)
+], TutorialRegisterDto.prototype, "email", void 0);
+__decorate150([
+  (0, import_class_validator28.IsOptional)(),
+  (0, import_class_validator28.IsString)(),
+  __metadata120("design:type", String)
+], TutorialRegisterDto.prototype, "phone", void 0);
+
+// src/tutorial/dto/create-enrollment.dto.ts
+var import_class_validator29 = require("class-validator");
+var __decorate151 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata121 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateEnrollmentDto = class {
+  courseId;
+  note;
+};
+__decorate151([
+  (0, import_class_validator29.IsMongoId)(),
+  __metadata121("design:type", String)
+], CreateEnrollmentDto.prototype, "courseId", void 0);
+__decorate151([
+  (0, import_class_validator29.IsOptional)(),
+  (0, import_class_validator29.IsString)(),
+  __metadata121("design:type", String)
+], CreateEnrollmentDto.prototype, "note", void 0);
+
+// src/tutorial/dto/create-topup.dto.ts
+var import_class_validator30 = require("class-validator");
+var __decorate152 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata122 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateTopupDto = class {
+  coinsRequested;
+  note;
+};
+__decorate152([
+  (0, import_class_validator30.IsNumber)(),
+  (0, import_class_validator30.Min)(1),
+  __metadata122("design:type", Number)
+], CreateTopupDto.prototype, "coinsRequested", void 0);
+__decorate152([
+  (0, import_class_validator30.IsOptional)(),
+  (0, import_class_validator30.IsString)(),
+  __metadata122("design:type", String)
+], CreateTopupDto.prototype, "note", void 0);
+
+// src/tutorial/controllers/tutorials.controller.ts
+var __decorate153 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata123 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param66 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a103;
+var _b48;
+var _c31;
+var _d26;
+var _e15;
+var _f10;
+var _g7;
+var _h5;
+var _j3;
+var _k;
+var _l;
+var _m;
+var TutorialsController = class TutorialsController2 {
+  tutorialsAuthService;
+  coursesService;
+  walletService;
+  enrollmentService;
+  paymentSettingsService;
+  constructor(tutorialsAuthService, coursesService, walletService, enrollmentService, paymentSettingsService) {
+    this.tutorialsAuthService = tutorialsAuthService;
+    this.coursesService = coursesService;
+    this.walletService = walletService;
+    this.enrollmentService = enrollmentService;
+    this.paymentSettingsService = paymentSettingsService;
+  }
+  register(dto) {
+    return this.tutorialsAuthService.register(dto);
+  }
+  listCourses() {
+    return this.coursesService.listPublished();
+  }
+  paymentSettings() {
+    return this.paymentSettingsService.get();
+  }
+  courseDetail(req, id) {
+    return this.enrollmentService.courseDetail(req.user.sub, id);
+  }
+  enroll(req, file, dto) {
+    return this.enrollmentService.requestEnrollment(req.user.sub, dto.courseId, file, dto.note);
+  }
+  myEnrollments(req) {
+    return this.enrollmentService.myEnrollments(req.user.sub);
+  }
+  myCourses(req) {
+    return this.enrollmentService.myCourses(req.user.sub);
+  }
+  wallet(req) {
+    return this.walletService.getWallet(req.user.sub);
+  }
+  topup(req, file, dto) {
+    return this.enrollmentService.requestTopup(req.user.sub, dto.coinsRequested, file, dto.note);
+  }
+  watchVideo(req, courseId, videoId) {
+    return this.enrollmentService.watchVideo(req.user.sub, courseId, videoId);
+  }
+};
+__decorate153([
+  (0, import_common105.Post)("register"),
+  __param66(0, (0, import_common105.Body)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [typeof (_f10 = typeof TutorialRegisterDto !== "undefined" && TutorialRegisterDto) === "function" ? _f10 : Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "register", null);
+__decorate153([
+  (0, import_common105.Get)("courses"),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", []),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "listCourses", null);
+__decorate153([
+  (0, import_common105.Get)("payment-settings"),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", []),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "paymentSettings", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Get)("courses/:id"),
+  __param66(0, (0, import_common105.Req)()),
+  __param66(1, (0, import_common105.Param)("id")),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object, String]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "courseDetail", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Post)("enrollments"),
+  (0, import_common105.UseInterceptors)((0, import_platform_express7.FileInterceptor)("proof", {
+    limits: { fileSize: 10 * 1024 * 1024 }
+  })),
+  __param66(0, (0, import_common105.Req)()),
+  __param66(1, (0, import_common105.UploadedFile)()),
+  __param66(2, (0, import_common105.Body)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object, typeof (_h5 = typeof Express !== "undefined" && (_g7 = Express.Multer) !== void 0 && _g7.File) === "function" ? _h5 : Object, typeof (_j3 = typeof CreateEnrollmentDto !== "undefined" && CreateEnrollmentDto) === "function" ? _j3 : Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "enroll", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Get)("enrollments/me"),
+  __param66(0, (0, import_common105.Req)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "myEnrollments", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Get)("my-courses"),
+  __param66(0, (0, import_common105.Req)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "myCourses", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Get)("wallet"),
+  __param66(0, (0, import_common105.Req)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "wallet", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Post)("wallet/topup"),
+  (0, import_common105.UseInterceptors)((0, import_platform_express7.FileInterceptor)("proof", {
+    limits: { fileSize: 10 * 1024 * 1024 }
+  })),
+  __param66(0, (0, import_common105.Req)()),
+  __param66(1, (0, import_common105.UploadedFile)()),
+  __param66(2, (0, import_common105.Body)()),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object, typeof (_l = typeof Express !== "undefined" && (_k = Express.Multer) !== void 0 && _k.File) === "function" ? _l : Object, typeof (_m = typeof CreateTopupDto !== "undefined" && CreateTopupDto) === "function" ? _m : Object]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "topup", null);
+__decorate153([
+  (0, import_common105.UseGuards)(JwtAuthGuard),
+  (0, import_common105.Post)("courses/:courseId/videos/:videoId/watch"),
+  __param66(0, (0, import_common105.Req)()),
+  __param66(1, (0, import_common105.Param)("courseId")),
+  __param66(2, (0, import_common105.Param)("videoId")),
+  __metadata123("design:type", Function),
+  __metadata123("design:paramtypes", [Object, String, String]),
+  __metadata123("design:returntype", void 0)
+], TutorialsController.prototype, "watchVideo", null);
+TutorialsController = __decorate153([
+  (0, import_common105.Controller)("tutorials"),
+  __metadata123("design:paramtypes", [typeof (_a103 = typeof TutorialsAuthService !== "undefined" && TutorialsAuthService) === "function" ? _a103 : Object, typeof (_b48 = typeof CoursesService !== "undefined" && CoursesService) === "function" ? _b48 : Object, typeof (_c31 = typeof WalletService !== "undefined" && WalletService) === "function" ? _c31 : Object, typeof (_d26 = typeof EnrollmentService !== "undefined" && EnrollmentService) === "function" ? _d26 : Object, typeof (_e15 = typeof PaymentSettingsService !== "undefined" && PaymentSettingsService) === "function" ? _e15 : Object])
+], TutorialsController);
+
+// src/tutorial/controllers/tutorials-admin.controller.ts
+var import_common106 = require("@nestjs/common");
+var import_platform_express8 = require("@nestjs/platform-express");
+
+// src/tutorial/dto/create-course.dto.ts
+var import_class_validator31 = require("class-validator");
+var __decorate154 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata124 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var CreateCourseDto = class {
+  title;
+  description;
+  thumbnailUrl;
+  priceLabel;
+  coinsIncluded;
+  isPublished;
+};
+__decorate154([
+  (0, import_class_validator31.IsString)(),
+  (0, import_class_validator31.MinLength)(2),
+  __metadata124("design:type", String)
+], CreateCourseDto.prototype, "title", void 0);
+__decorate154([
+  (0, import_class_validator31.IsOptional)(),
+  (0, import_class_validator31.IsString)(),
+  __metadata124("design:type", String)
+], CreateCourseDto.prototype, "description", void 0);
+__decorate154([
+  (0, import_class_validator31.IsOptional)(),
+  (0, import_class_validator31.IsString)(),
+  __metadata124("design:type", String)
+], CreateCourseDto.prototype, "thumbnailUrl", void 0);
+__decorate154([
+  (0, import_class_validator31.IsOptional)(),
+  (0, import_class_validator31.IsString)(),
+  __metadata124("design:type", String)
+], CreateCourseDto.prototype, "priceLabel", void 0);
+__decorate154([
+  (0, import_class_validator31.IsOptional)(),
+  (0, import_class_validator31.IsNumber)(),
+  (0, import_class_validator31.Min)(0),
+  __metadata124("design:type", Number)
+], CreateCourseDto.prototype, "coinsIncluded", void 0);
+__decorate154([
+  (0, import_class_validator31.IsOptional)(),
+  (0, import_class_validator31.IsBoolean)(),
+  __metadata124("design:type", Boolean)
+], CreateCourseDto.prototype, "isPublished", void 0);
+
+// src/tutorial/dto/update-course.dto.ts
+var import_swagger5 = require("@nestjs/swagger");
+var UpdateCourseDto = class extends (0, import_swagger5.PartialType)(CreateCourseDto) {
+};
+
+// src/tutorial/dto/add-video.dto.ts
+var import_class_validator32 = require("class-validator");
+var __decorate155 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata125 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var AddVideoDto = class {
+  title;
+  description;
+  videoUrl;
+  durationMinutes;
+  coinCost;
+  order;
+};
+__decorate155([
+  (0, import_class_validator32.IsString)(),
+  (0, import_class_validator32.MinLength)(2),
+  __metadata125("design:type", String)
+], AddVideoDto.prototype, "title", void 0);
+__decorate155([
+  (0, import_class_validator32.IsOptional)(),
+  (0, import_class_validator32.IsString)(),
+  __metadata125("design:type", String)
+], AddVideoDto.prototype, "description", void 0);
+__decorate155([
+  (0, import_class_validator32.IsString)(),
+  __metadata125("design:type", String)
+], AddVideoDto.prototype, "videoUrl", void 0);
+__decorate155([
+  (0, import_class_validator32.IsNumber)(),
+  (0, import_class_validator32.Min)(0),
+  __metadata125("design:type", Number)
+], AddVideoDto.prototype, "durationMinutes", void 0);
+__decorate155([
+  (0, import_class_validator32.IsNumber)(),
+  (0, import_class_validator32.Min)(0),
+  __metadata125("design:type", Number)
+], AddVideoDto.prototype, "coinCost", void 0);
+__decorate155([
+  (0, import_class_validator32.IsOptional)(),
+  (0, import_class_validator32.IsNumber)(),
+  (0, import_class_validator32.Min)(0),
+  __metadata125("design:type", Number)
+], AddVideoDto.prototype, "order", void 0);
+
+// src/tutorial/dto/update-video.dto.ts
+var import_swagger6 = require("@nestjs/swagger");
+var UpdateVideoDto = class extends (0, import_swagger6.PartialType)(AddVideoDto) {
+};
+
+// src/tutorial/dto/approve-request.dto.ts
+var import_class_validator33 = require("class-validator");
+var __decorate156 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata126 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ApproveRequestDto = class {
+  coinsGranted;
+  note;
+};
+__decorate156([
+  (0, import_class_validator33.IsOptional)(),
+  (0, import_class_validator33.IsNumber)(),
+  (0, import_class_validator33.Min)(0),
+  __metadata126("design:type", Number)
+], ApproveRequestDto.prototype, "coinsGranted", void 0);
+__decorate156([
+  (0, import_class_validator33.IsOptional)(),
+  (0, import_class_validator33.IsString)(),
+  __metadata126("design:type", String)
+], ApproveRequestDto.prototype, "note", void 0);
+
+// src/tutorial/dto/reject-request.dto.ts
+var import_class_validator34 = require("class-validator");
+var __decorate157 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata127 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var RejectRequestDto = class {
+  reason;
+};
+__decorate157([
+  (0, import_class_validator34.IsString)(),
+  (0, import_class_validator34.MinLength)(3),
+  __metadata127("design:type", String)
+], RejectRequestDto.prototype, "reason", void 0);
+
+// src/tutorial/dto/update-payment-settings.dto.ts
+var import_class_validator35 = require("class-validator");
+var __decorate158 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata128 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var UpdatePaymentSettingsDto = class {
+  qrCodeUrl;
+  accountTitle;
+  accountNumber;
+  bankName;
+  instructions;
+};
+__decorate158([
+  (0, import_class_validator35.IsOptional)(),
+  (0, import_class_validator35.IsString)(),
+  __metadata128("design:type", String)
+], UpdatePaymentSettingsDto.prototype, "qrCodeUrl", void 0);
+__decorate158([
+  (0, import_class_validator35.IsOptional)(),
+  (0, import_class_validator35.IsString)(),
+  __metadata128("design:type", String)
+], UpdatePaymentSettingsDto.prototype, "accountTitle", void 0);
+__decorate158([
+  (0, import_class_validator35.IsOptional)(),
+  (0, import_class_validator35.IsString)(),
+  __metadata128("design:type", String)
+], UpdatePaymentSettingsDto.prototype, "accountNumber", void 0);
+__decorate158([
+  (0, import_class_validator35.IsOptional)(),
+  (0, import_class_validator35.IsString)(),
+  __metadata128("design:type", String)
+], UpdatePaymentSettingsDto.prototype, "bankName", void 0);
+__decorate158([
+  (0, import_class_validator35.IsOptional)(),
+  (0, import_class_validator35.IsString)(),
+  __metadata128("design:type", String)
+], UpdatePaymentSettingsDto.prototype, "instructions", void 0);
+
+// src/tutorial/controllers/tutorials-admin.controller.ts
+var __decorate159 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata129 = function(k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param67 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _a104;
+var _b49;
+var _c32;
+var _d27;
+var _e16;
+var _f11;
+var _g8;
+var _h6;
+var _j4;
+var _k2;
+var _l2;
+var _m2;
+var _o;
+var _p;
+var _q;
+var _r;
+var _s;
+var _t;
+var _u;
+var TutorialsAdminController = class TutorialsAdminController2 {
+  coursesService;
+  adminReviewService;
+  paymentSettingsService;
+  cloudinary;
+  constructor(coursesService, adminReviewService, paymentSettingsService, cloudinary2) {
+    this.coursesService = coursesService;
+    this.adminReviewService = adminReviewService;
+    this.paymentSettingsService = paymentSettingsService;
+    this.cloudinary = cloudinary2;
+  }
+  listCourses() {
+    return this.coursesService.listAllForAdmin();
+  }
+  getCourse(id) {
+    return this.coursesService.getByIdOrThrow(id);
+  }
+  createCourse(req, dto) {
+    return this.coursesService.create(dto, req.user.sub);
+  }
+  updateCourse(id, dto) {
+    return this.coursesService.update(id, dto);
+  }
+  removeCourse(id) {
+    return this.coursesService.remove(id);
+  }
+  async uploadThumbnail(file) {
+    const upload = await this.cloudinary.uploadFile(file, "company-management/tutorials/thumbnails");
+    return {
+      success: true,
+      data: { url: upload.secure_url }
+    };
+  }
+  async uploadVideo(file) {
+    const upload = await this.cloudinary.uploadFile(file, "company-management/tutorials/videos");
+    return {
+      success: true,
+      data: {
+        url: upload.secure_url,
+        durationMinutes: upload.duration ? Math.ceil(upload.duration / 60) : void 0
+      }
+    };
+  }
+  addVideo(id, dto) {
+    return this.coursesService.addVideo(id, dto);
+  }
+  updateVideo(id, videoId, dto) {
+    return this.coursesService.updateVideo(id, videoId, dto);
+  }
+  removeVideo(id, videoId) {
+    return this.coursesService.removeVideo(id, videoId);
+  }
+  listRequests(status, type) {
+    return this.adminReviewService.list(status, type);
+  }
+  approveRequest(req, id, dto) {
+    return this.adminReviewService.approve(id, req.user.sub, dto);
+  }
+  rejectRequest(req, id, dto) {
+    return this.adminReviewService.reject(id, req.user.sub, dto);
+  }
+  getPaymentSettings() {
+    return this.paymentSettingsService.get();
+  }
+  updatePaymentSettings(dto) {
+    return this.paymentSettingsService.update(dto);
+  }
+  async uploadQrCode(file) {
+    const upload = await this.cloudinary.uploadFile(file, "company-management/tutorials/payment-qr");
+    return {
+      success: true,
+      data: { url: upload.secure_url }
+    };
+  }
+};
+__decorate159([
+  (0, import_common106.Get)("courses"),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", []),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "listCourses", null);
+__decorate159([
+  (0, import_common106.Get)("courses/:id"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "getCourse", null);
+__decorate159([
+  (0, import_common106.Post)("courses"),
+  __param67(0, (0, import_common106.Req)()),
+  __param67(1, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [Object, typeof (_e16 = typeof CreateCourseDto !== "undefined" && CreateCourseDto) === "function" ? _e16 : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "createCourse", null);
+__decorate159([
+  (0, import_common106.Patch)("courses/:id"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __param67(1, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String, typeof (_f11 = typeof UpdateCourseDto !== "undefined" && UpdateCourseDto) === "function" ? _f11 : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "updateCourse", null);
+__decorate159([
+  (0, import_common106.Delete)("courses/:id"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "removeCourse", null);
+__decorate159([
+  (0, import_common106.Post)("upload-thumbnail"),
+  (0, import_common106.UseInterceptors)((0, import_platform_express8.FileInterceptor)("file", {
+    limits: { fileSize: 10 * 1024 * 1024 }
+  })),
+  __param67(0, (0, import_common106.UploadedFile)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [typeof (_h6 = typeof Express !== "undefined" && (_g8 = Express.Multer) !== void 0 && _g8.File) === "function" ? _h6 : Object]),
+  __metadata129("design:returntype", Promise)
+], TutorialsAdminController.prototype, "uploadThumbnail", null);
+__decorate159([
+  (0, import_common106.Post)("upload-video"),
+  (0, import_common106.UseInterceptors)((0, import_platform_express8.FileInterceptor)("file", {
+    limits: { fileSize: 500 * 1024 * 1024 }
+  })),
+  __param67(0, (0, import_common106.UploadedFile)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [typeof (_k2 = typeof Express !== "undefined" && (_j4 = Express.Multer) !== void 0 && _j4.File) === "function" ? _k2 : Object]),
+  __metadata129("design:returntype", Promise)
+], TutorialsAdminController.prototype, "uploadVideo", null);
+__decorate159([
+  (0, import_common106.Post)("courses/:id/videos"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __param67(1, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String, typeof (_l2 = typeof AddVideoDto !== "undefined" && AddVideoDto) === "function" ? _l2 : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "addVideo", null);
+__decorate159([
+  (0, import_common106.Patch)("courses/:id/videos/:videoId"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __param67(1, (0, import_common106.Param)("videoId")),
+  __param67(2, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String, String, typeof (_m2 = typeof UpdateVideoDto !== "undefined" && UpdateVideoDto) === "function" ? _m2 : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "updateVideo", null);
+__decorate159([
+  (0, import_common106.Delete)("courses/:id/videos/:videoId"),
+  __param67(0, (0, import_common106.Param)("id")),
+  __param67(1, (0, import_common106.Param)("videoId")),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [String, String]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "removeVideo", null);
+__decorate159([
+  (0, import_common106.Get)("requests"),
+  __param67(0, (0, import_common106.Query)("status")),
+  __param67(1, (0, import_common106.Query)("type")),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [typeof (_o = typeof PaymentRequestStatus !== "undefined" && PaymentRequestStatus) === "function" ? _o : Object, typeof (_p = typeof PaymentRequestType !== "undefined" && PaymentRequestType) === "function" ? _p : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "listRequests", null);
+__decorate159([
+  (0, import_common106.Patch)("requests/:id/approve"),
+  __param67(0, (0, import_common106.Req)()),
+  __param67(1, (0, import_common106.Param)("id")),
+  __param67(2, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [Object, String, typeof (_q = typeof ApproveRequestDto !== "undefined" && ApproveRequestDto) === "function" ? _q : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "approveRequest", null);
+__decorate159([
+  (0, import_common106.Patch)("requests/:id/reject"),
+  __param67(0, (0, import_common106.Req)()),
+  __param67(1, (0, import_common106.Param)("id")),
+  __param67(2, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [Object, String, typeof (_r = typeof RejectRequestDto !== "undefined" && RejectRequestDto) === "function" ? _r : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "rejectRequest", null);
+__decorate159([
+  (0, import_common106.Get)("payment-settings"),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", []),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "getPaymentSettings", null);
+__decorate159([
+  (0, import_common106.Patch)("payment-settings"),
+  __param67(0, (0, import_common106.Body)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [typeof (_s = typeof UpdatePaymentSettingsDto !== "undefined" && UpdatePaymentSettingsDto) === "function" ? _s : Object]),
+  __metadata129("design:returntype", void 0)
+], TutorialsAdminController.prototype, "updatePaymentSettings", null);
+__decorate159([
+  (0, import_common106.Post)("upload-qr-code"),
+  (0, import_common106.UseInterceptors)((0, import_platform_express8.FileInterceptor)("file", {
+    limits: { fileSize: 5 * 1024 * 1024 }
+  })),
+  __param67(0, (0, import_common106.UploadedFile)()),
+  __metadata129("design:type", Function),
+  __metadata129("design:paramtypes", [typeof (_u = typeof Express !== "undefined" && (_t = Express.Multer) !== void 0 && _t.File) === "function" ? _u : Object]),
+  __metadata129("design:returntype", Promise)
+], TutorialsAdminController.prototype, "uploadQrCode", null);
+TutorialsAdminController = __decorate159([
+  (0, import_common106.Controller)("tutorials/admin"),
+  (0, import_common106.UseGuards)(JwtAuthGuard, RolesGuard),
+  Roles(Role.ADMIN),
+  __metadata129("design:paramtypes", [typeof (_a104 = typeof CoursesService !== "undefined" && CoursesService) === "function" ? _a104 : Object, typeof (_b49 = typeof AdminReviewService !== "undefined" && AdminReviewService) === "function" ? _b49 : Object, typeof (_c32 = typeof PaymentSettingsService !== "undefined" && PaymentSettingsService) === "function" ? _c32 : Object, typeof (_d27 = typeof CloudinaryService !== "undefined" && CloudinaryService) === "function" ? _d27 : Object])
+], TutorialsAdminController);
+
+// src/tutorial/tutorial.module.ts
+var __decorate160 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var TutorialsModule = class TutorialsModule2 {
+};
+TutorialsModule = __decorate160([
+  (0, import_common107.Module)({
     imports: [
+      import_mongoose105.MongooseModule.forFeature([
+        { name: Course.name, schema: CourseSchema },
+        { name: Enrollment.name, schema: EnrollmentSchema },
+        { name: Wallet.name, schema: WalletSchema },
+        { name: CoinTransaction.name, schema: CoinTransactionSchema },
+        { name: PaymentRequest.name, schema: PaymentRequestSchema },
+        { name: VideoAccess.name, schema: VideoAccessSchema },
+        { name: PaymentSettings.name, schema: PaymentSettingsSchema }
+      ]),
+      AuthModule,
+      UsersModule,
       MailModule,
-      import_mongoose82.MongooseModule.forFeature([
-        {
-          name: TutorialUser.name,
-          schema: TutorialUserSchema
-        },
-        {
-          name: TutorialCourse.name,
-          schema: TutorialCourseSchema
-        },
-        {
-          name: TutorialPaymentRequest.name,
-          schema: TutorialPaymentRequestSchema
-        }
-      ])
+      CloudinaryModule
     ],
-    controllers: [TutorialController],
-    providers: [TutorialRepository, TutorialService],
-    exports: [TutorialService, TutorialRepository]
+    controllers: [
+      TutorialsController,
+      TutorialsAdminController
+    ],
+    providers: [
+      CoursesRepository,
+      EnrollmentsRepository,
+      WalletsRepository,
+      CoinTransactionsRepository,
+      PaymentRequestsRepository,
+      VideoAccessRepository,
+      PaymentSettingsRepository,
+      CoursesService,
+      WalletService,
+      TutorialsAuthService,
+      EnrollmentService,
+      AdminReviewService,
+      PaymentSettingsService
+    ]
   })
-], TutorialModule);
+], TutorialsModule);
 
-// apps/api/src/app.module.ts
-var AppModule = class {
+// src/app.module.ts
+var __decorate161 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var AppModule = class AppModule2 {
   configure(consumer) {
     consumer.apply(LoggerMiddleware).forRoutes("*");
   }
 };
-AppModule = __decorateClass([
-  (0, import_common96.Module)({
+AppModule = __decorate161([
+  (0, import_common108.Module)({
     imports: [
-      import_config10.ConfigModule.forRoot({
+      import_config9.ConfigModule.forRoot({
         isGlobal: true,
         cache: true,
         load: config_default,
@@ -11816,45 +13520,34 @@ AppModule = __decorateClass([
       FooterModule,
       NewsletterModule,
       CalcomModule,
-      TutorialModule
-      // AssistantPublicModule,
+      TutorialsModule
     ]
   })
 ], AppModule);
 
-// apps/api/api/index.ts
+// api/index.ts
 var cachedApp;
 async function bootstrap() {
-  const app = await import_core2.NestFactory.create(
-    AppModule
-  );
-  app.useStaticAssets(
-    (0, import_path2.join)(process.cwd(), "uploads"),
-    {
-      prefix: "/uploads/"
-    }
-  );
+  const app = await import_core2.NestFactory.create(AppModule);
+  app.useStaticAssets((0, import_path2.join)(process.cwd(), "uploads"), {
+    prefix: "/uploads/"
+  });
   app.setGlobalPrefix("api/v1");
   app.enableCors({
     origin: process.env.CLIENT_URL,
     credentials: true
   });
-  app.useGlobalPipes(
-    new import_common97.ValidationPipe({
-      whitelist: true,
-      transform: true,
-      forbidNonWhitelisted: true,
-      transformOptions: {
-        enableImplicitConversion: true
-      }
-    })
-  );
-  const config = new import_swagger4.DocumentBuilder().setTitle("AI Company Management API").setDescription("Enterprise Management System API").setVersion("1.0").addBearerAuth().build();
-  const document = import_swagger4.SwaggerModule.createDocument(
-    app,
-    config
-  );
-  import_swagger4.SwaggerModule.setup("docs", app, document);
+  app.useGlobalPipes(new import_common109.ValidationPipe({
+    whitelist: true,
+    transform: true,
+    forbidNonWhitelisted: true,
+    transformOptions: {
+      enableImplicitConversion: true
+    }
+  }));
+  const config = new import_swagger7.DocumentBuilder().setTitle("AI Company Management API").setDescription("Enterprise Management System API").setVersion("1.0").addBearerAuth().build();
+  const document = import_swagger7.SwaggerModule.createDocument(app, config);
+  import_swagger7.SwaggerModule.setup("docs", app, document);
   await app.init();
   return app;
 }
