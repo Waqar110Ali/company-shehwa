@@ -5,6 +5,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -104,6 +105,9 @@ var __decorate = function(decorators, target, key, desc) {
 };
 var DatabaseService_1;
 var DatabaseService = DatabaseService_1 = class DatabaseService2 {
+  static {
+    __name(this, "DatabaseService");
+  }
   logger = new import_common.Logger(DatabaseService_1.name);
   connected() {
     this.logger.log("\u2705 MongoDB Connected Successfully");
@@ -127,6 +131,9 @@ var __decorate2 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var DatabaseModule = class DatabaseModule2 {
+  static {
+    __name(this, "DatabaseModule");
+  }
 };
 DatabaseModule = __decorate2([
   (0, import_common2.Global)(),
@@ -135,19 +142,19 @@ DatabaseModule = __decorate2([
       import_config.ConfigModule,
       import_mongoose.MongooseModule.forRootAsync({
         inject: [import_config.ConfigService],
-        useFactory: (config) => ({
+        useFactory: /* @__PURE__ */ __name((config) => ({
           uri: config.get("database.uri"),
           retryAttempts: 5,
           retryDelay: 3e3,
           autoIndex: true,
-          connectionFactory: (connection) => {
+          connectionFactory: /* @__PURE__ */ __name((connection) => {
             console.log("==================================");
             console.log("\u2705 MongoDB Connected");
             console.log("Database:", connection.name);
             console.log("==================================");
             return connection;
-          }
-        })
+          }, "connectionFactory")
+        }), "useFactory")
       })
     ],
     providers: [DatabaseService],
@@ -200,6 +207,9 @@ var __metadata = function(k, v) {
 };
 var _a;
 var User = class User2 {
+  static {
+    __name(this, "User");
+  }
   firstName;
   lastName;
   email;
@@ -389,6 +399,9 @@ var __param = function(paramIndex, decorator) {
 };
 var _a2;
 var UsersRepository = class UsersRepository2 {
+  static {
+    __name(this, "UsersRepository");
+  }
   userModel;
   constructor(userModel) {
     this.userModel = userModel;
@@ -541,6 +554,9 @@ var __param2 = function(paramIndex, decorator) {
 };
 var _a3;
 var UsersService = class UsersService2 {
+  static {
+    __name(this, "UsersService");
+  }
   repository;
   constructor(repository) {
     this.repository = repository;
@@ -649,6 +665,9 @@ var __param3 = function(paramIndex, decorator) {
 };
 var _a4;
 var UsersController = class UsersController2 {
+  static {
+    __name(this, "UsersController");
+  }
   usersService;
   constructor(usersService) {
     this.usersService = usersService;
@@ -732,6 +751,9 @@ var _d;
 var _e;
 var _f;
 var Employee = class Employee2 {
+  static {
+    __name(this, "Employee");
+  }
   employeeId;
   user;
   firstName;
@@ -960,6 +982,9 @@ var __decorate8 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var JwtAuthGuard = class JwtAuthGuard2 extends (0, import_passport.AuthGuard)("jwt") {
+  static {
+    __name(this, "JwtAuthGuard");
+  }
 };
 JwtAuthGuard = __decorate8([
   (0, import_common6.Injectable)()
@@ -972,7 +997,7 @@ var import_core = require("@nestjs/core");
 // src/auth/decorators/roles.decorator.ts
 var import_common7 = require("@nestjs/common");
 var ROLES_KEY = "roles";
-var Roles = (...roles) => (0, import_common7.SetMetadata)(ROLES_KEY, roles);
+var Roles = /* @__PURE__ */ __name((...roles) => (0, import_common7.SetMetadata)(ROLES_KEY, roles), "Roles");
 
 // src/auth/guards/roles.guard.ts
 var __decorate9 = function(decorators, target, key, desc) {
@@ -991,6 +1016,9 @@ var __param4 = function(paramIndex, decorator) {
 };
 var _a6;
 var RolesGuard = class RolesGuard2 {
+  static {
+    __name(this, "RolesGuard");
+  }
   reflector;
   constructor(reflector) {
     this.reflector = reflector;
@@ -1061,6 +1089,9 @@ var __param5 = function(paramIndex, decorator) {
 };
 var _a7;
 var EmployeesRepository = class EmployeesRepository2 {
+  static {
+    __name(this, "EmployeesRepository");
+  }
   employeeModel;
   constructor(employeeModel) {
     this.employeeModel = employeeModel;
@@ -1226,6 +1257,9 @@ var _a8;
 var _b2;
 var _c2;
 var MailService = class MailService2 {
+  static {
+    __name(this, "MailService");
+  }
   mailerService;
   configService;
   usersService;
@@ -1360,17 +1394,18 @@ var avatarUploadOptions = {
   limits: {
     fileSize: MAX_FILE_SIZE_BYTES
   },
-  fileFilter: (_req, file, callback) => {
+  fileFilter: /* @__PURE__ */ __name((_req, file, callback) => {
     if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
       callback(new import_common11.BadRequestException("Only JPG, PNG, or WEBP images are allowed for the profile picture."), false);
       return;
     }
     callback(null, true);
-  }
+  }, "fileFilter")
 };
 function isCloudinaryAvatarUrl(avatar) {
   return !!avatar && avatar.includes("res.cloudinary.com") && avatar.includes(`/${AVATAR_CLOUDINARY_FOLDER}/`);
 }
+__name(isCloudinaryAvatarUrl, "isCloudinaryAvatarUrl");
 
 // src/common/cloudinary/cloudinary.service.ts
 var import_common12 = require("@nestjs/common");
@@ -1389,6 +1424,9 @@ var __param7 = function(paramIndex, decorator) {
   };
 };
 var CloudinaryService = class CloudinaryService2 {
+  static {
+    __name(this, "CloudinaryService");
+  }
   cloudinary;
   constructor(cloudinary2) {
     this.cloudinary = cloudinary2;
@@ -1443,6 +1481,9 @@ var _b3;
 var _c3;
 var _d2;
 var EmployeesService = class EmployeesService2 {
+  static {
+    __name(this, "EmployeesService");
+  }
   repository;
   usersService;
   mailService;
@@ -1709,6 +1750,9 @@ var _b4;
 var _c4;
 var _d3;
 var CreateEmployeeDto = class {
+  static {
+    __name(this, "CreateEmployeeDto");
+  }
   firstName;
   lastName;
   email;
@@ -1865,6 +1909,9 @@ __decorate14([
 // src/employees/dto/update-employee.dto.ts
 var import_mapped_types = require("@nestjs/mapped-types");
 var UpdateEmployeeDto = class extends (0, import_mapped_types.PartialType)(CreateEmployeeDto) {
+  static {
+    __name(this, "UpdateEmployeeDto");
+  }
   firstName;
   lastName;
   joiningDate;
@@ -1889,6 +1936,9 @@ var __metadata12 = function(k, v) {
 var _a11;
 var _b5;
 var EmployeeQueryDto = class {
+  static {
+    __name(this, "EmployeeQueryDto");
+  }
   page = 1;
   limit = 10;
   search;
@@ -1978,6 +2028,9 @@ var _f2;
 var _g;
 var _h;
 var EmployeesController = class EmployeesController2 {
+  static {
+    __name(this, "EmployeesController");
+  }
   service;
   constructor(service) {
     this.service = service;
@@ -2085,6 +2138,9 @@ var __decorate17 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var MailModule = class MailModule2 {
+  static {
+    __name(this, "MailModule");
+  }
 };
 MailModule = __decorate17([
   (0, import_common15.Module)({
@@ -2094,7 +2150,7 @@ MailModule = __decorate17([
       import_mailer2.MailerModule.forRootAsync({
         imports: [import_config3.ConfigModule],
         inject: [import_config3.ConfigService],
-        useFactory: (config) => ({
+        useFactory: /* @__PURE__ */ __name((config) => ({
           transport: {
             host: config.get("MAIL_HOST"),
             port: Number(config.get("MAIL_PORT")),
@@ -2114,7 +2170,7 @@ MailModule = __decorate17([
               strict: true
             }
           }
-        })
+        }), "useFactory")
       })
     ],
     providers: [MailService],
@@ -2130,14 +2186,14 @@ var import_cloudinary2 = require("cloudinary");
 var import_config4 = require("@nestjs/config");
 var CloudinaryProvider = {
   provide: "CLOUDINARY",
-  useFactory: (configService) => {
+  useFactory: /* @__PURE__ */ __name((configService) => {
     import_cloudinary2.v2.config({
       cloud_name: configService.get("CLOUDINARY_CLOUD_NAME"),
       api_key: configService.get("CLOUDINARY_API_KEY"),
       api_secret: configService.get("CLOUDINARY_API_SECRET")
     });
     return import_cloudinary2.v2;
-  },
+  }, "useFactory"),
   inject: [import_config4.ConfigService]
 };
 
@@ -2149,6 +2205,9 @@ var __decorate18 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var CloudinaryModule = class CloudinaryModule2 {
+  static {
+    __name(this, "CloudinaryModule");
+  }
 };
 CloudinaryModule = __decorate18([
   (0, import_common16.Module)({
@@ -2170,6 +2229,9 @@ var __decorate19 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var EmployeesModule = class EmployeesModule2 {
+  static {
+    __name(this, "EmployeesModule");
+  }
 };
 EmployeesModule = __decorate19([
   (0, import_common17.Module)({
@@ -2206,6 +2268,9 @@ var __decorate20 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var UsersModule = class UsersModule2 {
+  static {
+    __name(this, "UsersModule");
+  }
 };
 UsersModule = __decorate20([
   (0, import_common18.Module)({
@@ -2268,6 +2333,9 @@ var _c6;
 var _d5;
 var _e3;
 var AuthService = class AuthService2 {
+  static {
+    __name(this, "AuthService");
+  }
   usersService;
   jwtService;
   configService;
@@ -2466,6 +2534,9 @@ var __metadata15 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var LoginDto = class {
+  static {
+    __name(this, "LoginDto");
+  }
   email;
   password;
 };
@@ -2490,6 +2561,9 @@ var __metadata16 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var RefreshTokenDto = class {
+  static {
+    __name(this, "RefreshTokenDto");
+  }
   refreshToken;
 };
 __decorate23([
@@ -2527,6 +2601,9 @@ var __metadata17 = function(k, v) {
 };
 var _a14;
 var RegisterDto = class {
+  static {
+    __name(this, "RegisterDto");
+  }
   firstName;
   lastName;
   email;
@@ -2595,6 +2672,9 @@ var _c7;
 var _d6;
 var _e4;
 var AuthController = class AuthController2 {
+  static {
+    __name(this, "AuthController");
+  }
   authService;
   constructor(authService) {
     this.authService = authService;
@@ -2708,6 +2788,9 @@ var __param12 = function(paramIndex, decorator) {
 };
 var _a16;
 var JwtStrategy = class JwtStrategy2 extends (0, import_passport2.PassportStrategy)(import_passport_jwt.Strategy) {
+  static {
+    __name(this, "JwtStrategy");
+  }
   constructor(configService) {
     super({
       jwtFromRequest: import_passport_jwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -2733,6 +2816,9 @@ var __decorate27 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var AuthModule = class AuthModule2 {
+  static {
+    __name(this, "AuthModule");
+  }
 };
 AuthModule = __decorate27([
   (0, import_common23.Module)({
@@ -2747,12 +2833,12 @@ AuthModule = __decorate27([
       import_jwt2.JwtModule.registerAsync({
         imports: [import_config7.ConfigModule],
         inject: [import_config7.ConfigService],
-        useFactory: (config) => ({
+        useFactory: /* @__PURE__ */ __name((config) => ({
           secret: config.getOrThrow("JWT_SECRET"),
           signOptions: {
             expiresIn: config.get("JWT_EXPIRES") ?? "15m"
           }
-        })
+        }), "useFactory")
       })
     ],
     controllers: [
@@ -2815,6 +2901,9 @@ var _b9;
 var _c8;
 var _d7;
 var Project = class Project2 {
+  static {
+    __name(this, "Project");
+  }
   name;
   description;
   status;
@@ -2952,6 +3041,9 @@ var _c9;
 var _d8;
 var _e5;
 var Task = class Task2 {
+  static {
+    __name(this, "Task");
+  }
   title;
   description;
   project;
@@ -3061,6 +3153,9 @@ var _a19;
 var _b11;
 var _c10;
 var DashboardRepository = class DashboardRepository2 {
+  static {
+    __name(this, "DashboardRepository");
+  }
   employeeModel;
   projectModel;
   taskModel;
@@ -3185,6 +3280,9 @@ var __param14 = function(paramIndex, decorator) {
 };
 var _a20;
 var DashboardService = class DashboardService2 {
+  static {
+    __name(this, "DashboardService");
+  }
   repository;
   constructor(repository) {
     this.repository = repository;
@@ -3229,6 +3327,9 @@ var __param15 = function(paramIndex, decorator) {
 };
 var _a21;
 var DashboardController = class DashboardController2 {
+  static {
+    __name(this, "DashboardController");
+  }
   dashboardService;
   constructor(dashboardService) {
     this.dashboardService = dashboardService;
@@ -3261,6 +3362,9 @@ var __decorate33 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var DashboardModule = class DashboardModule2 {
+  static {
+    __name(this, "DashboardModule");
+  }
 };
 DashboardModule = __decorate33([
   (0, import_common27.Module)({
@@ -3316,6 +3420,9 @@ var __metadata25 = function(k, v) {
 var _a22;
 var _b12;
 var CreateProjectDto = class {
+  static {
+    __name(this, "CreateProjectDto");
+  }
   name;
   description;
   status;
@@ -3364,6 +3471,9 @@ __decorate34([
 // src/projects/dto/update-project.dto.ts
 var import_swagger2 = require("@nestjs/swagger");
 var UpdateProjectDto = class extends (0, import_swagger2.PartialType)(CreateProjectDto) {
+  static {
+    __name(this, "UpdateProjectDto");
+  }
 };
 
 // src/projects/dto/project-query.dto.ts
@@ -3381,6 +3491,9 @@ var __metadata26 = function(k, v) {
 var _a23;
 var _b13;
 var ProjectQueryDto = class {
+  static {
+    __name(this, "ProjectQueryDto");
+  }
   page = 1;
   limit = 10;
   search;
@@ -3432,6 +3545,9 @@ var import_common29 = require("@nestjs/common");
 
 // src/projects/mappers/project.mapper.ts
 var ProjectMapper = class {
+  static {
+    __name(this, "ProjectMapper");
+  }
   static toList(project) {
     return {
       id: project._id.toString(),
@@ -3488,6 +3604,9 @@ var __param16 = function(paramIndex, decorator) {
 };
 var _a24;
 var ProjectsRepository = class ProjectsRepository2 {
+  static {
+    __name(this, "ProjectsRepository");
+  }
   projectModel;
   constructor(projectModel) {
     this.projectModel = projectModel;
@@ -3621,6 +3740,9 @@ var __param17 = function(paramIndex, decorator) {
 };
 var _a25;
 var ProjectsService = class ProjectsService2 {
+  static {
+    __name(this, "ProjectsService");
+  }
   repository;
   constructor(repository) {
     this.repository = repository;
@@ -3681,6 +3803,9 @@ var _b14;
 var _c11;
 var _d9;
 var ProjectsController = class ProjectsController2 {
+  static {
+    __name(this, "ProjectsController");
+  }
   projectsService;
   constructor(projectsService) {
     this.projectsService = projectsService;
@@ -3769,6 +3894,9 @@ var __decorate39 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ProjectsModule = class ProjectsModule2 {
+  static {
+    __name(this, "ProjectsModule");
+  }
 };
 ProjectsModule = __decorate39([
   (0, import_common31.Module)({
@@ -3828,6 +3956,9 @@ var __param19 = function(paramIndex, decorator) {
 };
 var _a27;
 var TaskRepository = class TaskRepository2 {
+  static {
+    __name(this, "TaskRepository");
+  }
   taskModel;
   constructor(taskModel) {
     this.taskModel = taskModel;
@@ -3941,6 +4072,9 @@ var __param20 = function(paramIndex, decorator) {
 };
 var _a28;
 var TaskService = class TaskService2 {
+  static {
+    __name(this, "TaskService");
+  }
   tasksRepository;
   constructor(tasksRepository) {
     this.tasksRepository = tasksRepository;
@@ -4024,6 +4158,9 @@ var __metadata32 = function(k, v) {
 var _a29;
 var _b15;
 var CreateTaskDto = class {
+  static {
+    __name(this, "CreateTaskDto");
+  }
   title;
   description;
   project;
@@ -4074,6 +4211,9 @@ __decorate42([
 // src/tasks/dto/update-task.dto.ts
 var import_mapped_types2 = require("@nestjs/mapped-types");
 var UpdateTaskDto = class extends (0, import_mapped_types2.PartialType)(CreateTaskDto) {
+  static {
+    __name(this, "UpdateTaskDto");
+  }
 };
 
 // src/tasks/dto/task-filter.dto.ts
@@ -4090,6 +4230,9 @@ var __metadata33 = function(k, v) {
 var _a30;
 var _b16;
 var TaskFilterDto = class {
+  static {
+    __name(this, "TaskFilterDto");
+  }
   search;
   status;
   priority;
@@ -4154,6 +4297,9 @@ var _b17;
 var _c12;
 var _d10;
 var TaskController = class TaskController2 {
+  static {
+    __name(this, "TaskController");
+  }
   taskService;
   constructor(taskService) {
     this.taskService = taskService;
@@ -4241,6 +4387,9 @@ var __decorate45 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var TasksMapper = class TasksMapper2 {
+  static {
+    __name(this, "TasksMapper");
+  }
   toResponse(task) {
     return {
       id: task._id.toString(),
@@ -4275,6 +4424,9 @@ var __decorate46 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var TaskModule = class TaskModule2 {
+  static {
+    __name(this, "TaskModule");
+  }
 };
 TaskModule = __decorate46([
   (0, import_common36.Module)({
@@ -4308,6 +4460,9 @@ var __decorate47 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var LoggerMiddleware = class LoggerMiddleware2 {
+  static {
+    __name(this, "LoggerMiddleware");
+  }
   use(req, res, next) {
     const start = Date.now();
     console.log(`\u27A1\uFE0F ${req.method} ${req.originalUrl}`);
@@ -4352,6 +4507,9 @@ var _a32;
 var _b18;
 var _c13;
 var Attendance = class Attendance2 {
+  static {
+    __name(this, "Attendance");
+  }
   employee;
   date;
   checkIn;
@@ -4434,6 +4592,9 @@ var __param22 = function(paramIndex, decorator) {
 };
 var _a33;
 var AttendanceRepository = class AttendanceRepository2 {
+  static {
+    __name(this, "AttendanceRepository");
+  }
   attendanceModel;
   constructor(attendanceModel) {
     this.attendanceModel = attendanceModel;
@@ -4551,6 +4712,9 @@ var __param23 = function(paramIndex, decorator) {
 };
 var _a34;
 var AttendanceService = class AttendanceService2 {
+  static {
+    __name(this, "AttendanceService");
+  }
   attendanceRepository;
   constructor(attendanceRepository) {
     this.attendanceRepository = attendanceRepository;
@@ -4621,6 +4785,9 @@ var __metadata38 = function(k, v) {
 };
 var _a35;
 var CreateAttendanceDto = class {
+  static {
+    __name(this, "CreateAttendanceDto");
+  }
   employee;
   date;
   checkIn;
@@ -4653,6 +4820,9 @@ __decorate51([
 // src/attendance/dto/update-attendance.dto.ts
 var import_mapped_types3 = require("@nestjs/mapped-types");
 var UpdateAttendanceDto = class extends (0, import_mapped_types3.PartialType)(CreateAttendanceDto) {
+  static {
+    __name(this, "UpdateAttendanceDto");
+  }
 };
 
 // src/attendance/dto/attendance-filter.dto.ts
@@ -4668,6 +4838,9 @@ var __metadata39 = function(k, v) {
 };
 var _a36;
 var AttendanceFilterDto = class {
+  static {
+    __name(this, "AttendanceFilterDto");
+  }
   search;
   department;
   status;
@@ -4732,6 +4905,9 @@ var _b19;
 var _c14;
 var _d11;
 var AttendanceController = class AttendanceController2 {
+  static {
+    __name(this, "AttendanceController");
+  }
   attendanceService;
   constructor(attendanceService) {
     this.attendanceService = attendanceService;
@@ -4813,6 +4989,9 @@ var __decorate54 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var AttendanceMapper = class AttendanceMapper2 {
+  static {
+    __name(this, "AttendanceMapper");
+  }
   toResponse(attendance) {
     return {
       id: attendance._id.toString(),
@@ -4845,6 +5024,9 @@ var __decorate55 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var AttendanceModule = class AttendanceModule2 {
+  static {
+    __name(this, "AttendanceModule");
+  }
 };
 AttendanceModule = __decorate55([
   (0, import_common42.Module)({
@@ -4908,6 +5090,9 @@ var __metadata41 = function(k, v) {
 var _a38;
 var _b20;
 var CalendarEvent = class CalendarEvent2 {
+  static {
+    __name(this, "CalendarEvent");
+  }
   title;
   description;
   type;
@@ -5027,6 +5212,9 @@ var __param25 = function(paramIndex, decorator) {
 };
 var _a39;
 var CalendarRepository = class CalendarRepository2 {
+  static {
+    __name(this, "CalendarRepository");
+  }
   calendarModel;
   constructor(calendarModel) {
     this.calendarModel = calendarModel;
@@ -5147,6 +5335,9 @@ var __decorate58 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var CalendarMapper = class CalendarMapper2 {
+  static {
+    __name(this, "CalendarMapper");
+  }
   toResponse(event) {
     if (!event) {
       return null;
@@ -5204,6 +5395,9 @@ var __param26 = function(paramIndex, decorator) {
 var _a40;
 var _b21;
 var CalendarService = class CalendarService2 {
+  static {
+    __name(this, "CalendarService");
+  }
   calendarRepository;
   calendarMapper;
   constructor(calendarRepository, calendarMapper) {
@@ -5310,6 +5504,9 @@ var __metadata44 = function(k, v) {
 };
 var _a41;
 var CreateCalendarEventDto = class {
+  static {
+    __name(this, "CreateCalendarEventDto");
+  }
   title;
   description;
   type;
@@ -5368,6 +5565,9 @@ __decorate60([
 // src/calender/dto/update-calendar-event.dto.ts
 var import_mapped_types4 = require("@nestjs/mapped-types");
 var UpdateCalendarEventDto = class extends (0, import_mapped_types4.PartialType)(CreateCalendarEventDto) {
+  static {
+    __name(this, "UpdateCalendarEventDto");
+  }
 };
 
 // src/calender/dto/calendar-filter.dto.ts
@@ -5383,6 +5583,9 @@ var __metadata45 = function(k, v) {
 };
 var _a42;
 var CalendarFilterDto = class {
+  static {
+    __name(this, "CalendarFilterDto");
+  }
   search;
   type;
   page;
@@ -5441,6 +5644,9 @@ var _b22;
 var _c15;
 var _d12;
 var CalendarController = class CalendarController2 {
+  static {
+    __name(this, "CalendarController");
+  }
   calendarService;
   constructor(calendarService) {
     this.calendarService = calendarService;
@@ -5530,6 +5736,9 @@ var __decorate63 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var CalendarModule = class CalendarModule2 {
+  static {
+    __name(this, "CalendarModule");
+  }
 };
 CalendarModule = __decorate63([
   (0, import_common47.Module)({
@@ -5598,6 +5807,9 @@ var __metadata47 = function(k, v) {
 var _a44;
 var _b23;
 var Conversation = class Conversation2 {
+  static {
+    __name(this, "Conversation");
+  }
   participants;
   type;
   lastMessage;
@@ -5615,7 +5827,7 @@ __decorate64([
     ],
     required: true,
     validate: {
-      validator: (participants) => participants.length >= 2,
+      validator: /* @__PURE__ */ __name((participants) => participants.length >= 2, "validator"),
       message: "Conversation must contain at least two participants."
     }
   }),
@@ -5703,6 +5915,9 @@ var _f3;
 var _g2;
 var _h2;
 var Message = class Message2 {
+  static {
+    __name(this, "Message");
+  }
   conversation;
   sender;
   type;
@@ -5920,6 +6135,9 @@ var __param28 = function(paramIndex, decorator) {
 var _a46;
 var _b25;
 var ChatRepository = class ChatRepository2 {
+  static {
+    __name(this, "ChatRepository");
+  }
   conversationModel;
   messageModel;
   constructor(conversationModel, messageModel) {
@@ -6158,6 +6376,9 @@ var __decorate67 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ChatMapper = class ChatMapper2 {
+  static {
+    __name(this, "ChatMapper");
+  }
   toConversation(conversation, currentEmployeeId) {
     const participants = conversation.participants;
     const otherParticipant = participants.find((employee) => employee._id.toString() !== currentEmployeeId);
@@ -6261,6 +6482,9 @@ var _g3;
 var _h3;
 var _j;
 var ChatGateway = class ChatGateway2 {
+  static {
+    __name(this, "ChatGateway");
+  }
   repository;
   mapper;
   constructor(repository, mapper) {
@@ -6860,6 +7084,9 @@ var _c18;
 var _d15;
 var _e8;
 var ChatService = class ChatService2 {
+  static {
+    __name(this, "ChatService");
+  }
   repository;
   employeesRepository;
   mapper;
@@ -7073,6 +7300,9 @@ var __metadata52 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ConversationFilterDto = class {
+  static {
+    __name(this, "ConversationFilterDto");
+  }
   search;
   page = 1;
   limit = 20;
@@ -7111,6 +7341,9 @@ var __metadata53 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MessageFilterDto = class {
+  static {
+    __name(this, "MessageFilterDto");
+  }
   page = 1;
   limit = 50;
 };
@@ -7142,6 +7375,9 @@ var __metadata54 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateConversationDto = class {
+  static {
+    __name(this, "CreateConversationDto");
+  }
   participantId;
 };
 __decorate72([
@@ -7161,6 +7397,9 @@ var __metadata55 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var UpdateMessageDto = class {
+  static {
+    __name(this, "UpdateMessageDto");
+  }
   content;
 };
 __decorate73([
@@ -7192,6 +7431,9 @@ var _e9;
 var _f5;
 var _g4;
 var ChatController = class ChatController2 {
+  static {
+    __name(this, "ChatController");
+  }
   service;
   constructor(service) {
     this.service = service;
@@ -7332,6 +7574,9 @@ var __decorate75 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ChatModule = class ChatModule2 {
+  static {
+    __name(this, "ChatModule");
+  }
 };
 ChatModule = __decorate75([
   (0, import_common53.Module)({
@@ -7420,6 +7665,9 @@ var _c20;
 var _d17;
 var _e10;
 var File = class File2 {
+  static {
+    __name(this, "File");
+  }
   name;
   originalName;
   extension;
@@ -7602,6 +7850,9 @@ var __param32 = function(paramIndex, decorator) {
 };
 var _a51;
 var FilesRepository = class FilesRepository2 {
+  static {
+    __name(this, "FilesRepository");
+  }
   fileModel;
   constructor(fileModel) {
     this.fileModel = fileModel;
@@ -7740,6 +7991,9 @@ var __decorate78 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var FilesMapper = class FilesMapper2 {
+  static {
+    __name(this, "FilesMapper");
+  }
   toFile(file, employeeId, canManage) {
     const owner = file.owner;
     const ownerId = owner?._id?.toString() ?? owner?.toString();
@@ -7856,6 +8110,9 @@ var _b29;
 var _c21;
 var _d18;
 var FilesService = class FilesService2 {
+  static {
+    __name(this, "FilesService");
+  }
   repository;
   employeesRepository;
   mapper;
@@ -8093,6 +8350,9 @@ var __metadata60 = function(k, v) {
 };
 var _a53;
 var FileQueryDto = class {
+  static {
+    __name(this, "FileQueryDto");
+  }
   page = 1;
   limit = 20;
   search;
@@ -8146,6 +8406,9 @@ var __metadata61 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateFolderDto = class {
+  static {
+    __name(this, "CreateFolderDto");
+  }
   name;
   parentFolder;
 };
@@ -8173,6 +8436,9 @@ var __metadata62 = function(k, v) {
 };
 var _a54;
 var UploadFileDto = class {
+  static {
+    __name(this, "UploadFileDto");
+  }
   name;
   type;
   parentFolder;
@@ -8203,6 +8469,9 @@ var __metadata63 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var RenameFileDto = class {
+  static {
+    __name(this, "RenameFileDto");
+  }
   name;
 };
 __decorate83([
@@ -8223,6 +8492,9 @@ var __metadata64 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MoveFileDto = class {
+  static {
+    __name(this, "MoveFileDto");
+  }
   parentFolder;
 };
 __decorate84([
@@ -8243,6 +8515,9 @@ var __metadata65 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ShareFileDto = class {
+  static {
+    __name(this, "ShareFileDto");
+  }
   employeeIds;
 };
 __decorate85([
@@ -8279,6 +8554,9 @@ var _g5;
 var _h4;
 var _j2;
 var FilesController = class FilesController2 {
+  static {
+    __name(this, "FilesController");
+  }
   filesService;
   constructor(filesService) {
     this.filesService = filesService;
@@ -8413,6 +8691,9 @@ var __decorate87 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var FilesModule = class FilesModule2 {
+  static {
+    __name(this, "FilesModule");
+  }
 };
 FilesModule = __decorate87([
   (0, import_common58.Module)({
@@ -8476,6 +8757,9 @@ var _b31;
 var _c23;
 var _d20;
 var ReportsRepository = class ReportsRepository2 {
+  static {
+    __name(this, "ReportsRepository");
+  }
   employeeModel;
   projectModel;
   taskModel;
@@ -9082,6 +9366,9 @@ var __param36 = function(paramIndex, decorator) {
 };
 var _a57;
 var ReportsService = class ReportsService2 {
+  static {
+    __name(this, "ReportsService");
+  }
   reportsRepository;
   constructor(reportsRepository) {
     this.reportsRepository = reportsRepository;
@@ -9116,6 +9403,9 @@ var __param37 = function(paramIndex, decorator) {
 };
 var _a58;
 var ReportsExportService = class ReportsExportService2 {
+  static {
+    __name(this, "ReportsExportService");
+  }
   reportsRepository;
   constructor(reportsRepository) {
     this.reportsRepository = reportsRepository;
@@ -9359,6 +9649,9 @@ var __decorate91 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ReportsAccessGuard = class ReportsAccessGuard2 extends (0, import_passport4.AuthGuard)("jwt") {
+  static {
+    __name(this, "ReportsAccessGuard");
+  }
   async canActivate(context) {
     const authenticated = await super.canActivate(context);
     if (!authenticated) {
@@ -9401,6 +9694,9 @@ var _a59;
 var _b32;
 var _c24;
 var ReportsController = class ReportsController2 {
+  static {
+    __name(this, "ReportsController");
+  }
   reportsService;
   reportsExportService;
   constructor(reportsService, reportsExportService) {
@@ -9465,6 +9761,9 @@ var __decorate93 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ReportsModule = class ReportsModule2 {
+  static {
+    __name(this, "ReportsModule");
+  }
 };
 ReportsModule = __decorate93([
   (0, import_common64.Module)({
@@ -9529,6 +9828,9 @@ var __metadata71 = function(k, v) {
 };
 var _a60;
 var PortfolioContent = class PortfolioContent2 {
+  static {
+    __name(this, "PortfolioContent");
+  }
   content;
 };
 __decorate94([
@@ -9562,6 +9864,9 @@ var __param39 = function(paramIndex, decorator) {
 };
 var _a61;
 var PortfolioRepository = class PortfolioRepository2 {
+  static {
+    __name(this, "PortfolioRepository");
+  }
   portfolioModel;
   constructor(portfolioModel) {
     this.portfolioModel = portfolioModel;
@@ -9640,6 +9945,9 @@ var DEFAULT_PORTFOLIO_CONTENT = {
   clientReviews: []
 };
 var PortfolioService = class PortfolioService2 {
+  static {
+    __name(this, "PortfolioService");
+  }
   portfolioRepository;
   constructor(portfolioRepository) {
     this.portfolioRepository = portfolioRepository;
@@ -9692,6 +10000,9 @@ var _d21;
 var _e12;
 var _f7;
 var PortfolioController = class PortfolioController2 {
+  static {
+    __name(this, "PortfolioController");
+  }
   portfolioService;
   cloudinary;
   constructor(portfolioService, cloudinary2) {
@@ -9767,6 +10078,9 @@ var __decorate98 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var PortfolioModule = class PortfolioModule2 {
+  static {
+    __name(this, "PortfolioModule");
+  }
 };
 PortfolioModule = __decorate98([
   (0, import_common68.Module)({
@@ -9820,6 +10134,9 @@ var __metadata75 = function(k, v) {
 };
 var _a64;
 var UserSettingsDoc = class UserSettingsDoc2 {
+  static {
+    __name(this, "UserSettingsDoc");
+  }
   userId;
   content;
 };
@@ -9863,6 +10180,9 @@ var __param42 = function(paramIndex, decorator) {
 };
 var _a65;
 var SettingsRepository = class SettingsRepository2 {
+  static {
+    __name(this, "SettingsRepository");
+  }
   settingsModel;
   constructor(settingsModel) {
     this.settingsModel = settingsModel;
@@ -9901,6 +10221,9 @@ var __param43 = function(paramIndex, decorator) {
 };
 var _a66;
 var SettingsService = class SettingsService2 {
+  static {
+    __name(this, "SettingsService");
+  }
   settingsRepository;
   constructor(settingsRepository) {
     this.settingsRepository = settingsRepository;
@@ -9950,6 +10273,9 @@ var ADMIN_ONLY_FIELDS = [
   "address"
 ];
 var SettingsController = class SettingsController2 {
+  static {
+    __name(this, "SettingsController");
+  }
   settingsService;
   constructor(settingsService) {
     this.settingsService = settingsService;
@@ -9998,6 +10324,9 @@ var __decorate103 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var SettingsModule = class SettingsModule2 {
+  static {
+    __name(this, "SettingsModule");
+  }
 };
 SettingsModule = __decorate103([
   (0, import_common72.Module)({
@@ -10049,6 +10378,9 @@ var __metadata79 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var NotificationDoc = class NotificationDoc2 {
+  static {
+    __name(this, "NotificationDoc");
+  }
   userId;
   title;
   description;
@@ -10123,6 +10455,9 @@ var __param45 = function(paramIndex, decorator) {
 };
 var _a68;
 var NotificationsRepository = class NotificationsRepository2 {
+  static {
+    __name(this, "NotificationsRepository");
+  }
   notificationModel;
   constructor(notificationModel) {
     this.notificationModel = notificationModel;
@@ -10169,6 +10504,9 @@ var __param46 = function(paramIndex, decorator) {
 };
 var _a69;
 var NotificationsService = class NotificationsService2 {
+  static {
+    __name(this, "NotificationsService");
+  }
   notificationsRepository;
   constructor(notificationsRepository) {
     this.notificationsRepository = notificationsRepository;
@@ -10233,6 +10571,9 @@ var __param47 = function(paramIndex, decorator) {
 };
 var _a70;
 var NotificationsController = class NotificationsController2 {
+  static {
+    __name(this, "NotificationsController");
+  }
   notificationsService;
   constructor(notificationsService) {
     this.notificationsService = notificationsService;
@@ -10294,6 +10635,9 @@ var __decorate108 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var NotificationsModule = class NotificationsModule2 {
+  static {
+    __name(this, "NotificationsModule");
+  }
 };
 NotificationsModule = __decorate108([
   (0, import_common76.Module)({
@@ -10347,6 +10691,9 @@ var __metadata83 = function(k, v) {
 };
 var _a71;
 var UpdatesContent = class UpdatesContent2 {
+  static {
+    __name(this, "UpdatesContent");
+  }
   content;
 };
 __decorate109([
@@ -10380,6 +10727,9 @@ var __param48 = function(paramIndex, decorator) {
 };
 var _a72;
 var UpdatesRepository = class UpdatesRepository2 {
+  static {
+    __name(this, "UpdatesRepository");
+  }
   updatesModel;
   constructor(updatesModel) {
     this.updatesModel = updatesModel;
@@ -10418,6 +10768,9 @@ var __param49 = function(paramIndex, decorator) {
 };
 var _a73;
 var UpdatesService = class UpdatesService2 {
+  static {
+    __name(this, "UpdatesService");
+  }
   updatesRepository;
   constructor(updatesRepository) {
     this.updatesRepository = updatesRepository;
@@ -10478,6 +10831,9 @@ var _e13;
 var _f8;
 var _g6;
 var UpdatesController = class UpdatesController2 {
+  static {
+    __name(this, "UpdatesController");
+  }
   updatesService;
   cloudinary;
   constructor(updatesService, cloudinary2) {
@@ -10571,6 +10927,9 @@ var __decorate113 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var UpdatesModule = class UpdatesModule2 {
+  static {
+    __name(this, "UpdatesModule");
+  }
 };
 UpdatesModule = __decorate113([
   (0, import_common80.Module)({
@@ -10624,6 +10983,9 @@ var __metadata87 = function(k, v) {
 };
 var _a75;
 var FooterContentDoc = class FooterContentDoc2 {
+  static {
+    __name(this, "FooterContentDoc");
+  }
   content;
 };
 __decorate114([
@@ -10652,6 +11014,9 @@ var __param51 = function(paramIndex, decorator) {
 };
 var _a76;
 var FooterRepository = class FooterRepository2 {
+  static {
+    __name(this, "FooterRepository");
+  }
   footerModel;
   constructor(footerModel) {
     this.footerModel = footerModel;
@@ -10693,6 +11058,9 @@ var DEFAULT_CONTENT = {
   sections: { company: [], services: [], legal: [] }
 };
 var FooterService = class FooterService2 {
+  static {
+    __name(this, "FooterService");
+  }
   footerRepository;
   constructor(footerRepository) {
     this.footerRepository = footerRepository;
@@ -10734,6 +11102,9 @@ var __param53 = function(paramIndex, decorator) {
 var _a78;
 var _b36;
 var FooterController = class FooterController2 {
+  static {
+    __name(this, "FooterController");
+  }
   footerService;
   constructor(footerService) {
     this.footerService = footerService;
@@ -10774,6 +11145,9 @@ var __decorate118 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var FooterModule = class FooterModule2 {
+  static {
+    __name(this, "FooterModule");
+  }
 };
 FooterModule = __decorate118([
   (0, import_common84.Module)({
@@ -10815,6 +11189,9 @@ var __metadata91 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var NewsletterSubscriberDoc = class NewsletterSubscriberDoc2 {
+  static {
+    __name(this, "NewsletterSubscriberDoc");
+  }
   email;
   active;
 };
@@ -10861,6 +11238,9 @@ var __param54 = function(paramIndex, decorator) {
 };
 var _a79;
 var NewsletterRepository = class NewsletterRepository2 {
+  static {
+    __name(this, "NewsletterRepository");
+  }
   model;
   constructor(model) {
     this.model = model;
@@ -10899,6 +11279,9 @@ var __param55 = function(paramIndex, decorator) {
 var _a80;
 var _b37;
 var NewsletterService = class NewsletterService2 {
+  static {
+    __name(this, "NewsletterService");
+  }
   mailService;
   newsletterRepository;
   constructor(mailService, newsletterRepository) {
@@ -10947,6 +11330,9 @@ var __metadata94 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var SubscribeNewsletterDto = class {
+  static {
+    __name(this, "SubscribeNewsletterDto");
+  }
   email;
 };
 __decorate122([
@@ -10973,6 +11359,9 @@ var __param56 = function(paramIndex, decorator) {
 var _a81;
 var _b38;
 var NewsletterController = class NewsletterController2 {
+  static {
+    __name(this, "NewsletterController");
+  }
   service;
   constructor(service) {
     this.service = service;
@@ -11003,6 +11392,9 @@ var __decorate124 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var NewsletterModule = class NewsletterModule2 {
+  static {
+    __name(this, "NewsletterModule");
+  }
 };
 NewsletterModule = __decorate124([
   (0, import_common88.Module)({
@@ -11048,6 +11440,9 @@ var __param57 = function(paramIndex, decorator) {
 };
 var _a82;
 var CalcomService = class CalcomService2 {
+  static {
+    __name(this, "CalcomService");
+  }
   apiBase = "https://api.cal.com/v2";
   config;
   constructor(config) {
@@ -11228,6 +11623,9 @@ var __metadata97 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateCalBookingDto = class {
+  static {
+    __name(this, "CreateCalBookingDto");
+  }
   start;
   name;
   email;
@@ -11272,6 +11670,9 @@ var __metadata98 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var GetCalSlotsDto = class {
+  static {
+    __name(this, "GetCalSlotsDto");
+  }
   start;
   end;
 };
@@ -11311,6 +11712,9 @@ var _a83;
 var _b39;
 var _c27;
 var CalcomController = class CalcomController2 {
+  static {
+    __name(this, "CalcomController");
+  }
   calcomService;
   constructor(calcomService) {
     this.calcomService = calcomService;
@@ -11359,6 +11763,9 @@ var __decorate129 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var CalcomModule = class CalcomModule2 {
+  static {
+    __name(this, "CalcomModule");
+  }
 };
 CalcomModule = __decorate129([
   (0, import_common91.Module)({
@@ -11386,6 +11793,9 @@ var __metadata100 = function(k, v) {
 };
 var _a84;
 var CourseVideo = class CourseVideo2 {
+  static {
+    __name(this, "CourseVideo");
+  }
   _id;
   title;
   description;
@@ -11423,6 +11833,9 @@ CourseVideo = __decorate130([
 ], CourseVideo);
 var CourseVideoSchema = import_mongoose78.SchemaFactory.createForClass(CourseVideo);
 var Course = class Course2 {
+  static {
+    __name(this, "Course");
+  }
   title;
   description;
   thumbnailUrl;
@@ -11495,6 +11908,9 @@ var _a85;
 var _b40;
 var _c28;
 var Enrollment = class Enrollment2 {
+  static {
+    __name(this, "Enrollment");
+  }
   user;
   course;
   status;
@@ -11540,6 +11956,9 @@ var __metadata102 = function(k, v) {
 };
 var _a86;
 var Wallet = class Wallet2 {
+  static {
+    __name(this, "Wallet");
+  }
   user;
   balance;
 };
@@ -11581,6 +12000,9 @@ var CoinTransactionType;
   CoinTransactionType2["DEBIT"] = "DEBIT";
 })(CoinTransactionType || (CoinTransactionType = {}));
 var CoinTransaction = class CoinTransaction2 {
+  static {
+    __name(this, "CoinTransaction");
+  }
   user;
   type;
   amount;
@@ -11647,6 +12069,9 @@ var _a88;
 var _b42;
 var _d23;
 var PaymentRequest = class PaymentRequest2 {
+  static {
+    __name(this, "PaymentRequest");
+  }
   user;
   type;
   course;
@@ -11743,6 +12168,9 @@ var __metadata105 = function(k, v) {
 var _a89;
 var _b43;
 var VideoAccess = class VideoAccess2 {
+  static {
+    __name(this, "VideoAccess");
+  }
   user;
   course;
   videoId;
@@ -11782,6 +12210,9 @@ var __metadata106 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var PaymentSettings = class PaymentSettings2 {
+  static {
+    __name(this, "PaymentSettings");
+  }
   qrCodeUrl;
   accountTitle;
   accountNumber;
@@ -11833,6 +12264,9 @@ var __param59 = function(paramIndex, decorator) {
 };
 var _a90;
 var CoursesRepository = class CoursesRepository2 {
+  static {
+    __name(this, "CoursesRepository");
+  }
   courseModel;
   constructor(courseModel) {
     this.courseModel = courseModel;
@@ -11899,6 +12333,9 @@ var __param60 = function(paramIndex, decorator) {
 };
 var _a91;
 var EnrollmentsRepository = class EnrollmentsRepository2 {
+  static {
+    __name(this, "EnrollmentsRepository");
+  }
   enrollmentModel;
   constructor(enrollmentModel) {
     this.enrollmentModel = enrollmentModel;
@@ -11949,6 +12386,9 @@ var __param61 = function(paramIndex, decorator) {
 };
 var _a92;
 var WalletsRepository = class WalletsRepository2 {
+  static {
+    __name(this, "WalletsRepository");
+  }
   walletModel;
   constructor(walletModel) {
     this.walletModel = walletModel;
@@ -11989,6 +12429,9 @@ var __param62 = function(paramIndex, decorator) {
 };
 var _a93;
 var CoinTransactionsRepository = class CoinTransactionsRepository2 {
+  static {
+    __name(this, "CoinTransactionsRepository");
+  }
   coinTransactionModel;
   constructor(coinTransactionModel) {
     this.coinTransactionModel = coinTransactionModel;
@@ -12026,6 +12469,9 @@ var __param63 = function(paramIndex, decorator) {
 };
 var _a94;
 var PaymentRequestsRepository = class PaymentRequestsRepository2 {
+  static {
+    __name(this, "PaymentRequestsRepository");
+  }
   paymentRequestModel;
   constructor(paymentRequestModel) {
     this.paymentRequestModel = paymentRequestModel;
@@ -12084,6 +12530,9 @@ var __param64 = function(paramIndex, decorator) {
 };
 var _a95;
 var VideoAccessRepository = class VideoAccessRepository2 {
+  static {
+    __name(this, "VideoAccessRepository");
+  }
   videoAccessModel;
   constructor(videoAccessModel) {
     this.videoAccessModel = videoAccessModel;
@@ -12124,6 +12573,9 @@ var __param65 = function(paramIndex, decorator) {
 };
 var _a96;
 var PaymentSettingsRepository = class PaymentSettingsRepository2 {
+  static {
+    __name(this, "PaymentSettingsRepository");
+  }
   paymentSettingsModel;
   constructor(paymentSettingsModel) {
     this.paymentSettingsModel = paymentSettingsModel;
@@ -12154,6 +12606,9 @@ var __metadata114 = function(k, v) {
 };
 var _a97;
 var CoursesService = class CoursesService2 {
+  static {
+    __name(this, "CoursesService");
+  }
   coursesRepository;
   constructor(coursesRepository) {
     this.coursesRepository = coursesRepository;
@@ -12296,6 +12751,9 @@ var __metadata115 = function(k, v) {
 var _a98;
 var _b44;
 var WalletService = class WalletService2 {
+  static {
+    __name(this, "WalletService");
+  }
   walletsRepository;
   coinTransactionsRepository;
   constructor(walletsRepository, coinTransactionsRepository) {
@@ -12361,6 +12819,7 @@ function generateTemporaryPassword(length = 10) {
   }
   return `${password}9Aa`;
 }
+__name(generateTemporaryPassword, "generateTemporaryPassword");
 
 // src/tutorial/services/tutorials-auth.service.ts
 var __decorate146 = function(decorators, target, key, desc) {
@@ -12375,6 +12834,9 @@ var __metadata116 = function(k, v) {
 var _a99;
 var _b45;
 var TutorialsAuthService = class TutorialsAuthService2 {
+  static {
+    __name(this, "TutorialsAuthService");
+  }
   usersService;
   mailService;
   constructor(usersService, mailService) {
@@ -12435,6 +12897,9 @@ var _e14;
 var _f9;
 var PROOF_FOLDER = "company-management/tutorials/payment-proofs";
 var EnrollmentService = class EnrollmentService2 {
+  static {
+    __name(this, "EnrollmentService");
+  }
   coursesService;
   walletService;
   enrollmentsRepository;
@@ -12605,6 +13070,9 @@ var _b47;
 var _c30;
 var _d25;
 var AdminReviewService = class AdminReviewService2 {
+  static {
+    __name(this, "AdminReviewService");
+  }
   paymentRequestsRepository;
   enrollmentsRepository;
   coursesRepository;
@@ -12698,6 +13166,9 @@ var __metadata119 = function(k, v) {
 };
 var _a102;
 var PaymentSettingsService = class PaymentSettingsService2 {
+  static {
+    __name(this, "PaymentSettingsService");
+  }
   paymentSettingsRepository;
   constructor(paymentSettingsRepository) {
     this.paymentSettingsRepository = paymentSettingsRepository;
@@ -12739,6 +13210,9 @@ var __metadata120 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var TutorialRegisterDto = class {
+  static {
+    __name(this, "TutorialRegisterDto");
+  }
   firstName;
   lastName;
   email;
@@ -12776,6 +13250,9 @@ var __metadata121 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateEnrollmentDto = class {
+  static {
+    __name(this, "CreateEnrollmentDto");
+  }
   courseId;
   note;
 };
@@ -12801,6 +13278,9 @@ var __metadata122 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateTopupDto = class {
+  static {
+    __name(this, "CreateTopupDto");
+  }
   coinsRequested;
   note;
 };
@@ -12843,6 +13323,9 @@ var _k;
 var _l;
 var _m;
 var TutorialsController = class TutorialsController2 {
+  static {
+    __name(this, "TutorialsController");
+  }
   tutorialsAuthService;
   coursesService;
   walletService;
@@ -12995,6 +13478,9 @@ var __metadata124 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var CreateCourseDto = class {
+  static {
+    __name(this, "CreateCourseDto");
+  }
   title;
   description;
   thumbnailUrl;
@@ -13037,6 +13523,9 @@ __decorate154([
 // src/tutorial/dto/update-course.dto.ts
 var import_swagger5 = require("@nestjs/swagger");
 var UpdateCourseDto = class extends (0, import_swagger5.PartialType)(CreateCourseDto) {
+  static {
+    __name(this, "UpdateCourseDto");
+  }
 };
 
 // src/tutorial/dto/add-video.dto.ts
@@ -13051,6 +13540,9 @@ var __metadata125 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var AddVideoDto = class {
+  static {
+    __name(this, "AddVideoDto");
+  }
   title;
   description;
   videoUrl;
@@ -13092,6 +13584,9 @@ __decorate155([
 // src/tutorial/dto/update-video.dto.ts
 var import_swagger6 = require("@nestjs/swagger");
 var UpdateVideoDto = class extends (0, import_swagger6.PartialType)(AddVideoDto) {
+  static {
+    __name(this, "UpdateVideoDto");
+  }
 };
 
 // src/tutorial/dto/approve-request.dto.ts
@@ -13106,6 +13601,9 @@ var __metadata126 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ApproveRequestDto = class {
+  static {
+    __name(this, "ApproveRequestDto");
+  }
   coinsGranted;
   note;
 };
@@ -13133,6 +13631,9 @@ var __metadata127 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var RejectRequestDto = class {
+  static {
+    __name(this, "RejectRequestDto");
+  }
   reason;
 };
 __decorate157([
@@ -13153,6 +13654,9 @@ var __metadata128 = function(k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var UpdatePaymentSettingsDto = class {
+  static {
+    __name(this, "UpdatePaymentSettingsDto");
+  }
   qrCodeUrl;
   accountTitle;
   accountNumber;
@@ -13220,6 +13724,9 @@ var _s;
 var _t;
 var _u;
 var TutorialsAdminController = class TutorialsAdminController2 {
+  static {
+    __name(this, "TutorialsAdminController");
+  }
   coursesService;
   adminReviewService;
   paymentSettingsService;
@@ -13439,6 +13946,9 @@ var __decorate160 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var TutorialsModule = class TutorialsModule2 {
+  static {
+    __name(this, "TutorialsModule");
+  }
 };
 TutorialsModule = __decorate160([
   (0, import_common107.Module)({
@@ -13487,6 +13997,9 @@ var __decorate161 = function(decorators, target, key, desc) {
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var AppModule = class AppModule2 {
+  static {
+    __name(this, "AppModule");
+  }
   configure(consumer) {
     consumer.apply(LoggerMiddleware).forRoutes("*");
   }
@@ -13551,6 +14064,7 @@ async function bootstrap() {
   await app.init();
   return app;
 }
+__name(bootstrap, "bootstrap");
 async function handler(req, res) {
   if (!cachedApp) {
     cachedApp = await bootstrap();
@@ -13558,3 +14072,4 @@ async function handler(req, res) {
   const instance = cachedApp.getHttpAdapter().getInstance();
   return instance(req, res);
 }
+__name(handler, "handler");

@@ -23,6 +23,10 @@ await build({
   target: "node22",
   format: "cjs",
 
+  // Mongoose derives model/collection names from schema class names.
+  // Preserve them so bundled deployments use the same collections as Nest.
+  keepNames: true,
+
   outfile: resolve(rootDir, "api/index.js"),
 
   packages: "external",
