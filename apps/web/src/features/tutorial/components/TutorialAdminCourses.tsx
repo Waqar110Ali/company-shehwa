@@ -35,6 +35,7 @@ const emptyVideoForm = {
   title: "",
   description: "",
   videoUrl: "",
+  cloudinaryPublicId: "",
   durationMinutes: 0,
   coinCost: 0,
 };
@@ -453,6 +454,7 @@ function VideoManagerModal({
       title: video.title ?? "",
       description: video.description ?? "",
       videoUrl: video.videoUrl ?? "",
+      cloudinaryPublicId: video.cloudinaryPublicId ?? "",
       durationMinutes: video.durationMinutes ?? 0,
       coinCost: video.coinCost ?? 0,
     });
@@ -470,11 +472,12 @@ function VideoManagerModal({
       setForm((p) => ({
         ...p,
         videoUrl: result.data.url,
+        cloudinaryPublicId: result.data.publicId,
         durationMinutes:
           result.data.durationMinutes ?? p.durationMinutes,
       }));
     } catch (err: any) {
-      setMessage(err?.response?.data?.message ?? "Video upload failed.");
+      setMessage(err?.response?.data?.message ?? err?.message ?? "Video upload failed.");
     } finally {
       setUploadingVideo(false);
     }
@@ -482,6 +485,8 @@ function VideoManagerModal({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (uploadingVideo) return;
 
     if (!form.title.trim() || !form.videoUrl.trim()) {
       setMessage("Title and video URL are required.");
@@ -649,12 +654,14 @@ function VideoManagerModal({
                 ref={videoInputRef}
                 type="file"
                 accept="video/*"
+                disabled={uploadingVideo || saving}
                 onChange={handleVideoFileUpload}
                 className="hidden"
               />
               <button
                 type="button"
                 onClick={() => videoInputRef.current?.click()}
+                disabled={uploadingVideo || saving}
                 className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-white/15 bg-white/[0.02] px-4 py-3 text-xs text-slate-300 hover:border-cyan-400/40"
               >
                 <UploadCloud size={14} />
@@ -669,8 +676,9 @@ function VideoManagerModal({
               </p>
               <input
                 value={form.videoUrl}
+                disabled={uploadingVideo || saving}
                 onChange={(e) =>
-                  setForm((p) => ({ ...p, videoUrl: e.target.value }))
+                  setForm((p) => ({ ...p, videoUrl: e.target.value, cloudinaryPublicId: "" }))
                 }
                 placeholder="https://..."
                 className="mt-2 h-11 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none focus:border-cyan-400/50"
@@ -717,7 +725,7 @@ function VideoManagerModal({
             <div className="flex gap-2">
               <button
                 type="submit"
-                disabled={saving}
+                disabled={saving || uploadingVideo}
                 className="flex-1 rounded-xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-300 disabled:opacity-60"
               >
                 {saving

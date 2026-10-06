@@ -18,6 +18,10 @@ export class AddVideoDto {
   @IsString()
   videoUrl!: string;
 
+  @IsOptional()
+  @IsString()
+  cloudinaryPublicId?: string;
+
   @IsNumber()
   @Min(0)
   durationMinutes!: number;

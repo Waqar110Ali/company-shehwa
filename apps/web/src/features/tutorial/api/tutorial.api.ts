@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import { uploadVideoToCloudinary } from "./cloudinary-upload";
 
 // ========================================================
 // Types
@@ -242,13 +243,16 @@ export async function adminUploadThumbnail(file: File) {
 }
 
 export async function adminUploadVideo(file: File) {
-  const form = new FormData();
-  form.append("file", file);
-  const response = await api.post("/tutorials/admin/upload-video", form);
-  return response.data as {
-    success: boolean;
-    data: { url: string; durationMinutes?: number };
-  };
+  if (!file.size) throw new Error("The selected video is empty.");
+  if (file.size > 500 * 1024 * 1024) {
+    throw new Error("Please choose a video smaller than 500 MB.");
+  }
+  if (file.type && !file.type.startsWith("video/")) {
+    throw new Error("Please choose a video file.");
+  }
+  const response = await api.post("/tutorials/admin/upload-video/signature");
+  const data = await uploadVideoToCloudinary(file, response.data.data);
+  return { success: true, data };
 }
 
 export async function adminAddVideo(
@@ -257,6 +261,7 @@ export async function adminAddVideo(
     title: string;
     description?: string;
     videoUrl: string;
+    cloudinaryPublicId?: string;
     durationMinutes: number;
     coinCost: number;
     order?: number;
@@ -276,6 +281,7 @@ export async function adminUpdateVideo(
     title: string;
     description: string;
     videoUrl: string;
+    cloudinaryPublicId: string;
     durationMinutes: number;
     coinCost: number;
     order: number;

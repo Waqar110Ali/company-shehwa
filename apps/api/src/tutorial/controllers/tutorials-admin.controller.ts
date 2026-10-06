@@ -116,6 +116,14 @@ export class TutorialsAdminController {
     };
   }
 
+  @Post("upload-video/signature")
+  createVideoUploadSignature() {
+    return {
+      success: true,
+      data: this.cloudinary.createVideoUploadSignature(),
+    };
+  }
+
   @Post("upload-video")
   @UseInterceptors(
     FileInterceptor("file", {
@@ -135,6 +143,7 @@ export class TutorialsAdminController {
       success: true,
       data: {
         url: upload.secure_url,
+        publicId: upload.public_id,
         durationMinutes: upload.duration
           ? Math.ceil(upload.duration / 60)
           : undefined,

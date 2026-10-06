@@ -25,6 +25,9 @@ export class CourseVideo {
   @Prop({ type: String, required: true })
   videoUrl!: string;
 
+  @Prop({ type: String, default: "" })
+  cloudinaryPublicId!: string;
+
   @Prop({ type: Number, required: true, default: 0 })
   durationMinutes!: number;
 
